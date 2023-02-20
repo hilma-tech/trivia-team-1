@@ -1,9 +1,13 @@
 import { blue, red } from "@material-ui/core/colors";
 import { createTheme } from "@material-ui/core/styles";
 
-export const primaryFontColor = '#0C3249'
+export const primaryFontColor = "#0C3249";
 
 const theme = createTheme({
+  body: {
+    height: '100vh',
+    width: '100vw',
+  },
   direction: "rtl",
   overrides: {
     MuiInput: {

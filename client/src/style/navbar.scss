@@ -1,3 +1,18 @@
+$primaryColor:  #0C3249;
+
+.navbarContainer{
+    width: 100vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3.5px solid $primaryColor;
+    position: relative;
+    z-index: 50;
+    background-color: white;
+
+}
+
 #navCreateQuizBtn{
     width: 15vw;
     opacity: 0.4;
@@ -25,15 +40,6 @@
     align-items: center ;
 }
 
-.navbarContainer{
-    width: 100vw;
-    height: 7vh;
-    margin-bottom: 3vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 3.5px solid #0C3249;
-}
 
 .vlContainer{
     height: 100%;

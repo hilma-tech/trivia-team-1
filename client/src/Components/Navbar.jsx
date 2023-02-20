@@ -1,5 +1,5 @@
 import { Button, Link, Typography } from "@material-ui/core";
-import navbarLogo from '../images/navbarLogo.svg'
+import navbarLogo from '../images/navbar/navbarLogo.svg'
 
 const Navbar = () => (
   <div className="navbarContainer">

@@ -3,7 +3,9 @@ import React from 'react';
 import Test from './Components/test.jsx'
 import theme from './style/genericTheme'
 import Navbar from './Components/Navbar.jsx';
+import './style/background.scss'
 import './style/navbar.scss'
+import Background from './Components/Background';
 
 
 
@@ -13,7 +15,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar />
-        <Test />
+        <Background>
+          <Test />
+        </Background>
       </ThemeProvider>
     </div>
   );
