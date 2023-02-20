@@ -1,0 +1,63 @@
+#navCreateQuizBtn{
+    width: 15vw;
+    opacity: 0.4;
+    height: 100%;
+    height: 4vh;
+    font-size: 0.9rem;
+}
+
+.firstSection{
+    display: flex;
+    align-items: center;
+    margin-right: 3vw;
+    
+}
+
+.logoNavBarContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+.linksContainer, .btnContainer{
+    display: flex;
+    align-items: center ;
+}
+
+.navbarContainer{
+    width: 100vw;
+    height: 7vh;
+    margin-bottom: 3vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3.5px solid #0C3249;
+}
+
+.vlContainer{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.vl {
+    border-left: 1.8px solid #0C3249 ;
+    height: 2vh;
+    overflow: hidden;
+    margin: 10px;
+  }
+
+  .logoNavBarContainer{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 3vw;
+
+}
+
+#logoName{
+    font-weight: 800;
+    font-size: 100%;
+    margin-left: 1vw;
+}
