@@ -1,0 +1,21 @@
+body{
+    background-color: #E0F4F5;
+    box-sizing: border-box;
+}
+
+.leftleafcontainer{
+    position: relative;
+    width: 100vw;
+}
+
+.leftleaf{
+    position: absolute;
+    top: -90px;
+    left: -110px;
+}
+
+.rightleaf{
+    position: absolute;
+    top: -90px;
+    right: -110px;
+}
