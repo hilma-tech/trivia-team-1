@@ -1,6 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
-import React from 'react';
-import Test from './Components/test.jsx'
+import Popup from './Components/popups/popup';
 import theme from './style/genericTheme'
 import Navbar from './Components/Navbar.jsx';
 import './style/background.scss'
@@ -18,6 +17,7 @@ function App() {
         <Background>
           {/* components here */}
         </Background>
+          <Popup type='deleteQuiz'/>
       </ThemeProvider>
     </div>
   )

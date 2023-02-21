@@ -7,6 +7,7 @@ import {
 } from "@material-ui/core";
 
 const Test = () => (
+
   <>
     <Typography variant="h1">הנה טקסט בערבית</Typography>
     <Typography variant="p">הנה פסקה בעברית</Typography>
