@@ -1,10 +1,10 @@
-$primaryColor:  #0C3249;
+$primaryColor: #0C3249;
 
 body {
     font-size: 1.2rem !important;
 }
 
-.backgroundContainer{
+.backgroundContainer {
     box-sizing: border-box;
     height: 93vh;
     background-color: #E0F4F5;
@@ -16,7 +16,7 @@ body {
     position: absolute;
     left: -9vw;
     top: -10vh;
-    z-index: 1;    
+    z-index: 1;
 }
 
 #rightLeaf {
@@ -26,7 +26,7 @@ body {
     z-index: 1;
 }
 
-#compChildrenContainer{
+#compChildrenContainer {
     width: 60vw;
     margin: 5vh auto;
     padding: 8vh;
@@ -35,18 +35,16 @@ body {
     background-color: white;
 }
 
-.backgroundContainerPhone{
+.backgroundContainerPhone {
     box-sizing: border-box;
     height: 93vh;
     position: relative;
     overflow: hidden;
-    #bottomLeaf{
+
+    #bottomLeaf {
         position: absolute;
         left: -25vw;
         bottom: -8vh;
     }
-    
+
 }
-
-
-

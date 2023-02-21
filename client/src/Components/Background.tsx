@@ -1,7 +1,9 @@
+import { ContainerProps } from "@material-ui/core";
 import rightLeaf from "../images/backgroundLeaves/rightLeaf.svg";
 import leftLeaf from "../images/backgroundLeaves/leftLeaf.svg";
 import bottomLeaf from "../images/backgroundLeaves/bottomLeaf.svg"
-import { ContainerProps } from "@material-ui/core";
+
+
 const Background = (props: ContainerProps) => (
   window.innerWidth > 450 ? (
     <div className="backgroundContainer">

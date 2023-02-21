@@ -1,8 +1,6 @@
-$primaryColor:  #0C3249;
+@import '../style/background.scss';
 
-
-
-.navbarContainerComputer{
+.navbarContainerComputer {
     width: 100vw;
     height: 7vh;
     display: flex;
@@ -15,59 +13,60 @@ $primaryColor:  #0C3249;
     padding-right: 3vw;
     padding-left: 3vw;
 
-    #navCreateQuizBtn{
+    #navCreateQuizBtn {
         width: 9vw;
         opacity: 0.4;
         height: 100%;
         height: 3.1vh;
         font-size: 1.2rem;
     }
-    
-    .firstSection{
+
+    .firstSection {
         display: flex;
         align-items: center;
-        
+
     }
-    
-    .logoNavBarContainer{
+
+    .logoNavBarContainer {
         height: 100%;
         display: flex;
         align-items: center;
     }
-    
-    
-    .linksContainer, .btnContainer{
+
+
+    .linksContainer,
+    .btnContainer {
         display: flex;
-        align-items: center ;
+        align-items: center;
     }
-    
-    
-    .vlContainer{
+
+
+    .vlContainer {
         height: 100%;
         display: flex;
         align-items: center;
     }
-    
+
     .vl {
-        border-left: 1.8px solid #0C3249 ;
+        border-left: 1.8px solid #0C3249;
         height: 2vh;
         overflow: hidden;
         margin: 10px;
-      }
-    
-      .logoNavBarContainer{
+    }
+
+    .logoNavBarContainer {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-    
+
     }
-    
-    a{
+
+    a {
         color: $primaryColor !important;
         cursor: pointer;
     }
-    
-    #logoName{
+
+    #logoName {
         font-weight: 1000;
         font-size: 100%;
         margin-left: 1vw;
@@ -81,21 +80,21 @@ $primaryColor:  #0C3249;
     padding-right: 3vw;
     padding-left: 3vw;
     height: 8vh;
-    box-shadow: 0px 0.3px 3px  grey;
+    box-shadow: 0px 0.3px 3px grey;
 
-    
-    .imgContainer{
+
+    .imgContainer {
         display: flex;
         align-items: center;
         width: 13vw;
     }
 
-    .headerContainer{
+    .headerContainer {
         display: flex;
         align-items: center;
     }
 
-    .hideMonkey{
+    .hideMonkey {
         display: none !important;
     }
 }
