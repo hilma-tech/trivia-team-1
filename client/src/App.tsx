@@ -14,13 +14,13 @@ function App() {
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Navbar />
+        <Navbar name="איטליה מה אתם יודעים?" type="playQuizz" />
         <Background>
-          <Test />
+          {/* components here */}
         </Background>
       </ThemeProvider>
     </div>
-  );
+  )
 }
 
 export default App;

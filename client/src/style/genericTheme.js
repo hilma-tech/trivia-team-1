@@ -4,10 +4,6 @@ import { createTheme } from "@material-ui/core/styles";
 export const primaryFontColor = "#0C3249";
 
 const theme = createTheme({
-  body: {
-    height: '100vh',
-    width: '100vw',
-  },
   direction: "rtl",
   overrides: {
     MuiInput: {
@@ -21,6 +17,9 @@ const theme = createTheme({
         boxShadow: "none",
       },
     },
+  },
+  muiLink:{
+
   },
   typography: {
     fontFamily: "Rubik",
@@ -49,6 +48,7 @@ const theme = createTheme({
     },
     p: {
       color: primaryFontColor,
+      fontSize: '20px'
     },
   },
   palette: {

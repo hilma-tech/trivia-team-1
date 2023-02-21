@@ -1,5 +1,9 @@
 $primaryColor:  #0C3249;
 
+body {
+    font-size: 1.2rem !important;
+}
+
 .backgroundContainer{
     box-sizing: border-box;
     height: 93vh;
@@ -30,5 +34,19 @@ $primaryColor:  #0C3249;
     border-radius: 10px;
     background-color: white;
 }
+
+.backgroundContainerPhone{
+    box-sizing: border-box;
+    height: 93vh;
+    position: relative;
+    overflow: hidden;
+    #bottomLeaf{
+        position: absolute;
+        left: -25vw;
+        bottom: -8vh;
+    }
+    
+}
+
 
 
