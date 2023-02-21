@@ -1,4 +1,3 @@
-import { blue, red } from "@material-ui/core/colors";
 import { createTheme } from "@material-ui/core/styles";
 
 export const primaryFontColor = "#0C3249";
