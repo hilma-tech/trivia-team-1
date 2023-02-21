@@ -6,7 +6,7 @@ import Popup from './Components/popups/Popup';
 function App() {
   return (
     <div>
-      <Popup type="deleteQuiz"/>
+      <Popup type="changeQuiz"/>
     </div>
   );
 }
