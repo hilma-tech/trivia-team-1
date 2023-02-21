@@ -10,41 +10,41 @@ body {
     background-color: #E0F4F5;
     position: relative;
     overflow: hidden;
-}
 
-#leftLeaf {
-    position: absolute;
-    left: -9vw;
-    top: -10vh;
-    z-index: 1;
-}
-
-#rightLeaf {
-    position: absolute;
-    right: -9vw;
-    top: -10vh;
-    z-index: 1;
-}
-
-#compChildrenContainer {
-    width: 60vw;
-    margin: 5vh auto;
-    padding: 8vh;
-    border: 3.5px solid $primaryColor;
-    border-radius: 10px;
-    background-color: white;
-}
-
-.backgroundContainerPhone {
-    box-sizing: border-box;
-    height: 93vh;
-    position: relative;
-    overflow: hidden;
-
-    #bottomLeaf {
+    #leftLeaf {
         position: absolute;
-        left: -25vw;
-        bottom: -8vh;
+        left: -9vw;
+        top: -10vh;
+        z-index: 1;
     }
 
+    #rightLeaf {
+        position: absolute;
+        right: -9vw;
+        top: -10vh;
+        z-index: 1;
+    }
+
+    #compChildrenContainer {
+        width: 60vw;
+        margin: 5vh auto;
+        padding: 8vh;
+        border: 3.5px solid $primaryColor;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .backgroundContainerPhone {
+        box-sizing: border-box;
+        height: 93vh;
+        position: relative;
+        overflow: hidden;
+
+        #bottomLeaf {
+            position: absolute;
+            left: -25vw;
+            bottom: -8vh;
+        }
+
+    }
 }

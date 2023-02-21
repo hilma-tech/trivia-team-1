@@ -1,44 +1,44 @@
-export const primaryFontColor: string = "#0C3249";
+export const PrimaryFontColor: string = "#0C3249";
 export const defaultTheme: object = {
-    direction: "rtl",
-    overrides: {
-      MuiInput: {
-        root: {},
-      },
-      MuiButton: {
-        contained: {
-          boxShadow: "none",
-        },
+  direction: "rtl",
+  overrides: {
+    MuiInput: {
+      root: {},
+    },
+    MuiButton: {
+      contained: {
+        boxShadow: "none",
       },
     },
-    muiLink: {},
-    typography: {
-      fontFamily: "Rubik",
-  
-      h1: {
-        fontSize: "3rem",
-        fontWeight: 700,
-        lineHeight: 1.5,
-        color: primaryFontColor,
-      },
-  
-      h2: {
-        color: primaryFontColor,
-      },
-      h3: {
-        color: primaryFontColor,
-      },
-      h4: {
-        color: primaryFontColor,
+  },
+  muiLink: {},
+  typography: {
+    fontFamily: "Rubik",
+
+    h1: {
+      fontSize: "3rem",
+      fontWeight: 700,
+      lineHeight: 1.5,
+      color: PrimaryFontColor,
+    },
+
+    h2: {
+      color: PrimaryFontColor,
+    },
+    h3: {
+      color: PrimaryFontColor,
+    },
+    h4: {
+      color: PrimaryFontColor,
     },
     h5: {
-      color: primaryFontColor,
+      color: PrimaryFontColor,
     },
     h6: {
-      color: primaryFontColor,
+      color: PrimaryFontColor,
     },
     p: {
-      color: primaryFontColor,
+      color: PrimaryFontColor,
       fontSize: "20px",
     },
   },

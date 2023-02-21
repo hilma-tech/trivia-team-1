@@ -1,5 +1,5 @@
 import { createTheme } from "@material-ui/core/styles";
-import { defaultTheme, primaryFontColor } from './theme'
+import { defaultTheme } from './theme'
 
 
 const theme = createTheme(defaultTheme);
