@@ -14,7 +14,6 @@ interface ScoreType {
 }
 
 function HighScore(props: ScoreType) {
-
     let { id, name, score, date } = props.score;
     let src;
     switch (props.i) {
@@ -38,6 +37,5 @@ function HighScore(props: ScoreType) {
         </TableRow>
     );
 }
-
 
 export default HighScore;
