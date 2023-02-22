@@ -5,6 +5,7 @@ import magicWand from '../images/magic-wand.svg';
 import logout from '../images/logout.svg';
 import leavesEnterance from '../images/leaves-enterance.svg';
 import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 function EnterancePage() {
     let [currentUser, setCurrentUser] = useState('שלימזי')
     const navigate = useNavigate()
@@ -29,27 +30,28 @@ function EnterancePage() {
                 <div className='entranceContainerDiv'>
                     <div className='entranceButtonDiv'>
                         <h2 className='userHello'>{`שלום, ${currentUser}`}</h2>
-                        <button onClick={toEditQuiz}><img src={magicWand} alt='new quiz'></img> צור חידון חדש</button>
-                        <button onClick={toMyQuizes}>החידונים שלי</button>
+                        <Button className='createQuizButton' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz'></img> צור חידון חדש</Button>
+                        <Button className='myQuizesButton' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                     </div>
                     <div className='monkeyEnterPic'>
                         <img src={monkeyEnter} alt='monkey'></img>
                     </div>
                 </div>
-                <button onClick={toLogin} className='logoutButton'><img className='logoutPic' src={logout} alt='logout'></img> יציאה</button>
+                <Button onClick={toLogin} className='logoutButton'><img className='logoutPic' src={logout} alt='logout'></img> יציאה</Button>
             </div> :
             <div className='entrancePageMobile'>
                 <div className='leavesEnterance'>
-                    <img src={leavesEnterance} />
+                    <img src={leavesEnterance}/>
                 </div>
                 <h2>משחק</h2>
                 <h1>טריוויה</h1>
                 <div>
-                    <button onClick={toEditQuiz}><img src={magicWand} alt='new quiz'></img> צור חידון</button>
+                    <Button className='createQuizButton' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz'></img> צור חידון</Button>
                 </div>
                 <div>
-                    <button onClick={toMyQuizes}>החידונים שלי</button>
+                    <Button className='myQuizesButton' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                 </div>
+                <Button onClick={toLogin} className='logoutButton'><img className='logoutPic' src={logout} alt='logout'></img> יציאה</Button>
                 <div className='monkeyEnterPic'>
                     <img src={monkeyEnter} alt='monkey'></img>
                 </div>
