@@ -1,35 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@mui/material/Button';
+import { type } from 'os';
+import React, { useState, useEffect, useMemo } from 'react';
 import '../style/QuastionTemp.css';
-import { width } from '@mui/system';
 
-interface IState {
+interface QuastionTempState {
     answers: {
         ans: string,
         url: string,
         isCorrect: boolean
-    }[],
+    }[][],
     question: {
         questionTitle: string,
         url: string
-    }
+    }[],
 }
 
 
 const QuastionTemp = () => {
-    const [answers, setAnswers] = useState<IState["answers"]>([
+    const [answers, setAnswers] = useState<QuastionTempState["answers"]>([[
         { ans: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
         { ans: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
         { ans: "ארץ האגדות", url: "awvev", isCorrect: false },
         { ans: "מדינת הגמדים", url: "dvdsv", isCorrect: false }
-        // { ans: "ארץ המגף", url: "", isCorrect: true },
-        // { ans: "התפוח הגדול", url: "", isCorrect: false },
-        // { ans: "ארץ האגדות", url: "", isCorrect: false },
-        // { ans: "מדינת הגמדים", url: "", isCorrect: false }
+    ], [
+        { ans: "לאונרדו דה וינצ'י", url: "", isCorrect: true },
+        { ans: "נועה קירל", url: "", isCorrect: false },
+        { ans: "שפע יששכר", url: "", isCorrect: false },
+        { ans: "לאונרד הכהן", url: "", isCorrect: false }
+    ]
     ]);
-    const [question, setQuestion] = useState<IState["question"]>({
-        questionTitle: "איטליה מכונה גם...", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg"
-    });
+    const [question, setQuestion] = useState<QuastionTempState["question"]>([
+        {
+            questionTitle: "איטליה מכונה גם...", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg"
+        }
+        ,
+        {
+            questionTitle: "?מי מהבאים היה איטלקי", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg"
+        }
+    ]);
     const [numOfQuestion, setNumOfQuestion] = useState(0);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
     const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
@@ -40,19 +47,34 @@ const QuastionTemp = () => {
     useEffect(() => {
         setInfoFromServer();
         checkIfThereAreImg();
-    }, [numOfQuestion]);
+    }, []);
 
+    const getActualQuestion = () => {
+        return question[numOfQuestion]
+    }
+
+    const getActualAnswer = () => {
+        return answers[numOfQuestion]
+    }
     const checkIfThereAreImg = () => {
-        for (let i = 0; i < answers.length; i++) {
-            if (answers[i].url) {
+        for (let i = 0; i < actualAnswer.length; i++) {
+            if (actualAnswer[i].url) {
                 setChangeFlexDir(false);
+            } else {
+                setChangeFlexDir(true);
             }
         }
     }
 
+    const actualQuestion = useMemo(() => getActualQuestion(), [numOfQuestion]);
+    const actualAnswer = useMemo(() => getActualAnswer(), [numOfQuestion]);
+    const doChangeFlexDir = useMemo(() => checkIfThereAreImg(), [numOfQuestion]);
+
+
+
     const setInfoFromServer: () => Promise<void> = async () => {
-        let copyAnswers = { ...answers };
-        let copyQuestion = { ...question };
+        let copyAnswers = [...answers];
+        let copyQuestion = [...question];
         await fetch(`#`)
             .then((res) => res.json)
             .then((data) => {
@@ -61,7 +83,7 @@ const QuastionTemp = () => {
                 // copyQuestion = data.questions;
                 // setAnswers(copyAnswers);
                 // setQuestion(copyQuestion);
-                // setQuantityOfQuestion(Quantity);
+                // setQuantityOfQuestion(data.questions.length);
                 // culcWidthOfRec();
             })
             .catch((err) => {
@@ -77,10 +99,9 @@ const QuastionTemp = () => {
     }
 
     const checkIfCorrect = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
-        let copyOfNumOfQuestion = numOfQuestion;
-        if (answers[index].isCorrect) {
+        if (actualAnswer[index].isCorrect) {
             console.log("correct");
-            mooveToNextQuestion();
+            setTimeout(mooveToNextQuestion, 500);
         } else {
             console.log("incorrect");
             // make the Question red or something
@@ -92,8 +113,12 @@ const QuastionTemp = () => {
 
     const mooveToNextQuestion = () => {
         let copyOfNumOfQuestion = numOfQuestion;
-        copyOfNumOfQuestion++;
+        if (copyOfNumOfQuestion < answers.length - 1) {
+            copyOfNumOfQuestion++;
+        }
         setNumOfQuestion(copyOfNumOfQuestion);
+        setChangeColorToRed(10000);
+        setChangeColorToGreen(10000);
     }
 
     const funcForChangeColorToRed = (index: number) => {
@@ -103,8 +128,8 @@ const QuastionTemp = () => {
 
     const funcForChangeColorToGreen = () => {
         let correctAnsIndex: number;
-        for (let i = 0; i < answers.length; i++) {
-            if (answers[i].isCorrect) {
+        for (let i = 0; i < actualAnswer.length; i++) {
+            if (actualAnswer[i].isCorrect) {
                 correctAnsIndex = i;
                 setChangeColorToGreen(correctAnsIndex);
                 break;
@@ -113,10 +138,10 @@ const QuastionTemp = () => {
     }
 
     const renderMap = () => {
-        return answers.map((answer, index) => {
+        return actualAnswer.map((answer, index) => {
             return (
                 <button className={
-                    !answers[0].url ? 'ans-button-no-img'
+                    !actualAnswer[0].url ? 'ans-button-no-img'
                         : 'ans-button-with-img'
                 }
                     key={index} style={{
@@ -126,31 +151,23 @@ const QuastionTemp = () => {
                                 ? '#80DCC9'
                                 : '#0C32490A'
                     }}
-                    onClick={(e) => checkIfCorrect(e, index)} >
-                    <p id='answer-button'>{answer.ans}</p>
-                    {answer.url ? <img className="button-img"
-                        src={`${answer.url}`} alt="picture that connected to question" /> : null}</button>
+                    onClick={(e) => checkIfCorrect(e, index)}
+                >
+                    <p id='answer-button'>
+                        {answer.ans}
+                    </p>
+                    {answer.url ?
+                        <img className="button-img"
+                            src={`${answer.url}`} alt="picture that connected to question"
+                        />
+                        : null}
+                </button>
             )
         })
     }
 
     return (
         <div>
-            {/* <header>
-                <div>
-                    <button>יצירת חידון</button><hr />
-                    <button>החידונים שלי</button><hr />
-                    <button>אודות</button>
-                </div>
-                <div>
-                    <img className=""
-                        src={`#`} alt="banan picture" />
-                </div>
-            </header>
-            <hr /> */}
-            {/* <img className=""
-                    src={`#`} alt="Picture of right leaves" /> */}
-            {/* <button>חזרה לעריכה</button> */}
             <main className='main-QuastionTemp'>
                 <div
                     id='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
@@ -166,23 +183,25 @@ const QuastionTemp = () => {
                     <div className='question-place-father'>
                         <div >
                             <div className='question-img-place'>
-                                <img id='question-img' src={`${question.url}`} alt="pic of something that connected to the question" />
+                                <img id='question-img' src={`${actualQuestion.url}`}
+                                    alt="pic of something that connected to the question"
+                                />
                             </div>
-                            <h2 id='questionTitle'>{question.questionTitle}</h2>
+                            <h2 id='questionTitle'>
+                                {actualQuestion.questionTitle}
+                            </h2>
                             <hr id='hr' />
-                            {changeFlexDir ? <div className='button-place-one'>
+                            <div className={changeFlexDir ?
+                                 'button-place-one' 
+                                 : 
+                                 'button-place-two'}
+                                 >
                                 {renderMap()}
-                            </div> :
-                                <div className='button-place-two'>
-                                    {renderMap()}
-                                </div>
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
             </main>
-            {/* <img className=""
-                    src={`#`} alt="Picture of left leaves" /> */}
         </div>
     );
 }
