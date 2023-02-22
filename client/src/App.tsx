@@ -1,13 +1,15 @@
+import { Navigate, Route, Routes } from "react-router-dom";
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './style/generateTheme'
-import Background from './components/Background';
 import './style/background.scss'
 import './style/navbar.scss'
+
+import Background from './components/Background';
 import Navbar from './components/navbar/Navbar';
-import { Navigate, Route, Routes } from "react-router-dom";
 import EnterancePage from "./components/entrancePage";
 import Login from "./components/login";
 import Register from "./components/register";
-import { CssBaseline, ThemeProvider } from '@mui/material';
+
 function App() {
   return (
     <ThemeProvider theme={theme}>

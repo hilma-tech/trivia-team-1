@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
 import '../style/entrancePage.scss'
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, useMediaQuery } from '@mui/material';
+
 import monkeyEnter from '../images/monkeyEnter.svg';
 import magicWand from '../images/magic-wand.svg';
 import logout from '../images/logout.svg';
 import leavesEnterance from '../images/leaves-enterance.svg';
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@mui/material';
+
 function EnterancePage() {
-    let [currentUser, setCurrentUser] = useState('שלימזי')
+    const [currentUser, setCurrentUser] = useState('שלימזי')
     const navigate = useNavigate()
+    const isLargeScreen =useMediaQuery("(min-width: 600px)")
     function toMyQuizes() {
         navigate('/my-quizes')
     }
@@ -23,7 +26,7 @@ function EnterancePage() {
     }
 
     return (
-        window.screen.width > 600 ?
+         isLargeScreen ?
             <div className='entrancePage'>
                 <h1>חידונים מטורפים</h1>
                 <h2 className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>

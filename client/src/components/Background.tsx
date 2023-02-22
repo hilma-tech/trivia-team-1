@@ -19,6 +19,7 @@ const Background = (props: ContainerProps) => (
         {props.children}
       </div>
       {/* <img id="bottomLeaf" src={bottomLeaf} /> */}
+      {/* כרגע לא מתסנכרן כמו שצריך אולי נשתמש בהמשך */}
     </div>
   )
 );
