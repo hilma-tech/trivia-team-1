@@ -1,6 +1,6 @@
 import { type } from 'os';
 import React, { useState, useEffect, useMemo } from 'react';
-import '../style/QuastionTemp.css';
+import '../style/QuastionTemp.scss';
 
 interface QuastionTempState {
     answers: {
@@ -167,7 +167,7 @@ const QuastionTemp = () => {
     }
 
     return (
-        <div>
+        // <div>
             <main className='main-QuastionTemp'>
                 <div
                     id='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
@@ -202,7 +202,7 @@ const QuastionTemp = () => {
                     </div>
                 </div>
             </main>
-        </div>
+        // </div>
     );
 }
 

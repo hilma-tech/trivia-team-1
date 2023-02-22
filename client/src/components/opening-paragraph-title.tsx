@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import '../style/OpeningForTheQuiz.css';
 import triangleIcon from '../icons/Icon-awesome-play.png';
 import italyPic from '../img/italy.png'
+import '../style/OpeningForTheQuiz.scss';
 
 interface OpeningParagraphTitleProps {
     quizTitle: string,

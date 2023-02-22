@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import '../style/OpeningForTheQuiz.css';
 import triangleIcon from '../icons/Icon-awesome-play.png';
 import italyPic from '../img/italy.png'
 import OpeningParagraphTitle from './opening-paragraph-title';
 import CheckForName from './checkForName';
+import '../style/OpeningForTheQuiz.scss';
+
+
 
 function OpeningForTheQuiz() {
 

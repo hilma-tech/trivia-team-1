@@ -5,16 +5,20 @@
 }
 
 .main-QuastionTemp {
+    box-sizing: border-box;
+    padding: 0%;
     /* direction: rtl; */
-    top: 10.5rem;
-    left: 18.75rem;
-    width: 82.5rem;
-    height: 49.375rem;
+    // top: 10.5rem;
+    // left: 18.75rem;
+    width: 68vw;
+    height: 72vh;
+    margin: 0%;
 
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    /* background-color: black; */
-    border: .25rem solid #0C3249;
-    border-radius: .625rem;
+
+    // background-color: black; 
+    // border: .25rem solid #0C3249;
+    // border-radius: .625rem;
     opacity: 1;
 
     #score-rectangle {
