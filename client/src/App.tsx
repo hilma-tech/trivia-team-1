@@ -1,11 +1,14 @@
 import React from 'react';
-import './App.css';
 import EditQuiz from './components/EditQuiz';
+import AnswersProvider from './context/AnswersContext';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <EditQuiz />
+      <AnswersProvider>
+        <EditQuiz />
+      </AnswersProvider>
     </div>
   );
 }

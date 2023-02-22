@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component, FC, useState, createContext, useEffect } from 'react';
 import '../css/EditQuiz.scss'
 import LeftLeaf from '../images/leftleaf.svg'
 import RightLeaf from '../images/rightleaf.svg'
@@ -6,12 +6,60 @@ import ShowQuizBtn from '../images/showquizzbtn.svg'
 import LinkBtn from '../images/linkBtn.svg'
 import saveBtn from '../images/saveBtn.svg'
 import Selectimage from '../images/image.svg'
-import MakeQuestion from './inputQuestions'
-import { TRUE } from 'sass';
+import AddQutionsBox from './addQuestionsBox'
+import plusBtn from '../images/plusBtn.svg'
+import FinalBoxQuestions from './FinalBoxQuestions'
+import { useAnswerContext } from '../context/AnswersContext'
+import { Answers } from '../utils/Interfaces'
+
+import AnswersProvider from '../context/AnswersContext'
 
 
 
-function EditQuiz() {
+
+// interface AnswersContextInterface {
+//     setCurrentAnswers: React.Dispatch<React.SetStateAction<string[]>>;
+//     sendInput: boolean;
+//     currentAnswers: string[]z;
+// }
+
+
+
+// export const AnswersContext = createContext<AnswersContextInterface | null>(null);
+
+
+
+const EditQuiz: FC = () => {
+
+    const { sendInput, setCurrentAnswers, currentAnswers, setSendInput  , setEmptyQuestionEdit , emptyQuestionEdit} = useAnswerContext()
+
+    const [questionsArr, setQuestionsArr] = useState([1]);
+    const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
+    const [answer, setAnswer] = useState<Answers>({ answer1: '', answer2: '', answer3: '', answer4: '' });
+
+    const [countForKeys, setCountForKeys] = useState(0);
+
+
+
+    useEffect(() => {
+        setCurrentAnswers([...currentAnswers, answer])
+    }, [sendInput])
+
+
+    const addQuestion = () => {
+        setEmptyQuestionEdit(!emptyQuestionEdit)
+        setSendInput(!sendInput)
+        if (questionsArr.length < 10) {
+            setQuestionsArr([...questionsArr, 1]);
+            setCurrentEditQuestion(currentEditQuestion + 1)
+
+        }
+
+
+    }
+
+
+
     return (
         <>
             <div className='leftleafContainer'>
@@ -43,20 +91,18 @@ function EditQuiz() {
                         <p>תיאור חידון</p>
                     </div>
                 </div>
-                <div className='addQutionsContainer'>
-                    <div className='darganddropContainer'><button></button></div>
-                    <div className='quizQuestionsContainer'>
-                        <div className='quizQuestions' >
-                            <p>שאלה ללא כותרת</p>
-                            <img className='selectImageQutionsSvg' src={Selectimage} />
-                        </div>
-                        <div>
-                            <MakeQuestion />
-                            <MakeQuestion isChecked={true} />
-                           
-                        </div>
-                    </div>
-                    <div></div>
+                {questionsArr.map((item, index: number) => {
+                    return (
+                        currentEditQuestion === index
+                            ? <AddQutionsBox key={index} setAnswer={setAnswer} answer={answer} />
+                            : <FinalBoxQuestions key={index} />
+                    )
+                })}
+                {/* <AddQutionsBox /> */}
+                <div className='plus-btn-container'>
+                    <button className='plus-btn' onClick={addQuestion}>
+                        <img src={plusBtn} className='plus-btn-svg' />
+                    </button>
                 </div>
             </div>
         </>
