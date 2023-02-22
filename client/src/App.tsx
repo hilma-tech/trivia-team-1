@@ -1,9 +1,10 @@
-import { CssBaseline, ThemeProvider } from '@material-ui/core';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './style/generateTheme'
 import Navbar from './Components/navbar/Navbar';
 import Background from './Components/Background';
 import './style/background.scss'
 import './style/navbar.scss'
+import LoadingMonkey from './Components/LoadingMonkey';
 
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Background>
-          {/* components here */}
+         <LoadingMonkey/>
         </Background>
       </ThemeProvider>
     </div>
