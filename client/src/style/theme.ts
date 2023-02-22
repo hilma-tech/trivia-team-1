@@ -14,14 +14,12 @@ export const defaultTheme: object = {
   muiLink: {},
   typography: {
     fontFamily: "Rubik",
-
     h1: {
       fontSize: "3rem",
       fontWeight: "bolder",
       lineHeight: 1.5,
       color: PrimaryFontColor,
     },
-
     h2: {
       color: PrimaryFontColor,
       fontWeight: 100
