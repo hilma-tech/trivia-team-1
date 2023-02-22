@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import { TableCell, TableRow } from "@mui/material";
 import gold from '../images/crowns/gold.svg'
 import silver from '../images/crowns/silver.svg'
 import bronze from '../images/crowns/bronze.svg'
+
 interface ScoreType {
     score: {
         id: number
@@ -13,7 +14,7 @@ interface ScoreType {
 }
 
 function HighScore(props: ScoreType) {
-    console.log(props.i);
+
     let { id, name, score, date } = props.score;
     let src;
     switch (props.i) {
@@ -31,12 +32,12 @@ function HighScore(props: ScoreType) {
     }
 
     return (
-        <div className="score-p">
-            <span className="id">{id}</span>
-            <span className="name">{name} <img src={src} /></span>
-            <span className="score">{score}</span>
-            <span className="date">{date.toLocaleDateString()}</span>
-        </div>
+        <TableRow key={id} sx={{borderBottom:0}}>
+            <TableCell align="right" component="th" scope="row">{id}</TableCell>
+            <TableCell align="right">{name}</TableCell>
+            <TableCell align="right">{score}</TableCell>
+            <TableCell align="right">{date.toLocaleDateString()}</TableCell>
+        </TableRow>
     );
 }
 
