@@ -27,16 +27,14 @@ function HighScore(props: ScoreType) {
         case 2:
             src = bronze
             break
-        default:
-            break;
     }
 
     return (
-        <TableRow key={id} sx={{borderBottom:0}}>
-            <TableCell align="right" component="th" scope="row">{id}</TableCell>
-            <TableCell align="right">{name}</TableCell>
-            <TableCell align="right">{score}</TableCell>
-            <TableCell align="right">{date.toLocaleDateString()}</TableCell>
+        <TableRow>
+            <TableCell>{id}</TableCell>
+            <TableCell>{`${name} `}{src && <img src={src} />}</TableCell>
+            <TableCell>{score}</TableCell>
+            <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>
     );
 }

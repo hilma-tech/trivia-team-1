@@ -1,15 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-// import ScoreCard from './components/ScoreCard';
-import BasicTable from './components/ScoreCard';
+import ScoreCard from './components/ScoreCard';
+import { CssBaseline, ThemeProvider } from '@mui/material';
+import theme from './style/generateTheme'
+import Navbar from './components/navbar/Navbar';
+import Background from './components/Background';
+import './style/background.scss'
+import './style/navbar.scss'
+
+
 function App() {
   return (
-    <div className="App">
-      {/* <ScoreCard /> */}
-      <BasicTable />
+    <div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Navbar />
+        <Background>
+          {/* components here */}
+          <ScoreCard />
+        </Background>
+      </ThemeProvider>
     </div>
-  );
+  )
 }
 
 export default App;
