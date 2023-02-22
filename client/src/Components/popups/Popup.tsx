@@ -1,4 +1,4 @@
-import { Button, Link } from "@material-ui/core"
+import { Button, Link } from "@mui/material"
 import React, { FC } from "react"
 import '../../style/popups.scss'
 const Popup: React.FC<{ type: string }> = ({ type }) => {
