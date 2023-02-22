@@ -18,7 +18,7 @@ const Background = (props: ContainerProps) => (
       <div>
         {props.children}
       </div>
-      <img id="bottomLeaf" src={bottomLeaf} />
+      {/* <img id="bottomLeaf" src={bottomLeaf} /> */}
     </div>
   )
 );
