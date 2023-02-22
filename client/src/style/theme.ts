@@ -14,16 +14,15 @@ export const defaultTheme: object = {
   muiLink: {},
   typography: {
     fontFamily: "Rubik",
-
     h1: {
       fontSize: "3rem",
-      fontWeight: 700,
+      fontWeight: "bolder",
       lineHeight: 1.5,
       color: PrimaryFontColor,
     },
-
     h2: {
       color: PrimaryFontColor,
+      fontWeight: 100
     },
     h3: {
       color: PrimaryFontColor,
@@ -37,7 +36,7 @@ export const defaultTheme: object = {
     h6: {
       color: PrimaryFontColor,
     },
-    p: {
+    body1: {
       color: PrimaryFontColor,
       fontSize: "20px",
     },
@@ -47,7 +46,7 @@ export const defaultTheme: object = {
       main: "#378381",
     },
     secondary: {
-      main: "#985E4B",
+      main: "#BE7F6B",
     },
   },
 }
