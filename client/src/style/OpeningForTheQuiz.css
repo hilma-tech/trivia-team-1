@@ -1,0 +1,141 @@
+main {
+  top: 8.75vw;
+  left: 15.625vw;
+  width: 68.75vw;
+  height: 80vh;
+  /* UI Properties */
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 4px solid #0C3249;
+  border-radius: 10px;
+  opacity: 1;
+}
+main .main-OpeningForTheQuiz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+main .main-OpeningForTheQuiz .main-paragraph-and-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 42.8125vw;
+  height: auto;
+  /* UI Properties */
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  opacity: 1;
+  z-index: 2;
+  margin-top: 3vw;
+  margin-bottom: -7vw;
+}
+main .main-OpeningForTheQuiz .main-paragraph-and-title p {
+  margin-bottom: 2.7604vw;
+}
+main .main-OpeningForTheQuiz .main-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -10vw;
+  width: 64.3229vw;
+  height: 60vh;
+  /* UI Properties */
+  background: transparent 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+main .main-button-place {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+main .main-button-place .main-button-to-quiz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15.625vw;
+  height: 4.1667vw;
+  /* UI Properties */
+  background: #378381 0% 0% no-repeat padding-box;
+  border: 3px solid #FFFFFF;
+  border-radius: 8px;
+  opacity: 1;
+  z-index: 2;
+  margin-bottom: 1vw;
+}
+main .main-button-place .main-button-to-quiz img {
+  width: 1.0938vw;
+  height: 1.25vw;
+  /* UI Properties */
+  background: transparent 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+main .main-button-place .main-button-to-quiz p {
+  width: 8.125vw;
+  height: 1.6146vw;
+  /* UI Properties */
+  text-align: center;
+  font: normal normal bold 1.3542vw/1.6146vw Rubik;
+  letter-spacing: 0px;
+  color: #FFFFFF;
+  opacity: 1;
+}
+main .main-CheckForName-for-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+}
+main .main-CheckForName-for-flex .main-CheckForName {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid black;
+}
+main .main-CheckForName-for-flex .main-CheckForName .title-and-paragraph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 42.8125vw;
+  height: 255px;
+  border: 2px solid black;
+  /* UI Properties */
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+main .main-CheckForName-for-flex .main-CheckForName .title-and-paragraph .quizTitle {
+  width: 23.1771vw;
+  height: 2.6042vw;
+  /* UI Properties */
+  text-align: right;
+  font: normal normal medium 2.1875vw/2.6042vw Rubik;
+  letter-spacing: 0px;
+  color: #0C3249;
+  opacity: 1;
+}
+main .main-CheckForName-for-flex .main-CheckForName form {
+  margin-top: 0.5vw;
+  margin-bottom: 3.2292vw;
+  width: 18.0208vw;
+  height: 62px;
+  /* UI Properties */
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  border: 1px solid #0C3249;
+  border-radius: 10px;
+  opacity: 1;
+}
+main .main-CheckForName-for-flex .main-CheckForName .CheckForName-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #0C3249;
+  width: 18.0208vw;
+  height: 64px;
+  /* UI Properties */
+  background: #378381 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+  opacity: 1;
+}
+main .main-CheckForName-for-flex .main-CheckForName .CheckForName-button p {
+  margin-left: 1vw;
+}/*# sourceMappingURL=OpeningForTheQuiz.css.map */
