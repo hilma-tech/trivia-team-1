@@ -1,7 +1,7 @@
 import { TableCell, TableRow } from "@mui/material";
-import gold from '../images/crowns/gold.svg'
-import silver from '../images/crowns/silver.svg'
-import bronze from '../images/crowns/bronze.svg'
+import gold from '../../images/crowns/gold.svg';
+import silver from '../../images/crowns/silver.svg';
+import bronze from '../../images/crowns/bronze.svg';
 
 interface ScoreType {
     score: {

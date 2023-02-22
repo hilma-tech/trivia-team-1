@@ -1,4 +1,4 @@
-import ScoreCard from './components/ScoreCard';
+import ScoreCard from './components/score-card/ScoreCard';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './style/generateTheme'
 import Navbar from './components/navbar/Navbar';

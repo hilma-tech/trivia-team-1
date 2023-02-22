@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import HighScore from "./HighScore";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import '../style/scoreCard.scss';
+import '../../style/scoreCard.scss';
 
 function ScoreCard() {
     const [quizData, setQuizData] = useState({
