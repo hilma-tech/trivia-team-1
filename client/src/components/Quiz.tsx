@@ -45,7 +45,7 @@ const Quiz: FC<QuizProps> = (props) => {
   return (
     <div className="quiz">
       <div className="quiz-image" style={{ backgroundImage: `url('${url}')`, backgroundSize: "cover" }}>
-        <h4>{answers} תשובות</h4>
+        <span>{answers} תשובות</span>
       </div>
       <div className="quiz-data">
         <h3>{name}</h3>
@@ -53,9 +53,11 @@ const Quiz: FC<QuizProps> = (props) => {
         <p>{description}</p>
         <div className="quiz-buttons">
           <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
-          <button className="emoji-{ScoreboardSvg}buttons" onClick={() => linkCopied(id)}><img src={LinkSvg} alt="link" /></button>
+          <div>
+          <button className="emoji-buttons" onClick={() => linkCopied(id)}><img src={LinkSvg} alt="link" /></button>
           <button className="emoji-buttons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /></button>
           <button className="emoji-buttons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /></button>
+          </div>
         </div>
       </div>
     </div>
