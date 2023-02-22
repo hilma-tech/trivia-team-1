@@ -13,16 +13,18 @@ body {
 
     #leftLeaf {
         position: absolute;
-        left: -9vw;
-        top: -10vh;
+        left: -5vw;
+        top: -7vh;
         z-index: 1;
+        width: 14vw;
     }
 
     #rightLeaf {
         position: absolute;
-        right: -9vw;
-        top: -10vh;
+        right: -5vw;
+        top: -7vh;
         z-index: 1;
+        width: 14vw;
     }
 
     #compChildrenContainer {
@@ -34,17 +36,18 @@ body {
         background-color: white;
     }
 
-    .backgroundContainerPhone {
-        box-sizing: border-box;
-        height: 93vh;
-        position: relative;
-        overflow: hidden;
+}
 
-        #bottomLeaf {
-            position: absolute;
-            left: -25vw;
-            bottom: -8vh;
-        }
+.backgroundContainerPhone {
+    box-sizing: border-box;
+    height: 92vh;
+    position: relative;
+    overflow: hidden;
 
-    }
+}
+#bottomLeaf {
+    position: absolute;
+    left: -15vw;
+    bottom: -10vh;
+    width: 50vw;
 }

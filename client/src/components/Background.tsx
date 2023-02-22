@@ -5,7 +5,7 @@ import { ContainerProps } from "@mui/material";
 
 
 const Background = (props: ContainerProps) => (
-  window.innerWidth > 450 ? (
+  window.innerWidth > 600 ? (
     <div className="backgroundContainer">
       <img id="rightLeaf" src={rightLeaf} />
       <img id="leftLeaf" src={leftLeaf} />
