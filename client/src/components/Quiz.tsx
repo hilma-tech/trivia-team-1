@@ -81,12 +81,12 @@ const Quiz: FC<QuizProps> = (props) => {
     <div className="holder"></div>
         <Menu
         className="quizMenu"
-        PaperProps={{sx: {width: '70vw', height: '33vh'}}}
+        PaperProps={{sx: {width: '70vw', height: '24vh'}}}
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button',
+          'aria-labelledby': 'basic-button'
         }}
       >
         <MenuItem className="quizMenuItem" onClick={handleClose}><div className="scoreBoardButton" onClick={() => toScoreboard(id)}><img src={ScoreboardSvg} alt="score" /><span>לוח תוצאות</span></div></MenuItem>
