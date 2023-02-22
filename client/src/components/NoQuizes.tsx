@@ -8,7 +8,7 @@ const NoQuiz: FC = () => {
  
     
   return (
-    <div className="noQuizes">
+    <div className="no-quizzes">
     <img src={monkeyThink} alt="monkeyThink" />
     <h2>יכול להיות שעדיין לא יצרת אף חידון?</h2>
     <button>אני רוצה ליצור עכשיו</button>

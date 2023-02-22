@@ -3,7 +3,6 @@ import './App.css';
 import MyQuizes from './components/MyQuizes';
 
 function App() {
-  const app = "tyty"
   return (
     <div className="App">
       <MyQuizes/>

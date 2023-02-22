@@ -1,4 +1,4 @@
-.myQuizes {
+.my-quizzes {
     width: 80vw;
     height: 80vh;
     border: 3px solid black;
@@ -7,15 +7,15 @@
     overflow-x: hidden;
 
     ::-webkit-scrollbar {
-        display: none !important;
+        display: none
     }
 
-    #title {
+    .title {
         margin-right: 3vh;
         margin-top: 4vh;
     }
 
-    #container {
+    .container {
         margin-top: 4vh;
         display: flex;
         width: 80vw;
@@ -25,36 +25,38 @@
         overflow-y: auto;
 
         .quiz {
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            box-shadow: 0px 3px 6px #00000029;
+            background:white 0% 0% no-repeat padding-box;
+            box-shadow: 0px 3px 6px black;
             opacity: 1;
             margin-bottom: 5vh;
             width: 95%;
             min-height: 20vh;
-
             display: flex;
             flex-direction: row;
 
             h3 {
-                font: normal normal 600 20px/24px Rubik;
+                margin-top: 2vh;
+                font-family: Rubik;
+                font-size: 1.5rem;
                 letter-spacing: 0px;
-                color: #0C3249;
+                color: #0c3249;
                 opacity: 1;
             }
 
             p {
-                font: normal normal 300 18px/26px Rubik;
+                font-family: Rubik;
+                font-size: 1.3rem;
                 letter-spacing: 0px;
                 color: #0C3249;
                 opacity: 0.7;
             }
 
-            .quizImage {
+            .quiz-image {
                 position: relative;
-                width: 19%;
+                width: 20%;
                 margin-left: 2%;
 
-                h4 {
+                span {
                     position: absolute;
                     bottom: 10%;
                     left: 10%;
@@ -62,26 +64,27 @@
                     width: 45%;
                     background-color: rgba(0, 0, 0, 0.4);
                     border-radius: 10px;
-                    font-size: 10px;
+                    font-size: 0.7rem;
                     letter-spacing: 0px;
-                    color: #FFFFFF;
+                    font-weight: normal;
+                    color: white;
 
                 }
 
             }
 
-            .quizData {
+            .quiz-data {
                 width: 79%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
 
                 * {
-                    margin-bottom: 1vh;
+                    margin-bottom: 0.5vh;
                 }
             }
 
-            .quizButtons {
+            .quiz-buttons {
                 margin-top: 3vh;
                 display: flex;
 
@@ -89,7 +92,7 @@
                     border-color: transparent;
                 }
 
-                .scoreBoardButton {
+                .scoreboard-button {
                     margin-left: 44vw;
                     background: #378381 0% 0% no-repeat padding-box;
                     border-radius: 50px;
@@ -97,19 +100,19 @@
                     width: 8vw;
                     text-align: center;
                     letter-spacing: 0px;
-                    color: #FFFFFF;
+                    color: white;
                     opacity: 1;
 
                 }
 
-                .emojiButtons {
+                .emoji-buttons {
                     position: relative;
                     align-items: center;
                     border-radius: 50%;
                     width: 2.3vw;
                     height: 2.3vw;
-                    background: #FFFFFFF0 0% 0% no-repeat padding-box;
-                    box-shadow: 0px 3px 6px #00000029;
+                    background: white 0% 0% no-repeat padding-box;
+                    box-shadow: 0px 3px 6px black;
                     opacity: 1;
 
                     img {
@@ -122,7 +125,7 @@
             }
         }
 
-        .noQuizes {
+        .no-quizzes {
             text-align: center;
 
             * {
@@ -137,16 +140,18 @@
                 background: #378381 0% 0% no-repeat padding-box;
                 border-radius: 8px;
                 opacity: 1;
-                font: normal normal bold 19px/36px Rubik;
+                font-family: Rubik;
+                font-size: 1.1rem;
                 letter-spacing: 0px;
-                color: #FFFFFF;
+                color: white;
                 opacity: 1;
                 width: 20vw;
-                height: 5vw
+                height: 5vw;
             }
 
             h2 {
-                font: normal normal medium 36px/43px Rubik;
+                font-family: Rubik;
+                font-size: 1.5rem;
                 letter-spacing: 0px;
                 color: #0C3249;
                 opacity: 0.7;
@@ -156,7 +161,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-    .myQuizes {
+    .my-quizzes {
         width: 100vw;
         height: 90vh;
         margin-top: 10vh;
@@ -168,7 +173,7 @@
             display: none !important;
         }
 
-        #container {
+        .container {
             margin-top: 4vh;
             display: flex;
             width: 100vw;
@@ -177,8 +182,8 @@
             overflow-y: auto;
 
             .quiz {
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                box-shadow: 0px 3px 6px #00000029;
+                background: white 0% 0% no-repeat padding-box;
+                box-shadow: 0px 3px 6px black;
                 opacity: 1;
                 margin-bottom: 5vh;
                 width: 80%;
@@ -187,14 +192,14 @@
                 display: flex;
                 flex-direction: column;
 
-                .quizImage {
+                .quiz-image {
                     position: relative;
                     width: 100%;
                     height: 80%;
                     margin-left: 2%;
 
-                    h4 {
-                        padding: 5px;
+                    span {
+                        padding: 1vh;
                         position: absolute;
                         bottom: 10%;
                         left: 5%;
@@ -203,29 +208,29 @@
                         height: 17%;
                         background-color: rgba(0, 0, 0, 0.4);
                         border-radius: 10px;
-                        font-size: 10px;
+                        font-size: 1rem;
                         letter-spacing: 0px;
-                        color: #FFFFFF;
+                        color: white;
 
                     }
 
                 }
 
-                .quizData {
+                .quiz-data {
                     width: 100%;
                     display: flex;
                     position: relative;
                     flex-direction: row;
                     justify-content: space-between;
                     align-items: center;
-                   
+
 
                     * {
                         margin-bottom: 1vh;
 
                     }
 
-                    #title {
+                    .title {
                         justify-self: center;
                     }
 
@@ -240,11 +245,11 @@
 
                 }
 
-            
+
 
             }
 
-            .noQuizes {
+            .no-quizzes {
                 width: 100vw;
                 height: 85vh;
                 margin-top: 15vh;
@@ -254,7 +259,8 @@
                 }
 
                 h2 {
-                    font-size: 17px;
+                    font-family: Rubik;
+                    font-size: 1.3rem;
                     font-weight: normal;
                     margin-bottom: 10vh;
                 }
@@ -267,9 +273,11 @@
         }
     }
 }
-.quizMenuItem {
+
+.quiz-menu-item {
     margin: 0;
     height: 25%;
+
     img {
         margin-left: 5vw;
         width: 5vw;
