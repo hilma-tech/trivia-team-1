@@ -4,6 +4,7 @@ import monkeyEnter from '../images/monkeyEnter.svg';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
+import ChildrenDiv from './childrenContainerDiv';
 function Register() {
     let [username, setUsername] = useState('')
     let [password, setPassword] = useState('')
@@ -32,13 +33,13 @@ function Register() {
 
     return (
         window.screen.width > 600 ?
-            <div className='register'>
+            <ChildrenDiv className='register'>
                 <Typography variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
-                    <form className='registerForm'  onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
+                    <form className='registerForm' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
                         <Typography variant='body1'>שם משתמש</Typography>
-                        <input id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16}/>
+                        <input id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                         <Typography variant='body1'>סיסמה</Typography>
                         <input id='newPass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
                         <Typography variant='body1'>אימות סיסמה</Typography>
@@ -52,7 +53,7 @@ function Register() {
                         <img src={monkeyEnter} alt='monkey'></img>
                     </div>
                 </div>
-            </div> :
+            </ChildrenDiv> :
             <div className='registerMobile'>
                 <div className='leavesEnterance'>
                     <img src={leavesEnterance} />
@@ -61,13 +62,13 @@ function Register() {
                 <h1>טריוויה</h1>
                 <form className='registerForm' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
                     <div>שם משתמש</div>
-                    <input id='username' type='text' value={username}  onInvalid={enterUsernameErr}  onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
+                    <input id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                     <div>סיסמה</div>
-                    <input id='newPass' type='password' value={password}  onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
+                    <input id='newPass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
                     <div>אימות סיסמה</div>
                     <input id='repetNewPass' type='password' value={repetPassword} onInvalid={repetPassErr} onChange={(e) => setRepetPassword(e.target.value)} required maxLength={16} pattern={password} />
                     <br />
-                    <Button color='primary' variant='contained'  className='registerSubmitButton' type='submit'>הרשמה</Button>
+                    <Button color='primary' variant='contained' className='registerSubmitButton' type='submit'>הרשמה</Button>
                     <br />
                     <div className='regErrDiv'>{regErrDiv}</div>
                 </form>

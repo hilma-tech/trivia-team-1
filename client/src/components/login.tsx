@@ -3,6 +3,9 @@ import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
 import { useState } from 'react';
 import { Button, Typography } from '@mui/material';
+import ChildrenDiv from './childrenContainerDiv';
+
+
 function Login() {
     let [username,setUsername] = useState('')
     let [password,setPassword] = useState('')
@@ -20,7 +23,8 @@ function Login() {
 
     return (
         window.screen.width > 600 ?
-            <div className='login'>
+           
+                <ChildrenDiv className='login'>
                 <Typography variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
@@ -41,7 +45,8 @@ function Login() {
                         <img src={monkeyEnter} alt='monkey'></img>
                     </div>
                 </div>
-            </div> :
+                </ChildrenDiv>
+             :
             <div className='loginMobile'>
                 <div className='leavesEnterance'>
                     <img src={leavesEnterance} />
