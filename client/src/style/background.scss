@@ -4,14 +4,14 @@ body {
     font-size: 1.2rem;
 }
 
-.backgroundContainer {
+.background-container {
     box-sizing: border-box;
     height: 93vh;
     background-color: #E0F4F5;
     position: relative;
     overflow: hidden;
 
-    #leftLeaf {
+    #left-leaf {
         position: absolute;
         left: -5vw;
         top: -7vh;
@@ -19,7 +19,7 @@ body {
         width: 14vw;
     }
 
-    #rightLeaf {
+    #right-leaf {
         position: absolute;
         right: -5vw;
         top: -7vh;
@@ -27,7 +27,7 @@ body {
         width: 14vw;
     }
 
-    .compChildrenContainer {
+    .comp-children-container {
         height: 73vh;
         width: 68.75vw;
         margin: 5vh auto;
@@ -39,13 +39,13 @@ body {
 
 }
 
-.backgroundContainerPhone {
+.background-container-phone {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
     height: 100vh;
 }
-#bottomLeaf {
+#bottom-leaf {
     position: absolute;
     left: -15vw;
     bottom: -10vh;

@@ -6,15 +6,19 @@ import { ContainerProps } from "@mui/material";
 
 const Background = (props: ContainerProps) => (
   window.innerWidth > 600 ? (
-    <div className="backgroundContainer">
-      <img id="rightLeaf" src={rightLeaf} />
-      <img id="leftLeaf" src={leftLeaf} />
-      {props.children}
+    <div className="background-container">
+      <img id="right-leaf" src={rightLeaf} />
+      <img id="left-leaf" src={leftLeaf} />
+      <div id="comp-children-container">
+        {props.children}
+      </div>
     </div>
   ) : (
-    <div className = "backgroundContainerPhone"> 
+    <div className = "background-container-phone"> 
+     
         {props.children}
-      {/* <img id="bottomLeaf" src={bottomLeaf} /> */}
+     
+      {/* <img id="bottom-leaf" src={bottomLeaf} /> */}
     </div>
   )
 );
