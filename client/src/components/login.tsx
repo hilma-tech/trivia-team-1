@@ -22,7 +22,7 @@ function Login() {
 
     return (
         isLargeScreen ?
-            <div className='compChildrenContainer login'>
+            <div id='login' className='compChildrenContainer'>
                 <Typography className='mainLoginHeader'  variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
@@ -59,7 +59,6 @@ function Login() {
                     <input className='loginInput' id='newPass' type='password' value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
                    
                     <Button color='primary' variant='contained' className='loginSubmitButton' type='submit'>הרשמה</Button>
-                    <br/>
                     <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                 <div className='loginLabel regErrDiv'>{regErrDiv}</div>
                 </form>
