@@ -2,35 +2,41 @@
     font-size: 16px;
 }
 
+.score-card-container {
 
-.score-card {
-    margin: 4vw;
-    padding: .1vw;
-    width: 70%;
-    
-    h5 {
-        margin: 1vh 0;
-    }
-    
-    
-    table {
-        th {
+    .score-card {
+        margin: 3vw 4vw;
+        padding: .1vw;
+        width: 70%;
+
+        .bold {
             font-weight: 700;
-            border: none;
-            text-align: right;
-            padding: .5rem;
         }
-        
-        td {
-            border: none;
-            text-align: right;
-            padding: .5rem;
-            
-            img {
-                max-height: 14px;
+
+        .h2 {
+            margin-bottom: 1vh;
+        }
+
+
+        table {
+            th {
+                font-weight: 700;
+                border: none;
+                text-align: right;
+                padding: .5rem;
             }
+
+            td {
+                border: none;
+                text-align: right;
+                padding: .5rem;
+
+                img {
+                    max-height: 14px;
+                }
+            }
+
         }
-        
     }
 }
 
@@ -48,11 +54,11 @@
         .score-card {
             flex: 1;
             width: 100%;
-            margin: 1vw ;
+            margin: 1vw;
         }
     }
 
-    h6 {
+    .hide-mobile {
         display: none;
     }
 }

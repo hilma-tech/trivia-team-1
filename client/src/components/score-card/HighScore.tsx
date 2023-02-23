@@ -10,13 +10,13 @@ interface ScoreType {
         score: number;
         date: Date;
     };
-    i: number
+    index: number
 }
 
 function HighScore(props: ScoreType) {
     let { id, name, score, date } = props.score;
     let src;
-    switch (props.i) {
+    switch (props.index) {
         case 0:
             src = gold
             break;
@@ -32,7 +32,7 @@ function HighScore(props: ScoreType) {
         <TableRow>
             <TableCell>{id}</TableCell>
             <TableCell>{`${name} `}{src && <img src={src} />}</TableCell>
-            <TableCell>{score}</TableCell>
+            <TableCell className="bold">{score}</TableCell>
             <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>
     );

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import HighScore from "./HighScore";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import axios, { isAxiosError, isCancel } from "axios";
+import HighScore from "./HighScore";
 import '../../style/scoreCard.scss';
 
 function ScoreCard() {
-    const [quizData, setQuizData] = useState({
+
+    const [quizData, setQuizData] = useState({//data in this state is temporary
         quizName: 'שלום עולם',
         scores: [
             { id: 1, name: 'גדשכדגכ', score: 99, date: new Date() },
@@ -15,21 +17,24 @@ function ScoreCard() {
         ]
     });
 
-    useEffect(() => {
-        fetchQuizData('url');
-    }, [])
-
-    async function fetchQuizData(url: string) {
-        let req = await fetch(url);
-        let res = await req.json();
-        setQuizData(res)
+    async function fetchQuizData() {
+        try {
+            const res = await axios.get('/quiz?ID=12345');
+            console.log(res);
+        } catch (err) {
+            console.error(err);
+        }
     }
+
+    useEffect(() => {
+        // fetchQuizData();// will activate once server is ready
+    }, [])
 
     return (
         <div className="score-card-container">
             <div className="score-card">
-                <Typography variant="h5">{`לוח תוצאות:`}</Typography>
-                <Typography variant="h6">{quizData.quizName}</Typography>
+                <Typography variant="h5" className="bold h2" component="div">{`לוח תוצאות:`}</Typography>
+                <Typography variant="h6" className="bold h3 hide-mobile" component="div">{quizData.quizName}</Typography>
                 <TableContainer>
                     <Table>
                         <TableHead>
@@ -41,7 +46,7 @@ function ScoreCard() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {quizData.scores.map((score, i) => <HighScore key={score.id} score={score} i={i} />)}
+                            {quizData.scores.map((score, i) => <HighScore key={score.id} score={score} index={i} />)}
                         </TableBody>
                     </Table>
                 </TableContainer>
