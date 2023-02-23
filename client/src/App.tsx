@@ -3,6 +3,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './style/generateTheme'
 import './style/background.scss'
 import './style/navbar.scss'
+import LoadingMonkey from './components/LoadingMonkey';
 import MyQuizes from './components/myQuizzes/MyQuizes';
 
 import Background from './components/Background';
@@ -20,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/Enterance-Page" element={<EnterancePage />} />
           <Route index element={<Navigate replace to="/Login" />} />
-          <Route path="/Login" element={<Login />} />
+          <Route path="/Login" element={<LoadingMonkey />} />
           <Route path="/Register" element={<Register />} />
         </Routes >
       </Background>
