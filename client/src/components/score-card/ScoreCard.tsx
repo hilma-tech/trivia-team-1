@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
-import axios, { isAxiosError, isCancel } from "axios";
+// import axios, { isAxiosError, isCancel } from "axios";
 import HighScore from "./HighScore";
 import '../../style/scoreCard.scss';
 
@@ -17,14 +17,14 @@ function ScoreCard() {
         ]
     });
 
-    async function fetchQuizData() {
-        try {
-            const res = await axios.get('/quiz?ID=12345');
-            console.log(res);
-        } catch (err) {
-            console.error(err);
-        }
-    }
+    // async function fetchQuizData() {
+    //     try {
+    //         const res = await axios.get('/quiz?ID=12345');
+    //         console.log(res);
+    //     } catch (err) {
+    //         console.error(err);
+    //     }
+    // }
 
     useEffect(() => {
         // fetchQuizData();// will activate once server is ready

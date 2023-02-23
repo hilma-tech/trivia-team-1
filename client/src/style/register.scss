@@ -6,13 +6,13 @@
     box-sizing: border-box;
 
 
-    .mainRegisterHeader {
+    .main-register-header {
         margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
     }
 
-    .descripEnter {
+    .descrip-enter {
         margin-right: 5%;
         font-weight: 600;
         font-size: 2vmax;
@@ -20,7 +20,7 @@
     }
 
 
-    .entranceContainerDiv {
+    .entrance-container-div {
         height: 32vh;
         margin-right: 5%;
         display: grid;
@@ -30,7 +30,7 @@
         margin-left: 5%;
     }
 
-    .monkeyEnterPic {
+    .monkey-enter-pic {
         grid-area: b;
         text-align: center;
 
@@ -42,18 +42,18 @@
         }
     }
 
-    .registerForm {
+    .register-form {
         grid-area: a;
         display: flex;
         flex-direction: column;
-        .regErrDiv{
+        .reg-err-div{
             margin-top: 1%;
             font-size: 1.1vmax;
             color: red;
             font-weight: bolder;
         }
 
-        .registerInput {
+        .register-input {
             width: 25vw;
             height: 4.5vh;
             margin-bottom: 5%;
@@ -62,11 +62,11 @@
             font-size: 1.1vmax;
         }
 
-        .loginParag {
+        .login-parag {
             font-size: 1.3vmax;
         }
 
-        .registerSubmitButton {
+        .register-submit-button {
             height: 6vh;
             width: 25.4vw;
             font-size: 1.6vmax;
@@ -78,7 +78,7 @@
 
 // #tamplete for mobile includes the frame for the login/register/entrance-page
 
-.registerMobile {
+.register-mobile {
     height: 100vh;
     border-radius: 35px;
     outline: 4px solid #0C3249;
@@ -87,7 +87,7 @@
     text-align: center;
     overflow-x: hidden;
 
-    .leavesEnterance {
+    .leaves-enterance {
         position: absolute;
         right: -70px;
         top: -55px;
@@ -95,7 +95,7 @@
         width: 172px;
     }
 
-    .monkeyEnterPic {
+    .monkey-enter-pic {
         overflow-x: hidden;
         overflow-y: hidden;
         position: absolute;
@@ -114,16 +114,16 @@
         }
     }
 
-    .registerForm {
+    .register-form {
     //     display: flex;
     //    flex-direction: column;
     //    align-items: center;
-        .registerLable {
+        .register-lable {
             margin-right: calc((100vw - 228px) / 2);
             text-align: right;
         }
 
-        .registerInput {
+        .register-input {
             width: 220px;
             height: 30px;
             margin-bottom: 2vh;
@@ -132,7 +132,7 @@
             font-size: 14px;
         }
 
-        .registerSubmitButton {
+        .register-submit-button {
             width: 228px;
             height: 40px;
             margin-bottom: 8px;
@@ -141,7 +141,7 @@
             display: flex;
            margin-right: calc((100vw - 228px)/2);
         }
-        .regErrDiv{
+        .reg-err-div{
             width: 228px;
             margin-top: 1%;
             font-size: 14px;
@@ -151,20 +151,20 @@
 
     }
 
-    .bigHeader {
+    .big-header {
         font-size: 65px;
         margin-top: 0px;
         margin-bottom: 0px;
     }
 
-    .smallHeader {
+    .small-header {
         font-size: 35px;
         margin-bottom: 0px;
         margin-top: 18vh;
     }
 
     @media screen and (max-height: 800px){
-        .smallHeader{
+        .small-header{
             margin-top: 4vh;
         }
     }

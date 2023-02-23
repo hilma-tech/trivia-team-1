@@ -22,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/Enterance-Page" element={<EnterancePage />} />
           <Route index element={<Navigate replace to="/Login" />} />
-          <Route path="/Login" element={<LoadingMonkey />} />
+          <Route path="/Login" element={<Register />} />
           <Route path="/Register" element={<Register />} />
         </Routes >
       </Background>
