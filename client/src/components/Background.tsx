@@ -13,9 +13,7 @@ const Background = (props: ContainerProps) => (
     </div>
   ) : (
     <div className = "backgroundContainerPhone"> 
-     
         {props.children}
-     
       {/* <img id="bottomLeaf" src={bottomLeaf} /> */}
     </div>
   )
