@@ -4,7 +4,6 @@ import monkeyEnter from '../images/monkeyEnter.svg';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
-import ChildrenDiv from './childrenContainerDiv';
 function Register() {
     let [username, setUsername] = useState('')
     let [password, setPassword] = useState('')
@@ -33,7 +32,7 @@ function Register() {
 
     return (
         window.screen.width > 600 ?
-            <ChildrenDiv className='register'>
+            <div className='compChildrenContainer register'>
                 <Typography variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
@@ -53,7 +52,7 @@ function Register() {
                         <img src={monkeyEnter} alt='monkey'></img>
                     </div>
                 </div>
-            </ChildrenDiv> :
+            </div> :
             <div className='registerMobile'>
                 <div className='leavesEnterance'>
                     <img src={leavesEnterance} />

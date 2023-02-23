@@ -16,12 +16,12 @@ function App() {
       <CssBaseline />
       <Background>
         <Routes>
-          <Route path="/Enterance-Page" element={<EnterancePage />} />
-          <Route index element={<Navigate replace to="/Login" />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path='*' element={<Navigate replace to="/Error404" />} />
-          <Route path='/Error404' element={<Error/>}/>
+          <Route path="/enterance-page" element={<EnterancePage />} />
+          <Route index element={<Navigate replace to="/login" />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path='*' element={<Navigate replace to="/error404" />} />
+          <Route path='/error404' element={<Error/>}/>
         </Routes >
       </Background>
     </ThemeProvider>

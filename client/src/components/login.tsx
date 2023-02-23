@@ -3,7 +3,6 @@ import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
 import { useState } from 'react';
 import { Button, Typography } from '@mui/material';
-import ChildrenDiv from './childrenContainerDiv';
 
 
 function Login() {
@@ -24,7 +23,7 @@ function Login() {
     return (
         window.screen.width > 600 ?
            
-                <ChildrenDiv className='login'>
+                <div className='compChildrenContainer login'>
                 <Typography variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
@@ -37,7 +36,7 @@ function Login() {
                         <Button color='primary' variant='contained' className='loginSubmitButton' type='submit'>הרשמה</Button>
                         <br />
                         <div className='toRegisterLink'>
-                            <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
+                            <a href='register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                         </div>
                         <div className='regErrDiv'>{regErrDiv}</div>
                     </form>
@@ -45,7 +44,7 @@ function Login() {
                         <img src={monkeyEnter} alt='monkey'></img>
                     </div>
                 </div>
-                </ChildrenDiv>
+                </div>
              :
             <div className='loginMobile'>
                 <div className='leavesEnterance'>
@@ -61,7 +60,7 @@ function Login() {
                     <br />
                     <Button color='primary' variant='contained' className='loginSubmitButton' type='submit'>הרשמה</Button>
                     <br/>
-                    <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
+                    <a href='register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                 <div className='regErrDiv'>{regErrDiv}</div>
                 </form>
                 

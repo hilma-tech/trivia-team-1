@@ -6,7 +6,6 @@ import logout from '../images/logout.svg';
 import leavesEnterance from '../images/leaves-enterance.svg';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
-import ChildrenDiv from './childrenContainerDiv';
 function EnterancePage() {
     let [currentUser, setCurrentUser] = useState('שלימזי')
     const navigate = useNavigate()
@@ -25,7 +24,7 @@ function EnterancePage() {
 
     return (
         window.screen.width > 600 ?
-            <ChildrenDiv className='entrancePage'>
+            <div className='compChildrenContainer entrancePage'>
                 <h1>חידונים מטורפים</h1>
                 <h2 className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>
                 <div className='entranceContainerDiv'>
@@ -39,7 +38,7 @@ function EnterancePage() {
                     </div>
                 </div>
                 <Button onClick={toLogin} className='logoutButton'><img className='logoutPic' src={logout} alt='logout'></img> יציאה</Button>
-            </ChildrenDiv> :
+            </div> :
             <div className='entrancePageMobile'>
                 <div className='leavesEnterance'>
                     <img src={leavesEnterance}/>

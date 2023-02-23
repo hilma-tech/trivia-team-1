@@ -1,6 +1,7 @@
 import '../style/error404.scss'
-import Monkey404 from '../images/404monkey.svg'
 import { Typography } from '@mui/material';
+
+import Monkey404 from '../images/404monkey.svg'
 
 function Error() {
 
