@@ -24,6 +24,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path='*' element={<Navigate replace to="/error404" />} />
           <Route path='/error404' element={<Error/>}/>
+          <Route path='/my-quizzes' element={<MyQuizes/>} />
         </Routes >
       </Background>
     </ThemeProvider>
