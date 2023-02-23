@@ -3,6 +3,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import theme from './style/generateTheme'
 import './style/background.scss'
 import './style/navbar.scss'
+import MyQuizes from './components/myQuizzes/MyQuizes';
 
 import Background from './components/Background';
 import Navbar from './components/navbar/Navbar';
