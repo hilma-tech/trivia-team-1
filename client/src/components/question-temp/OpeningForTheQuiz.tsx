@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import triangleIcon from '../icons/icon-awesome-play.png';
+import triangleIcon from '../../images/triangeIcon.svg';
 import italyPic from '../../images/question-template/italy.png';
 import OpeningParagraphTitle from './OpeningParagraphTitle';
 import CheckForName from './CheckForName';
@@ -22,7 +22,7 @@ function OpeningForTheQuiz() {
             .then((res) => res.json)
             .then((data) => {
                 console.log("hiiiii");
-                
+
                 // setImgUrl(data.imgUrl);
                 // setQuizTitle(data.quizTitle);
                 // setParagraph(data.paragraph);
@@ -33,19 +33,21 @@ function OpeningForTheQuiz() {
     }
 
     return (
-        <main>
-            {changeComponent ?
-                <OpeningParagraphTitle
-                    quizTitle={quizTitle}
-                    paragraph={paragraph}
-                    imgUrl={imgUrl}
-                    changeComponent = {changeComponent}
-                    setChangeComponent={setChangeComponent}
-                />
-                :
-                <CheckForName quizTitle={quizTitle} />
-            }
-        </main>
+        <div className='compChildrenContainer'>
+            <main>
+                {changeComponent ?
+                    <OpeningParagraphTitle
+                        quizTitle={quizTitle}
+                        paragraph={paragraph}
+                        imgUrl={imgUrl}
+                        changeComponent={changeComponent}
+                        setChangeComponent={setChangeComponent}
+                    />
+                    :
+                    <CheckForName quizTitle={quizTitle} />
+                }
+            </main>
+        </div>
     );
 }
 

@@ -1,0 +1,53 @@
+$primaryColor: #0C3249;
+
+body {
+    font-size: 1.2rem;
+}
+
+.backgroundContainer {
+    box-sizing: border-box;
+    height: 93vh;
+    background-color: #E0F4F5;
+    position: relative;
+    overflow: hidden;
+
+    #leftLeaf {
+        position: absolute;
+        left: -5vw;
+        top: -7vh;
+        z-index: 1;
+        width: 14vw;
+    }
+
+    #rightLeaf {
+        position: absolute;
+        right: -5vw;
+        top: -7vh;
+        z-index: 1;
+        width: 14vw;
+    }
+
+    .compChildrenContainer {
+        height: 73vh;
+        width: 68.75vw;
+        margin: 5vh auto;
+        padding: 0;
+        border: 3.5px solid $primaryColor;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+}
+
+.backgroundContainerPhone {
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+}
+#bottomLeaf {
+    position: absolute;
+    left: -15vw;
+    bottom: -10vh;
+    width: 50vw;
+}

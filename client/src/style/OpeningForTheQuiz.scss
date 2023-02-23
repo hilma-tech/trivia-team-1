@@ -1,144 +1,148 @@
-@mixin flexCenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-main{
-    top: 8.75vw;
-    left: 15.625vw;
-    width: 68.75vw;
-    height: 80vh;
-    /* UI Properties */
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 4px solid #0C3249;
-    border-radius: 10px;
-    opacity: 1;
-    .main-OpeningForTheQuiz{
-        @include flexCenter();
-        flex-direction: column;
-        .main-paragraph-and-title{
-            // border: #0C3249 2px solid;
-            @include flexCenter();
-            flex-direction: column;
-            width: 42.8125vw;
-            height: auto;
-            /* UI Properties */
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            opacity: 1;
-            z-index: 2;
-            margin-top: 3vw;
-            margin-bottom: -7vw;
-            p{
-                margin-bottom: 2.7604vw;
-            }
-        }
-        .main-img{
-            @include flexCenter();
-            // z-index: 1;
-            margin-bottom: -10vw;
-            width: 64.3229vw;
-            height: 60vh;
-            /* UI Properties */
-            background: transparent 0% 0% no-repeat padding-box;
-            opacity: 1;
-        }
-    }
-    .main-button-place{
-        @include flexCenter();
-        .main-button-to-quiz{
-            @include flexCenter();
-            width: 15.625vw;
-            height: 4.1667vw;
-            /* UI Properties */
-            background: #378381 0% 0% no-repeat padding-box;
-            border: 3px solid #FFFFFF;
-            border-radius: 8px;
-            opacity: 1;
-            z-index: 2;
-            margin-bottom: 1vw;
-            img{
-                width: 1.0938vw;
-                height: 1.25vw;
-                /* UI Properties */
-                background: transparent 0% 0% no-repeat padding-box;
-                opacity: 1;
-            }
-            p{
-                width: 8.125vw;
-                height: 1.6146vw;
-                /* UI Properties */
-                text-align: center;
-                font: normal normal bold 1.3542vw/1.6146vw Rubik;
-                letter-spacing: 0px;
-                color: #FFFFFF;
-                opacity: 1;
-            }
-        }
-    }
-    .main-CheckForName-for-flex{
-        @include flexCenter();
-        border: 2px solid black;
-        .main-CheckForName{
-            display: flex;
-            align-items: center;
-            // justify-content: center;
-            flex-direction: column;
-            border: 2px solid black;
-            .title-and-paragraph{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: space-between;
-                width: 42.8125vw;
-                height: 255px;
-                border: 2px solid black;
 
-                /* UI Properties */
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                opacity: 1;
-                .quizTitle{
-                    width: 23.1771vw;
-                    height: 2.6042vw;
-                    /* UI Properties */
-                    text-align: right;
-                    font: normal normal medium 2.1875vw/2.6042vw Rubik;
-                    letter-spacing: 0px;
-                    color: #0C3249;
-                    opacity: 1;
-                }
-            }
-            form{
-                margin-top: .5vw;
-                margin-bottom: 3.2292vw;
-                width: 18.0208vw;
-                height: 62px;
-                /* UI Properties */
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                border: 1px solid #0C3249;
-                border-radius: 10px;
-                opacity: 1;
-            }
-            .CheckForName-button{
-                @include flexCenter();
-                border: 1px solid #0C3249;
-                width: 18.0208vw;
-                height: 64px;
-                /* UI Properties */
-                background: #378381 0% 0% no-repeat padding-box;
-                border-radius: 8px;
-                opacity: 1;
-                p{
-                    margin-left: 1vw;
-                }
-            }
-        }
-    }
-}
-// @media screen and (max-width: 600px) {
-//     main{
-//         background-color: #0C3249;
-//         width: 90vw;
-//         height: 90vh;
-//     }
 
+
+
+// @mixin flexCenter {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
 // }
+// main{
+//     top: 8.75vw;
+//     left: 15.625vw;
+//     width: 68.75vw;
+//     height: 80vh;
+//     /* UI Properties */
+//     background: #FFFFFF 0% 0% no-repeat padding-box;
+//     border: 4px solid #0C3249;
+//     border-radius: 10px;
+//     opacity: 1;
+//     .main-OpeningForTheQuiz{
+//         @include flexCenter();
+//         flex-direction: column;
+//         .main-paragraph-and-title{
+//             // border: #0C3249 2px solid;
+//             @include flexCenter();
+//             flex-direction: column;
+//             width: 42.8125vw;
+//             height: auto;
+//             /* UI Properties */
+//             background: #FFFFFF 0% 0% no-repeat padding-box;
+//             opacity: 1;
+//             z-index: 2;
+//             margin-top: 3vw;
+//             margin-bottom: -7vw;
+//             p{
+//                 margin-bottom: 2.7604vw;
+//             }
+//         }
+//         .main-img{
+//             @include flexCenter();
+//             // z-index: 1;
+//             margin-bottom: -10vw;
+//             width: 64.3229vw;
+//             height: 60vh;
+//             /* UI Properties */
+//             background: transparent 0% 0% no-repeat padding-box;
+//             opacity: 1;
+//         }
+//     }
+//     .main-button-place{
+//         @include flexCenter();
+//         .main-button-to-quiz{
+//             @include flexCenter();
+//             width: 15.625vw;
+//             height: 4.1667vw;
+//             /* UI Properties */
+//             background: #378381 0% 0% no-repeat padding-box;
+//             border: 3px solid #FFFFFF;
+//             border-radius: 8px;
+//             opacity: 1;
+//             z-index: 2;
+//             margin-bottom: 1vw;
+//             img{
+//                 width: 1.0938vw;
+//                 height: 1.25vw;
+//                 /* UI Properties */
+//                 background: transparent 0% 0% no-repeat padding-box;
+//                 opacity: 1;
+//             }
+//             p{
+//                 width: 8.125vw;
+//                 height: 1.6146vw;
+//                 /* UI Properties */
+//                 text-align: center;
+//                 font: normal normal bold 1.3542vw/1.6146vw Rubik;
+//                 letter-spacing: 0px;
+//                 color: #FFFFFF;
+//                 opacity: 1;
+//             }
+//         }
+//     }
+//     .main-CheckForName-for-flex{
+//         @include flexCenter();
+//         border: 2px solid black;
+//         .main-CheckForName{
+//             display: flex;
+//             align-items: center;
+//             // justify-content: center;
+//             flex-direction: column;
+//             border: 2px solid black;
+//             .title-and-paragraph{
+//                 display: flex;
+//                 flex-direction: column;
+//                 align-items: center;
+//                 justify-content: space-between;
+//                 width: 42.8125vw;
+//                 height: 255px;
+//                 border: 2px solid black;
+
+//                 /* UI Properties */
+//                 background: #FFFFFF 0% 0% no-repeat padding-box;
+//                 opacity: 1;
+//                 .quizTitle{
+//                     width: 23.1771vw;
+//                     height: 2.6042vw;
+//                     /* UI Properties */
+//                     text-align: right;
+//                     font: normal normal medium 2.1875vw/2.6042vw Rubik;
+//                     letter-spacing: 0px;
+//                     color: #0C3249;
+//                     opacity: 1;
+//                 }
+//             }
+//             form{
+//                 margin-top: .5vw;
+//                 margin-bottom: 3.2292vw;
+//                 width: 18.0208vw;
+//                 height: 62px;
+//                 /* UI Properties */
+//                 background: #FFFFFF 0% 0% no-repeat padding-box;
+//                 border: 1px solid #0C3249;
+//                 border-radius: 10px;
+//                 opacity: 1;
+//             }
+//             .CheckForName-button{
+//                 @include flexCenter();
+//                 border: 1px solid #0C3249;
+//                 width: 18.0208vw;
+//                 height: 64px;
+//                 /* UI Properties */
+//                 background: #378381 0% 0% no-repeat padding-box;
+//                 border-radius: 8px;
+//                 opacity: 1;
+//                 p{
+//                     margin-left: 1vw;
+//                 }
+//             }
+//         }
+//     }
+// }
+// // @media screen and (max-width: 600px) {
+// //     main{
+// //         background-color: #0C3249;
+// //         width: 90vw;
+// //         height: 90vh;
+// //     }
+
+// // }

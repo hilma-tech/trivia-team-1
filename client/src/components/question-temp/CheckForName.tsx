@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import triangleIcon from '../icons/Icon-awesome-play.png';
-
+import triangleIcon from '../../icons/icon-awesome-play.png';
 
 interface CheckForNameProps {
     quizTitle: string
