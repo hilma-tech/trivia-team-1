@@ -26,38 +26,38 @@ function EnterancePage() {
     }
 
     return (
-        isLargeScreen?
-            <div className='compChildrenContainer entrancePage'>
-                <h1 className='mainEnteranceHeader'>חידונים מטורפים</h1>
-                <h2 className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>
-                <div className='entranceContainerDiv'>
-                    <div className='entranceButtonDiv'>
-                        <h2 className='userHello'>{`שלום, ${currentUser}`}</h2>
-                        <Button className='enterancePageButton createQuizButton' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz' /> צור חידון חדש</Button>
-                        <Button className='enterancePageButton myQuizesButton' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
+        isLargeScreen ?
+            <div className='comp-children-container entrance-page'>
+                <h1 className='main-enterance-header'>חידונים מטורפים</h1>
+                <h2 className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>
+                <div className='entrance-container-div'>
+                    <div className='entrance-button-div'>
+                        <h2 className='user-hello'>{`שלום, ${currentUser}`}</h2>
+                        <Button className='enterance-page-button create-quiz-button' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz' /> צור חידון חדש</Button>
+                        <Button className='enterance-page-button my-quizes-button' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                     </div>
-                    <div className='monkeyEnterPic'>
+                    <div className='monkey-enter-pic'>
                         <img src={monkeyEnter} alt='monkey' />
                     </div>
                 </div>
-                <Button onClick={toLogin} className='enterancePageButton logoutButton'><img className='logoutPic' src={logout} alt='logout' /> יציאה</Button>
+                <Button onClick={toLogin} className='enterance-page-button  logout-button'><img className='logout-pic' src={logout} alt='logout' /> יציאה</Button>
             </div> :
-            <div className='entrancePageMobile'>
-                <div className='leavesEnterance'>
+            <div className='entrance-page-mobile'>
+                <div className='leaves-enterance'>
                     <img src={leavesEnterance} alt='leaves' />
                 </div>
                 <header>
-                    <div className='smallHeader'>משחק</div>
-                    <div className='bigHeader'>טריוויה</div>
+                    <div className='small-header'>משחק</div>
+                    <div className='big-header'>טריוויה</div>
                 </header>
                 <div>
-                    <Button className='enterancePageButton createQuizButton' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz' /> צור חידון</Button>
+                    <Button className='enterance-page-button create-quiz-button' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz' /> צור חידון</Button>
                 </div>
                 <div>
-                    <Button className='enterancePageButton myQuizesButton' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
+                    <Button className='enterance-page-button my-quizes-button' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                 </div>
-                <Button onClick={toLogin} className='enterancePageButton logoutButton'><img className='logoutPic' src={logout} alt='logout' /> יציאה</Button>
-                <div className='monkeyEnterPic'>
+                <Button onClick={toLogin} className='enterance-page-button logout-button'><img className='logout-pic' src={logout} alt='logout' /> יציאה</Button>
+                <div className='monkey-enter-pic'>
                     <img src={monkeyEnter} alt='monkey' />
                 </div>
             </div>

@@ -5,15 +5,15 @@ import monkey from "../../images/navbar/monkey.svg"
 
 const PhoneNavBar: FC<{ name: string, type: string }> = ({ name, type }) => (
     //phone size
-    <div className="navbarContainerPhone">
-        <div className="imgContainer">
+    <div className="navbar-container-phone">
+        <div className="img-container">
             <img src={returnBtn} />
         </div>
-        <div className="headerContainer">
+        <div className="header-container">
             <h4>{name}</h4>
         </div>
-        <div className="imgContainer" >
-            <img className={type === 'myQuizzesMenu' || type === 'playQuizz' ? ' hideMonkey' : 'image'} src={monkey} />
+        <div className="img-container" >
+            <img className={type === 'myQuizzesMenu' || type === 'playQuizz' ? ' hide-monkey' : 'image'} src={monkey} />
         </div>
     </div>
 );
