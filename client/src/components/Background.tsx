@@ -1,7 +1,7 @@
-import { ContainerProps } from "@mui/material";
 import rightLeaf from "../images/backgroundLeaves/rightLeaf.svg";
 import leftLeaf from "../images/backgroundLeaves/leftLeaf.svg";
 import bottomLeaf from "../images/backgroundLeaves/bottomLeaf.svg"
+import { ContainerProps } from "@mui/material";
 
 
 const Background = (props: ContainerProps) => (
