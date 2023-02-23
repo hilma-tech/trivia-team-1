@@ -1,5 +1,5 @@
 import '../style/login.scss'
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
@@ -9,7 +9,7 @@ function Login() {
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const [regErrDiv, setRegErrDiv] = useState('')
-
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
     function enterUsernameErr() {
         setRegErrDiv("שכחת להכניס משתמש!")
@@ -21,8 +21,8 @@ function Login() {
 
 
     return (
-        window.screen.width > 600 ?
-            <div className='login'>
+isLargeScreen ?
+            <div className='comp-children-container login'>
                 <Typography className='main-login-header'  variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
