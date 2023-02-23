@@ -12,6 +12,7 @@ import EnterancePage from "./components/entrancePage";
 import Login from "./components/login";
 import Register from "./components/register";
 import Error from './components/error404';
+import ScoreCard from "./components/score-card/ScoreCard";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path='/error404' element={<Error/>}/>
           <Route path='/loading-page' element={<LoadingMonkey/>} />
           <Route path='/my-quizzes' element={<MyQuizes/>} />
+          <Route path='scoreboard' element={<ScoreCard/>} />
         </Routes >
       </Background>
     </ThemeProvider>
