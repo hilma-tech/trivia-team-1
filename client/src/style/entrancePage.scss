@@ -1,0 +1,165 @@
+.entrancePage {
+    padding-top: 6vh;
+    height: 73vh;
+    width: 68.75vw;
+    margin: 0%;
+    box-sizing:border-box;
+
+
+    .mainEnteranceHeader {
+        margin-right: 5%;
+        font-size: 4vmax;
+        margin-bottom: 1%;
+    }
+
+    .descripEnter {
+        margin-right: 5%;
+        font-weight: 600;
+        font-size: 2vmax;
+        margin-bottom: 3%;
+    }
+
+
+    .entranceContainerDiv {
+        height: 32vh;
+        margin-right: 5%;
+        display: grid;
+        grid-template-areas:
+            "buttons img"
+            "space img";
+        margin-bottom: 5%;
+        margin-left: 5%;
+    }
+
+    .entranceButtonDiv {
+        grid-area: buttons;
+    }
+
+    .userHello {
+        margin-bottom: 8%;
+        font-weight: 1000;
+        font-size: 2vmax;
+    }
+
+    .monkeyEnterPic {
+        grid-area: img;
+        text-align: center;
+        img{
+            height: 44vh;
+            width: 19.5vw;
+            position: relative;
+            top: -10vh;
+        }
+    }
+
+    .entranceButtonDiv{
+        .enterancePageButton{
+        width: 15.625vw;
+        height: 10vh;
+        margin-left: 35px;
+        font-size: 1.5vmax;
+        font-weight: bolder;
+        img{
+           width: 1.5vw; 
+           margin-left: 5%;
+        }
+        }
+        .myQuizesButton{
+            box-shadow: 0px 1.25vh 0px 0px #985E4B;
+        }
+        .createQuizButton{
+            box-shadow: 0px 1.25vh 0px 0px #216361;
+        }
+    }
+
+
+    .logoutButton {
+        text-align: center;
+        font-size:  2vmax;
+        background-color: transparent;
+        border-color: transparent;
+        color: #216361;
+        margin-right: 1%;
+        position: absolute;
+        bottom: 16vh;
+    }
+}
+
+.entrancePageMobile {
+    height: 100vh;
+    border-radius: 35px;
+    outline: 4px solid #0C3249;
+    outline-offset: -25px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow-x: hidden;
+
+    .leavesEnterance{
+        position: absolute;
+        right: -70px;
+        top: -55px;
+        height: 156px;
+        width: 172px;
+    }
+
+    .monkeyEnterPic {
+        overflow-x: hidden;
+        overflow-y: hidden;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        height: 225px;
+        width: 250px;
+
+        img {
+            position: relative;
+            bottom: -18px;
+            left: -11px;
+            width: 300px;
+            height: 266px;
+            rotate: 10deg;
+        }
+    }
+
+    .enterancePageButton {
+        width: 220px;
+        height: 70px;
+        margin-bottom: 12px;
+        font-size: 26px;
+        img{
+            margin-left: 8px;
+        }
+    }
+    
+    .myQuizesButton{
+        box-shadow: 0px 5px 0px 0px #985E4B;
+    }
+    .createQuizButton{
+        box-shadow: 0px 5px 0px 0px #216361;
+    }
+
+    .logoutButton{
+        position: absolute;
+        right: 35px;
+        bottom: 25px;
+        height: 20px;
+        width: 60px;
+        font-size: 16px;
+        font-weight: bolder;
+        img{
+            height: 16px;
+        }
+    }
+
+    .bigHeader {
+        font-size: 65px;
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+
+    .smallHeader {
+        font-size: 35px;
+        margin-bottom: 0px;
+        margin-top: 130px;
+    }
+}
