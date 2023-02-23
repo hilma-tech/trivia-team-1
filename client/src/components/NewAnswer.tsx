@@ -41,6 +41,7 @@ const NewAnswer: FC<Props> = ({  answerIndex, isChecked = false, setCurrentQuest
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let copy = { ...currentQuestion };
         copy.answers[answerIndex] = e.target.value;
+        console.log(copy);
         setCurrentQuestion(copy);
     };
 
@@ -51,7 +52,7 @@ const NewAnswer: FC<Props> = ({  answerIndex, isChecked = false, setCurrentQuest
                     <FormControlLabel value={'' + answerIndex} control={<Radio />} label="" />
                 </div>
                 <div className="textFieldContainer">
-                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex}`}
+                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex + 1}`}
                         id="standard-size-small" variant="standard" value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
 
                 </div>

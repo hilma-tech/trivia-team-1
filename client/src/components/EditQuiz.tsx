@@ -21,14 +21,14 @@ import AnswersProvider from '../context/AnswersContext'
 
 const EditQuiz: FC = () => {
 
-    const { sendInput, setCurrentAnswers, questions: currentAnswers, setSendInput  , setEmptyQuestionEdit , emptyQuestionEdit} = useAnswerContext()
+    const { sendInput, setQuestions, questions, setSendInput, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
 
-    const [questionsArr, setQuestionsArr] = useState([1]);
+    // const [questionsArr, setQuestionsArr] = useState([1]);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
-        questionId: 0 ,  
-        questionTitle:'' , 
-        answers:['' , '']
+        questionId: 1,
+        questionTitle: '',
+        answers: ['', '']
     });
 
     const [countForKeys, setCountForKeys] = useState(0);
@@ -36,17 +36,29 @@ const EditQuiz: FC = () => {
 
 
     useEffect(() => {
-        setCurrentAnswers([...currentAnswers, currentQuestion])
+        setQuestions([...questions, currentQuestion])
     }, [sendInput])
 
 
     const addQuestion = () => {
-        setEmptyQuestionEdit(!emptyQuestionEdit)
+        // setEmptyQuestionEdit(!emptyQuestionEdit)
         setSendInput(!sendInput)
-        if (questionsArr.length < 10) {
-            setQuestionsArr([...questionsArr, 1]);
+        if (questions.length < 10) {
+            // setCurrentQuestion(prevState => ({
+            //     ...prevState,
+            //     questionId: prevState.questionId + 1
+            //   }));
+            setQuestions([...questions, currentQuestion])
             setCurrentEditQuestion(currentEditQuestion + 1)
-            
+            setCurrentQuestion(prevState => ({
+                ...prevState,
+                questionId: prevState.questionId + 1,
+                questionTitle: '',
+                answers: ['', '']
+
+            }));
+
+
         }
 
     }
@@ -83,7 +95,7 @@ const EditQuiz: FC = () => {
                         <p>תיאור חידון</p>
                     </div>
                 </div>
-                {questionsArr.map((item, index: number) => {
+                {questions.map((item, index: number) => {
                     return (
                         currentEditQuestion === index
                             ? <AddQuestionBox key={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />

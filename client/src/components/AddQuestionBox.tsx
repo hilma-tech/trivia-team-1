@@ -7,6 +7,8 @@ import TrashSvg from '../images/trash.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion } from '../utils/Interfaces'
+import AnswersProvider from "../context/AnswersContext";
+
 
 
 interface Props {
@@ -16,18 +18,23 @@ interface Props {
 }
 
 
-const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion: currentQuestion }) => {
+const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion }) => {
 
     // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
+
     const addAnswer = () => {
-        // if (answersArr.length < 4) {
-        //     setAnswersArr([...answersArr, 1]);
-        // }
+        if (currentQuestion.answers.length < 4) {
+            setCurrentQuestion(prevState => ({
+                ...prevState,
+                answers: [...prevState.answers, '']
+            }));
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let copy = { ...currentQuestion };
+        console.log(copy)
         copy.questionTitle = e.target.value;
         setCurrentQuestion(copy);
 
@@ -39,7 +46,7 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion: curren
             <div className='darganddropContainer'><button></button></div>
             <div className='quizQuestionsContainer'>
                 <div className='quizQuestions' >
-                    <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion['questionTitle']} onChange={handleChange} />
+                    <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
                     <img className='selectImageQutionsSvg' src={Selectimage} />
                 </div>
                 <div className="answer-container">
@@ -48,12 +55,10 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion: curren
                             aria-labelledby="demo-radio-buttons-group-label"
                             name="radio-buttons-group"
                         >
-                            {/* {answersArr.map((item, index: number) =>
-                                <NewAnswer key={index} questionNum={index + 1} setAnswer={setAnswer} answer={answer} answersArr={answersArr}/>
-                            )} */}
-                            {currentQuestion.answers.map((answer , index) => (
-                                <NewAnswer key={index} answerIndex={index + 1} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
-                            )) }
+                            
+                            {currentQuestion.answers.map((answer, index) => (
+                                <NewAnswer key={index} answerIndex={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
+                            ))}
                         </RadioGroup>
                     </FormControl>
 

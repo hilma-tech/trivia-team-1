@@ -14,13 +14,13 @@ interface Props {
 
 
 const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
-    const { sendInput, setCurrentAnswers, questions: questions } = useAnswerContext()
+    const { sendInput, setQuestions: setCurrentAnswers, questions: questions } = useAnswerContext()
     // const [questionId, setQuestionId] = useState(1);
 
 
 
     useEffect(() => {
-        console.log('currentAnswers:', questions)
+        console.log('questions:', questions)
     }, [questions])
 
     return (
