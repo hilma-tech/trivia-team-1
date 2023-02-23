@@ -1,7 +1,3 @@
-* {
-    margin: 0%;
-}
-
 .register {
     padding-top: 6vh;
     height: 73vh;
@@ -10,7 +6,7 @@
     box-sizing: border-box;
 
 
-    h1 {
+    .mainRegisterHeader {
         margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
@@ -48,7 +44,8 @@
 
     .registerForm {
         grid-area: a;
-
+        display: flex;
+        flex-direction: column;
         .regErrDiv{
             margin-top: 1%;
             font-size: 1.1vmax;
@@ -56,7 +53,7 @@
             font-weight: bolder;
         }
 
-        input {
+        .registerInput {
             width: 25vw;
             height: 4.5vh;
             margin-bottom: 5%;
@@ -65,11 +62,11 @@
             font-size: 1.1vmax;
         }
 
-        p {
+        .loginParag {
             font-size: 1.3vmax;
         }
 
-        button {
+        .registerSubmitButton {
             height: 6vh;
             width: 25.4vw;
             font-size: 1.6vmax;
@@ -118,13 +115,15 @@
     }
 
     .registerForm {
-       
-        div {
+    //     display: flex;
+    //    flex-direction: column;
+    //    align-items: center;
+        .registerLable {
             margin-right: calc((100vw - 228px) / 2);
             text-align: right;
         }
 
-        input {
+        .registerInput {
             width: 220px;
             height: 30px;
             margin-bottom: 2vh;
@@ -133,12 +132,14 @@
             font-size: 14px;
         }
 
-        button {
+        .registerSubmitButton {
             width: 228px;
             height: 40px;
             margin-bottom: 8px;
             font-size: 26px;
             margin-top: 1vh;
+            display: flex;
+           margin-right: calc((100vw - 228px)/2);
         }
         .regErrDiv{
             width: 228px;
@@ -150,20 +151,21 @@
 
     }
 
-    h1 {
+    .bigHeader {
         font-size: 65px;
         margin-top: 0px;
+        margin-bottom: 0px;
     }
 
-    h2 {
+    .smallHeader {
         font-size: 35px;
         margin-bottom: 0px;
         margin-top: 18vh;
     }
 
     @media screen and (max-height: 800px){
-        h2{
-            margin-top: 8vh;
+        .smallHeader{
+            margin-top: 4vh;
         }
     }
 }
