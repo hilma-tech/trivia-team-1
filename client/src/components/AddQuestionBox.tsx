@@ -10,13 +10,13 @@ import { CurrentQuestion } from '../utils/Interfaces'
 
 
 interface Props {
-    setAnswer: any;
+    setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
 
 }
 
 
-const AddQutionsBox: FC<Props> = ({ setAnswer, currentQuestion: currentQuestion }) => {
+const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion: currentQuestion }) => {
 
     // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
@@ -29,7 +29,7 @@ const AddQutionsBox: FC<Props> = ({ setAnswer, currentQuestion: currentQuestion 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let copy = { ...currentQuestion };
         copy.questionTitle = e.target.value;
-        setAnswer(copy);
+        setCurrentQuestion(copy);
 
     }
 
@@ -52,7 +52,7 @@ const AddQutionsBox: FC<Props> = ({ setAnswer, currentQuestion: currentQuestion 
                                 <NewAnswer key={index} questionNum={index + 1} setAnswer={setAnswer} answer={answer} answersArr={answersArr}/>
                             )} */}
                             {currentQuestion.answers.map((answer , index) => (
-                                <NewAnswer key={index} answerIndex={index + 1} setCurrentQuestion={setAnswer} currentQuestion={currentQuestion} />
+                                <NewAnswer key={index} answerIndex={index + 1} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
                             )) }
                         </RadioGroup>
                     </FormControl>
@@ -78,4 +78,4 @@ const AddQutionsBox: FC<Props> = ({ setAnswer, currentQuestion: currentQuestion 
 };
 
 
-export default AddQutionsBox;
+export default AddQuestionBox;

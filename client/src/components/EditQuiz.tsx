@@ -6,7 +6,7 @@ import ShowQuizBtn from '../images/showquizzbtn.svg'
 import LinkBtn from '../images/linkBtn.svg'
 import saveBtn from '../images/saveBtn.svg'
 import Selectimage from '../images/image.svg'
-import AddQutionsBox from './addQuestionsBox'
+import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../images/plusBtn.svg'
 import FinalBoxQuestions from './FinalBoxQuestions'
 import { useAnswerContext } from '../context/AnswersContext'
@@ -28,7 +28,7 @@ const EditQuiz: FC = () => {
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
         questionId: 0 ,  
         questionTitle:'' , 
-        answers:[]
+        answers:['' , '']
     });
 
     const [countForKeys, setCountForKeys] = useState(0);
@@ -86,7 +86,7 @@ const EditQuiz: FC = () => {
                 {questionsArr.map((item, index: number) => {
                     return (
                         currentEditQuestion === index
-                            ? <AddQutionsBox key={index} setAnswer={setCurrentQuestion} currentQuestion={currentQuestion} />
+                            ? <AddQuestionBox key={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
                             : <FinalBoxQuestions key={index} questionId={index + 1} />
                     )
                 })}
