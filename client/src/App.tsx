@@ -4,7 +4,7 @@ import Navbar from './components/navbar/Navbar';
 import Background from './components/Background';
 import './style/background.scss'
 import './style/navbar.scss'
-import MyQuizes from './components/MyQuizes';
+import MyQuizes from './components/myQuizzes/MyQuizes';
 
 
 function App() {

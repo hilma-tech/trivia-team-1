@@ -1,12 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
-import TrashSvg from "../images/trash.svg";
-import LinkSvg from "../images/link.svg";
-import EditSvg from "../images/edit.svg";
-import ScoreboardSvg from "../images/scoreboard.svg";
+import TrashSvg from "../../images/trash.svg";
+import LinkSvg from "../../images/link.svg";
+import EditSvg from "../../images/edit.svg";
+import ScoreboardSvg from "../../images/scoreboard.svg";
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import MenuPic from "../images/dottedMenu.png"
+import MenuPic from "../../images/dottedMenu.png"
 
 
 

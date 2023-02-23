@@ -1,5 +1,5 @@
 import { FC } from "react";
-import monkeyThink from "../images/monkeyThink.svg";
+import monkeyThink from "../../images/monkeyThink.svg";
 
 
 
