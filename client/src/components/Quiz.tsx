@@ -91,7 +91,7 @@ const Quiz: FC<QuizProps> = (props) => {
         }}
       >
         <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="scoreBoardButton" onClick={() => toScoreboard(id)}><img src={ScoreboardSvg} alt="score" /><span>לוח תוצאות</span></div></MenuItem>
-        <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="emojiButtons" onClick={() => linkCopied(id)}><img className="shraga" src={LinkSvg} alt="link" /><span>שליחת קישור למשחק</span></div></MenuItem>
+        <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="emojiButtons" onClick={() => linkCopied(id)}><img src={LinkSvg} alt="link" /><span>שליחת קישור למשחק</span></div></MenuItem>
         <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="emojiButtons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /><span>עריכת משחק</span></div></MenuItem>
         <MenuItem className="quiz-menu-item" onClick={handleClose}> <div className="emojiButtons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /><span>מחיקת משחק</span></div></MenuItem>
       </Menu>
