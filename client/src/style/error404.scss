@@ -1,16 +1,16 @@
-.error404Div{
+.error-div{
     padding-top: 16vh;
     text-align: center;
-    .span4{
+    .error-span{
         font-size: 13vmax;
         color: #0C3249;
         opacity: 70%;
         font-weight: bolder;
     }
-    img{
+    .error-monkey{
         width: 8vw;
     }
-    h2{
+    .error-descrip{
         text-align: center;
         position: relative;
         bottom: 4vh;

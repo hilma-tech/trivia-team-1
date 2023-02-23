@@ -6,12 +6,12 @@ import Monkey404 from '../images/404monkey.svg'
 function Error() {
 
     return ( 
-    <div className="error404Container">
-        <div className="error404Div">
-            <span className='span4'>4</span>
-            <img src={Monkey404}/>
-            <span className='span4'>4</span>
-            <Typography variant='h2'>עמוד זה אינו קיים</Typography >
+    <div className="error-container">
+        <div className="error-div">
+            <span className='error-span'>4</span>
+            <img className='error-monkey' src={Monkey404} alt='monkey'/>
+            <span className='error-span'>4</span>
+            <Typography className='error-descrip' variant='h2'>עמוד זה אינו קיים</Typography >
         </div>
     
     </div> 
