@@ -5,45 +5,44 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { usePopContext } from './popContext';
+import { FC } from 'react';
 
-export default function GenericPop() {
-  const [open, setOpen] = React.useState(false);
+const GenericPop: FC<{ type: string }> = ({ type }) => {
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const { setPopOpen, popOpen, popHandleClickOpen, popHandleClose } = usePopContext();
 
-  const handleClose = () => {
-    setOpen(false);
-  };
 
   return (
-    <div>
-      <Button variant="contained" onClick={handleClickOpen}>
-        יפתח אל פופ
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Use Google's location service?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous
-            location data to Google, even when no apps are running.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Disagree</Button>
-          <Button onClick={handleClose} autoFocus>
-            Agree
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <Dialog
+      open={popOpen}
+      onClose={popHandleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+    >
+      <DialogTitle id="alert-dialog-title">
+        {type === "copyQuiz" && "הקישור הועתק"}
+        {type === "deleteQuiz" && "האם אתה בטוח?"}
+        {type === "saveChanges" && "שים לב"}
+        {type === "exitGame" && "האם אתה בטוח שברצונך לצאת מהמשחק"}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {type == "copyQuiz" && 'מצוין! עכשיו אתה יכול לשתף את החידון שלך עם חברים'}
+          {type == "deleteQuiz" && 'אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים שאספת ימחק'}
+          {type === "saveChanges" && "אם תשמור את השינויים לוח התוצאות שלך יתאפס"}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        {type !== "copyQuiz" && <Button onClick={popHandleClose} autoFocus>
+          ביטול
+        </Button>}
+        <Button variant="contained" color="primary" onClick={popHandleClose}>אישור</Button>
+      </DialogActions>
+    </Dialog>
   );
+
+
 }
+
+export default GenericPop;

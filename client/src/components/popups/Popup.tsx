@@ -1,7 +1,7 @@
 import { Button, Link } from "@mui/material"
 import { FC } from "react"
+import { useContext } from "react"
 import '../../style/popups.scss'
-
 
 const Popup: FC<{ type: string }> = ({ type }) => {
     return (

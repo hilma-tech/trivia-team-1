@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import Quiz from "./Quiz";
-import "../style/myQuizes.scss"
+import "../../style/myQuizes.scss"
 import NoQuiz from "./NoQuizes";
 
 
