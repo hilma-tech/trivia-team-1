@@ -1,13 +1,14 @@
-import theme from './style/generateTheme'
-import Background from './components/Background';
+import { Navigate, Route, Routes } from "react-router-dom";
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import './style/background.scss'
 import './style/navbar.scss'
+
+import theme from './style/generateTheme'
+import Background from './components/Background';
 import Navbar from './components/navbar/Navbar';
-import { Navigate, Route, Routes } from "react-router-dom";
 import EnterancePage from "./components/entrancePage";
 import Login from "./components/login";
 import Register from "./components/register";
-import { CssBaseline, ThemeProvider } from '@mui/material';
 import Error from './components/error404';
 function App() {
   return (

@@ -1,6 +1,3 @@
-*{
-    margin: 0%;
-}
 .entrancePage {
     padding-top: 6vh;
     height: 73vh;
@@ -9,7 +6,7 @@
     box-sizing:border-box;
 
 
-    h1 {
+    .mainEnteranceHeader {
         margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
@@ -28,14 +25,14 @@
         margin-right: 5%;
         display: grid;
         grid-template-areas:
-            "a b"
-            "c b";
+            "buttons img"
+            "space img";
         margin-bottom: 5%;
         margin-left: 5%;
     }
 
     .entranceButtonDiv {
-        grid-area: a;
+        grid-area: buttons;
     }
 
     .userHello {
@@ -45,7 +42,7 @@
     }
 
     .monkeyEnterPic {
-        grid-area: b;
+        grid-area: img;
         text-align: center;
         img{
             height: 44vh;
@@ -56,11 +53,16 @@
     }
 
     .entranceButtonDiv{
-        button{
+        .enterancePageButton{
         width: 15.625vw;
         height: 10vh;
         margin-left: 35px;
-        font-size: 2vmax;
+        font-size: 1.5vmax;
+        font-weight: bolder;
+        img{
+           width: 1.5vw; 
+           margin-left: 5%;
+        }
         }
         .myQuizesButton{
             box-shadow: 0px 1.25vh 0px 0px #985E4B;
@@ -119,7 +121,7 @@
         }
     }
 
-    button {
+    .enterancePageButton {
         width: 220px;
         height: 70px;
         margin-bottom: 12px;
@@ -149,13 +151,13 @@
         }
     }
 
-    h1 {
+    .bigHeader {
         font-size: 65px;
         margin-bottom: 20px;
         margin-top: 0px;
     }
 
-    h2 {
+    .smallHeader {
         font-size: 35px;
         margin-bottom: 0px;
         margin-top: 130px;

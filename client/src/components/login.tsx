@@ -1,14 +1,14 @@
 import '../style/login.scss'
+import { Button, Typography } from '@mui/material';
+import { useState } from 'react';
+
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
-import { useState } from 'react';
-import { Button, Typography } from '@mui/material';
-
 
 function Login() {
-    let [username,setUsername] = useState('')
-    let [password,setPassword] = useState('')
-    let [regErrDiv, setRegErrDiv] = useState('')
+    const [username,setUsername] = useState('')
+    const [password,setPassword] = useState('')
+    const [regErrDiv, setRegErrDiv] = useState('')
 
 
     function enterUsernameErr() {
@@ -22,50 +22,50 @@ function Login() {
 
     return (
         window.screen.width > 600 ?
-           
-                <div className='compChildrenContainer login'>
-                <Typography variant='h1'>חידונים מטורפים</Typography>
+            <div className='compChildrenContainer login'>
+                <Typography className='mainLoginHeader'  variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
                     <form className='loginForm'>
-                        <Typography variant='body1'>שם משתמש</Typography>
-                        <input id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e)=>setUsername(e.target.value)} required maxLength={16}/>
-                        <Typography variant='body1'>סיסמה</Typography>
-                        <input id='newPass' type='password'  value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
-                        <br />
+                        <Typography className='loginParag' variant='body1'>שם משתמש</Typography>
+                        <input className='loginInput' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e)=>setUsername(e.target.value)} required maxLength={16}/>
+                        <Typography className='loginParag' variant='body1'>סיסמה</Typography>
+                        <input className='loginInput' id='newPass' type='password'  value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
+                       
                         <Button color='primary' variant='contained' className='loginSubmitButton' type='submit'>הרשמה</Button>
-                        <br />
+                       
                         <div className='toRegisterLink'>
-                            <a href='register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
+                            <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                         </div>
                         <div className='regErrDiv'>{regErrDiv}</div>
                     </form>
                     <div className='monkeyEnterPic'>
-                        <img src={monkeyEnter} alt='monkey'></img>
+                        <img src={monkeyEnter} alt='monkey'/>
                     </div>
                 </div>
-                </div>
-             :
+            </div> :
             <div className='loginMobile'>
                 <div className='leavesEnterance'>
-                    <img src={leavesEnterance} />
+                    <img src={leavesEnterance} alt='leaves'/>
                 </div>
-                <Typography variant='h2'>משחק</Typography>
-                <Typography variant='h1'>טריוויה</Typography>
+                <header>
+                    <div className='smallHeader'>משחק</div>
+                    <div className='bigHeader'>טריוויה</div>
+                </header>
                 <form className='loginForm'>
-                    <div>שם משתמש</div>
-                    <input id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e)=>setUsername(e.target.value)} required maxLength={16}/>
-                    <div>סיסמה</div>
-                    <input id='newPass' type='password' value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
-                    <br />
+                    <div className='loginLabel'>שם משתמש</div>
+                    <input className='loginInput' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e)=>setUsername(e.target.value)} required maxLength={16}/>
+                    <div className='loginLabel'>סיסמה</div>
+                    <input className='loginInput' id='newPass' type='password' value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
+                   
                     <Button color='primary' variant='contained' className='loginSubmitButton' type='submit'>הרשמה</Button>
                     <br/>
-                    <a href='register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
-                <div className='regErrDiv'>{regErrDiv}</div>
+                    <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
+                <div className='loginLabel regErrDiv'>{regErrDiv}</div>
                 </form>
                 
                 <div className='monkeyEnterPic'>
-                    <img src={monkeyEnter} alt='monkey'></img>
+                    <img src={monkeyEnter} alt='monkey'/>
                 </div>
             </div>);
 }
