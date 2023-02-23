@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuPic from "../../images/dottedMenu.png"
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -24,11 +25,13 @@ const Quiz: FC<QuizProps> = (props) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
+  const navigate = useNavigate()
   const handleClose = () => {
     setAnchorEl(null);
   };
   const { id, name, url, description, answers } = props;
   const toScoreboard = (id: number) => {
+    navigate(`${id}/scoreboard`)
   }
   const toEdit = (id: number) => {
     console.log("rere");

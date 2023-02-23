@@ -11,11 +11,11 @@ export default function LoadingMonkey() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setTimeout(() => navigate('/error404'), 3000)
+    setTimeout(() => navigate('/error404'), 10000)
   }, [])
 
 
-  return (<div className='loading-monkey'>
+  return (<div className='compChildrenContainer loading-monkey'>
     <img src={loadingMonkey} alt="" />
     <Box className="progressLine" >
       <LinearProgress />

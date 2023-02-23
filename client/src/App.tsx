@@ -26,10 +26,12 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path='*' element={<Navigate replace to="/loading-page" />} />
-          <Route path='/error404' element={<Error/>}/>
-          <Route path='/loading-page' element={<LoadingMonkey/>} />
-          <Route path='/my-quizzes' element={<MyQuizes/>} />
-          <Route path='scoreboard' element={<ScoreCard/>} />
+          <Route path='/error404' element={<Error />} />
+          <Route path='/loading-page' element={<LoadingMonkey />} />
+          <Route path='/my-quizzes'>
+            <Route path='/my-quizzes' element={<MyQuizes />} />
+            <Route path='/my-quizzes/:id/scoreboard' element={<ScoreCard />} />
+          </Route>
         </Routes >
       </Background>
     </ThemeProvider>
