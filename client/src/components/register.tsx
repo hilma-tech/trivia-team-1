@@ -35,7 +35,7 @@ function Register() {
 
     return (
 isLargeScreen ?
-            <div className='comp-children-container register'>
+            <div id='register' className='comp-children-container'>
                 <Typography className='main-register-header' variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>

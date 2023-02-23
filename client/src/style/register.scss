@@ -1,8 +1,5 @@
-.register {
+#register {
     padding-top: 6vh;
-    height: 73vh;
-    width: 68.75vw;
-    margin: 0%;
     box-sizing: border-box;
 
 
@@ -144,6 +141,8 @@
             font-size: 14px;
             color: red;
             font-weight: bolder;
+            margin-right: calc((100vw - 228px)/2);
+            text-align: right;
         }
 
     }

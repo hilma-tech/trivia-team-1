@@ -1,13 +1,10 @@
-.login {
+#login {
     padding-top: 6vh;
-    height: 73vh;
-    width: 68.75vw;
-    margin: 0%;
     box-sizing: border-box;
 
 
     .main-login-header {
-        margin-right: 15%;
+        margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
     }
@@ -178,6 +175,12 @@
             font-size: 14px;
             color: red;
             font-weight: bolder;
+            margin-right: calc((100vw - 228px)/2);
+            text-align: right;
+        }
+
+        a{
+           font-size: 15px; 
         }
 
         a:link {
@@ -205,9 +208,6 @@
         }
 
     }
-
-
-
 
     .big-header {
         font-size: 65px;

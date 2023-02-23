@@ -15,7 +15,7 @@ export default function LoadingMonkey() {
   }, [])
 
 
-  return (<div className='compChildrenContainer loading-monkey'>
+  return (<div className='comp-children-container loading-monkey'>
     <img src={loadingMonkey} alt="" />
     <Box className="progress-line" >
       <LinearProgress />
