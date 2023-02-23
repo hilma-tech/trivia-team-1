@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateGameHeader from './create-game-header';
+import CreateGameHeader from './CreateGameHeaderProps';
 
 function CreateGame() {
   return (

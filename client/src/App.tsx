@@ -1,13 +1,13 @@
 import React from 'react';
-import QuastionTemp from './components/quastion-temp';
-import OpeningForTheQuiz from './components/opening-for-the-quiz';
+import QuestionTemp from './components/question-template/QuestionTemp';
+import OpeningForTheQuiz from './components/question-template/OpeningForTheQuiz';
 import './App.css';
 
 function App() {
   return (
     <div>
       {/* <OpeningForTheQuiz/> */}
-      <QuastionTemp/>
+      <QuestionTemp/>
     </div>
   );
 }

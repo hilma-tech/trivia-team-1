@@ -7,15 +7,9 @@ interface CreateGameHeaderProps {
 const CreateGameHeader: React.FC<CreateGameHeaderProps> = ({ description }) => {
     return (
         <div>
-            <img 
-                src={'./img/monkey.svg'} alt="monkey img"
-            />
-            <p>
-                {description}
-            </p>
-            <img 
-                src={'./img/arrow-back.svg'} alt="arrow img"
-            />
+            <img src={'./img/monkey.svg'} alt="monkey img" />
+            <p>{description}</p>
+            <img src={'./img/arrow-back.svg'} alt="arrow img" />
         </div>
     );
 }

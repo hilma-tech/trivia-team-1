@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import '../style/OpeningForTheQuiz.css';
-import triangleIcon from '../icons/Icon-awesome-play.png';
-import italyPic from '../img/italy.png'
-import OpeningParagraphTitle from './opening-paragraph-title';
-import CheckForName from './checkForName';
+import triangleIcon from '../icons/icon-awesome-play.png';
+import italyPic from '../../images/question-template/italy.png';
+import OpeningParagraphTitle from './OpeningParagraphTitle';
+import CheckForName from './CheckForName';
+import '../../style/OpeningForTheQuiz.scss';
 
 function OpeningForTheQuiz() {
 
@@ -22,6 +22,7 @@ function OpeningForTheQuiz() {
             .then((res) => res.json)
             .then((data) => {
                 console.log("hiiiii");
+                
                 // setImgUrl(data.imgUrl);
                 // setQuizTitle(data.quizTitle);
                 // setParagraph(data.paragraph);

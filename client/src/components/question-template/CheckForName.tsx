@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import triangleIcon from '../icons/Icon-awesome-play.png';
 
 
@@ -42,8 +42,12 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                         <p>איך קוראים לכם?</p>
                     </div>
                     <form name="identification-form">
-                        <input onChange={(ev) => setPlayerName(ev.target.value)} name="player-identification" type="text"
-                            placeholder="נא להזין שם" value={playerName} required />
+                        <input
+                            onChange={(ev) => setPlayerName(ev.target.value)}
+                            name="player-identification" type="text"
+                            placeholder="נא להזין שם"
+                            value={playerName} required
+                        />
                     </form>
                     <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
                         <p>!יאללה בואו נתחיל</p>
