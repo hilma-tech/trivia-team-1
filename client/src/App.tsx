@@ -6,6 +6,7 @@ import Background from './components/Background';
 import './style/background.scss'
 import './style/navbar.scss'
 import GenericPop from './components/popups/GenericPop';
+import MyQuizes from './components/MyQuizes';
 
 
 function App() {
@@ -15,9 +16,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Background>
-          <GenericPop />
-          {/* <Popup type='copyQuiz'/> */}
-          {/* components here */}
+          <MyQuizes/>
         </Background>
       </ThemeProvider>
     </div>
