@@ -6,8 +6,8 @@ import  "../style/loadingMonkey.scss"
 
 
 export default function LoadingMonkey() {
-  return (<div className='loadingMonkey'>
-    <img src={loadingMonkey} alt="loading monkey" />
+  return (<div className='loading-monkey'>
+    <img src={loadingMonkey} alt="" />
     <Box className="progressLine" >
       <LinearProgress />
     </Box>
