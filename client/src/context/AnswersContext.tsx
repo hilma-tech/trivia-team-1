@@ -1,9 +1,9 @@
 import React, { useState, createContext, useEffect, FC, ReactNode, useContext } from "react";
-import {Answers} from '../utils/Interfaces'
+import {CurrentQuestion, Question} from '../utils/Interfaces'
 interface AnswersContextInterface {
-    setCurrentAnswers: React.Dispatch<React.SetStateAction<Answers[]>>;
+    setCurrentAnswers: React.Dispatch<React.SetStateAction<CurrentQuestion[]>>;
     sendInput: boolean;
-    currentAnswers: Answers[];
+    questions:Question[];
     setSendInput: React.Dispatch<React.SetStateAction<boolean>>;
     emptyQuestionEdit : boolean;
     setEmptyQuestionEdit : React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,7 +23,9 @@ const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
     const [currentAnswers, setCurrentAnswers] = useState<any[]>([]);
     const [emptyQuestionEdit, setEmptyQuestionEdit] = useState(true);
 
-
+    // useEffect(() => {
+    //     console.log(currentAnswers.length)
+    // },[currentAnswers.length])
 
     // useEffect(() => {
     //     console.log("currentAnswers:", currentAnswers);
@@ -33,7 +35,7 @@ const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
         setSendInput: setSendInput,
         sendInput: sendInput,
         setCurrentAnswers: setCurrentAnswers,
-        currentAnswers: currentAnswers,
+        questions: currentAnswers,
         emptyQuestionEdit :emptyQuestionEdit,
         setEmptyQuestionEdit: setEmptyQuestionEdit
     }

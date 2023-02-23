@@ -1,48 +1,45 @@
 import React, { FC, useState, useEffect } from "react";
 import Selectimage from '../images/image.svg'
-import MakeQuestion from './inputQuestions'
+import NewAnswer from './NewAnswer'
 import AddAnswer from '../images/addAnswer.svg'
 import duplicateSvg from '../images/copy.svg'
 import TrashSvg from '../images/trash.svg'
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
-import { IconButton, TextField } from "@mui/material";
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
-import { Answers } from '../utils/Interfaces'
+import { CurrentQuestion } from '../utils/Interfaces'
 
 
 interface Props {
     setAnswer: any;
-    answer: Answers;
+    currentQuestion: CurrentQuestion;
 
 }
 
 
-const AddQutionsBox: FC<Props> = ({ setAnswer, answer }) => {
+const AddQutionsBox: FC<Props> = ({ setAnswer, currentQuestion: currentQuestion }) => {
 
-    const [answersArr, setAnswersArr] = useState([1, 1]);
+    // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
     const addAnswer = () => {
-        if (answersArr.length < 4) {
-            setAnswersArr([...answersArr, 1]);
-        }
+        // if (answersArr.length < 4) {
+        //     setAnswersArr([...answersArr, 1]);
+        // }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        let copy = { ...answer };
-        copy.question = e.target.value;
+        let copy = { ...currentQuestion };
+        copy.questionTitle = e.target.value;
         setAnswer(copy);
 
     }
+
 
     return (
         <div className='addQutionsContainer'>
             <div className='darganddropContainer'><button></button></div>
             <div className='quizQuestionsContainer'>
                 <div className='quizQuestions' >
-                    <input type="text" placeholder="שאלה" className="question-input" value={answer['question']} onChange={handleChange} />
+                    <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion['questionTitle']} onChange={handleChange} />
                     <img className='selectImageQutionsSvg' src={Selectimage} />
                 </div>
                 <div className="answer-container">
@@ -51,9 +48,12 @@ const AddQutionsBox: FC<Props> = ({ setAnswer, answer }) => {
                             aria-labelledby="demo-radio-buttons-group-label"
                             name="radio-buttons-group"
                         >
-                            {answersArr.map((item, index: number) =>
-                                <MakeQuestion key={index} questionNum={index + 1} setAnswer={setAnswer} answer={answer} />
-                            )}
+                            {/* {answersArr.map((item, index: number) =>
+                                <NewAnswer key={index} questionNum={index + 1} setAnswer={setAnswer} answer={answer} answersArr={answersArr}/>
+                            )} */}
+                            {currentQuestion.answers.map((answer , index) => (
+                                <NewAnswer key={index} answerIndex={index + 1} setCurrentQuestion={setAnswer} currentQuestion={currentQuestion} />
+                            )) }
                         </RadioGroup>
                     </FormControl>
 

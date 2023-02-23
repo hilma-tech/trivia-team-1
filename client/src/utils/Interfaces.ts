@@ -1,10 +1,11 @@
-export interface Answers {
-    questionId:number;
-    question:string;
-    answer1: string;
-    answer2: string;
-    answer3: string;
-    answer4: string;
+export interface CurrentQuestion {
+    questionId: number;
+    questionTitle: string;
+    answers: string[];
+    correctAnswer?: number;
 }
+
+export type Question = Required<CurrentQuestion>;
+
 
 

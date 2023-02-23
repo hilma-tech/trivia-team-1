@@ -10,39 +10,33 @@ import AddQutionsBox from './addQuestionsBox'
 import plusBtn from '../images/plusBtn.svg'
 import FinalBoxQuestions from './FinalBoxQuestions'
 import { useAnswerContext } from '../context/AnswersContext'
-import { Answers } from '../utils/Interfaces'
+import { CurrentQuestion } from '../utils/Interfaces'
 
 import AnswersProvider from '../context/AnswersContext'
 
 
 
 
-// interface AnswersContextInterface {
-//     setCurrentAnswers: React.Dispatch<React.SetStateAction<string[]>>;
-//     sendInput: boolean;
-//     currentAnswers: string[]z;
-// }
-
-
-
-// export const AnswersContext = createContext<AnswersContextInterface | null>(null);
-
 
 
 const EditQuiz: FC = () => {
 
-    const { sendInput, setCurrentAnswers, currentAnswers, setSendInput  , setEmptyQuestionEdit , emptyQuestionEdit} = useAnswerContext()
+    const { sendInput, setCurrentAnswers, questions: currentAnswers, setSendInput  , setEmptyQuestionEdit , emptyQuestionEdit} = useAnswerContext()
 
     const [questionsArr, setQuestionsArr] = useState([1]);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [answer, setAnswer] = useState<Answers>({questionId: 0 ,  question:'' , answer1: '', answer2: '', answer3: '', answer4: '' });
+    const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
+        questionId: 0 ,  
+        questionTitle:'' , 
+        answers:[]
+    });
 
     const [countForKeys, setCountForKeys] = useState(0);
 
 
 
     useEffect(() => {
-        setCurrentAnswers([...currentAnswers, answer])
+        setCurrentAnswers([...currentAnswers, currentQuestion])
     }, [sendInput])
 
 
@@ -92,7 +86,7 @@ const EditQuiz: FC = () => {
                 {questionsArr.map((item, index: number) => {
                     return (
                         currentEditQuestion === index
-                            ? <AddQutionsBox key={index} setAnswer={setAnswer} answer={answer} />
+                            ? <AddQutionsBox key={index} setAnswer={setCurrentQuestion} currentQuestion={currentQuestion} />
                             : <FinalBoxQuestions key={index} questionId={index + 1} />
                     )
                 })}
