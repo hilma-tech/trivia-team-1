@@ -30,12 +30,19 @@ const AddQutionsBox: FC<Props> = ({ setAnswer, answer }) => {
         }
     }
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        let copy = { ...answer };
+        copy.question = e.target.value;
+        setAnswer(copy);
+
+    }
+
     return (
         <div className='addQutionsContainer'>
             <div className='darganddropContainer'><button></button></div>
             <div className='quizQuestionsContainer'>
                 <div className='quizQuestions' >
-                    <input type="text" placeholder="שאלה" className="question-input" />
+                    <input type="text" placeholder="שאלה" className="question-input" value={answer['question']} onChange={handleChange} />
                     <img className='selectImageQutionsSvg' src={Selectimage} />
                 </div>
                 <div className="answer-container">

@@ -35,7 +35,7 @@ const EditQuiz: FC = () => {
 
     const [questionsArr, setQuestionsArr] = useState([1]);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [answer, setAnswer] = useState<Answers>({ answer1: '', answer2: '', answer3: '', answer4: '' });
+    const [answer, setAnswer] = useState<Answers>({questionId: 0 ,  question:'' , answer1: '', answer2: '', answer3: '', answer4: '' });
 
     const [countForKeys, setCountForKeys] = useState(0);
 
@@ -52,12 +52,10 @@ const EditQuiz: FC = () => {
         if (questionsArr.length < 10) {
             setQuestionsArr([...questionsArr, 1]);
             setCurrentEditQuestion(currentEditQuestion + 1)
-
+            
         }
 
-
     }
-
 
 
     return (
@@ -95,7 +93,7 @@ const EditQuiz: FC = () => {
                     return (
                         currentEditQuestion === index
                             ? <AddQutionsBox key={index} setAnswer={setAnswer} answer={answer} />
-                            : <FinalBoxQuestions key={index} />
+                            : <FinalBoxQuestions key={index} questionId={index + 1} />
                     )
                 })}
                 {/* <AddQutionsBox /> */}

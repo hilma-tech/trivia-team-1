@@ -1,34 +1,50 @@
 import React, { Component, FC, useState, createContext, useContext, useEffect } from 'react';
 import { useAnswerContext } from '../context/AnswersContext'
+import FormControl from '@mui/material/FormControl';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
 
 
+interface Props {
+    questionId: number;
+    
 
-// type answer ={
-//     answer1: string ;
-
-// }
+}
 
 
-const FinalBoxQuestions: FC = () => {
+const FinalBoxQuestions: FC<Props> = ({questionId}) => {
     const { sendInput, setCurrentAnswers, currentAnswers } = useAnswerContext()
-    const [questionId, setQuestionId] = useState(1);
+    // const [questionId, setQuestionId] = useState(1);
 
 
 
-    // useEffect(() => {
-    //     console.log('currentAnswers:', currentAnswers)
-    // }, [currentAnswers])
+    useEffect(() => {
+        console.log('currentAnswers:', currentAnswers)
+    }, [currentAnswers])
 
     return (
-        <div className='redayQuestionsContanier'>
+        <div className='readyQuestionsContanier'>
+
             {currentAnswers.length > 1 &&
                 currentAnswers.map((answer, index: number) =>
-                    index != 0 &&
-                    <div>
-                        <p>{answer.answer1}</p>
-                        <p>{answer.answer2}</p>
-                        <p>{answer.answer3}</p>
-                        <p>{answer.answer4}</p>
+                    index != 0 && index === questionId &&
+                    <div className='answer-and-qeustions-container'>
+                        <div className='question-contanier'>
+                            <p>{answer.question}</p>
+                        </div>
+                        <div className="answer-container">
+                            <FormControl>
+                                <RadioGroup>
+                                    <div className="radio-ready-Contanier" dir='rtl'>
+                                        <FormControlLabel value={'answer1'} control={<Radio />} label={answer.answer1} />
+                                        <FormControlLabel value={'answer2'} control={<Radio />} label={answer.answer2} />
+                                        <FormControlLabel value={'answer3'} control={<Radio />} label={answer.answer3} />
+                                        <FormControlLabel value={'answer4'} control={<Radio />} label={answer.answer4} />
+                                    </div>
+                                </RadioGroup>
+                            </FormControl>
+                        </div>
                     </div>
                 )}
 

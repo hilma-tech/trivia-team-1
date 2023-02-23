@@ -205,6 +205,7 @@ body {
         display: flex;
         justify-content: flex-end;
         height: 7vh;
+        margin-left: 3%;
         
     }
 
@@ -320,15 +321,44 @@ body {
 }
 
 
-.redayQuestionsContanier{
+.readyQuestionsContanier{
     background-color: #FFFFFF;
     margin-top: 2%;
     width: 58vw;
-    height: 20vh;
     border: 2px solid #0C3249;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+
+    .answer-and-qeustions-container{
+        width: 95%;
+    }
+
+    .MuiSvgIcon-root{
+        height: 0.6em;
+    }
+
+    .question-contanier{
+        width:28%;
+        display: flex;
+        justify-content: center;
+
+    }
+
+    .radio-ready-Contanier{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .MuiFormControlLabel-root	{
+        margin-right: 0px;
+    }
+
+    
+}
+
+.width{
+    width: 25vw;
 }

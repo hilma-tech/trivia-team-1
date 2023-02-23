@@ -1,4 +1,4 @@
-import { IconButton, TextField } from "@mui/material";
+import { IconButton, TextField, makeStyles, createStyles, Theme } from "@mui/material";
 import React, { FC, useState, useContext, useEffect, useRef } from "react";
 import { useAnswerContext } from '../context/AnswersContext'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -14,13 +14,7 @@ import Radio from '@mui/material/Radio';
 import { withStyles } from '@material-ui/core/styles';
 
 
-const styles = {
-    root: {
-      '& .MuiInput-underline:before': {
-        borderBottomWidth: '2px', // change this to resize the underline
-      }
-    },
-  };
+
 
 
 const theme = createTheme({
@@ -36,7 +30,7 @@ interface Props {
     questionNum: number;
     isChecked?: boolean;
     setAnswer: any;
-    answer:any;
+    answer: any;
 
 }
 
@@ -44,10 +38,34 @@ interface Icons {
     label: any;
     icon: any;
     checkedIcon: any;
+    underline: string;
 
 }
 
-const Checkbox: FC<Icons> = ({ label, icon, checkedIcon }) => {
+// const useStyles = makeStyles((theme: Theme) : void =>
+//     createStyles({
+//         root: {
+//             '& .MuiInput-underline:before': {
+//                 borderBottomWidth: 2,
+//             },
+//             '& .MuiInput-underline:after': {
+//                 borderBottomWidth: 2,
+//             },
+//             '& .MuiInput-underline:hover:before': {
+//                 borderBottomWidth: 2,
+//             },
+//         },
+//     }),
+// );
+
+// const classes = useStyles();
+
+const Checkbox: FC<Icons> = ({ label, icon, checkedIcon, underline }) => {
+
+
+
+
+
 
     return (
         <FormControlLabel
@@ -60,31 +78,31 @@ const Checkbox: FC<Icons> = ({ label, icon, checkedIcon }) => {
 }
 
 
-const MakeQuestion: FC<Props> = ({ questionNum, isChecked = false , setAnswer , answer }) => {
+const MakeQuestion: FC<Props> = ({ questionNum, isChecked = false, setAnswer, answer }) => {
     const [checked, setChecked] = useState<boolean>(isChecked);
     const [howManyQuestions, setHowManyQuestions] = useState<number>(1);
 
     const ref = React.useRef(null)
-    const { sendInput, setCurrentAnswers, currentAnswers  ,emptyQuestionEdit ,setEmptyQuestionEdit } = useAnswerContext()
-    
-   
+    const { sendInput, setCurrentAnswers, currentAnswers, emptyQuestionEdit, setEmptyQuestionEdit } = useAnswerContext()
+
+
     useEffect(() => {
-        if(howManyQuestions !== currentAnswers.length && currentAnswers.length !==0 )  {
+        if (howManyQuestions !== currentAnswers.length && currentAnswers.length !== 0) {
             console.log('hi')
-            let copy  = {...answer};
-            for (answer in copy){
+            let copy = { ...answer };
+            for (answer in copy) {
                 copy[answer] = '';
             }
             setHowManyQuestions(howManyQuestions + 1);
             setAnswer(copy)
-         }
+        }
 
     }, [currentAnswers.length])
 
 
-    const handleChange = (e: { target: any; }) => {
-        let copy  = {...answer};
-        copy[`answer${questionNum}`]= e.target.value;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        let copy = { ...answer };
+        copy[`answer${questionNum}`] = e.target.value;
         setAnswer(copy);
     };
 
@@ -95,8 +113,8 @@ const MakeQuestion: FC<Props> = ({ questionNum, isChecked = false , setAnswer , 
                     <FormControlLabel value={'' + questionNum} control={<Radio />} label="" />
                 </div>
                 <div className="textFieldContainer">
-                    <TextField sx={{ paddingBottom: '1px' }}  label={`תשובה ${questionNum}`}
-                        id="standard-size-small" variant="standard" value={answer[`answer${questionNum}`] } onChange={handleChange} />
+                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${questionNum}`}
+                        id="standard-size-small" variant="standard" value={answer[`answer${questionNum}`]} onChange={handleChange} />
 
                 </div>
 
