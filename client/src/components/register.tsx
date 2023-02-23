@@ -1,7 +1,7 @@
 import '../style/register.scss'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
@@ -12,6 +12,7 @@ function Register() {
     const [repetPassword, setRepetPassword] = useState('')
     const [regErrDiv, setRegErrDiv] = useState('')
     const navigate = useNavigate()
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
     async function handleRegisterSubmit(e: React.SyntheticEvent) {
         e.preventDefault()
@@ -33,8 +34,8 @@ function Register() {
     }
 
     return (
-        window.screen.width > 600 ?
-            <div className='register'>
+        isLargeScreen ?
+            <div className='compChildrenContainer register'>
                 <Typography className='mainRegisterHeader' variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
@@ -74,7 +75,7 @@ function Register() {
 
                     <Button color='primary' variant='contained' className='registerSubmitButton' type='submit'>הרשמה</Button>
 
-                    <div className='regErrDiv'>{regErrDiv}</div>
+                    <div className='registerLable regErrDiv'>{regErrDiv}</div>
                 </form>
                 <div className='monkeyEnterPic'>
                     <img src={monkeyEnter} alt='monkey' />

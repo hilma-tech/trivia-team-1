@@ -1,5 +1,5 @@
 import '../style/login.scss'
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
@@ -9,7 +9,7 @@ function Login() {
     const [username,setUsername] = useState('')
     const [password,setPassword] = useState('')
     const [regErrDiv, setRegErrDiv] = useState('')
-
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
     function enterUsernameErr() {
         setRegErrDiv("שכחת להכניס משתמש!")
@@ -21,8 +21,8 @@ function Login() {
 
 
     return (
-        window.screen.width > 600 ?
-            <div className='login'>
+        isLargeScreen ?
+            <div className='compChildrenContainer login'>
                 <Typography className='mainLoginHeader'  variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entranceContainerDiv'>
@@ -61,7 +61,7 @@ function Login() {
                     <Button color='primary' variant='contained' className='loginSubmitButton' type='submit'>הרשמה</Button>
                     <br/>
                     <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
-                <div className='regErrDiv'>{regErrDiv}</div>
+                <div className='loginLabel regErrDiv'>{regErrDiv}</div>
                 </form>
                 
                 <div className='monkeyEnterPic'>

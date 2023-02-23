@@ -27,7 +27,7 @@ body {
         width: 14vw;
     }
 
-    #compChildrenContainer {
+    .compChildrenContainer {
         height: 73vh;
         width: 68.75vw;
         margin: 5vh auto;
@@ -43,7 +43,7 @@ body {
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
-
+    height: 100vh;
 }
 #bottomLeaf {
     position: absolute;

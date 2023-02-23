@@ -1,5 +1,5 @@
 import '../style/entrancePage.scss'
-import { useEffect, useState } from 'react';
+import {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
 
@@ -13,7 +13,7 @@ function EnterancePage() {
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     function toMyQuizes() {
-        navigate('/my-quizes')
+        navigate('/my-quizzes')
     }
 
 
@@ -26,8 +26,8 @@ function EnterancePage() {
     }
 
     return (
-        isLargeScreen ?
-            <div className='entrancePage'>
+        isLargeScreen?
+            <div className='compChildrenContainer entrancePage'>
                 <h1 className='mainEnteranceHeader'>חידונים מטורפים</h1>
                 <h2 className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>
                 <div className='entranceContainerDiv'>
