@@ -11,6 +11,7 @@ import Navbar from './components/navbar/Navbar';
 import EnterancePage from "./components/entrancePage";
 import Login from "./components/login";
 import Register from "./components/register";
+import ScoreCard from "./components/score-card/ScoreCard";
 
 function App() {
   return (
