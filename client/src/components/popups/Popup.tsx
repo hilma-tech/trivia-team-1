@@ -1,8 +1,9 @@
 import { Button, Link } from "@mui/material"
-import React, { FC } from "react"
+import { FC } from "react"
 import '../../style/popups.scss'
-const Popup: React.FC<{ type: string }> = ({ type }) => {
 
+
+const Popup: FC<{ type: string }> = ({ type }) => {
     return (
         <>
             <div className="popupContainer">
@@ -31,7 +32,6 @@ const Popup: React.FC<{ type: string }> = ({ type }) => {
                             <p>אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים שאספת ימחקו</p>
                         </div>
                     }
-
 
                     <div className="popupConfirmBtnDiv">
                         <Link>ביטול</Link>
