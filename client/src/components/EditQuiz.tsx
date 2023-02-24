@@ -21,9 +21,8 @@ import AnswersProvider from '../context/AnswersContext'
 
 const EditQuiz: FC = () => {
 
-    const { sendInput, setQuestions, questions, setSendInput, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
+    const {  setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
 
-    // const [questionsArr, setQuestionsArr] = useState([1]);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
         questionId: 1,
@@ -31,23 +30,15 @@ const EditQuiz: FC = () => {
         answers: ['', '']
     });
 
-    const [countForKeys, setCountForKeys] = useState(0);
-
-
 
     useEffect(() => {
         setQuestions([...questions, currentQuestion])
-    }, [sendInput])
+    }, [])
 
 
     const addQuestion = () => {
-        // setEmptyQuestionEdit(!emptyQuestionEdit)
-        setSendInput(!sendInput)
+        setEmptyQuestionEdit(!emptyQuestionEdit)
         if (questions.length < 10) {
-            // setCurrentQuestion(prevState => ({
-            //     ...prevState,
-            //     questionId: prevState.questionId + 1
-            //   }));
             setQuestions([...questions, currentQuestion])
             setCurrentEditQuestion(currentEditQuestion + 1)
             setCurrentQuestion(prevState => ({
@@ -102,7 +93,6 @@ const EditQuiz: FC = () => {
                             : <FinalBoxQuestions key={index} questionId={index + 1} />
                     )
                 })}
-                {/* <AddQutionsBox /> */}
                 <div className='plus-btn-container'>
                     <button className='plus-btn' onClick={addQuestion}>
                         <img src={plusBtn} className='plus-btn-svg' />

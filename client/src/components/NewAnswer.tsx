@@ -12,6 +12,7 @@ import MuiCheckbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { CurrentQuestion } from "../utils/Interfaces";
+import { parse } from "node:path/win32";
 // import { withStyles } from '@material-ui/core/styles';
 
 
@@ -45,14 +46,24 @@ const NewAnswer: FC<Props> = ({  answerIndex, isChecked = false, setCurrentQuest
         setCurrentQuestion(copy);
     };
 
+    const handleCorrectAnswer = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const isChecked = (e.target as HTMLInputElement).checked;
+        let copyArr = { ...currentQuestion };
+        copyArr.correctAnswer = isChecked ? answerIndex+1 : -1;
+        console.log(copyArr);
+        setCurrentQuestion(copyArr);
+
+    }
+
     return (
         <CacheProvider value={cacheRtl}>
             <div className="checkboxesContanier" dir='rtl'>
                 <div className="checkboxSvg">
-                    <FormControlLabel value={'' + answerIndex} control={<Radio />} label="" />
+                    <FormControlLabel value={'' + answerIndex+1}  label="" control={<Radio checked={currentQuestion.correctAnswer === answerIndex+1} onChange={handleCorrectAnswer} />} />
+ 
                 </div>
                 <div className="textFieldContainer">
-                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex + 1}`}
+                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex+1}`}
                         id="standard-size-small" variant="standard" value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
 
                 </div>
