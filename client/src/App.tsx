@@ -8,6 +8,7 @@ import './style/navbar.scss'
 import MyQuizes from './components/myQuizzes/MyQuizes';
 import GenericPop from './components/popups/GenericPop';
 import { PopContextProvider } from './components/popups/popContext';
+import { SummaryGameDesktop } from './components/popups/SummaryGameDesktop';
 
 
 function App() {
@@ -17,9 +18,7 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Background>
-          <PopContextProvider>
-            <MyQuizes />
-          </PopContextProvider>
+          <SummaryGameDesktop/>
 
         </Background>
       </ThemeProvider>

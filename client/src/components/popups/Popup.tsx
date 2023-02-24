@@ -8,14 +8,14 @@ const Popup: FC<{ type: string }> = ({ type }) => {
         <>
             <div className="popupContainer">
                 {/* copy pop up */}
-                {(type === 'copyQuiz') && <div>
+                {/* {(type === 'copyQuiz') && <div>
                     <h2>הקישור הועתק</h2>
                     <p>מצוין! עכשיו אתה יכול לשתף את החידון שלך עם חברים</p>
 
                     <div className="popupConfirmBtnDiv">
                         <Button variant="contained" color="primary">אישור</Button>
                     </div>
-                </div>}
+                </div>} */}
 
                 {(type === 'changeQuiz' || type === 'deleteQuiz') && <div>
                     {/* change quizz pop up*/}
