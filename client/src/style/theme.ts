@@ -28,23 +28,28 @@ export const defaultTheme: object = {
       fontWeight: "bolder",
       lineHeight: 1.5,
       color: PrimaryFontColor,
+      
     },
     h2: {
       color: PrimaryFontColor,
-      fontWeight: 100
+      fontWeight: 'bold'
     },
     h3: {
       color: PrimaryFontColor,
+      fontWeight: 'bold'
     },
     h4: {
       color: PrimaryFontColor,
+      fontWeight: 'bold'
     },
     h5: {
       
       color: PrimaryFontColor,
+      fontWeight: 'bold'
     },
     h6: {
       color: PrimaryFontColor,
+      fontWeight: 'bold'
     },
     body1: {
       color: PrimaryFontColor,

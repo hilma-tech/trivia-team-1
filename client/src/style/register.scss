@@ -1,0 +1,167 @@
+#register {
+    padding-top: 6vh;
+    box-sizing: border-box;
+
+
+    .main-register-header {
+        margin-right: 5%;
+        font-size: 4vmax;
+        margin-bottom: 1%;
+    }
+
+    .descrip-enter {
+        margin-right: 5%;
+        font-weight: 600;
+        font-size: 2vmax;
+        margin-bottom: 1.5%;
+    }
+
+
+    .entrance-container-div {
+        height: 32vh;
+        margin-right: 5%;
+        display: grid;
+        grid-template-areas:
+            "a b";
+        margin-bottom: 5%;
+        margin-left: 5%;
+    }
+
+    .monkey-enter-pic {
+        grid-area: b;
+        text-align: center;
+
+        img {
+            height: 44vh;
+            width: 19.5vw;
+            position: relative;
+            top: -8vh;
+        }
+    }
+
+    .register-form {
+        grid-area: a;
+        display: flex;
+        flex-direction: column;
+        .reg-err-div{
+            margin-top: 1%;
+            font-size: 1.1vmax;
+            color: red;
+            font-weight: bolder;
+        }
+
+        .register-input {
+            width: 25vw;
+            height: 4.5vh;
+            margin-bottom: 5%;
+            border: 0.2px solid #0C32497A;
+            background-color: #F4F6F7;
+            font-size: 1.1vmax;
+        }
+
+        .login-parag {
+            font-size: 1.3vmax;
+        }
+
+        .register-submit-button {
+            height: 6vh;
+            width: 25.4vw;
+            font-size: 1.6vmax;
+            margin-top: 2%;
+        }
+    }
+}
+
+
+// #tamplete for mobile includes the frame for the login/register/entrance-page
+
+.register-mobile {
+    height: 100vh;
+    border-radius: 35px;
+    outline: 4px solid #0C3249;
+    outline-offset: -25px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow-x: hidden;
+
+    .leaves-enterance {
+        position: absolute;
+        right: -70px;
+        top: -55px;
+        height: 156px;
+        width: 172px;
+    }
+
+    .monkey-enter-pic {
+        overflow-x: hidden;
+        overflow-y: hidden;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        height: 225px;
+        width: 250px;
+
+        img {
+            position: relative;
+            bottom: -18px;
+            left: -11px;
+            width: 300px;
+            height: 266px;
+            rotate: 10deg;
+        }
+    }
+
+    .register-form {
+        .register-lable {
+            margin-right: calc((100vw - 228px) / 2);
+            text-align: right;
+        }
+
+        .register-input {
+            width: 220px;
+            height: 30px;
+            margin-bottom: 2vh;
+            border: 0.2px solid #0C32497A;
+            background-color: #F4F6F7;
+            font-size: 14px;
+        }
+
+        .register-submit-button {
+            width: 228px;
+            height: 40px;
+            margin-bottom: 8px;
+            font-size: 26px;
+            margin-top: 1vh;
+            display: flex;
+           margin-right: calc((100vw - 228px)/2);
+        }
+        .reg-err-div{
+            width: 228px;
+            margin-top: 1%;
+            font-size: 14px;
+            color: red;
+            font-weight: bolder;
+            margin-right: calc((100vw - 228px)/2);
+            text-align: right;
+        }
+
+    }
+
+    .big-header {
+        font-size: 65px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .small-header {
+        font-size: 35px;
+        margin-bottom: 0px;
+        margin-top: 18vh;
+    }
+
+    @media screen and (max-height: 800px){
+        .small-header{
+            margin-top: 4vh;
+        }
+    }
+}
