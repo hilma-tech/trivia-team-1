@@ -1,4 +1,3 @@
-
 .mobile-end-game-monkey {
     position: absolute;
     top: -25%;
@@ -10,35 +9,41 @@
     overflow: visible;
 }
 
-#confetti{
+#confetti {
     top: -60vh;
     left: 2vh;
     height: 200vh;
     position: absolute
 }
 
-#exit-header{
+#exit-header {
     font-size: 1.4rem;
     font-weight: bolder;
 }
 
-#compChildrenContainer{
-    background-image: url('../images/popUps/confettiGif.gif');
-    
 
+.confetti-pc {
+    background-image: url('../images/popUps/confettiGif.gif');
 }
 
-.computer-finish-game{
+// #computer-confirmation-btn{
+//     font-size: 2rem;
+// }
+
+.computer-finish-game {
     text-align: center;
     border-top: 15px solid #216361;
-    .coputer-finish-game-inner-text{
+
+    .coputer-finish-game-inner-text {
         line-height: 8vh;
     }
-    img{
+
+    img {
         padding-top: 8vh;
         width: 10vw
     }
 }
+
 // #confetti-desktop{
 //     position: absolute;
 //     top: -25vh

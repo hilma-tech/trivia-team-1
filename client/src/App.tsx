@@ -33,6 +33,7 @@ function App() {
             <Route path='*' element={<Navigate replace to="/loading-page" />} />
             <Route path='/error404' element={<Error />} />
             <Route path='/loading-page' element={<LoadingMonkey />} />
+            <Route path= '/finished-game-pc' element={<SummaryGameDesktop/>}/>
             <Route path='/my-quizzes'>
               <Route path='/my-quizzes' element={<MyQuizes />} />
               <Route path='/my-quizzes/:id/scoreboard' element={<ScoreCard />} />
