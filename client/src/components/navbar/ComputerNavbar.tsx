@@ -1,4 +1,4 @@
-import { Button, Link, Typography } from '@mui/material';
+import { Button, Link, Typography } from "@mui/material";
 import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
 
