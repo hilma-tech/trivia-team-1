@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import '../style/OpeningForTheQuiz.css';
 import triangleIcon from '../icons/Icon-awesome-play.png';
 import italyPic from '../img/italy.png'
+import '../style/OpeningForTheQuiz.scss';
 
 interface OpeningParagraphTitleProps {
     quizTitle: string,
@@ -26,7 +26,6 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
                     <h1>
                         {quizTitle}
                     </h1>
-                    <br /><br /><br />
                     <p>
                         {paragraph}
                     </p>

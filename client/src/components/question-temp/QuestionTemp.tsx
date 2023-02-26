@@ -1,8 +1,8 @@
 import { type } from 'os';
 import React, { useState, useEffect, useMemo } from 'react';
-import '../style/QuastionTemp.scss';
+import '../../style/questionTemp.scss';
 
-interface QuastionTempState {
+interface QuestionTempState {
     answers: {
         ans: string,
         url: string,
@@ -15,8 +15,8 @@ interface QuastionTempState {
 }
 
 
-const QuastionTemp = () => {
-    const [answers, setAnswers] = useState<QuastionTempState["answers"]>([[
+const QuestionTemp = () => {
+    const [answers, setAnswers] = useState<QuestionTempState["answers"]>([[
         { ans: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
         { ans: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
         { ans: "ארץ האגדות", url: "awvev", isCorrect: false },
@@ -28,7 +28,7 @@ const QuastionTemp = () => {
         { ans: "לאונרד הכהן", url: "", isCorrect: false }
     ]
     ]);
-    const [question, setQuestion] = useState<QuastionTempState["question"]>([
+    const [question, setQuestion] = useState<QuestionTempState["question"]>([
         {
             questionTitle: "איטליה מכונה גם...", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg"
         }
@@ -202,8 +202,8 @@ const QuastionTemp = () => {
                     </div>
                 </div>
             </main>
-        </div>
+       </div>
     );
 }
 
-export default QuastionTemp;
+export default QuestionTemp;

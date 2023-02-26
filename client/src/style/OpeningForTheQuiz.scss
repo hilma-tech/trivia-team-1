@@ -6,11 +6,10 @@
 main{
     top: 8.75vw;
     left: 15.625vw;
-    width: 68.75vw;
-    height: 80vh;
+    width: 68vw;
+    height: 72vh;
     /* UI Properties */
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 4px solid #0C3249;
     border-radius: 10px;
     opacity: 1;
     .main-OpeningForTheQuiz{
@@ -27,9 +26,12 @@ main{
             opacity: 1;
             z-index: 2;
             margin-top: 3vw;
-            margin-bottom: -7vw;
+            margin-bottom: -11vw;
             p{
                 margin-bottom: 2.7604vw;
+                padding: 5vw;
+                padding-top: 0vw;
+                padding-bottom: 0vw;
             }
         }
         .main-img{
@@ -52,7 +54,7 @@ main{
             /* UI Properties */
             background: #378381 0% 0% no-repeat padding-box;
             border: 3px solid #FFFFFF;
-            border-radius: 8px;
+            border-radius: .4167vw;
             opacity: 1;
             z-index: 2;
             margin-bottom: 1vw;
@@ -77,13 +79,11 @@ main{
     }
     .main-CheckForName-for-flex{
         @include flexCenter();
-        border: 2px solid black;
         .main-CheckForName{
             display: flex;
             align-items: center;
             // justify-content: center;
             flex-direction: column;
-            border: 2px solid black;
             .title-and-paragraph{
                 display: flex;
                 flex-direction: column;
@@ -91,9 +91,6 @@ main{
                 justify-content: space-between;
                 width: 42.8125vw;
                 height: 255px;
-                border: 2px solid black;
-
-                /* UI Properties */
                 background: #FFFFFF 0% 0% no-repeat padding-box;
                 opacity: 1;
                 .quizTitle{
@@ -106,39 +103,107 @@ main{
                     color: #0C3249;
                     opacity: 1;
                 }
+                p{
+                    width: 12vw;
+                    height: 1.6146vw;
+                    /* UI Properties */
+                    text-align: center;
+                    font: normal normal normal 26px/31px Rubik;
+                    letter-spacing: 0px;
+                    color: #0C3249;
+                    opacity: 1;
+                }
             }
-            form{
+            input{
                 margin-top: .5vw;
                 margin-bottom: 3.2292vw;
                 width: 18.0208vw;
                 height: 62px;
                 /* UI Properties */
                 background: #FFFFFF 0% 0% no-repeat padding-box;
+                // background-color: black;
                 border: 1px solid #0C3249;
-                border-radius: 10px;
+                border-radius: .5208vw;
                 opacity: 1;
+                display: flex;
+                justify-content: center;
+                
+                    text-align: right;
+                    font: normal normal normal 20px/24px Rubik;
+                    letter-spacing: 0px;
+                    color: #0C3249;
+                    opacity: 0.7;
+                    // border-color: transparent;
+                
             }
             .CheckForName-button{
                 @include flexCenter();
-                border: 1px solid #0C3249;
                 width: 18.0208vw;
                 height: 64px;
                 /* UI Properties */
                 background: #378381 0% 0% no-repeat padding-box;
-                border-radius: 8px;
-                opacity: 1;
+                border-radius: .4167vw;
+                opacity: 0.7;
+                box-shadow: 0px .3vh 0px 0px #216361;
+                border-color:#378381;
                 p{
                     margin-left: 1vw;
+                    width: 10.5208vw;
+                    height: 1.6146vw;
+                    /* UI Properties */
+                    text-align: left;
+                    font: normal normal bold 26px/31px Rubik;
+                    letter-spacing: 0px;
+                    color: #FFFFFF;
+                    opacity: 1;
                 }
             }
         }
     }
 }
-// @media screen and (max-width: 600px) {
-//     main{
-//         background-color: #0C3249;
-//         width: 90vw;
-//         height: 90vh;
-//     }
+@media screen and (max-width: 600px) {
+    main{
+        .main-OpeningForTheQuiz{
+            .main-img {
+               height: 101vw;
+               overflow: hidden;
+           }
+           .main-paragraph-and-title{
+            h1{
+                width: 70vw;
+                // background-color: #0C3249;
+            }
+            p{
+                // background-color: #0C3249;
+            }
+           }
+        }
+        .main-button-place .main-button-to-quiz {
+            width: 35.625vw;
+            height: auto;
+            p{
+                width: 18.125vw;
+                height: auto;
+                font: normal normal bold 4.3542vw/4.6146vw Rubik;
+            }
+            img{
+                width: 5vw;
+                height: auto;
+            }
+        }
+        .main-CheckForName-for-flex .main-CheckForName input{
+            margin-top: 14vw;
+            margin-bottom: 10vw;
+            width: 31vw;
+            height: 10vw;
+        }
+        main .main-CheckForName-for-flex .main-CheckForName .CheckForName-button p{
 
-// }
+            width: 34.5208vw;
+            height: 5.614599999999999vw;
+        }
+
+    }
+
+    
+}
