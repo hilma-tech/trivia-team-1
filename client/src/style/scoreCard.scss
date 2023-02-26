@@ -9,18 +9,27 @@
         padding: .1vw;
         width: 70%;
 
+        .bolder {
+            font-weight: 1000;
+        }
+
         .bold {
-            font-weight: 700;
+            font-weight: 800;
         }
 
         .h2 {
             margin-bottom: 1vh;
+            font-weight: 900;
         }
 
+        .h3 {
+            font-weight: 900;
+            margin-bottom: 2vh;
+        }
 
         table {
             th {
-                font-weight: 700;
+                font-weight: 1000;
                 border: none;
                 text-align: right;
                 padding: .5rem;
@@ -30,7 +39,7 @@
                 border: none;
                 text-align: right;
                 padding: .5rem;
-
+                font-weight: 200;
                 img {
                     max-height: 14px;
                 }

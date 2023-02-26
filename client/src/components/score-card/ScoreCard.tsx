@@ -33,8 +33,8 @@ function ScoreCard() {
     return (
         <div className="comp-children-container score-card-container">
             <div className="score-card">
-                <Typography variant="h5" className="bold h2" component="div">{`לוח תוצאות:`}</Typography>
-                <Typography variant="h6" className="bold h3 hide-mobile" component="div">{quizData.quizName}</Typography>
+                <Typography variant="h5" className="h2" component="div">{`לוח תוצאות:`}</Typography>
+                <Typography variant="h6" className="h3 hide-mobile" component="div">{quizData.quizName}</Typography>
                 <TableContainer>
                     <Table>
                         <TableHead>

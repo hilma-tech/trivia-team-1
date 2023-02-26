@@ -30,9 +30,9 @@ function HighScore(props: ScoreType) {
 
     return (
         <TableRow>
-            <TableCell>{id}</TableCell>
+            <TableCell className="bold">{id}</TableCell>
             <TableCell>{`${name} `}{src && <img src={src} />}</TableCell>
-            <TableCell className="bold">{score}</TableCell>
+            <TableCell className="bolder">{score}</TableCell>
             <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>
     );

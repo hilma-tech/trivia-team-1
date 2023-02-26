@@ -13,7 +13,7 @@ export const defaultTheme: object = {
   },
   muiLink: {},
   typography: {
-    fontFamily: "Rubik",
+    fontFamily: "'Rubik', sans-serif",
     h1: {
       fontSize: "3rem",
       fontWeight: "bolder",

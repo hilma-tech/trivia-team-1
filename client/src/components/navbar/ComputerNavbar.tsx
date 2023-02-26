@@ -7,7 +7,7 @@ const ComputerNavbar:FC = () => (
     <div className="navbar-container-computer">
         <div className="first-section">
             <div className="btn-container">
-                <Button id="nav-create-quiz-btn" variant="contained" color="primary">
+                <Button className="nav-quiz-btn" variant="contained" color="primary">
                     יצירת חידון
                 </Button>
             </div>
@@ -15,13 +15,13 @@ const ComputerNavbar:FC = () => (
                 <div className="vl"></div>
             </div>
             <div className="links-container">
-                <Link color="primary">
+                <Button className="nav-quiz-btn">
                     החידונים שלי
-                </Link>
+                </Button>
                 <div className="vl-container">
                     <div className="vl"></div>
                 </div>
-                <Link>אודות</Link>
+                <Button className="nav-quiz-btn">אודות</Button>
             </div>
         </div>
         <div className="logo-nav-bar-container">
