@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery } from "@mui/material";
 // import axios, { isAxiosError, isCancel } from "axios";
 import HighScore from "./HighScore";
 import '../../style/scoreCard.scss';
+import PhonePageWithNav from "../navbar/phonePageWithNav";
 
 function ScoreCard() {
-
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const [quizData, setQuizData] = useState({//data in this state is temporary
         quizName: 'שלום עולם',
         scores: [
@@ -31,7 +32,7 @@ function ScoreCard() {
     }, [])
 
     return (
-        <div className="comp-children-container score-card-container">
+        isLargeScreen ? <div className="comp-children-container score-card-container">
             <div className="score-card">
                 <Typography variant="h5" className="h2" component="div">{`לוח תוצאות:`}</Typography>
                 <Typography variant="h6" className="h3 hide-mobile" component="div">{quizData.quizName}</Typography>
@@ -51,7 +52,26 @@ function ScoreCard() {
                     </Table>
                 </TableContainer>
             </div>
-        </div>
+        </div> : <PhonePageWithNav className="comp-children-container phone-score-card-container" title="החידונים שלי" type="return">
+            <div className="score-card">
+                <Typography variant="h5" className="h2" component="div">{`לוח תוצאות:`}</Typography>
+                <TableContainer>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>0</TableCell>
+                                <TableCell>שם</TableCell>
+                                <TableCell>ציון</TableCell>
+                                <TableCell>תאריך</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {quizData.scores.map((score, i) => <HighScore key={score.id} score={score} index={i} />)}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
+        </PhonePageWithNav>
     );
 }
 

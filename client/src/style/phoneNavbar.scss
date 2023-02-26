@@ -1,0 +1,27 @@
+.phone-main{
+    height: 90vh;
+}
+.navbar-container-phone{
+    height: 10vh;
+}
+
+.header-container{
+    font-size: 3.5vmax;
+}
+
+.banana-container-phone{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    .banana-nav-content{
+        font-size: 3vmax;
+        font-weight: 1000;
+        width: 100%;
+        text-align: center;
+    }
+    img{
+        margin-right: 2%;
+        height: 4vh;
+    }
+}

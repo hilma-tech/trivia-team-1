@@ -78,8 +78,8 @@
                 flex-direction: column;
                 // justify-content: center;
                 margin-bottom: -1vh;
-                padding: 1vh;
             }
+
             .quiz-buttons {
                 display: flex;
                 justify-content: space-between;
@@ -144,17 +144,16 @@
                 background: #378381 0% 0% no-repeat padding-box;
                 border-radius: 8px;
                 opacity: 1;
-                font-family: Rubik;
                 font-size: 1.1rem;
                 letter-spacing: 0px;
                 color: white;
                 opacity: 1;
                 width: 20vw;
                 height: 5vw;
+                font-weight: 800;
             }
 
             h2 {
-                font-family: Rubik;
                 font-size: 1.5rem;
                 letter-spacing: 0px;
                 color: #0C3249;
@@ -263,7 +262,6 @@
                 }
 
                 h2 {
-                    font-family: Rubik;
                     font-size: 1.3rem;
                     font-weight: normal;
                     margin-bottom: 10vh;
@@ -272,6 +270,7 @@
                 button {
                     width: 60vw;
                     height: 10vh;
+                    font-weight: 800;
                 }
             }
         }

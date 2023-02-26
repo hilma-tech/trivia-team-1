@@ -1,9 +1,4 @@
-:root {
-    font-size: 16px;
-}
-
 .score-card-container {
-
     .score-card {
         margin: 3vw 4vw;
         padding: .1vw;
@@ -40,6 +35,7 @@
                 text-align: right;
                 padding: .5rem;
                 font-weight: 200;
+
                 img {
                     max-height: 14px;
                 }
@@ -50,24 +46,53 @@
 }
 
 
-@media (max-width: 600px) {
-    :root {
-        font-size: 4vw;
+
+
+
+.phone-score-card-container {
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .bolder {
+        font-weight: 1000;
     }
 
-    .score-card-container {
-        width: 100%;
-        display: flex;
-        justify-content: center;
+    .bold {
+        font-weight: 800;
+    }
+
+    .h2 {
+        margin-bottom: 2vh;
+        font-weight: 1000;
+        font-size: 16px;
+        margin-top: 3vh;
+    }
+
+    table {
+        th {
+            font-weight: 1000;
+            border: none;
+            text-align: right;
+            padding: .5rem;
+        }
+
+        td {
+            border: none;
+            text-align: right;
+            padding: .5rem;
+            font-weight: 200;
+
+            img {
+                max-height: 14px;
+            }
+        }
 
         .score-card {
             flex: 1;
             width: 100%;
             margin: 1vw;
         }
-    }
-
-    .hide-mobile {
-        display: none;
     }
 }
