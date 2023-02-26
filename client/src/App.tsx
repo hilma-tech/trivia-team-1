@@ -18,8 +18,8 @@ function App() {
         <CssBaseline />
         <Navbar />
         <Background>
-        <QuastionTemp />
-        {/* <OpeningForTheQuiz/> */}
+        {/* <QuastionTemp /> */}
+        <OpeningForTheQuiz/>
           {/* components here */}
         </Background>
       </ThemeProvider>

@@ -26,7 +26,6 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
                     <h1>
                         {quizTitle}
                     </h1>
-                    <br /><br /><br />
                     <p>
                         {paragraph}
                     </p>
