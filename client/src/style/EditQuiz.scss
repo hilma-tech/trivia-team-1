@@ -373,10 +373,6 @@ body {
         display: none;
     }
 
-   .duplicate-svg{
-    width: 3.5vw
-   }
-
     .addQutionsContainer{
         border: 0px;
 
@@ -385,11 +381,26 @@ body {
         opacity: 0.1;
     }
 
-    .trashSvgForQuestions, .slectImageSvgForQuestions, .selectImageQutionsSvg, .duplicate-svg,  .trash-svg, .add-answer-svg{
-        width: 3.5vw;
+    .trashSvgForQuestions, .slectImageSvgForQuestions, .selectImageQutionsSvg, .duplicate-svg,  .trash-svg, .add-answer-svg, .icon{
+        width:3.3vw;
+        margin-right: 2vw;
     }
     .add-answer-btn{
         width: 50vw;
+    }
+
+    .phone-header-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .copy-trash-imgs {
+        display: flex;
+        align-items: center;
+    }
+
+    #input-header{
+        margin: 0;
     }
     
 }

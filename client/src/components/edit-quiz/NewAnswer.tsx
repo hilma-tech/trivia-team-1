@@ -1,19 +1,15 @@
 import { IconButton, TextField, makeStyles, createStyles, Theme } from "@mui/material";
 import React, { FC, useState, useContext, useEffect, useRef } from "react";
-import { useAnswerContext } from '../context/AnswersContext'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CheckBoxSvg from '../images/checkicon.svg';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
-import Selectimage from '../images/image.svg'
-import TrashSvg from '../images/trash.svg'
-import MuiCheckbox from '@mui/material/Checkbox';
+import Selectimage from '../../images/image.svg'
+import TrashSvg from '../../images/trash.svg'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import { CurrentQuestion } from "../utils/Interfaces";
-import { parse } from "node:path/win32";
-// import { withStyles } from '@material-ui/core/styles';
+import { CurrentQuestion } from "./utils/Interfaces";
+import { isMobile } from "./AddQuestionBox";
 
 
 const theme = createTheme({
@@ -36,9 +32,9 @@ interface Props {
 
 
 
-const NewAnswer: FC<Props> = ({  answerIndex, isChecked = false, setCurrentQuestion, currentQuestion }) => {
-  
-    
+const NewAnswer: FC<Props> = ({ answerIndex, isChecked = false, setCurrentQuestion, currentQuestion }) => {
+
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let copy = { ...currentQuestion };
         copy.answers[answerIndex] = e.target.value;
@@ -49,7 +45,7 @@ const NewAnswer: FC<Props> = ({  answerIndex, isChecked = false, setCurrentQuest
     const handleCorrectAnswer = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const isChecked = (e.target as HTMLInputElement).checked;
         let copyArr = { ...currentQuestion };
-        copyArr.correctAnswer = isChecked ? answerIndex+1 : -1;
+        copyArr.correctAnswer = isChecked ? answerIndex + 1 : -1;
         console.log(copyArr);
         setCurrentQuestion(copyArr);
 
@@ -59,12 +55,12 @@ const NewAnswer: FC<Props> = ({  answerIndex, isChecked = false, setCurrentQuest
         <CacheProvider value={cacheRtl}>
             <div className="checkboxesContanier" dir='rtl'>
                 <div className="checkboxSvg">
-                    <FormControlLabel value={'' + answerIndex+1}  label="" control={<Radio checked={currentQuestion.correctAnswer === answerIndex+1} onChange={handleCorrectAnswer} />} />
- 
+                    <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.correctAnswer === answerIndex + 1} onChange={handleCorrectAnswer} />} />
+
                 </div>
                 <div className="textFieldContainer">
-                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex+1}`}
-                        id="standard-size-small" variant="standard" value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
+                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex + 1}`}
+                        id="standard-size-small" variant={isMobile ? "outlined" : "standard"} value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
 
                 </div>
 

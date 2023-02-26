@@ -1,13 +1,13 @@
 import React, { FC, useState, useEffect } from "react";
-import Selectimage from '../images/image.svg'
+import Selectimage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
-import AddAnswer from '../images/addAnswer.svg'
-import duplicateSvg from '../images/copy.svg'
-import TrashSvg from '../images/trash.svg'
+import AddAnswer from '../../images/addAnswer.svg'
+import duplicateSvg from '../../images/copy.svg'
+import TrashSvg from '../../images/trash.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion } from '../utils/Interfaces'
-import AnswersProvider from "../context/AnswersContext";
+import { CurrentQuestion } from './utils/Interfaces'
+import AnswersProvider from "./context/AnswersContext";
 
 
 
@@ -18,10 +18,10 @@ interface Props {
 
 }
 
+export const isMobile = window.innerWidth < 600;
 
 const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion, questionId }) => {
 
-    const isMobile = window.innerWidth < 600;
 
     // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
@@ -48,10 +48,22 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion, questi
         <div className='addQutionsContainer'>
             <div className='darganddropContainer'><button></button></div>
             <div className='quizQuestionsContainer'>
-                {isMobile && <h3>שאלה {questionId}</h3>}
-                <div className='quizQuestions' >
-                    <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
-                    <img className='selectImageQutionsSvg' src={Selectimage} />
+                {isMobile &&
+                    <div className="phone-header-container">
+                        <h3>שאלה {questionId}</h3>
+                        <div className="copy-trash-imgs">
+                            <img className="icon" src={duplicateSvg} />
+                            <img className="icon" src={TrashSvg} />
+                        </div>
+                    </div>
+                }
+
+                <div className="header-input-container">
+                    {isMobile && <h6 id="input-header">כותרת</h6>}
+                    <div className='quizQuestions' >
+                        <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
+                        <img className='selectImageQutionsSvg' src={Selectimage} />
+                    </div>
                 </div>
                 <div className="answer-container">
                     <FormControl>
@@ -59,7 +71,7 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion, questi
                             aria-labelledby="demo-radio-buttons-group-label"
                             name="radio-buttons-group"
                         >
-                            
+
                             {currentQuestion.answers.map((answer, index) => (
                                 <NewAnswer key={index} answerIndex={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
                             ))}

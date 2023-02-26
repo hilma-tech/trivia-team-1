@@ -1,18 +1,20 @@
 import React, { Component, FC, useState, createContext, useEffect } from 'react';
-import '../style/EditQuiz.scss'
-import LeftLeaf from '../images/leftleaf.svg'
-import RightLeaf from '../images/rightleaf.svg'
-import ShowQuizBtn from '../images/showquizzbtn.svg'
-import LinkBtn from '../images/linkBtn.svg'
-import saveBtn from '../images/saveBtn.svg'
-import Selectimage from '../images/image.svg'
+import '../../style/EditQuiz.scss'
+import LeftLeaf from '../../images/leftleaf.svg'
+import RightLeaf from '../../images/rightleaf.svg'
+import ShowQuizBtn from '../../images/showquizzbtn.svg'
+import LinkBtn from '../../images/linkBtn.svg'
+import saveBtn from '../../images/saveBtn.svg'
+import Selectimage from '../../images/image.svg'
 import AddQuestionBox from './AddQuestionBox'
-import plusBtn from '../images/plusBtn.svg'
+import plusBtn from '../../images/plusBtn.svg'
 import FinalBoxQuestions from './FinalBoxQuestions'
-import { useAnswerContext } from '../context/AnswersContext'
-import { CurrentQuestion } from '../utils/Interfaces'
+import { useAnswerContext } from './context/AnswersContext'
+import { CurrentQuestion } from './utils/Interfaces'
+import { isMobile } from './AddQuestionBox';
 
-import AnswersProvider from '../context/AnswersContext'
+import AnswersProvider from './context/AnswersContext'
+import PhoneNavBar from '../navbar/PhoneNavbar';
 
 
 
@@ -33,7 +35,6 @@ const EditQuiz: FC = () => {
         answers: ['', '']
     });
 
-    const isMobile = window.innerWidth < 600;
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
@@ -74,6 +75,7 @@ const EditQuiz: FC = () => {
 
     return (
         <>
+        {isMobile && <PhoneNavBar name='editQuiz' type='abc'/>}
             <div className='formContanier '>
                 <div className={giveRightClasses('topContainer')}>
                     <div className='topButtonsContainer'>
@@ -95,7 +97,7 @@ const EditQuiz: FC = () => {
                 <div className={giveRightClasses('quizHeaderContainer')}>
                     <div className='quizHeaderImage'> <img className='selectImageQuizSvg' src={Selectimage} /></div>
                     <div className='titleHeaderContainer'>
-                        <h1>חידון ללא כותרת</h1>
+                        <h6>חידון ללא כותרת</h6>
                         <p>תיאור חידון</p>
                     </div>
                 </div>
