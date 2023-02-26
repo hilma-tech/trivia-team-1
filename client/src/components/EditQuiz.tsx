@@ -19,16 +19,34 @@ import AnswersProvider from '../context/AnswersContext'
 
 
 
+
+
 const EditQuiz: FC = () => {
 
-    const {  setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
+    const { setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext();
 
+    const [phonePage, setPhonePage] = useState(2);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
         questionId: 1,
         questionTitle: '',
         answers: ['', '']
     });
+
+    const isMobile = window.innerWidth < 600;
+
+    const giveRightClasses = (originClassName: string) => {
+        if (!isMobile) return originClassName;
+        if (originClassName === 'topContainer' || originClassName === 'quizHeaderContainer') return 'hide'
+        if (phonePage === 1 && originClassName === 'questions-container') {
+            return 'hide'
+        }
+        return originClassName
+
+    }
+
+
+
 
 
     useEffect(() => {
@@ -54,15 +72,10 @@ const EditQuiz: FC = () => {
 
     }
 
-
     return (
         <>
-            <div className='leftleafContainer'>
-                <img className='leftleaf' src={LeftLeaf} alt="left leaf" />
-                <img className='rightleaf' src={RightLeaf} alt="right leaf" />
-            </div>
-            <div className='formContanier'>
-                <div className='topContainer'>
+            <div className='formContanier '>
+                <div className={giveRightClasses('topContainer')}>
                     <div className='topButtonsContainer'>
                         <div className='topRightbtn'>
                             <button className='showQuizBtn'>
@@ -79,28 +92,33 @@ const EditQuiz: FC = () => {
                         </div>
                     </div>
                 </div>
-                <div className='quizHeaderContainer'>
+                <div className={giveRightClasses('quizHeaderContainer')}>
                     <div className='quizHeaderImage'> <img className='selectImageQuizSvg' src={Selectimage} /></div>
                     <div className='titleHeaderContainer'>
                         <h1>חידון ללא כותרת</h1>
                         <p>תיאור חידון</p>
                     </div>
                 </div>
-                {questions.map((item, index: number) => {
-                    return (
-                        currentEditQuestion === index
-                            ? <AddQuestionBox key={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
-                            : <FinalBoxQuestions key={index} questionId={index + 1} />
-                    )
-                })}
-                <div className='plus-btn-container'>
-                    <button className='plus-btn' onClick={addQuestion}>
-                        <img src={plusBtn} className='plus-btn-svg' />
-                    </button>
+                <div className={giveRightClasses('questions-container')}>
+                    {questions.map((item, index: number) => {
+                        return (
+                            currentEditQuestion === index
+                                ? <AddQuestionBox key={index} questionId={index + 1} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
+                                : <FinalBoxQuestions key={index} questionId={index + 1} />
+                        )
+                    })}
+                    <div className='plus-btn-container'>
+                        <button className='plus-btn' onClick={addQuestion}>
+                            <img src={plusBtn} className='plus-btn-svg' />
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
     );
+
+
 }
+
 
 export default EditQuiz;

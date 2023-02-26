@@ -14,11 +14,14 @@ import AnswersProvider from "../context/AnswersContext";
 interface Props {
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
+    questionId: number;
 
 }
 
 
-const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion }) => {
+const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion, questionId }) => {
+
+    const isMobile = window.innerWidth < 600;
 
     // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
@@ -45,6 +48,7 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion }) => {
         <div className='addQutionsContainer'>
             <div className='darganddropContainer'><button></button></div>
             <div className='quizQuestionsContainer'>
+                {isMobile && <h3>שאלה {questionId}</h3>}
                 <div className='quizQuestions' >
                     <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
                     <img className='selectImageQutionsSvg' src={Selectimage} />

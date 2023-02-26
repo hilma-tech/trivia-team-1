@@ -162,7 +162,6 @@ body {
 
     .add-answer-btn{
         background-color: white;
-        width: 21vw;
         margin-top: 2%;
         display: flex;
         justify-content: flex-start;
@@ -176,13 +175,10 @@ body {
         letter-spacing: 0px;
 
 
-
-
-        
     }
 
     .add-answer-svg{
-        width: 1vw;
+        // width: 1vw;
         margin-left: 0.8vw;
 
     }
@@ -228,13 +224,13 @@ body {
         margin-top: 1vw;
     }
 
-    .duplicate-svg{
-        width: 1.5vw;
-    }
+    // .duplicate-svg{
+    //     width: 1.5vw;
+    // }
 
-    .trash-svg{
-        width: 1.5vw;
-    }
+    // .trash-svg{
+    //     width: 1.5vw;
+    // }
 
     .question-input{
         height: 2vh;
@@ -365,4 +361,35 @@ body {
 
 .width{
     width: 25vw;
+}
+
+
+
+
+
+
+@media screen and (max-width: 600px) {
+    .hide{
+        display: none;
+    }
+
+   .duplicate-svg{
+    width: 3.5vw
+   }
+
+    .addQutionsContainer{
+        border: 0px;
+
+    }
+    .trashSvgForQuestions{
+        opacity: 0.1;
+    }
+
+    .trashSvgForQuestions, .slectImageSvgForQuestions, .selectImageQutionsSvg, .duplicate-svg,  .trash-svg, .add-answer-svg{
+        width: 3.5vw;
+    }
+    .add-answer-btn{
+        width: 50vw;
+    }
+    
 }
