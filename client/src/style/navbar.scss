@@ -1,0 +1,101 @@
+@import '../style/background.scss';
+
+.navbar-container-computer {
+    width: 100vw;
+    height: 7vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3.5px solid $primaryColor;
+    position: relative;
+    z-index: 50;
+    background-color: white;
+    padding-right: 3vw;
+    padding-left: 3vw;
+
+    #nav-create-quiz-btn {
+        opacity: 0.4;
+        height: 100%;
+        height: 3.1vh;
+        font-size: 1.2rem;
+    }
+
+    .first-section {
+        display: flex;
+        align-items: center;
+
+    }
+
+    .navbar-logo-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .links-container,
+    .btn-container {
+        display: flex;
+        align-items: center;
+    }
+
+
+    .vl-container {
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .vl {
+        border-left: 1.8px solid #0C3249;
+        height: 2vh;
+        overflow: hidden;
+        margin: 10px;
+    }
+
+    .logo-nav-bar-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+    }
+
+    a {
+        color: $primaryColor !important;
+        cursor: pointer;
+    }
+
+    #logo-name {
+        font-weight: 1000;
+        font-size: 100%;
+        margin-left: 1vw;
+    }
+}
+
+
+
+.navbar-container-phone {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 3vw;
+    padding-left: 3vw;
+    height: 8vh;
+    box-shadow: 0px 0.3px 3px grey;
+
+
+    .img-container {
+        display: flex;
+        align-items: center;
+        width: 13vw;
+    }
+
+    .header-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .hide-monkey {
+        display: none !important;
+    }
+}
