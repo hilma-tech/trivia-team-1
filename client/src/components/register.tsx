@@ -34,50 +34,50 @@ function Register() {
     }
 
     return (
-        isLargeScreen ?
-            <div className='compChildrenContainer register'>
-                <Typography className='mainRegisterHeader' variant='h1'>חידונים מטורפים</Typography>
-                <Typography variant='h2' className='descripEnter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
-                <div className='entranceContainerDiv'>
-                    <form className='registerForm' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
-                        <Typography className='loginParag' variant='body1'>שם משתמש</Typography>
-                        <input className='registerInput' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
-                        <Typography className='loginParag' variant='body1'>סיסמה</Typography>
-                        <input className='registerInput' id='newPass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
-                        <Typography className='loginParag' variant='body1'>אימות סיסמה</Typography>
-                        <input className='registerInput' id='repetNewPass' type='password' value={repetPassword} onInvalid={repetPassErr} onChange={(e) => setRepetPassword(e.target.value)} required maxLength={16} pattern={password} />
+isLargeScreen ?
+            <div id='register' className='comp-children-container'>
+                <Typography className='main-register-header' variant='h1'>חידונים מטורפים</Typography>
+                <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
+                <div className='entrance-container-div'>
+                    <form className='register-form' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
+                        <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
+                        <input className='register-input'  type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
+                        <Typography className='login-parag' variant='body1'>סיסמה</Typography>
+                        <input className='register-input' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
+                        <Typography className='login-parag' variant='body1'>אימות סיסמה</Typography>
+                        <input className='register-input' type='password' value={repetPassword} onInvalid={repetPassErr} onChange={(e) => setRepetPassword(e.target.value)} required maxLength={16} pattern={password} />
 
-                        <Button color='primary' variant='contained' className='registerSubmitButton' type='submit'>הרשמה</Button>
+                        <Button color='primary' variant='contained' className='register-submit-button' type='submit'>הרשמה</Button>
 
-                        <div className='regErrDiv'>{regErrDiv}</div>
+                        <div className='reg-err-div'>{regErrDiv}</div>
                     </form>
-                    <div className='monkeyEnterPic'>
+                    <div className='monkey-enter-pic'>
                         <img src={monkeyEnter} alt='monkey' />
                     </div>
                 </div>
             </div> :
-            <div className='registerMobile'>
-                <div className='leavesEnterance'>
+            <div className='register-mobile'>
+                <div className='leaves-enterance'>
                     <img src={leavesEnterance} alt="leaves" />
                 </div>
                 <header>
-                    <div className='smallHeader'>משחק</div>
-                    <div className='bigHeader'>טריוויה</div>
+                    <div className='small-header'>משחק</div>
+                    <div className='big-header'>טריוויה</div>
                 </header>
 
-                <form className='registerForm' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
-                    <div className='registerLable'>שם משתמש</div>
-                    <input className='registerInput' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
-                    <div className='registerLable'>סיסמה</div>
-                    <input className='registerInput' id='newPass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
-                    <div className='registerLable'>אימות סיסמה</div>
-                    <input className='registerInput' id='repetNewPass' type='password' value={repetPassword} onInvalid={repetPassErr} onChange={(e) => setRepetPassword(e.target.value)} required maxLength={16} pattern={password} />
+                <form className='register-form' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
+                    <div className='register-lable'>שם משתמש</div>
+                    <input className='register-input' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
+                    <div className='register-lable'>סיסמה</div>
+                    <input className='register-input'  type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} pattern='^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*+-]{8,16}$' />
+                    <div className='register-lable'>אימות סיסמה</div>
+                    <input className='register-input' type='password' value={repetPassword} onInvalid={repetPassErr} onChange={(e) => setRepetPassword(e.target.value)} required maxLength={16} pattern={password} />
 
-                    <Button color='primary' variant='contained' className='registerSubmitButton' type='submit'>הרשמה</Button>
+                    <Button color='primary' variant='contained' className='register-submit-button' type='submit'>הרשמה</Button>
 
-                    <div className='registerLable regErrDiv'>{regErrDiv}</div>
+                    <div className='reg-err-div'>{regErrDiv}</div>
                 </form>
-                <div className='monkeyEnterPic'>
+                <div className='monkey-enter-pic'>
                     <img src={monkeyEnter} alt='monkey' />
                 </div>
             </div>);
