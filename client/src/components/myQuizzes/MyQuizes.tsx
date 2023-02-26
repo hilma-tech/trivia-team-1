@@ -25,7 +25,7 @@ const MyQuizes: FC = () => {
     );
 
 
-    return (<div className="compChildrenContainer my-quizzes">
+    return (<div className="comp-children-container my-quizzes">
         {window.innerWidth > 600 ? <h1 className="title">החידונים שלי:</h1> : ""}
         <div className="container">
             {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}

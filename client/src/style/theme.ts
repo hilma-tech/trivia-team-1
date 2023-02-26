@@ -19,6 +19,7 @@ export const defaultTheme: object = {
       fontWeight: "bolder",
       lineHeight: 1.5,
       color: PrimaryFontColor,
+      
     },
     h2: {
       color: PrimaryFontColor,
