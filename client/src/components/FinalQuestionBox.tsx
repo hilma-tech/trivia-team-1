@@ -3,29 +3,29 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import { CurrentQuestion } from '../utils/Interfaces';
+import { CurrentQuestion, Question } from '../utils/Interfaces';
+import { useAnswerContext } from '../context/AnswersContext';
 
 
 
-interface Props {
-    question: CurrentQuestion;
+interface FinalBoxQuestionsProps {
+    question: Question;
 }
 
 
-const FinalBoxQuestions: FC<Props> = ({ question }) => {
-
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question }) => {
     return (
-        <div className='readyQuestionsContanier'>
-            <div className='answer-and-qeustions-container' >
-                <div className='question-contanier'>
+        <div className='ready-Questions-Container'>
+            <div className='answer-and-questions-container'>
+                <div className='question-container'>
                     <p>{question.questionTitle}</p>
                 </div>
                 <div className="answer-container">
                     <FormControl>
                         <RadioGroup>
-                            <div className="radio-ready-Contanier" dir='rtl'>
+                            <div className="radio-ready-container" dir='rtl'>
                                 {question.answers.map((answer, index: number) =>
-                                    <FormControlLabel key={index} value={`answer${index + 1}`} control={<Radio />} label={answer} checked={question.correctAnswer === index + 1} />
+                                    <FormControlLabel key={index} value={`answer${index+1}`} control={<Radio />} label={answer}  checked={question.correctAnswer === index+1} />
                                 )}
                             </div>
                         </RadioGroup>
@@ -37,4 +37,4 @@ const FinalBoxQuestions: FC<Props> = ({ question }) => {
 
 }
 
-export default FinalBoxQuestions
+export default FinalQuestionBox

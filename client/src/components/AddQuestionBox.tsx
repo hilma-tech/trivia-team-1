@@ -11,7 +11,7 @@ import AnswersProvider from "../context/AnswersContext";
 
 
 
-interface Props {
+interface AddQuestionBoxProps {
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
     
@@ -19,9 +19,8 @@ interface Props {
 }
 
 
-const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion }) => {
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion }) => {
 
-    // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
 
     const addAnswer = () => {
@@ -34,26 +33,24 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion }) => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        let copy = { ...currentQuestion };
-        console.log(copy)
-        copy.questionTitle = e.target.value;
-        setCurrentQuestion(copy);
+        setCurrentQuestion((prev) => {
+            return { ...prev, questionTitle: e.target.value }
+          });
 
     }
 
 
     return (
-        <div className='addQutionsContainer'>
-            <div className='darganddropContainer'><button></button></div>
-            <div className='quizQuestionsContainer'>
-                <div className='quizQuestions' >
+        <div className='add-Questions-Container'>
+            <div className='darg-and-drop-Container'><button></button></div>
+            <div className='quiz-Questions-Container'>
+                <div className='quiz-Questions' >
                     <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
-                    <img className='selectImageQutionsSvg' src={Selectimage} />
+                    <img className='select-Image-Questions-Svg' src={Selectimage} alt=' select Image Questions Svg'  />
                 </div>
                 <div className="answer-container">
                     <FormControl>
                         <RadioGroup
-                            aria-labelledby="demo-radio-buttons-group-label"
                             name="radio-buttons-group"
                         >
                             
@@ -64,18 +61,18 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion }) => {
                     </FormControl>
 
                 </div>
-                <div className="add-answer-contanier">
+                <div className="add-answer-container">
                     <button onClick={addAnswer} className="add-answer-btn">
-                        <img src={AddAnswer} className="add-answer-svg" /> הוספת תשובה
+                        <img src={AddAnswer} className="add-answer-svg"  alt='add answer svg'/> הוספת תשובה
                     </button>
                 </div>
                 <div className="hr-line"></div>
                 <div className="footer-container-questions-btn">
                     <button className="duplicate-btn">
-                        <img src={duplicateSvg} className="duplicate-svg" />
+                        <img src={duplicateSvg} className="duplicate-svg" alt='duplicate svg' />
                     </button>
                     <button className="trash-btn">
-                        <img src={TrashSvg} className="trash-svg" />
+                        <img src={TrashSvg} className="trash-svg" alt='trash svg' />
                     </button>
                 </div>
             </div>

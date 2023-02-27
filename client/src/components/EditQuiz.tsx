@@ -8,40 +8,24 @@ import saveBtn from '../images/saveBtn.svg'
 import Selectimage from '../images/image.svg'
 import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../images/plusBtn.svg'
-import FinalBoxQuestions from './FinalBoxQuestions'
+import FinalQuestionBox from './FinalQuestionBox'
 import { useAnswerContext } from '../context/AnswersContext'
-import { CurrentQuestion } from '../utils/Interfaces'
+import { CurrentQuestion, Question } from '../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const EditQuiz: FC = () => {
 
-    const { setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
+    const { setQuestions, questions } = useAnswerContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
-        questionId: 1,
-        questionTitle: '',
-        answers: ['', ''],
-        correctAnswer: 0
-    });
-
-    useEffect(() => {
-        console.log('currentQuestion:', currentQuestion)
-        setQuestions([currentQuestion])
-    }, [])
 
     const addQuestion = () => {
-        setEmptyQuestionEdit(!emptyQuestionEdit)
         if (questions.length < 10) {
-            console.log('questions:', questions)
-
-            setQuestions((prev) => [...prev, currentQuestion])
-            setCurrentEditQuestion(currentEditQuestion + 1)
-            setCurrentQuestion(prevState => ({
-                questionId: prevState.questionId + 1,
-                questionTitle: '',
-                answers: ['', ''],
-                correctAnswer: 0
-            }))
+            setQuestions((prev) => {
+                const lastQuestion = prev.at(-1) as CurrentQuestion;
+                
+                return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: ""}]
+            })
+            setCurrentEditQuestion(questions.length)
         }
 
     }
@@ -61,27 +45,27 @@ const EditQuiz: FC = () => {
                 <img className='leftleaf' src={LeftLeaf} alt="left leaf" />
                 <img className='rightleaf' src={RightLeaf} alt="right leaf" />
             </div>
-            <div className='formContanier'>
-                <div className='topContainer'>
-                    <div className='topButtonsContainer'>
-                        <div className='topRightbtn'>
-                            <button className='showQuizBtn'>
+            <div className='form-Container'>
+                <div className='top-Container'>
+                    <div className='top-Buttons-Container'>
+                        <div className='top-Right-btn'>
+                            <button className='show-Quiz-Btn'>
                                 צפייה בחידון
-                                <img className='ShowQuizSvg' src={ShowQuizBtn} />
+                                <img className='Show-Quiz-Svg' src={ShowQuizBtn} alt='show quiz svg' />
                             </button>
                         </div>
                         <div className='topLeftBtn'>
-                            <button className='saveBtn'>
+                            <button className='save-Btn'>
                                 שמירה
-                                <img className='saveBtnSvg' src={saveBtn} />
+                                <img className='save-Btn-Svg' src={saveBtn} />
                             </button>
-                            <button className='linkbtn'><img className='linkBtnSvg' src={LinkBtn} /></button>
+                            <button className='link-btn'><img className='link-Btn-Svg' src={LinkBtn} /></button>
                         </div>
                     </div>
                 </div>
-                <div className='quizHeaderContainer'>
-                    <div className='quizHeaderImage'> <img className='selectImageQuizSvg' src={Selectimage} /></div>
-                    <div className='titleHeaderContainer'>
+                <div className='quiz-Header-Container'>
+                    <div className='quiz-Header-Image'> <img className='select-Image-Quiz-Svg' src={Selectimage} /></div>
+                    <div className='title-Header-Container'>
                         <h1>חידון ללא כותרת</h1>
                         <p>תיאור חידון</p>
                     </div>
@@ -103,9 +87,14 @@ const EditQuiz: FC = () => {
                                                 {...provided.dragHandleProps}
                                             >
                                                 {currentEditQuestion === index ?
-                                                    <AddQuestionBox setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
+                                                    <AddQuestionBox setCurrentQuestion={(q) => {
+                                                        setQuestions(prev => {
+                                                            return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                        })
+                                                    }} currentQuestion={question} />
                                                     :
-                                                    <FinalBoxQuestions question={question} />
+                                                    <FinalQuestionBox question={question as Question} />
+                                                    // TODO: fix this!!
                                                 }
                                             </div>
                                         )}
@@ -118,7 +107,7 @@ const EditQuiz: FC = () => {
                 </DragDropContext>
                 <div className='plus-btn-container'>
                     <button className='plus-btn' onClick={addQuestion}>
-                        <img src={plusBtn} className='plus-btn-svg' />
+                        <img src={plusBtn} className='plus-btn-svg' alt='plus button svg' />
                     </button>
                 </div>
             </div>

@@ -3,10 +3,7 @@ import {CurrentQuestion, Question} from '../utils/Interfaces'
 
 interface AnswersContextInterface {
     setQuestions: React.Dispatch<React.SetStateAction<CurrentQuestion[]>>;
-    questions:Question[];
-    emptyQuestionEdit : boolean;
-    setEmptyQuestionEdit : React.Dispatch<React.SetStateAction<boolean>>;
-
+    questions: CurrentQuestion[];
 }
 
 interface AnswersProviderProps {
@@ -18,15 +15,13 @@ export const AnswersContext = createContext<AnswersContextInterface | null>(null
 
 const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
 
-    const [questions, setQuestions] = useState<any[]>([]);
-    const [emptyQuestionEdit, setEmptyQuestionEdit] = useState(true);
-
+    const [questions, setQuestions] = useState<CurrentQuestion[]>([
+        {questionId: 0, questionTitle: "", answers: ["", ""]}
+    ]);
 
     const contextValue: AnswersContextInterface = {
         setQuestions: setQuestions,
-        questions: questions,
-        emptyQuestionEdit :emptyQuestionEdit,
-        setEmptyQuestionEdit: setEmptyQuestionEdit
+        questions: questions
     }
 
     return (
