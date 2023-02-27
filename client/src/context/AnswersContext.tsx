@@ -1,5 +1,6 @@
-import React, { useState, createContext, useEffect, FC, ReactNode, useContext } from "react";
+import React, { useState, createContext, FC, ReactNode, useContext } from "react";
 import {CurrentQuestion, Question} from '../utils/Interfaces'
+
 interface AnswersContextInterface {
     setQuestions: React.Dispatch<React.SetStateAction<CurrentQuestion[]>>;
     questions:Question[];

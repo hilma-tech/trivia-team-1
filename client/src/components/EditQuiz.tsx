@@ -11,22 +11,12 @@ import plusBtn from '../images/plusBtn.svg'
 import FinalBoxQuestions from './FinalBoxQuestions'
 import { useAnswerContext } from '../context/AnswersContext'
 import { CurrentQuestion } from '../utils/Interfaces'
-
-import AnswersProvider from '../context/AnswersContext'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-
-
-
-
-
 
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
-
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [newQuestions, updateQuestions] = useState(questions);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
         questionId: 1,
         questionTitle: '',
@@ -34,27 +24,24 @@ const EditQuiz: FC = () => {
         correctAnswer: 0
     });
 
-
     useEffect(() => {
-        setQuestions([...questions, currentQuestion])
+        console.log('currentQuestion:', currentQuestion)
+        setQuestions([currentQuestion])
     }, [])
-
 
     const addQuestion = () => {
         setEmptyQuestionEdit(!emptyQuestionEdit)
         if (questions.length < 10) {
-            setQuestions([...questions, currentQuestion])
+            console.log('questions:', questions)
+
+            setQuestions((prev) => [...prev, currentQuestion])
             setCurrentEditQuestion(currentEditQuestion + 1)
             setCurrentQuestion(prevState => ({
-                ...prevState,
                 questionId: prevState.questionId + 1,
                 questionTitle: '',
                 answers: ['', ''],
                 correctAnswer: 0
-
-            }));
-
-
+            }))
         }
 
     }
@@ -64,7 +51,7 @@ const EditQuiz: FC = () => {
         const [reorderedItem] = items.splice(result.source.index, 1);
         items.splice(result.destination.index, 0, reorderedItem);
 
-        updateQuestions(items);
+        setQuestions(items);
     }
 
 
@@ -104,17 +91,22 @@ const EditQuiz: FC = () => {
                         {(provided) => (
                             <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
                                 {questions.map((question, index: number) => (
-                                    <Draggable key={question.questionId} draggableId={question.questionId.toString()} index={index}>
+                                    <Draggable
+                                        key={question.questionId.toString()}
+                                        draggableId={question.questionId.toString()}
+                                        index={index}
+                                    >
                                         {(provided) => (
-                                            <div ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
-                                                {currentEditQuestion === index ? (
-                                                    <AddQuestionBox key={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
-                                                ) : (
-                                                    <FinalBoxQuestions key={index} questionId={index + 1} 
-                                                    forwardRef={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps} />
-                                                )}
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
+                                            >
+                                                {currentEditQuestion === index ?
+                                                    <AddQuestionBox setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
+                                                    :
+                                                    <FinalBoxQuestions question={question} />
+                                                }
                                             </div>
                                         )}
                                     </Draggable>
@@ -129,7 +121,7 @@ const EditQuiz: FC = () => {
                         <img src={plusBtn} className='plus-btn-svg' />
                     </button>
                 </div>
-            </div >
+            </div>
         </>
     );
 }
