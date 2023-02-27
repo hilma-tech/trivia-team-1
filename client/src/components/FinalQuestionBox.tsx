@@ -7,14 +7,14 @@ import Radio from '@mui/material/Radio';
 
 
 
-interface Props {
+interface FinalBoxQuestionsProps {
     questionId: number;
 
 
 }
 
 
-const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ questionId }) => {
     const {  setQuestions, questions} = useAnswerContext()
 
 
@@ -23,19 +23,19 @@ const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
     }, [questions])
 
     return (
-        <div className='readyQuestionsContanier'>
+        <div className='ready-Questions-Container'>
 
             {questions.length > 1 &&
                 questions.map((question, index: number) =>
                     index != 0 && index === questionId &&
-                    <div className='answer-and-qeustions-container'>
-                        <div className='question-contanier'>
+                    <div className='answer-and-questions-container'>
+                        <div className='question-container'>
                             <p>{question.questionTitle}</p>
                         </div>
                         <div className="answer-container">
                             <FormControl>
                                 <RadioGroup>
-                                    <div className="radio-ready-Contanier" dir='rtl'>
+                                    <div className="radio-ready-container" dir='rtl'>
                                         {question.answers.map((answer, index: number) =>
                                             <FormControlLabel key={index} value={`answer${index+1}`} control={<Radio />} label={answer}  checked={question.correctAnswer === index+1} />
                                         )}
@@ -51,4 +51,4 @@ const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
 
 }
 
-export default FinalBoxQuestions
+export default FinalQuestionBox

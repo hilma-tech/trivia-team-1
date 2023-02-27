@@ -1,7 +1,6 @@
 import React from 'react';
 import EditQuiz from './components/EditQuiz';
 import AnswersProvider from './context/AnswersContext';
-import './App.css';
 
 function App() {
   return (
