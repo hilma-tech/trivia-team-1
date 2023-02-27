@@ -9,12 +9,12 @@ import Radio from '@mui/material/Radio';
 
 interface Props {
     questionId: number;
-
+    forwardRef :(element: HTMLElement | null) => void;
 
 }
 
 
-const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
+const FinalBoxQuestions: FC<Props> = ({ questionId  , forwardRef}) => {
     const {  setQuestions, questions} = useAnswerContext()
 
 
@@ -23,17 +23,17 @@ const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
     }, [questions])
 
     return (
-        <div className='readyQuestionsContanier'>
+        <div className='readyQuestionsContanier' ref={forwardRef}>
 
             {questions.length > 1 &&
                 questions.map((question, index: number) =>
                     index != 0 && index === questionId &&
-                    <div className='answer-and-qeustions-container'>
-                        <div className='question-contanier'>
-                            <p>{question.questionTitle}</p>
-                        </div>
-                        <div className="answer-container">
-                            <FormControl>
+                        <div className='answer-and-qeustions-container' >
+                            <div className='question-contanier'>
+                                <p>{question.questionTitle}</p>
+                            </div>
+                            <div className="answer-container">
+                                <FormControl>
                                 <RadioGroup>
                                     <div className="radio-ready-Contanier" dir='rtl'>
                                         {question.answers.map((answer, index: number) =>

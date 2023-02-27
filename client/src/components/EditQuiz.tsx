@@ -13,6 +13,8 @@ import { useAnswerContext } from '../context/AnswersContext'
 import { CurrentQuestion } from '../utils/Interfaces'
 
 import AnswersProvider from '../context/AnswersContext'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 
 
 
@@ -21,13 +23,15 @@ import AnswersProvider from '../context/AnswersContext'
 
 const EditQuiz: FC = () => {
 
-    const {  setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
+    const { setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext()
 
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
+    const [newQuestions, updateQuestions] = useState(questions);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
         questionId: 1,
         questionTitle: '',
-        answers: ['', '']
+        answers: ['', ''],
+        correctAnswer: 0
     });
 
 
@@ -45,13 +49,22 @@ const EditQuiz: FC = () => {
                 ...prevState,
                 questionId: prevState.questionId + 1,
                 questionTitle: '',
-                answers: ['', '']
+                answers: ['', ''],
+                correctAnswer: 0
 
             }));
 
 
         }
 
+    }
+
+    function handleDragEnd(result: any) {
+        const items = Array.from(questions);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        updateQuestions(items);
     }
 
 
@@ -86,21 +99,57 @@ const EditQuiz: FC = () => {
                         <p>תיאור חידון</p>
                     </div>
                 </div>
-                {questions.map((item, index: number) => {
-                    return (
-                        currentEditQuestion === index
-                            ? <AddQuestionBox key={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
-                            : <FinalBoxQuestions key={index} questionId={index + 1} />
-                    )
-                })}
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
+                                {questions.map((question, index: number) => (
+                                    <Draggable key={question.questionId} draggableId={question.questionId.toString()} index={index}>
+                                        {(provided) => (
+                                            <div ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
+                                                {currentEditQuestion === index ? (
+                                                    <AddQuestionBox key={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
+                                                ) : (
+                                                    <FinalBoxQuestions key={index} questionId={index + 1} 
+                                                    forwardRef={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps} />
+                                                )}
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
                 <div className='plus-btn-container'>
                     <button className='plus-btn' onClick={addQuestion}>
                         <img src={plusBtn} className='plus-btn-svg' />
                     </button>
                 </div>
-            </div>
+            </div >
         </>
     );
 }
 
 export default EditQuiz;
+
+
+{/* <div className='all-final-questions'>
+{questions.map((item, index: number) => (
+    currentEditQuestion === index ?
+        <AddQuestionBox
+            key={index}
+            setCurrentQuestion={setCurrentQuestion}
+            currentQuestion={currentQuestion}
+        />
+        : (
+                <FinalBoxQuestions
+                    key={index}
+                    questionId={index + 1}
+                />
+        )
+))};
+</div> */}

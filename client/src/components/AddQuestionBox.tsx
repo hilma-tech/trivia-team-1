@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect , Ref, ForwardedRef} from "react";
 import Selectimage from '../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../images/addAnswer.svg'
@@ -14,6 +14,7 @@ import AnswersProvider from "../context/AnswersContext";
 interface Props {
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
+    
 
 }
 
