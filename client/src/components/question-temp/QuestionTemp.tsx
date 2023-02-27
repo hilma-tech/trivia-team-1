@@ -1,6 +1,7 @@
-import { type } from 'os';
 import React, { useState, useEffect, useMemo } from 'react';
-// import '../../style/QuastionTemp.scss';
+import { useMediaQuery } from '@mui/material';
+import fullScreenIcon from '../../images/question-template/full-screen.png';
+import '../../style/QuastionTemp.scss';
 
 interface QuestionTempState {
     answers: {
@@ -43,6 +44,9 @@ const QuestionTemp = () => {
     const [changeColorToGreen, setChangeColorToGreen] = useState<number>(1000);
     const [changeColorToRed, setChangeColorToRed] = useState<number>(1000);
     const [changeFlexDir, setChangeFlexDir] = useState(true);
+
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
+    const [isFullScreen, setIsFullScreen] = useState(false)
 
     useEffect(() => {
         setInfoFromServer();
@@ -136,6 +140,12 @@ const QuestionTemp = () => {
             }
         }
     }
+    const enlarge = (): void => {
+        setIsFullScreen(!isFullScreen)
+        console.log(isFullScreen);
+        
+
+    }
 
     const renderMap = () => {
         return actualAnswer.map((answer, index) => {
@@ -151,15 +161,24 @@ const QuestionTemp = () => {
                                 ? '#80DCC9'
                                 : '#0C32490A'
                     }}
-                    onClick={(e) => checkIfCorrect(e, index)}
+                // onClick={(e) => checkIfCorrect(e, index)}
                 >
                     <p id='answer-button'>
                         {answer.ans}
                     </p>
                     {answer.url ?
-                        <img className="button-img"
-                            src={`${answer.url}`} alt="picture that connected to question"
-                        />
+                        <div className='img-div'>
+                            {!isLargeScreen &&
+                                <div className='mobile-show icon-div' onClick={enlarge}>
+                                    <img src={fullScreenIcon} alt='fullScreenIcon' />
+                                </div>
+                            }
+                            <img 
+                                className={`button-img ${isFullScreen&&`full-screen`}`}
+                                src={`${answer.url}`}
+                                alt="picture that connected to question"
+                            />
+                        </div>
                         : null}
                 </button>
             )
@@ -183,7 +202,7 @@ const QuestionTemp = () => {
                     <div className='question-place-father'>
                         <div >
                             <div className='question-img-place'>
-                                <img id='question-img' src={`${actualQuestion.url}`}
+                                <img className='img' id='question-img' src={`${actualQuestion.url}`}
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
@@ -192,10 +211,10 @@ const QuestionTemp = () => {
                             </h2>
                             <hr id='hr' />
                             <div className={changeFlexDir ?
-                                 'button-place-one' 
-                                 : 
-                                 'button-place-two'}
-                                 >
+                                'button-place-one'
+                                :
+                                'button-place-two'}
+                            >
                                 {renderMap()}
                             </div>
                         </div>
