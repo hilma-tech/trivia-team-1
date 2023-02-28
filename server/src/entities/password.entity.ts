@@ -6,7 +6,7 @@ export class Password {
     id: number;
     @Column()
     password: string;
-    @OneToOne(() => User, (user) => user.password, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @OneToOne(() => User, (user) => user.password)
     user: User
 
 }
