@@ -1,9 +1,11 @@
-import Box from '@mui/material/Box';
-import loadingMonkey from "../images/loadingMonkey.svg"
-import LinearProgress from '@mui/material/LinearProgress';
-import "../style/loadingMonkey.scss"
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import loadingMonkey from "../images/loadingMonkey.svg"
+
+import "../style/loadingMonkey.scss"
 
 
 

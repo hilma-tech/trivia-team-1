@@ -1,10 +1,11 @@
-import '../style/register.scss'
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
+
+import '../style/register.scss'
 
 function Register() {
     const [username, setUsername] = useState('')
