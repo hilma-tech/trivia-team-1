@@ -1,6 +1,6 @@
 import { type } from 'os';
 import React, { useState, useEffect, useMemo } from 'react';
-import '../../style/QuastionTemp.scss';
+import '../../style/questionTemp.scss';
 
 interface QuestionTempState {
     answers: {
