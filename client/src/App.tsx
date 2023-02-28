@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
-import './style/background.scss'
-import './style/navbar.scss'
+import { CssBaseline, ThemeProvider } from '@mui/material';
 
 import LoadingMonkey from './components/LoadingMonkey';
 import MyQuizes from './components/myQuizzes/MyQuizes';
@@ -12,15 +11,13 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Error from './components/error404';
 import ScoreCard from "./components/score-card/ScoreCard";
-
-import React from 'react';
-import QuestionTemp from "./components/question-temp/QuestionTemp";
 import OpeningForTheQuiz from "./components/question-temp/OpeningForTheQuiz";
-import './App.css';
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import QuestionTemp from "./components/question-temp/QuestionTemp";
+
+
 import './style/background.scss'
 import './style/navbar.scss'
-
+import './App.scss'
 
 function App() {
   return (

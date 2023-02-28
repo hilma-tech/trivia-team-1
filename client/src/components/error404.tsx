@@ -1,9 +1,9 @@
-import '../style/error404.scss'
+import { useEffect } from 'react';
 import { Typography } from '@mui/material';
 
 import Monkey404 from '../images/404monkey.svg'
-import { useEffect } from 'react';
 
+import '../style/error404.scss'
 
 
 function Error() {

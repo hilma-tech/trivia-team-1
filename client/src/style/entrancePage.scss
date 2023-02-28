@@ -3,13 +3,14 @@
     height: 73vh;
     width: 68.75vw;
     margin: 0%;
-    box-sizing:border-box;
+    box-sizing: border-box;
 
 
     .main-enterance-header {
         margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
+        font-weight: 1000;
     }
 
     .descrip-enter {
@@ -44,7 +45,8 @@
     .monkey-enter-pic {
         grid-area: img;
         text-align: center;
-        img{
+
+        img {
             height: 44vh;
             width: 19.5vw;
             position: relative;
@@ -52,22 +54,25 @@
         }
     }
 
-    .entrance-button-div{
-        .enterance-page-button{
-        width: 15.625vw;
-        height: 10vh;
-        margin-left: 35px;
-        font-size: 1.5vmax;
-        font-weight: bolder;
-        img{
-           width: 1.5vw; 
-           margin-left: 5%;
+    .entrance-button-div {
+        .enterance-page-button {
+            font-weight: 800;
+            width: 15.625vw;
+            height: 10vh;
+            margin-left: 35px;
+            font-size: 1.5vmax;
+
+            img {
+                width: 1.5vw;
+                margin-left: 5%;
+            }
         }
-        }
-        .my-quizes-button{
+
+        .my-quizes-button {
             box-shadow: 0px 1.25vh 0px 0px #985E4B;
         }
-        .create-quiz-button{
+
+        .create-quiz-button {
             box-shadow: 0px 1.25vh 0px 0px #216361;
         }
     }
@@ -75,13 +80,17 @@
 
     .logout-button {
         text-align: center;
-        font-size:  2vmax;
+        font-size: 1.5vmax;
         background-color: transparent;
         border-color: transparent;
         color: #216361;
         margin-right: 1%;
         position: absolute;
         bottom: 16vh;
+        font-weight: 1000;
+        img{
+            margin-left: 8%;
+        }
     }
 }
 
@@ -94,7 +103,7 @@
     text-align: center;
     overflow-x: hidden;
 
-    .leaves-enterance{
+    .leaves-enterance {
         position: absolute;
         right: -70px;
         top: -55px;
@@ -122,31 +131,35 @@
     }
 
     .enterance-page-button {
+        font-weight: 700;
         width: 220px;
         height: 70px;
         margin-bottom: 12px;
         font-size: 26px;
-        img{
+
+        img {
             margin-left: 8px;
         }
     }
-    
-    .myQuizesButton{
+
+    .myQuizesButton {
         box-shadow: 0px 5px 0px 0px #985E4B;
     }
-    .create-quiz-button{
+
+    .create-quiz-button {
         box-shadow: 0px 5px 0px 0px #216361;
     }
 
-    .logout-button{
+    .logout-button {
         position: absolute;
         right: 35px;
         bottom: 25px;
         height: 20px;
         width: 60px;
         font-size: 16px;
-        font-weight: bolder;
-        img{
+        font-weight: 1000;
+
+        img {
             height: 16px;
         }
     }
@@ -155,11 +168,13 @@
         font-size: 65px;
         margin-bottom: 20px;
         margin-top: 0px;
+        font-weight: 1000;
     }
 
     .small-header {
         font-size: 35px;
         margin-bottom: 0px;
         margin-top: 130px;
+        font-weight: 700;
     }
 }
