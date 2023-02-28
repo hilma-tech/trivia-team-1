@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery } from "@mui/material";
-import triangleIcon from '../../images/question-template/triangle-icon.svg'
+import triangleIcon from '../../images/question-template/triangle-icon.svg';
 import italyPic from '../../images/question-template/italy.png';
 import '../../style/OpeningForTheQuiz.scss';
+import OpeningForTheQuiz from './OpeningForTheQuiz';
 
 interface OpeningParagraphTitleProps {
     quizTitle: string,
     paragraph: string,
     imgUrl: string,
-    changeComponent: boolean
-    setChangeComponent: any
+    changeComponent: boolean,
+    setChangeComponent: any,
+    // type: "banana"
 }
 
 const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle, paragraph, imgUrl, changeComponent, setChangeComponent }) => {
