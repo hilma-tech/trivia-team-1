@@ -1,4 +1,5 @@
 import { TableCell, TableRow } from "@mui/material";
+
 import gold from '../../images/crowns/gold.svg';
 import silver from '../../images/crowns/silver.svg';
 import bronze from '../../images/crowns/bronze.svg';
@@ -31,7 +32,7 @@ function HighScore(props: ScoreType) {
     return (
         <TableRow>
             <TableCell className="bold">{id}</TableCell>
-            <TableCell>{`${name} `}{src && <img src={src} />}</TableCell>
+            <TableCell>{`${name} ${src && <img src={src} />}`}</TableCell>
             <TableCell className="bolder">{score}</TableCell>
             <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>

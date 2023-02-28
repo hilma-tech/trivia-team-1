@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery } from "@mui/material";
-// import axios, { isAxiosError, isCancel } from "axios";
+
 import HighScore from "./HighScore";
-import '../../style/scoreCard.scss';
 import PhonePageWithNav from "../navbar/phonePageWithNav";
+
+import '../../style/scoreCard.scss';
 
 function ScoreCard() {
     const isLargeScreen = useMediaQuery("(min-width: 600px)")

@@ -1,17 +1,21 @@
 import { ContainerProps } from "@mui/material";
-import PhoneNavBar from "./PhoneNavbar";
-import '/home/hilma/Desktop/first big proj/trivia-team-1/client/src/style/phoneNavbar.scss'
+import clsx from "clsx";
 
-interface PhonePageWithNavProps extends ContainerProps {
-    type: string;
+import PhoneNavBar from "./PhoneNavbar";
+
+import '../../style/phoneNavbar.scss'
+
+export interface PhonePageWithNavProps extends ContainerProps {
+    type: "banana" | "image" | "return";
     title: string;
   }
 
 function PhonePageWithNav(props: PhonePageWithNavProps) {
+    const className = clsx('phone-main', props.className)
     return ( 
         <div>
             <PhoneNavBar type={props.type} title={props.title}/>
-            <main className={`phone-main ${props.className}`}>{props.children}</main>
+            <main className={className}>{props.children}</main>
         </div>
      );
 }

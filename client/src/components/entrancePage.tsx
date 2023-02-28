@@ -1,4 +1,3 @@
-import '../style/entrancePage.scss'
 import {useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
@@ -7,6 +6,8 @@ import monkeyEnter from '../images/monkeyEnter.svg';
 import magicWand from '../images/magic-wand.svg';
 import logout from '../images/logout.svg';
 import leavesEnterance from '../images/leaves-enterance.svg';
+
+import '../style/entrancePage.scss'
 
 function EnterancePage() {
     const [currentUser, setCurrentUser] = useState('שלימזי')
