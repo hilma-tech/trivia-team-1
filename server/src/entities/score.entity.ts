@@ -10,10 +10,10 @@ export class Score {
     score: string;
 
     @Column({ type: 'date' })
-    date: number;
+    date: Date;
 
-    @ManyToOne(() => User, (user) => user.scores)
-    user: User;
+    @Column()
+    player: string;
 
     @ManyToOne(() => Quiz, (quiz) => quiz.scores)
     quiz: Quiz;

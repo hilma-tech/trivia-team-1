@@ -8,11 +8,11 @@ export class Answer {
     @Column()
     text: string;
 
-    @Column({ nullable: true })
-    image_url: string;
-
-    @Column()
-    is_correct: boolean;
+    @Column({ name: "image_url",  nullable: true  })
+    imageUrl: string;
+    
+    @Column({ name: "is_correct" })
+    isCorrect: boolean;
 
     @ManyToOne(() =>Question , (question) => question.answers)
     question: Question;

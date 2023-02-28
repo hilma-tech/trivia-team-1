@@ -9,8 +9,8 @@ export class Question {
     @Column()
     title: string;
 
-    @Column({ nullable: true })
-    imgae_url: string;
+    @Column({ name: "image_url",  nullable: true })
+    imageUrl: string;
 
     @ManyToOne(() => Quiz, (quiz) => quiz.questions)
     quiz: Quiz;

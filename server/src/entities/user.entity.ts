@@ -10,13 +10,10 @@ export class User {
     @Column()
     username: string;
 
-    @OneToMany(() => Quiz, (quizzes) => quizzes.user, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @OneToMany(() => Quiz, (quizzes) => quizzes.creator, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     quizzes: Quiz[]
 
     @OneToOne(() => Password, (password) => password.user, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     password: Password
-
-    @OneToMany(() => Score, (scores) => scores.user)
-    scores: Score[]
 
 }

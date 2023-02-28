@@ -13,11 +13,11 @@ export class Quiz {
     @Column()
     description: string;
 
-    @Column({nullable: true })
-    image_url: string;
+    @Column({ name: "image_url", nullable: true })
+    imageUrl: string;
 
     @ManyToOne(() => User, (user) => user.quizzes)
-    user: User;
+    creator: User;
 
     @OneToMany(() => Score, (scores) => scores.quiz, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     scores: Score[]
