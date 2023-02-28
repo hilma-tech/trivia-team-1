@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+import { useMediaQuery } from "@mui/material";
 import triangleIcon from '../../icons/icon-awesome-play.png';
+import arrowRight from '../../icons/arrow-right.svg';
+
 
 interface CheckForNameProps {
     quizTitle: string
@@ -8,7 +11,7 @@ interface CheckForNameProps {
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
 
     const [playerName, setPlayerName] = useState("");
-
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
     function sendNameOfPlayerToServer() {
         fetch(`#`, {
             method: 'POST',
@@ -33,6 +36,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     }
 
     return (
+        isLargeScreen ?
         <main>
             <div className='main-CheckForName-for-flex'>
                 <div className='main-CheckForName'>
@@ -51,6 +55,33 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                 </div>
             </div>
         </main>
+        :
+        <div>
+            <header>
+                <img src={`${arrowRight}`} alt="icon of triangle" />
+                <div className='quizTitle-div'>
+                    <h1 className='quizTitle'>{quizTitle}</h1>
+                </div>
+            </header>
+        <main>
+            <div className='main-CheckForName-for-flex'>
+                <div className='main-CheckForName'>
+                    <div className='title-and-paragraph'>
+                        <p>איך קוראים לכם?</p>
+                    </div>
+                    <input onChange={(ev) => setPlayerName(ev.target.value)}
+                        name="player-identification" type="text"
+                        placeholder="נא להזין שם" value={playerName} required
+                    />
+                    <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
+                        <p>יאללה בואו נתחיל!</p>
+                        <img src={`${triangleIcon}`} alt="icon of triangle" />
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        </div>
     );
 }
 export default CheckForName;
