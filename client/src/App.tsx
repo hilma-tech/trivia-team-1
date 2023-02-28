@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/enterance-page" element={<EnterancePage />} />
           <Route index element={<Navigate replace to="/login" />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<QuestionTemp />} />
           <Route path="/register" element={<Register />} />
           <Route path='*' element={<Navigate replace to="/loading-page" />} />
           <Route path='/error404' element={<Error />} />

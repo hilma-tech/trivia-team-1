@@ -153,12 +153,12 @@ const QuestionTemp = () => {
                     }}
                     onClick={(e) => checkIfCorrect(e, index)}
                 >
-                    <p id='answer-button'>
+                    <p className='answer-button'>
                         {answer.ans}
                     </p>
                     {answer.url ?
                         <img className="button-img"
-                            src={`${answer.url}`} alt="picture that connected to question"
+                            src={`${answer.url}`} alt=""
                         />
                         : null}
                 </button>
@@ -167,10 +167,10 @@ const QuestionTemp = () => {
     }
 
     return (
-        // <div>
+        <div className='question-temp comp-children-container'>
             <main className='main-QuastionTemp'>
                 <div
-                    id='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
+                    className='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
                 </div>
                 <div className='numOfQuestion-place'>
                     <div className='numOfQuestion'>
@@ -179,11 +179,11 @@ const QuestionTemp = () => {
                         </p>
                     </div>
                 </div>
-                <div>
+                <div className='question-content'>
                     <div className='question-place-father'>
-                        <div >
+                        <div className='question-place-child'>
                             <div className='question-img-place'>
-                                <img id='question-img' src={`${actualQuestion.url}`}
+                                <img className='question-img' src={`${actualQuestion.url}`}
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
@@ -202,7 +202,7 @@ const QuestionTemp = () => {
                     </div>
                 </div>
             </main>
-        // </div>
+       </div>
     );
 }
 
