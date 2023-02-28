@@ -1,3 +1,7 @@
+
+$green-color: #378381;
+
+
 body {
     background-color: #E0F4F5;
     box-sizing: border-box;
@@ -74,7 +78,7 @@ body {
     border-radius: 10px;
     text-align: center;
     font: normal normal normal 14px/20px Rubik;
-    color: #378381;
+    color: $green-color;
     opacity: 1;
     width: 10vw;
     display: flex;
@@ -89,7 +93,7 @@ body {
 }
 
 .link-btn {
-    background: #378381;
+    background: $green-color;
     border: none;
     border-radius: 10px;
     display: flex;
@@ -103,7 +107,7 @@ body {
 }
 
 .save-Btn {
-    background: #378381;
+    background: $green-color;
     border: none;
     width: 7vw;
     display: flex;

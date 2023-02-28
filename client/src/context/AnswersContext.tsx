@@ -16,7 +16,7 @@ export const AnswersContext = createContext<AnswersContextInterface | null>(null
 const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
 
     const [questions, setQuestions] = useState<CurrentQuestion[]>([
-        {questionId: 0, questionTitle: "", answers: ["", ""]}
+        {questionId: 1, questionTitle: "", answers: ["", ""]}
     ]);
 
     const contextValue: AnswersContextInterface = {

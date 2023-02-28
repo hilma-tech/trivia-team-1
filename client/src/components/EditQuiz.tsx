@@ -18,12 +18,14 @@ const EditQuiz: FC = () => {
     const { setQuestions, questions } = useAnswerContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
 
+    console.log(questions)
+    
     const addQuestion = () => {
         if (questions.length < 10) {
             setQuestions((prev) => {
                 const lastQuestion = prev.at(-1) as CurrentQuestion;
-                
-                return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: ""}]
+
+                return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
             })
             setCurrentEditQuestion(questions.length)
         }
@@ -87,8 +89,17 @@ const EditQuiz: FC = () => {
                                                 {...provided.dragHandleProps}
                                             >
                                                 {currentEditQuestion === index ?
+
+                                                    // React.Dispatch<React.SetStateAction<CurrentQuestion>>
+                                                    // (question: CurrentQuestion | ((prev: CurrentQuestion) => CurrentQuestion)) => void
+                                                    // setCurrentQuestion({...question}) | setCurrentQuestion((prev) => ({...question}));
                                                     <AddQuestionBox setCurrentQuestion={(q) => {
                                                         setQuestions(prev => {
+                                                            // all the questions before this question...
+                                                            // either `q` if it's an object or `q(question) if it's a function
+                                                            // ...all the questions after this question
+
+                                                            //                               (prev) => ({...question})         {...question}
                                                             return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                         })
                                                     }} currentQuestion={question} />
