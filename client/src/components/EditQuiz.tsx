@@ -1,7 +1,5 @@
 import React, { Component, FC, useState, createContext, useEffect } from 'react';
-import '../css/EditQuiz.scss'
-import LeftLeaf from '../images/leftleaf.svg'
-import RightLeaf from '../images/rightleaf.svg'
+import '../style/EditQuiz.scss'
 import ShowQuizBtn from '../images/showquizzbtn.svg'
 import LinkBtn from '../images/linkBtn.svg'
 import saveBtn from '../images/saveBtn.svg'
@@ -19,7 +17,7 @@ const EditQuiz: FC = () => {
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
 
     console.log(questions)
-    
+
     const addQuestion = () => {
         if (questions.length < 10) {
             setQuestions((prev) => {
@@ -43,10 +41,6 @@ const EditQuiz: FC = () => {
 
     return (
         <>
-            <div className='leftleafContainer'>
-                <img className='leftleaf' src={LeftLeaf} alt="left leaf" />
-                <img className='rightleaf' src={RightLeaf} alt="right leaf" />
-            </div>
             <div className='form-Container'>
                 <div className='top-Container'>
                     <div className='top-Buttons-Container'>
@@ -128,20 +122,3 @@ const EditQuiz: FC = () => {
 
 export default EditQuiz;
 
-
-{/* <div className='all-final-questions'>
-{questions.map((item, index: number) => (
-    currentEditQuestion === index ?
-        <AddQuestionBox
-            key={index}
-            setCurrentQuestion={setCurrentQuestion}
-            currentQuestion={currentQuestion}
-        />
-        : (
-                <FinalBoxQuestions
-                    key={index}
-                    questionId={index + 1}
-                />
-        )
-))};
-</div> */}
