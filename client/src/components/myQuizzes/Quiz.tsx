@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import TrashSvg from "../../images/trash.svg";
 import LinkSvg from "../../images/link.svg";
 import EditSvg from "../../images/edit.svg";
@@ -7,7 +8,6 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuPic from "../../images/dottedMenu.png"
-import { useNavigate } from "react-router-dom";
 import GenericPop from "../popups/GenericPop";
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';

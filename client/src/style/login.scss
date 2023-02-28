@@ -7,6 +7,7 @@
         margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
+         font-weight: 1000;
     }
 
     .descrip-enter {
@@ -163,10 +164,11 @@
             width: 228px;
             height: 40px;
             margin-bottom: 8px;
-            font-size: 26px;
+            font-size: 20px;
             margin-top: 1vh;
             display: flex;
             margin-right: calc((100vw - 228px)/2);
+            font-weight: 700;
         }
 
         .reg-err-div {
@@ -213,12 +215,14 @@
         font-size: 65px;
         margin-top: 0px;
         margin-bottom: 0px;
+         font-weight: 1000;
     }
 
     .small-header {
         font-size: 35px;
         margin-bottom: 0px;
         margin-top: 18vh;
+        font-weight: 700;
     }
 
     @media screen and (max-height: 800px){

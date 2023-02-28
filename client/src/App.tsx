@@ -1,7 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import './style/background.scss'
-import './style/navbar.scss'
 
 import LoadingMonkey from './components/LoadingMonkey';
 import MyQuizes from './components/myQuizzes/MyQuizes';
@@ -16,6 +14,10 @@ import ScoreCard from "./components/score-card/ScoreCard"; import GenericPop fro
 import { PopContextProvider } from './components/popups/popContext';
 import { SummaryGameDesktop } from './components/popups/SummaryGameDesktop';
 
+
+import './style/background.scss'
+import './style/navbar.scss'
+import './App.scss'
 
 function App() {
   return (

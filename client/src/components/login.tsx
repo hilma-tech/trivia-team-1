@@ -1,9 +1,10 @@
-import '../style/login.scss'
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
+
+import '../style/login.scss'
 
 function Login() {
     const [username,setUsername] = useState('')

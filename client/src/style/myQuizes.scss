@@ -1,7 +1,7 @@
 .my-quizzes {
     position: relative;
     width: 100%;
-    height:100%;
+    height: 100%;
     overflow-y: hidden;
     overflow-x: hidden;
 
@@ -19,37 +19,36 @@
         margin-top: 4vh;
         display: flex;
         width: 100%;
-        height:85%;
+        height: 85%;
         flex-direction: column;
         align-items: center;
         overflow-y: auto;
 
         .quiz {
-            background:white 0% 0% no-repeat padding-box;
+            background: white 0% 0% no-repeat padding-box;
             box-shadow: 0px 2px 6px grey;
             opacity: 1;
             margin-bottom: 5vh;
             width: 95%;
-            min-height: 20vh;
+            min-height: 18vh;
             display: flex;
             flex-direction: row;
 
-            .quiz-title {
+            h3 {
                 margin-top: -3vh;
                 font-family: Rubik;
                 font-size: 1.3rem;
                 letter-spacing: 0px;
                 color: #0c3249;
                 opacity: 1;
-                font-weight: bolder;
             }
 
             p {
-                font-family: Rubik;
                 font-size: 1rem;
                 letter-spacing: 0px;
                 color: #0C3249;
                 opacity: 0.7;
+                margin-bottom: 2vh;
             }
 
             .quiz-image {
@@ -69,7 +68,6 @@
                     letter-spacing: 0px;
                     font-weight: normal;
                     color: white;
-
                 }
 
             }
@@ -78,28 +76,29 @@
                 width: 79%;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
-
-                * {
-                    margin-bottom: -1vh;
-                }
+                // justify-content: center;
+                margin-bottom: -1vh;
             }
 
             .quiz-buttons {
-                margin-top: 3vh;
                 display: flex;
                 justify-content: space-between;
+                margin-top: 3vh;
+
                 button {
                     border-color: transparent;
                 }
-                div{
+
+                div {
                     padding-left: 1vw;
-                    button{
+
+                    button {
                         margin-left: 0.2vw;
                     }
                 }
+
                 .scoreboard-button {
-                    
+
                     background: #378381 0% 0% no-repeat padding-box;
                     border-radius: 50px;
                     opacity: 1;
@@ -108,7 +107,7 @@
                     letter-spacing: 0px;
                     color: white;
                     opacity: 1;
-
+                    font-weight: 700;
                 }
 
                 .emoji-buttons {
@@ -146,17 +145,16 @@
                 background: #378381 0% 0% no-repeat padding-box;
                 border-radius: 8px;
                 opacity: 1;
-                font-family: Rubik;
                 font-size: 1.1rem;
                 letter-spacing: 0px;
                 color: white;
                 opacity: 1;
                 width: 20vw;
                 height: 5vw;
+                font-weight: 800;
             }
 
             h2 {
-                font-family: Rubik;
                 font-size: 1.5rem;
                 letter-spacing: 0px;
                 color: #0C3249;
@@ -229,11 +227,12 @@
                     align-items: center;
 
 
-                   
 
-                    h3{
+
+                    h3 {
                         margin-top: 1.7vh;
                     }
+
                     .title {
                         justify-self: center;
                     }
@@ -264,7 +263,6 @@
                 }
 
                 h2 {
-                    font-family: Rubik;
                     font-size: 1.3rem;
                     font-weight: normal;
                     margin-bottom: 10vh;
@@ -273,6 +271,7 @@
                 button {
                     width: 60vw;
                     height: 10vh;
+                    font-weight: 800;
                 }
             }
         }
