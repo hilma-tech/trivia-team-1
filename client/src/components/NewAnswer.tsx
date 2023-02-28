@@ -63,7 +63,7 @@ const NewAnswer: FC<NewAnswerProps> = ({  answerIndex, isChecked = false, setCur
  
                 </div>
                 <div className="text-Field-Container">
-                    <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex+1}`}
+                    <TextField className="text-Field-input" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex+1}`}
                         id="standard-size-small" variant="standard" value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
 
                 </div>

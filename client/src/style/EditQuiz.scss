@@ -1,11 +1,10 @@
-
 $green-color: #378381;
 
 
 body {
     background-color: #E0F4F5;
-    // box-sizing: border-box;
-    // overflow-x: hidden;
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 
 
@@ -14,28 +13,34 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 3.5%;
 
-    .plus-btn-container{
+    .plus-btn-container {
         width: 2vw;
         height: 1vh;
         margin-top: 3.5%;
     }
 
-    .plus-btn{
+    .plus-btn {
         border-radius: 50%;
         border: 1px solid rgb(110, 110, 110);
         background-color: #FFFFFF;
         cursor: pointer;
     }
 
-    .plus-btn-svg{
+    .plus-btn-svg {
         width: 2vw;
         height: 4vh;
+    }
+
+    .quiz-input-name{
+        height: 5.1020408163265305vh;
+        width: 14.47939262472885vw;
     }
 }
 
 .top-Container {
-    width: 95vw;
+    width: 68.75vw;
     display: flex;
     justify-content: space-around;
 
@@ -44,13 +49,13 @@ body {
 .top-Buttons-Container {
     margin-top: 3%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
 }
 
-.topLeftBtn {
+.top-Left-Btn {
     display: flex;
-    width: 11%;
+    width: 17%;
     justify-content: space-around;
 }
 
@@ -59,10 +64,11 @@ body {
     border: 1px solid #0C32494D;
     border-radius: 10px;
     text-align: center;
-    font: normal normal normal 14px/20px Rubik;
+    font: normal normal normal 19px/23px Rubik;
     color: $green-color;
     opacity: 1;
-    width: 10vw;
+    width: 8.8vw;
+    height: 3.97vh;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -80,6 +86,9 @@ body {
     border-radius: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    width: 2.0833vw;
+    height: 3.97219vh;
 }
 
 .link-Btn-Svg {
@@ -91,8 +100,10 @@ body {
 .save-Btn {
     background: $green-color;
     border: none;
-    width: 7vw;
+    width: 6.61vw;
+    height: 3.97vh;
     display: flex;
+    font: normal normal normal 19px/23px Rubik;
     justify-content: space-evenly;
     align-items: center;
     color: #FFFFFF;
@@ -108,9 +119,9 @@ body {
 .quiz-Header-Container {
     background-color: #FFFFFF;
     margin-top: 2%;
-    width: 58vw;
-    height: 20vh;
-    border: 2px solid #0C3249;
+    width: 68.75vw;
+    height: 10.625vw;
+    border: 4px solid #0C3249;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
@@ -133,21 +144,32 @@ body {
     height: 50%;
 }
 
-.title-Header-Container{
+.title-Header-Container {
     margin-right: 5%;
+    display: flex;
+    flex-direction: column;
 }
 
-.add-Questions-Container{
+.add-Questions-Container {
     margin-top: 3%;
     background-color: #FFFFFF;
-    width: 58vw;
-    border: 2px solid #0C3249;
+    width: 68.75vw;
+    border: 4px solid #0C3249;
     border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    .add-answer-btn{
+    .darg-and-drop-Container {
+        width: 1.0416666666666667vw;
+        height: 1.1916583912611718vh;
+        margin-top: 1%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .add-answer-btn {
         background-color: white;
         width: 21vw;
         margin-top: 2%;
@@ -156,128 +178,130 @@ body {
         align-items: center;
         border: none;
         text-decoration: underline;
-        margin-right:0.35vw;
+        margin-right: 0.35vw;
         color: #0C3249;
         opacity: 0.5;
         text-align: right;
         letter-spacing: 0px;
 
 
-
-
-        
     }
 
-    .add-answer-svg{
+    .add-answer-svg {
         width: 1vw;
         margin-left: 0.8vw;
 
     }
 
-    .gf{
+    .gf {
         display: flex;
         justify-content: flex-end;
     }
 
 
-    .add-answer-container{
+    .add-answer-container {
         margin-left: 6px;
     }
 
-    .answer-container{
+    .answer-container {
         margin-right: 0.5vw;
+        margin-top: 3.5vh;
     }
 
-    .footer-container-questions-btn{
+    .footer-container-questions-btn {
         display: flex;
         justify-content: flex-end;
-        height: 7vh;
+        height: 11vh;
         margin-left: 3%;
-        
+
     }
 
-    .duplicate-btn{
+    .duplicate-btn {
         background-color: white;
         border: none;
-        margin-left: 0.5rem;
-        
+        margin-left: 2rem;
+
     }
 
-    .trash-btn{
+    .trash-btn {
         background-color: white;
         border: none;
     }
 
-    .hr-line{
+    .hr-line {
         width: 100%;
         border: 1px solid #0C3249;
         opacity: 0.1;
         margin-top: 1vw;
     }
 
-    .duplicate-svg{
+    .duplicate-svg {
         width: 1.5vw;
     }
 
-    .trash-svg{
+    .trash-svg {
         width: 1.5vw;
     }
 
-    .question-input{
-        height: 2vh;
+    .question-input {
+        height: 3.0784508440913605vh;
+        width: 9.739583333333334vw;
     }
 
-    
+    .select-Image-Questions-Svg {
+        margin-right: 1.5vw;
+        width: 1.6vw;
 
-    
+    }
+
+    .MuiFormLabel-root {
+        font-size: 17px;
+    }
+
+
+
 }
 
-.darg-and-drop-Container{
-    margin-top: 1%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-}
-
-.quiz-Questions-Container{
+.quiz-Questions-Container {
     width: 98%;
     display: flex;
     flex-direction: column;
-    
+
 }
 
-.quiz-Questions{
+.quiz-Questions {
     display: flex;
     margin-top: 2%;
     margin-right: 2%;
 
-    p{
+    p {
         font-size: 0.7rem;
     }
 }
 
-.select-Image-Questions-Svg{
-    margin-right: 1.5vw;
-    width: 1.4vw;
-}
 
 
-.iconBtnSvg{
+
+.iconBtnSvg {
     width: 1vh;
     display: flex;
 }
 
-.check-boxes-Container{
+.check-boxes-Container {
     margin-top: 3%;
     display: flex;
 
-    .MuiInputBase-root{
-        font-size: 0.7rem   ;
+    .MuiInputBase-root {
+        font-size: 0.7rem;
+    }
+
+    .text-Field-input {
+        width: 34vw;
     }
 }
 
-.check-box-Svg{
+.check-box-Svg {
     display: flex;
     align-items: center;
     margin-top: 1rem;
@@ -292,64 +316,98 @@ body {
 
 }
 
-.text-Field-Container{
+.text-Field-Container {
     margin-right: 3%;
 }
 
-.select-Image-Svg-For-Questions{
-    width: 1.4vw;
+.select-Image-Svg-For-Questions {
+    width: 1.5625vw;
+    height: 2.9791459781529297vh;
     margin-right: 2vw;
-    
+
 }
 
-.trashSvgForQuestions{
-    width: 1.4vw;
+.trashSvgForQuestions {
+    width: 1.5625vw;
+    height: 2.9791459781529297vh;
     margin-right: 1.3vw;
 }
 
 
-.ready-Questions-Container{
+.ready-Questions-Container {
     background-color: #FFFFFF;
     margin-top: 2%;
-    width: 58vw;
-    border: 2px solid #0C3249;
+    width: 68.75vw;
+    height: 26.11022840119166vh;
+    border: 4px solid #0C3249;
     border-radius: 10px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
 
-    .answer-and-questions-container{
+    .answer-and-questions-container {
         width: 95%;
     }
 
-    .MuiSvgIcon-root{
+    .question-title-final-box {
+        text-align: right;
+        font: normal normal normal 26px/31px Rubik;
+        letter-spacing: 0px;
+        color: #0C3249;
+        opacity: 1;
+    }
+
+    .MuiSvgIcon-root {
         height: 0.6em;
     }
 
-    .question-{
-        width:28%;
-        display: flex;
-        justify-content: center;
+    .question-container {
+        padding-right: 1.5%;
+        margin-bottom: 2%;
 
     }
 
-    .radio-ready-container{
+    .answer-container {
+        display: flex;
+        align-items: center;
+    }
+
+    .radio-ready-container {
         display: flex;
         flex-direction: column;
+
     }
 
-    .MuiFormControlLabel-root	{
+    .MuiFormControlLabel-root {
         margin-right: 0px;
+        margin-bottom: 5%;
+        text-align: right;
+        letter-spacing: 0px;
+        color: #0C3249;
+        opacity: 1;
+
     }
 
-    .MuiButtonBase-root-MuiRadio-root{
+    .MuiButtonBase-root-MuiRadio-root {
         padding-right: 0;
     }
 
-    
-}
+    .darg-and-drop-Container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 1%;
+    }
 
-.width{
-    width: 25vw;
+    .drag-and-drop-Svg{
+        width: 1.0416666666666667vw;
+        height: 2.1916583912611718vh;
+    }
+
+    .empty-div{
+        height: 1.5vh;
+    }
+
+
 }

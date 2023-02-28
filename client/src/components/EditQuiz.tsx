@@ -10,13 +10,18 @@ import FinalQuestionBox from './FinalQuestionBox'
 import { useAnswerContext } from '../context/AnswersContext'
 import { CurrentQuestion, Question } from '../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { TextField } from '@mui/material';
+
+
 
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions } = useAnswerContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
+    const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
+    console.log(questionDetails)
 
-    console.log(questions)
+
 
     const addQuestion = () => {
         if (questions.length < 10) {
@@ -38,6 +43,14 @@ const EditQuiz: FC = () => {
         setQuestions(items);
     }
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const {id , value} = e.target;
+        setQuestionDetails((prev) => {
+            return id === "quizInputName" ? { ...prev, quizName: value } : { ...prev, quizDescription: value };
+        });
+
+    }
+
 
     return (
         <>
@@ -46,24 +59,33 @@ const EditQuiz: FC = () => {
                     <div className='top-Buttons-Container'>
                         <div className='top-Right-btn'>
                             <button className='show-Quiz-Btn'>
-                                צפייה בחידון
                                 <img className='Show-Quiz-Svg' src={ShowQuizBtn} alt='show quiz svg' />
+                                צפייה בחידון
                             </button>
                         </div>
-                        <div className='topLeftBtn'>
-                            <button className='save-Btn'>
-                                שמירה
-                                <img className='save-Btn-Svg' src={saveBtn} />
-                            </button>
+                        <div className='top-Left-Btn'>
                             <button className='link-btn'><img className='link-Btn-Svg' src={LinkBtn} /></button>
+                            <button className='save-Btn'>
+                                <img className='save-Btn-Svg' src={saveBtn} />
+                                שמירה
+                            </button>
                         </div>
                     </div>
                 </div>
                 <div className='quiz-Header-Container'>
                     <div className='quiz-Header-Image'> <img className='select-Image-Quiz-Svg' src={Selectimage} /></div>
                     <div className='title-Header-Container'>
-                        <h1>חידון ללא כותרת</h1>
-                        <p>תיאור חידון</p>
+                        <input type="text" id="quizInputName" placeholder="שאלה" className="quiz-input-name" value={questionDetails.quizName} onChange={handleChange} />
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Multiline"
+                            multiline
+                            rows={4}
+                            value={questionDetails.quizDescription}
+                            onChange={handleChange}
+                        />
+                        {/* <h1>חידון ללא כותרת</h1>
+                        <p>תיאור חידון</p> */}
                     </div>
                 </div>
                 <DragDropContext onDragEnd={handleDragEnd}>
