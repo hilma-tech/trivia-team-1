@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import Popup from './components/popups/Popup';
 import './style/background.scss'
 import './style/navbar.scss'
 
@@ -34,8 +33,7 @@ function App() {
             <Route path='/error404' element={<Error />} />
             <Route path='/loading-page' element={<LoadingMonkey />} />
             <Route path= '/finished-game-pc' element={<SummaryGameDesktop/>}/>
-            <Route path='/my-quizzes'>
-              <Route path='/my-quizzes' element={<MyQuizes />} />
+            <Route path='/my-quizzes' element={<MyQuizes />}>
               <Route path='/my-quizzes/:id/scoreboard' element={<ScoreCard />} />
             </Route>
           </Routes >

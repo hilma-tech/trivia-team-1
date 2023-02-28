@@ -10,12 +10,7 @@ import MenuPic from "../../images/dottedMenu.png"
 import { useNavigate } from "react-router-dom";
 import GenericPop from "../popups/GenericPop";
 import { usePopContext } from "../popups/popContext";
-// const {setPopOpen, popOpen, `  popHandleClickOpen,popHandleClose}  = usePopContext();
-
-//destructure context
-// const {setPopOpen, popOpen, popHandleClickOpen,popHandleClose}  = usePopContext();
-
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 interface QuizProps {
@@ -30,6 +25,7 @@ interface QuizProps {
 const Quiz: FC<QuizProps> = (props) => {
   const { setPopOpen, popOpen, popHandleClickOpen, popHandleClose } = usePopContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const isMobile = useMediaQuery('(min-width:600px)')
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -53,19 +49,18 @@ const Quiz: FC<QuizProps> = (props) => {
 
   }
 
-  if (window.innerWidth > 600) {
+  if (isMobile) {
     return (
-
       <div className="quiz">
         <div className="quiz-image" style={{ backgroundImage: `url('${url}')`, backgroundSize: "cover" }}>
           <span>{answers} תשובות</span>
         </div>
         <div className="quiz-data">
-          <h3>{name}</h3>
+          <div className="quiz-title">{name}</div>
           <div className="holder"></div>
           <p>{description}</p>
           <div className="quiz-buttons">
-            <button className="scoreboard-button" onClick={() => console.log('clicked!')}><span>לוח תוצאות</span></button>
+            <button className="scoreboard-button" onClick={() => alert('clicked!')}><span>לוח תוצאות</span></button>
             <div>
               <button className="emoji-buttons" onClick={() => popHandleClickOpen()}><img src={LinkSvg} alt="link" /></button>
               <button className="emoji-buttons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /></button>
@@ -76,7 +71,7 @@ const Quiz: FC<QuizProps> = (props) => {
         </div>
 
         {/* copy popup button is here, activated only when button is pressed */}
-        <GenericPop type="deleteQuiz" />
+        <GenericPop type="saveChanges" />
       </div>
     );
   }
@@ -93,9 +88,9 @@ const Quiz: FC<QuizProps> = (props) => {
           aria-expanded={!!anchorEl ? 'true' : undefined}
           onClick={handleClick}
         >
-          <img src={MenuPic} />
+          <img alt="menu picture" src={MenuPic} />
         </Button>
-        <h3>{name}</h3>
+        <div className="quiz-title">{name}</div>
         <div className="holder"></div>
         <Menu
           className="quiz-menu"
@@ -116,7 +111,7 @@ const Quiz: FC<QuizProps> = (props) => {
 
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
-      <GenericPop type="finishedQuiz" />
+      <GenericPop type="saveChanges" />
     </div>)
   }
 }

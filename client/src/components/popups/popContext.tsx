@@ -41,7 +41,6 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
 }
 
 export const usePopContext = () => {
-  // const result = popContext.Provider.value
   const result = useContext(popContext);
 
   if (result === null) throw new Error("You forgot to put the PopContextProvider!");
