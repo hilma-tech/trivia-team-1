@@ -6,7 +6,10 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class QuizService {
     constructor(@InjectRepository(Quiz)
-    private readonly ChasesRepository: Repository<Quiz>
-    ) {
+    private readonly quizRepository: Repository<Quiz>
+    ) { }
+    async getQuiz(quizId: number) {
+        const quiz = await this.quizRepository.findBy({ id: quizId});
+        return quiz;
     }
 }

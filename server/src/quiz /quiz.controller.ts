@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 
 @Controller('api/quiz')
@@ -7,8 +7,9 @@ export class QuizController {
         
     }
     @Get("/:id")
-    getQuiz(){
-        return "hello smidth"
+    async getQuiz(@Param('id', ParseIntPipe) id:number ){
+        const quiz = await this.quizService.getQuiz(id);
+        return quiz;
     }
 
     @Post("/")
