@@ -1,4 +1,5 @@
 import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
+import { QuizDTO } from './quiz.dto';
 import { QuizService } from './quiz.service';
 
 @Controller('api/quiz')
@@ -12,12 +13,13 @@ export class QuizController {
     }
 
     @Post("/")
-    register() {
+    async addQuiz(@Body() quiz: QuizDTO) {
+        this.quizService.addQuiz(quiz);
         return "hello smidth"
     }
 
     @Put("/:id")
-    login() {
+    editQuiz() {
         return "hello smidth"
     }
 
