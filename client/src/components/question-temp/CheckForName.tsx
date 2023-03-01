@@ -14,6 +14,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     const [playerName, setPlayerName] = useState("");
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     function sendNameOfPlayerToServer() {
+        //TODO: change this from "#"
         fetch(`#`, {
             method: 'POST',
             headers: {
@@ -32,7 +33,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     }
 
     const moveToPlayGame = () => {
-        // navigate();
+        //TODO: navigate();
         console.log("navigate");
     }
 
