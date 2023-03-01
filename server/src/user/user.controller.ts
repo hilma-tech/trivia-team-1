@@ -13,7 +13,6 @@ export class UserController {
         const userExist = await this.userService.checkUsernameExists(username);
         if (userExist) return false;
         else {
-            console.log("hi");
             await this.userService.register(username, password);
             return true;
         }
