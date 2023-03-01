@@ -9,6 +9,7 @@ export class QuizController {
     @Get("/:id")
     async getQuiz(@Param('id', ParseIntPipe) id:number ){
         const quiz = await this.quizService.getQuiz(id);
+        console.log("controller quiz:", quiz);
         return quiz;
     }
 

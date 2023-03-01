@@ -8,14 +8,14 @@ export class UserController {
 
     }
 
-    @Post("/register")
-    async register(@Body() { username, password }: RegisterDTO) {
-        const userExist = await this.userService.checkUsernameExists(username);
-        if (userExist) return false;
+    // @Post("/register")
+    // async register(@Body() { username, password }: RegisterDTO) {
+    //     const userExist = await this.userService.checkUsernameExists(username);
+    //     if (userExist) return false;
 
-        await this.userService.register(username, password);
-        return true;
-    }
+    //     await this.userService.register(username, password);
+    //     return true;
+    // }
 
     @Post("/login")
     login() {

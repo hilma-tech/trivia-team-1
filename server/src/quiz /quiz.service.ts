@@ -10,6 +10,7 @@ export class QuizService {
     ) { }
     async getQuiz(quizId: number) {
         const quiz = await this.quizRepository.findBy({ id: quizId});
+        console.log("service quiz:", quiz);
         return quiz;
     }
 }
