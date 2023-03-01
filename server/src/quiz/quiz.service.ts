@@ -15,4 +15,7 @@ export class QuizService {
         const { ...rest } = quiz;
         this.quizRepository.save({ ...rest })
     }
+    async edizQuiz(){
+        
+    }
 }

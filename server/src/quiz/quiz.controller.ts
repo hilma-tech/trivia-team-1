@@ -19,7 +19,8 @@ export class QuizController {
     }
 
     @Put("/:id")
-    editQuiz() {
+    editQuiz(@Body() quiz: QuizDTO) {
+        this.quizService.edizQuiz();
         return "hello smidth"
     }
 
