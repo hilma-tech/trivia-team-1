@@ -12,10 +12,10 @@ export class Question {
     @Column({ name: "image_url",  nullable: true })
     imageUrl: string;
 
-    @ManyToOne(() => Quiz, (quiz) => quiz.questions)
+    @ManyToOne(() => Quiz, (quiz) => quiz.questions, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     quiz: Quiz;
 
-    @OneToMany(() => Answer, (answers) => answers.question, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @OneToMany(() => Answer, (answers) => answers.question, {cascade:true})
     answers: Answer[]
 
 }

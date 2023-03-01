@@ -16,13 +16,13 @@ export class Quiz {
     @Column({ name: "image_url", nullable: true })
     imageUrl: string;
 
-    @ManyToOne(() => User, (user) => user.quizzes)
+    @ManyToOne(() => User, (user) => user.quizzes, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     creator: User;
 
-    @OneToMany(() => Score, (scores) => scores.quiz, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @OneToMany(() => Score, (scores) => scores.quiz, {cascade:true})
     scores: Score[]
 
-    @OneToMany(() => Question, (questions) => questions.quiz, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @OneToMany(() => Question, (questions) => questions.quiz, {cascade:true})
     questions: Question[]
 
 }

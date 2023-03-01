@@ -14,7 +14,7 @@ export class Answer {
     @Column({ name: "is_correct" })
     isCorrect: boolean;
 
-    @ManyToOne(() =>Question , (question) => question.answers)
+    @ManyToOne(() =>Question , (question) => question.answers, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     question: Question;
     
 
