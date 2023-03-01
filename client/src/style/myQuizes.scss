@@ -5,6 +5,14 @@
     overflow-y: hidden;
     overflow-x: hidden;
 
+.quiz-title {
+    margin-top: 1.6vh;
+    font-weight: bolder;
+    font-size: 1.3rem;
+    color: #0c3249;
+    opacity: 1;
+}
+
     ::-webkit-scrollbar {
         display: none
     }

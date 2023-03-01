@@ -64,7 +64,7 @@ const Quiz: FC<QuizProps> = (props) => {
             <div>
               <button className="emoji-buttons" onClick={() => popHandleClickOpen()}><img src={LinkSvg} alt="link" /></button>
               <button className="emoji-buttons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /></button>
-              <Button className="emoji-buttons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /></Button>
+              <button className="emoji-buttons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /></button>
 
             </div>
           </div>
