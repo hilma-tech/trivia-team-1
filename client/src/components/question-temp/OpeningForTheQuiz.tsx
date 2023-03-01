@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import triangleIcon from '../../images/triangeIcon.svg';
 import italyPic from '../../images/question-template/italy.png';
+import leave from '../../images/openingParagraph/leaveOpeningForTheQuiz.svg';
 import OpeningParagraphTitle from './OpeningParagraphTitle';
 import CheckForName from './CheckForName';
+import PhonePageWithNav from '../navbar/phonePageWithNav';
+import { useMediaQuery } from "@mui/material";
 import '../../style/OpeningForTheQuiz.scss';
+
 
 function OpeningForTheQuiz() {
 
@@ -11,6 +15,8 @@ function OpeningForTheQuiz() {
     const [quizTitle, setQuizTitle] = useState("איטליהה מה אתם יודעים?");
     const [paragraph, setParagraph] = useState("לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת");
     const [changeComponent, setChangeComponent] = useState(true);
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
+
 
     useEffect(() => {
         getInfoFromServer();
@@ -31,23 +37,55 @@ function OpeningForTheQuiz() {
                 console.log(err, "catch");
             })
     }
-
     return (
-        <div className='compChildrenContainer'>
-            <main>
+
+        isLargeScreen ?
+            <div className='compChildrenContainer-boaz'>
                 {changeComponent ?
-                    <OpeningParagraphTitle
-                        quizTitle={quizTitle}
-                        paragraph={paragraph}
-                        imgUrl={imgUrl}
-                        changeComponent={changeComponent}
-                        setChangeComponent={setChangeComponent}
-                    />
+                    <main>
+                        <OpeningParagraphTitle
+                            quizTitle={quizTitle}
+                            paragraph={paragraph}
+                            imgUrl={imgUrl}
+                            changeComponent={changeComponent}
+                            setChangeComponent={setChangeComponent}
+                        />
+                    </main>
                     :
-                    <CheckForName quizTitle={quizTitle} />
+                    <main>
+                        <CheckForName quizTitle={quizTitle} />
+                    </main>
                 }
-            </main>
-        </div>
+            </div>
+            :
+            <div>
+                {changeComponent ?
+                    <PhonePageWithNav type='banana' title={quizTitle} className='compChildrenContainer-boaz'>
+                        <main className='boaz-main'>
+                            <OpeningParagraphTitle
+                                quizTitle={quizTitle}
+                                paragraph={paragraph}
+                                imgUrl={imgUrl}
+                                changeComponent={changeComponent}
+                                setChangeComponent={setChangeComponent}
+                            />
+                            <footer className='OpeningParagraphTitle-footer'>
+                                <img src={leave} alt="icon of triangle" />
+                            </footer>
+                        </main>
+
+                    </PhonePageWithNav>
+                    :
+                    <PhonePageWithNav type='return' title={quizTitle} className='compChildrenContainer-boaz'>
+                        <main className='boaz-main'>
+                            <CheckForName quizTitle={quizTitle} />
+                            <footer className='CheckForName-footer'>
+                                <img src={leave} alt="icon of triangle" />
+                            </footer>
+                        </main>
+                    </PhonePageWithNav>
+                }
+            </div>
     );
 }
 
