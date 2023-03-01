@@ -10,7 +10,7 @@ function OpeningForTheQuiz() {
     const [imgUrl, setImgUrl] = useState("https://www.skideal.co.il/app/uploads/2020/06/Rome-e1591105892246.jpg");
     const [quizTitle, setQuizTitle] = useState("איטליהה מה אתם יודעים?");
     const [paragraph, setParagraph] = useState("לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת");
-    const [changeComponent, setChangeComponent] = useState(false);
+    const [changeComponent, setChangeComponent] = useState(true);
 
     useEffect(() => {
         getInfoFromServer();

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useMediaQuery } from '@mui/material';
+import { Box, FormControlLabel, Paper, Slide, Switch, Theme, useMediaQuery } from '@mui/material';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
-import '../../style/QuastionTemp.scss';
+// import '../../style/QuastionTemp.scss';
+// import '../../style/questionTemp.scss'
+import '../../style/questionTempCopy.scss'
+import { removeAllListeners } from 'process';
 
 interface QuestionTempState {
     answers: {
@@ -15,8 +18,21 @@ interface QuestionTempState {
     }[],
 }
 
+interface stateObj {
+    [key: string]: boolean;
+}
 
 const QuestionTemp = () => {
+    // ////////////////////////////////
+    // const [checked, setChecked] = React.useState(false);
+    // const containerRef = React.useRef(null);
+
+    // const handleChange = () => {
+    //     setChecked((prev) => !prev);
+    // };
+    // ////////////////////////////////
+
+
     const [answers, setAnswers] = useState<QuestionTempState["answers"]>([[
         { ans: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
         { ans: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
@@ -46,7 +62,7 @@ const QuestionTemp = () => {
     const [changeFlexDir, setChangeFlexDir] = useState(true);
 
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const [isFullScreen, setIsFullScreen] = useState(false)
+    const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
 
     useEffect(() => {
         setInfoFromServer();
@@ -82,20 +98,19 @@ const QuestionTemp = () => {
         await fetch(`#`)
             .then((res) => res.json)
             .then((data) => {
-                console.log("hiiiii");
                 // copyAnswers = data.answers;
                 // copyQuestion = data.questions;
                 // setAnswers(copyAnswers);
                 // setQuestion(copyQuestion);
                 // setQuantityOfQuestion(data.questions.length);
-                // culcWidthOfRec();
+                // calcWidthOfRec();
             })
             .catch((err) => {
                 console.log(err, "catch");
             })
     }
 
-    const culcWidthOfRec = () => {
+    const calcWidthOfRec = () => {
         let widthOfScreen = 82.5;
         let temp = widthOfScreen / quantityOfQuestion;
         let numToPushToState = temp * numOfQuestion;
@@ -104,7 +119,7 @@ const QuestionTemp = () => {
 
     const checkIfCorrect = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
         if (actualAnswer[index].isCorrect) {
-            console.log("correct");
+            console.log();
             setTimeout(mooveToNextQuestion, 500);
         } else {
             console.log("incorrect");
@@ -140,56 +155,61 @@ const QuestionTemp = () => {
             }
         }
     }
-    const enlarge = (): void => {
-        setIsFullScreen(!isFullScreen)
-        console.log(isFullScreen);
-        
-
+    const resizeFull = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
+        e.stopPropagation()
+        setIsFullScreen(prev => ({ ...prev, [picIndex]: !prev[picIndex] }))
+    }
+    const resizeShrink = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
+        e.stopPropagation();
+        if (isFullScreen[picIndex] === false) return;
+        setIsFullScreen(prev => ({ ...prev, [picIndex]: false }))
     }
 
+
     const renderMap = () => {
-        return actualAnswer.map((answer, index) => {
+        return actualAnswer.map((answer, index: number) => {
+            let picIndex = `pic${index}`
             return (
-                <button className={
-                    !actualAnswer[0].url ? 'ans-button-no-img'
-                        : 'ans-button-with-img'
-                }
-                    key={index} style={{
-                        backgroundColor: changeColorToRed === index
-                            ? '#F28787'
-                            : changeColorToGreen === index
-                                ? '#80DCC9'
-                                : '#0C32490A'
-                    }}
-                // onClick={(e) => checkIfCorrect(e, index)}
-                >
-                    <p id='answer-button'>
-                        {answer.ans}
-                    </p>
-                    {answer.url ?
-                        <div className='img-div'>
-                            {!isLargeScreen &&
-                                <div className='mobile-show icon-div' onClick={enlarge}>
-                                    <img src={fullScreenIcon} alt='fullScreenIcon' />
-                                </div>
-                            }
-                            <img 
-                                className={`button-img ${isFullScreen&&`full-screen`}`}
-                                src={`${answer.url}`}
-                                alt="picture that connected to question"
-                            />
+                <>
+                    <button
+                        className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
+                        key={index}
+                        style={{ backgroundColor: changeColorToRed === index ? '#F28787' : changeColorToGreen === index ? '#80DCC9' : '#0C32490A' }}
+                        onClick={(e) => checkIfCorrect(e, index)}
+                    >
+                        <div>
+                            <p className='answer-button'>{answer.ans}</p>
                         </div>
-                        : null}
-                </button>
+                        {answer.url ?
+                            <div className='div-imgs'>
+                                {!isLargeScreen &&
+                                    <div className='icon-div' onClick={(e) => resizeFull(e, picIndex)}>
+                                        <img src={fullScreenIcon} alt='fullScreenIcon' />
+                                    </div>
+                                }
+                                <div
+                                    className={`img-div ${isFullScreen[picIndex] ? `full-screen` : ''}`}
+                                    onClick={(e) => resizeShrink(e, picIndex)}
+                                >
+                                    <img
+                                        className='button-img'
+                                        src={`${answer.url}`}
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+                            : null}
+                    </button>
+                </>
             )
         })
     }
 
     return (
-        <div>
+        <div className='question-temp comp-children-container'>
             <main className='main-QuastionTemp'>
                 <div
-                    id='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
+                    className='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
                 </div>
                 <div className='numOfQuestion-place'>
                     <div className='numOfQuestion'>
@@ -198,11 +218,11 @@ const QuestionTemp = () => {
                         </p>
                     </div>
                 </div>
-                <div>
+                <div className='question-content'>
                     <div className='question-place-father'>
-                        <div >
+                        <div className='question-place-child'>
                             <div className='question-img-place'>
-                                <img className='img' id='question-img' src={`${actualQuestion.url}`}
+                                <img className='question-img img' src={`${actualQuestion.url}`}
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
@@ -215,6 +235,29 @@ const QuestionTemp = () => {
                                 :
                                 'button-place-two'}
                             >
+                                {/* <Box
+                                    sx={{
+                                        height: 180,
+                                        width: 240,
+                                        display: 'flex',
+                                        padding: 2,
+                                        borderRadius: 1,
+                                        bgcolor: (theme) =>
+                                            theme.palette.mode === 'light' ? 'grey.100' : 'grey.900',
+                                        overflow: 'hidden',
+                                    }}
+                                    ref={containerRef}
+                                >
+                                    <Box sx={{ width: 200 }}>
+                                        <FormControlLabel
+                                            control={<Switch checked={checked} onChange={handleChange} />}
+                                            label="Show from target"
+                                        />
+                                        <Slide direction="up" in={checked} container={containerRef.current}>
+                                            {icon}
+                                        </Slide>
+                                    </Box>
+                                </Box> */}
                                 {renderMap()}
                             </div>
                         </div>
