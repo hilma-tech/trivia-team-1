@@ -8,7 +8,8 @@ import dragAndDropSvg from '../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion } from '../utils/Interfaces'
-import AnswersProvider from "../context/AnswersContext";
+import QuestionsProvider from "../context/AnswersContext";
+import BootstrapTooltip from "../tooltip/tooltip";
 
 
 
@@ -42,15 +43,22 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
 
     return (
-        <div className='add-Questions-Container'>
-            <div className='darg-and-drop-Container'>
-                    <img className='drag-and-drop-Svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
+        <div className='add-questions-container'>
+            <div className='darg-and-drop-container'>
+                <BootstrapTooltip title="שינוי סדר השאלות">
+                    <img className='drag-and-drop-svg' src={dragAndDropSvg} alt='drag button to switch question place' />
+                </BootstrapTooltip>
             </div>
 
-            <div className='quiz-Questions-Container'>
-                <div className='quiz-Questions' >
-                    <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
-                    <img className='select-Image-Questions-Svg' src={Selectimage} alt=' select Image Questions Svg' />
+            <div className='quiz-questions-container'>
+                <div className='quiz-questions' >
+                    <BootstrapTooltip title="שינוי שם">
+                        <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
+                    </BootstrapTooltip>
+                    <BootstrapTooltip title="הוספת תמונה לשאלה">
+                        <img className='select-image-questions-svg' src={Selectimage} alt='add image here to the question' />
+                    </BootstrapTooltip>
+
                 </div>
                 <div className="answer-container">
                     <FormControl>
@@ -67,17 +75,22 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                 </div>
                 <div className="add-answer-container">
                     <button onClick={addAnswer} className="add-answer-btn">
-                        <img src={AddAnswer} className="add-answer-svg" alt='add answer svg' /> הוספת תשובה
+                        <img src={AddAnswer} className="add-answer-svg" alt='add answer to your question' /> הוספת תשובה
                     </button>
                 </div>
                 <div className="hr-line"></div>
                 <div className="footer-container-questions-btn">
-                    <button className="duplicate-btn">
-                        <img src={duplicateSvg} className="duplicate-svg" alt='duplicate svg' />
-                    </button>
-                    <button className="trash-btn">
-                        <img src={TrashSvg} className="trash-svg" alt='trash svg' />
-                    </button>
+
+                    <BootstrapTooltip title="שכפול">
+                        <button className="duplicate-btn">
+                            <img src={duplicateSvg} className="duplicate-svg" alt='duplicate your question' />
+                        </button>
+                    </BootstrapTooltip>
+                    <BootstrapTooltip title="מחיקה">
+                        <button className="trash-btn">
+                            <img src={TrashSvg} className="trash-svg" alt='delete your question' />
+                        </button>
+                    </BootstrapTooltip>
                 </div>
             </div>
         </div>

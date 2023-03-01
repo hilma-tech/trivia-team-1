@@ -5,7 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import dragAndDropSvg from '../images/drag-and-drop.svg'
 import { CurrentQuestion, Question } from '../utils/Interfaces';
-import { useAnswerContext } from '../context/AnswersContext';
+import { useQuestionContext } from '../context/AnswersContext';
 import { Typography } from '@mui/material';
 
 
@@ -17,9 +17,9 @@ interface FinalBoxQuestionsProps {
 
 const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question }) => {
     return (
-        <div className='ready-Questions-Container'>
-            <div className='darg-and-drop-Container'>
-                    <img className='drag-and-drop-Svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
+        <div className='ready-questions-container'>
+            <div className='darg-and-drop-container'>
+                    <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
             </div>
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
@@ -29,7 +29,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question }) => {
                     <FormControl>
                         <RadioGroup>
                             <div className="radio-ready-container" dir='rtl'>
-                                {question.answers.map((answer, index: number) =>
+                                {question.answers.map((answer, index) =>
                                     <FormControlLabel  key={index} value={`answer${index+1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer}</Typography>}  checked={question.correctAnswer === index+1} />
                                 )}
                             </div>

@@ -1,4 +1,4 @@
-import React, { Component, FC, useState, createContext, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import '../style/EditQuiz.scss'
 import ShowQuizBtn from '../images/showquizzbtn.svg'
 import LinkBtn from '../images/linkBtn.svg'
@@ -7,13 +7,14 @@ import Selectimage from '../images/image.svg'
 import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../images/plusBtn.svg'
 import FinalQuestionBox from './FinalQuestionBox'
-import { useAnswerContext } from '../context/AnswersContext'
+import { useQuestionContext } from '../context/AnswersContext'
 import { CurrentQuestion, Question } from '../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { createTheme, TextField } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
+import BootstrapTooltip from '../tooltip/tooltip'
 
 
 
@@ -30,33 +31,46 @@ const cacheRtl = createCache({
 });
 
 
+
+
 const EditQuiz: FC = () => {
 
-    const { setQuestions, questions } = useAnswerContext()
+    const { setQuestions, questions } = useQuestionContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
-    console.log(questionDetails)
-
+    console.log(currentEditQuestion)
 
 
     const addQuestion = () => {
         if (questions.length < 10) {
+            setCurrentEditQuestion(questions.length)
             setQuestions((prev) => {
                 const lastQuestion = prev.at(-1) as CurrentQuestion;
 
                 return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
             })
-            setCurrentEditQuestion(questions.length)
+
+
         }
 
     }
 
     function handleDragEnd(result: any) {
         const items = Array.from(questions);
+        const editItem = items[currentEditQuestion];
         const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-
-        setQuestions(items);
+        console.log(result.source.index)
+        if (editItem.questionId === reorderedItem.questionId) {
+            items.splice(result.destination.index, 0, reorderedItem);
+            setQuestions(items);
+            setCurrentEditQuestion(result.destination.index)
+        } else {
+            console.log(reorderedItem, 'reorderedItem')
+            items.splice(result.destination.index, 0, reorderedItem);
+            setQuestions(items);
+            
+            
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -71,36 +85,45 @@ const EditQuiz: FC = () => {
     return (
         <>
             <CacheProvider value={cacheRtl}>
-                <div className='form-Container'>
-                    <div className='top-Container'>
-                        <div className='top-Buttons-Container'>
-                            <div className='top-Right-btn'>
-                                <button className='show-Quiz-Btn'>
-                                    <img className='Show-Quiz-Svg' src={ShowQuizBtn} alt='show quiz svg' />
+                <div className='form-container'>
+                    <div className='top-container'>
+                        <div className='top-buttons-container'>
+                            <div className='top-right-btn'>
+
+                                <button className='show-quiz-btn'>
+                                    <img className='show-quiz-svg' src={ShowQuizBtn} alt='show your preview quiz' />
                                     צפייה בחידון
                                 </button>
                             </div>
-                            <div className='top-Left-Btn'>
-                                <button className='link-btn'><img className='link-Btn-Svg' src={LinkBtn} /></button>
-                                <button className='save-Btn'>
-                                    <img className='save-Btn-Svg' src={saveBtn} />
+                            <div className='top-left-btn'>
+                                <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
+                                <button className='save-btn'>
+                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
                                     שמירה
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div className='quiz-Header-Container'>
-                        <div className='quiz-Header-Image'> <img className='select-Image-Quiz-Svg' src={Selectimage} /></div>
-                        <div className='title-Header-Container'>
-                            <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.quizName} onChange={handleChange} />
-                            <TextField
-                                id="outlined-multiline-static"
-                                label="תיאור חידון"
-                                multiline
-                                rows={2}
-                                value={questionDetails.quizDescription}
-                                onChange={handleChange}
-                            />
+                    <div className='quiz-header-container'>
+                        <div className='quiz-header-image'>
+                            <BootstrapTooltip title="הוספת תמונה לחידון">
+                                <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz image here' />
+                            </BootstrapTooltip>
+                        </div>
+                        <div className='title-header-container'>
+                            <BootstrapTooltip title="שינוי שם">
+                                <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.quizName} onChange={handleChange} />
+                            </BootstrapTooltip>
+                            <BootstrapTooltip title="שינוי שם">
+                                <TextField
+                                    id="outlined-multiline-static"
+                                    label="תיאור חידון"
+                                    multiline
+                                    rows={2}
+                                    value={questionDetails.quizDescription}
+                                    onChange={handleChange}
+                                />
+                            </BootstrapTooltip>
                         </div>
                     </div>
                     <DragDropContext onDragEnd={handleDragEnd}>
@@ -121,22 +144,13 @@ const EditQuiz: FC = () => {
                                                 >
                                                     {currentEditQuestion === index ?
 
-                                                        // React.Dispatch<React.SetStateAction<CurrentQuestion>>
-                                                        // (question: CurrentQuestion | ((prev: CurrentQuestion) => CurrentQuestion)) => void
-                                                        // setCurrentQuestion({...question}) | setCurrentQuestion((prev) => ({...question}));
                                                         <AddQuestionBox setCurrentQuestion={(q) => {
                                                             setQuestions(prev => {
-                                                                // all the questions before this question...
-                                                                // either `q` if it's an object or `q(question) if it's a function
-                                                                // ...all the questions after this question
-
-                                                                //                               (prev) => ({...question})         {...question}
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
                                                         }} currentQuestion={question} />
                                                         :
                                                         <FinalQuestionBox question={question as Question} />
-                                                        // TODO: fix this!!
                                                     }
                                                 </div>
                                             )}
@@ -148,9 +162,11 @@ const EditQuiz: FC = () => {
                         </Droppable>
                     </DragDropContext>
                     <div className='plus-btn-container'>
-                        <button className='plus-btn' onClick={addQuestion}>
-                            <img src={plusBtn} className='plus-btn-svg' alt='plus button svg' />
-                        </button>
+                        <BootstrapTooltip title=" הוספת שאלה">
+                            <button className='plus-btn' onClick={addQuestion}>
+                                <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
+                            </button>
+                        </BootstrapTooltip>
                     </div>
                 </div>
             </CacheProvider>

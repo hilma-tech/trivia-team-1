@@ -1,5 +1,5 @@
 import React, { useState, createContext, FC, ReactNode, useContext } from "react";
-import {CurrentQuestion, Question} from '../utils/Interfaces'
+import { CurrentQuestion, Question } from '../utils/Interfaces'
 
 interface AnswersContextInterface {
     setQuestions: React.Dispatch<React.SetStateAction<CurrentQuestion[]>>;
@@ -10,13 +10,13 @@ interface AnswersProviderProps {
     children: ReactNode;
 }
 
-export const AnswersContext = createContext<AnswersContextInterface | null>(null);
+export const QuestionsContext = createContext<AnswersContextInterface | null>(null);
 
 
-const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
+const QuestionsProvider: FC<AnswersProviderProps> = ({ children }) => {
 
     const [questions, setQuestions] = useState<CurrentQuestion[]>([
-        {questionId: 1, questionTitle: "", answers: ["", ""]}
+        { questionId: 1, questionTitle: "", answers: ["", ""] }
     ]);
 
     const contextValue: AnswersContextInterface = {
@@ -25,11 +25,15 @@ const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
     }
 
     return (
-        <AnswersContext.Provider value={contextValue}>
+        <QuestionsContext.Provider value={contextValue}>
             {children}
-        </AnswersContext.Provider>
+        </QuestionsContext.Provider>
     )
 }
 
-export const useAnswerContext = () => useContext(AnswersContext)!
-export default AnswersProvider;
+export const useQuestionContext = () => {
+    const result = useContext(QuestionsContext);
+    if (!result) throw new Error("You forgot to put the AnswersProvider!");
+    return result;
+}
+export default QuestionsProvider;

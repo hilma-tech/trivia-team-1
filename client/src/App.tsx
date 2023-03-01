@@ -12,17 +12,16 @@
   import Register from "./components/register";
   import Error from './components/error404';
   import ScoreCard from "./components/score-card/ScoreCard";
-  import AnswersProvider from './context/AnswersContext';
+  import QuestionsProvider from './context/AnswersContext';
   import EditQuiz from './components/EditQuiz';
 
   import './style/background.scss'
   import './style/navbar.scss'
-  import './App.scss'
 
   function App() {
     return (
       <ThemeProvider theme={theme}>
-        <AnswersProvider>
+        <QuestionsProvider>
           <Navbar />
           <CssBaseline />
           <Background>
@@ -41,7 +40,7 @@
               </Route>
             </Routes >
           </Background>
-        </AnswersProvider>
+        </QuestionsProvider>
       </ThemeProvider>
     );
   }
