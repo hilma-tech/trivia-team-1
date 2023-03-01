@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { QuizDTO } from './quiz.dto';
 import { QuizService } from './quiz.service';
 
@@ -15,13 +15,13 @@ export class QuizController {
     @Post("/")
     async addQuiz(@Body() quiz: QuizDTO) {
         this.quizService.addQuiz(quiz);
-        return "hello smidth"
+        return "quiz added successfully"
     }
 
     @Put("/:id")
-    editQuiz(@Body() quiz: QuizDTO) {
-        this.quizService.edizQuiz();
-        return "hello smidth"
+    editQuiz(@Param('id', ParseIntPipe) id: number,@Body() quiz: QuizDTO) {
+        this.quizService.editQuiz(id,quiz);
+        return "quiz edited successfully"
     }
 
     @Get("/:id/scores")

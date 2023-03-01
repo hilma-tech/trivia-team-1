@@ -7,15 +7,20 @@ import { QuizDTO } from './quiz.dto';
 
 @Injectable()
 export class QuizService {
-    constructor(@InjectRepository(Quiz)
-    private readonly quizRepository: Repository<Quiz>
-    ) {}
+    constructor(
+        @InjectRepository(Quiz)
+        private readonly quizRepository: Repository<Quiz>,
+        @InjectRepository(Question)
+        private readonly questionRepository: Repository<Question>
+    ) { }
 
     async addQuiz(quiz: QuizDTO) {
         const { ...rest } = quiz;
         this.quizRepository.save({ ...rest })
     }
-    async edizQuiz(){
-        
+    async editQuiz(id: number, quiz: QuizDTO) {
+        const { title, description, imageUrl } = quiz
+        await this.questionRepository.delete({ quiz: { id: id, title: title, description: description, imageUrl: imageUrl } })
+        await this.quizRepository.save({ id: id, ...quiz })
     }
 }

@@ -1,5 +1,5 @@
-import { Button, Typography, useMediaQuery } from '@mui/material';
 import React, {  FormEvent, MouseEvent, useState } from 'react';
+import { Button, Typography, useMediaQuery } from '@mui/material';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
