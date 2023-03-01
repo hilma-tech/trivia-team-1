@@ -1,4 +1,4 @@
-import {useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
 
@@ -10,13 +10,26 @@ import leavesEnterance from '../images/leaves-enterance.svg';
 import '../style/entrancePage.scss'
 
 function EnterancePage() {
-    const [currentUser, setCurrentUser] = useState('שלימזי')
+    let [currentUser, setCurrentUser] = useState('')
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
+
+    useEffect(() => {
+      async function enterenceFunc(){ 
+        let theUser;
+        const userStr = localStorage.getItem('quizUser');
+        if (userStr !== "" && userStr !==null) {
+          theUser =await JSON.parse(userStr);
+          setCurrentUser(theUser.username)
+        }
+        else navigate('/loading-monkey')
+    }
+    enterenceFunc()
+    }, [])
+
     function toMyQuizes() {
         navigate('/my-quizzes')
     }
-
 
     function toEditQuiz() {
         navigate('/edit-quiz')
