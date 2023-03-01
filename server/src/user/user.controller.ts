@@ -12,14 +12,16 @@ export class UserController {
     async register(@Body() { username, password }: RegisterDTO) {
         const userExist = await this.userService.checkUsernameExists(username);
         if (userExist) return false;
-
-        await this.userService.register(username, password);
-        return true;
+        else {
+            console.log("hi");
+            await this.userService.register(username, password);
+            return true;
+        }
     }
 
     @Post("/login")
-    login() {
-        return "hello smidth"
+    async login(@Body() { username, password }: RegisterDTO) {
+        return await this.userService.checkLoginValidation(username, password)
     }
 
     @Get("/:id/quizzes")
