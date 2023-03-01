@@ -56,7 +56,6 @@ const NewAnswer: FC<NewAnswerProps> = ({  answerIndex, isChecked = false, setCur
     }
 
     return (
-        <CacheProvider value={cacheRtl}>
             <div className="check-boxes-Container" dir='rtl'>
                 <div className="check-box-Svg">
                     <FormControlLabel value={'' + answerIndex+1}  label="" control={<Radio checked={currentQuestion.correctAnswer === answerIndex+1} onChange={handleCorrectAnswer} />} />
@@ -75,7 +74,6 @@ const NewAnswer: FC<NewAnswerProps> = ({  answerIndex, isChecked = false, setCur
                     <img src={TrashSvg} className="trash-Svg-For-Questions" alt='trash svg' />
                 </IconButton>
             </div>
-        </CacheProvider>
     )
 
 }

@@ -18,7 +18,7 @@ body {
     .plus-btn-container {
         width: 2vw;
         height: 1vh;
-        margin-top: 3.5%;
+        margin-top: 2%;
     }
 
     .plus-btn {
@@ -36,7 +36,16 @@ body {
     .quiz-input-name{
         height: 5.1020408163265305vh;
         width: 14.47939262472885vw;
+        font-size: 25px;
+        border: 1px solid rgb(189, 184, 184);
+        
     }
+
+    ::placeholder{
+        color: black;
+        padding-right: 5%;
+    }
+
 }
 
 .top-Container {
@@ -148,6 +157,9 @@ body {
     margin-right: 5%;
     display: flex;
     flex-direction: column;
+    width: 40%;
+    height: 100%;
+    justify-content: space-evenly;
 }
 
 .add-Questions-Container {

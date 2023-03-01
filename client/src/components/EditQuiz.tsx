@@ -10,8 +10,24 @@ import FinalQuestionBox from './FinalQuestionBox'
 import { useAnswerContext } from '../context/AnswersContext'
 import { CurrentQuestion, Question } from '../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { TextField } from '@mui/material';
+import { createTheme, TextField } from '@mui/material';
+import createCache from '@emotion/cache';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { CacheProvider } from '@emotion/react';
 
+
+
+
+
+const theme = createTheme({
+    direction: 'rtl',
+});
+
+
+const cacheRtl = createCache({
+    key: 'muirtl',
+    stylisPlugins: [rtlPlugin],
+});
 
 
 const EditQuiz: FC = () => {
@@ -44,7 +60,7 @@ const EditQuiz: FC = () => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const {id , value} = e.target;
+        const { id, value } = e.target;
         setQuestionDetails((prev) => {
             return id === "quizInputName" ? { ...prev, quizName: value } : { ...prev, quizDescription: value };
         });
@@ -54,90 +70,90 @@ const EditQuiz: FC = () => {
 
     return (
         <>
-            <div className='form-Container'>
-                <div className='top-Container'>
-                    <div className='top-Buttons-Container'>
-                        <div className='top-Right-btn'>
-                            <button className='show-Quiz-Btn'>
-                                <img className='Show-Quiz-Svg' src={ShowQuizBtn} alt='show quiz svg' />
-                                צפייה בחידון
-                            </button>
-                        </div>
-                        <div className='top-Left-Btn'>
-                            <button className='link-btn'><img className='link-Btn-Svg' src={LinkBtn} /></button>
-                            <button className='save-Btn'>
-                                <img className='save-Btn-Svg' src={saveBtn} />
-                                שמירה
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className='quiz-Header-Container'>
-                    <div className='quiz-Header-Image'> <img className='select-Image-Quiz-Svg' src={Selectimage} /></div>
-                    <div className='title-Header-Container'>
-                        <input type="text" id="quizInputName" placeholder="שאלה" className="quiz-input-name" value={questionDetails.quizName} onChange={handleChange} />
-                        <TextField
-                            id="outlined-multiline-static"
-                            label="Multiline"
-                            multiline
-                            rows={4}
-                            value={questionDetails.quizDescription}
-                            onChange={handleChange}
-                        />
-                        {/* <h1>חידון ללא כותרת</h1>
-                        <p>תיאור חידון</p> */}
-                    </div>
-                </div>
-                <DragDropContext onDragEnd={handleDragEnd}>
-                    <Droppable droppableId="droppable">
-                        {(provided) => (
-                            <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
-                                {questions.map((question, index: number) => (
-                                    <Draggable
-                                        key={question.questionId.toString()}
-                                        draggableId={question.questionId.toString()}
-                                        index={index}
-                                    >
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                            >
-                                                {currentEditQuestion === index ?
-
-                                                    // React.Dispatch<React.SetStateAction<CurrentQuestion>>
-                                                    // (question: CurrentQuestion | ((prev: CurrentQuestion) => CurrentQuestion)) => void
-                                                    // setCurrentQuestion({...question}) | setCurrentQuestion((prev) => ({...question}));
-                                                    <AddQuestionBox setCurrentQuestion={(q) => {
-                                                        setQuestions(prev => {
-                                                            // all the questions before this question...
-                                                            // either `q` if it's an object or `q(question) if it's a function
-                                                            // ...all the questions after this question
-
-                                                            //                               (prev) => ({...question})         {...question}
-                                                            return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
-                                                        })
-                                                    }} currentQuestion={question} />
-                                                    :
-                                                    <FinalQuestionBox question={question as Question} />
-                                                    // TODO: fix this!!
-                                                }
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
+            <CacheProvider value={cacheRtl}>
+                <div className='form-Container'>
+                    <div className='top-Container'>
+                        <div className='top-Buttons-Container'>
+                            <div className='top-Right-btn'>
+                                <button className='show-Quiz-Btn'>
+                                    <img className='Show-Quiz-Svg' src={ShowQuizBtn} alt='show quiz svg' />
+                                    צפייה בחידון
+                                </button>
                             </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-                <div className='plus-btn-container'>
-                    <button className='plus-btn' onClick={addQuestion}>
-                        <img src={plusBtn} className='plus-btn-svg' alt='plus button svg' />
-                    </button>
+                            <div className='top-Left-Btn'>
+                                <button className='link-btn'><img className='link-Btn-Svg' src={LinkBtn} /></button>
+                                <button className='save-Btn'>
+                                    <img className='save-Btn-Svg' src={saveBtn} />
+                                    שמירה
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='quiz-Header-Container'>
+                        <div className='quiz-Header-Image'> <img className='select-Image-Quiz-Svg' src={Selectimage} /></div>
+                        <div className='title-Header-Container'>
+                            <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.quizName} onChange={handleChange} />
+                            <TextField
+                                id="outlined-multiline-static"
+                                label="תיאור חידון"
+                                multiline
+                                rows={2}
+                                value={questionDetails.quizDescription}
+                                onChange={handleChange}
+                            />
+                        </div>
+                    </div>
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <Droppable droppableId="droppable">
+                            {(provided) => (
+                                <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
+                                    {questions.map((question, index: number) => (
+                                        <Draggable
+                                            key={question.questionId.toString()}
+                                            draggableId={question.questionId.toString()}
+                                            index={index}
+                                        >
+                                            {(provided) => (
+                                                <div
+                                                    ref={provided.innerRef}
+                                                    {...provided.draggableProps}
+                                                    {...provided.dragHandleProps}
+                                                >
+                                                    {currentEditQuestion === index ?
+
+                                                        // React.Dispatch<React.SetStateAction<CurrentQuestion>>
+                                                        // (question: CurrentQuestion | ((prev: CurrentQuestion) => CurrentQuestion)) => void
+                                                        // setCurrentQuestion({...question}) | setCurrentQuestion((prev) => ({...question}));
+                                                        <AddQuestionBox setCurrentQuestion={(q) => {
+                                                            setQuestions(prev => {
+                                                                // all the questions before this question...
+                                                                // either `q` if it's an object or `q(question) if it's a function
+                                                                // ...all the questions after this question
+
+                                                                //                               (prev) => ({...question})         {...question}
+                                                                return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                            })
+                                                        }} currentQuestion={question} />
+                                                        :
+                                                        <FinalQuestionBox question={question as Question} />
+                                                        // TODO: fix this!!
+                                                    }
+                                                </div>
+                                            )}
+                                        </Draggable>
+                                    ))}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </DragDropContext>
+                    <div className='plus-btn-container'>
+                        <button className='plus-btn' onClick={addQuestion}>
+                            <img src={plusBtn} className='plus-btn-svg' alt='plus button svg' />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </CacheProvider>
         </>
     );
 }
