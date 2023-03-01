@@ -6,7 +6,9 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class QuizService {
     constructor(@InjectRepository(Quiz)
-    private readonly ChasesRepository: Repository<Quiz>
-    ) {
+    private readonly quizRepository: Repository<Quiz>
+    ) { }
+    getQuiz(quizId: number) {
+        console.log(quizId);
     }
 }
