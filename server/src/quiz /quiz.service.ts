@@ -8,7 +8,8 @@ export class QuizService {
     constructor(@InjectRepository(Quiz)
     private readonly quizRepository: Repository<Quiz>
     ) { }
-    getQuiz(quizId: number) {
-        console.log(quizId);
+    async getQuiz(quizId: number) {
+        const quiz = await this.quizRepository.findBy({ id: quizId});
+        return quiz;
     }
 }

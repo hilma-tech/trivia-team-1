@@ -8,7 +8,8 @@ export class QuizController {
     }
     @Get("/:id")
     async getQuiz(@Param('id', ParseIntPipe) id:number ){
-        this.quizService.getQuiz(id);
+        const quiz = await this.quizService.getQuiz(id);
+        return quiz;
     }
 
     @Post("/")
