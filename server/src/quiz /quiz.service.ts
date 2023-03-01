@@ -7,6 +7,8 @@ import { Repository } from 'typeorm';
 export class QuizService {
     constructor(@InjectRepository(Quiz)
     private readonly ChasesRepository: Repository<Quiz>
-    ) {
+    ) {}
+    async deleteQuiz(quizId: number) {
+        await this.ChasesRepository.delete( quizId );
     }
 }

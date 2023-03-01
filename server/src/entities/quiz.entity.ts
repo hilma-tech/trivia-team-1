@@ -19,10 +19,10 @@ export class Quiz {
     @ManyToOne(() => User, (user) => user.quizzes, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     creator: User;
 
-    @OneToMany(() => Score, (scores) => scores.quiz)
+    @OneToMany(() => Score, (scores) => scores.quiz, {onDelete: 'CASCADE'})
     scores: Score[]
 
-    @OneToMany(() => Question, (questions) => questions.quiz)
+    @OneToMany(() => Question, (questions) => questions.quiz, {onDelete: 'CASCADE'})
     questions: Question[]
 
 }

@@ -1,5 +1,6 @@
 import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
 import { QuizService } from './quiz.service';
+import { DeleteQuizDto } from './quiz.dto';
 
 @Controller('api/quiz')
 export class QuizController {
@@ -31,9 +32,9 @@ export class QuizController {
         return "hello rrttrhgkjjhfgmhfjghiyhcghniyjnjktghmuthyjudefrghjk"
     }
 
-    @Delete("/:id")
-    deleteQuiz(){
-        return "hello smidth"
+    @Post("/:id")
+    async deleteQuiz( @Body("id") idForDelete: DeleteQuizDto["id"] ){
+        return await this.quizService.deleteQuiz(idForDelete);
     }
     
 }
