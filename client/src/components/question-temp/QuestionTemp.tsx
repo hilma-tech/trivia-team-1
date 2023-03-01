@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Box, FormControlLabel, Paper, Slide, Switch, Theme, useMediaQuery } from '@mui/material';
+import { useMediaQuery } from '@mui/material';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
-// import '../../style/QuastionTemp.scss';
-// import '../../style/questionTemp.scss'
-import '../../style/questionTempCopy.scss'
-import { removeAllListeners } from 'process';
+import '../../style/questionTemp.scss'
 
 interface QuestionTempState {
     answers: {
