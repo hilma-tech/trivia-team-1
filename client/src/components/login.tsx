@@ -1,5 +1,5 @@
 import { Button, Typography, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
+import React, {  FormEvent, MouseEvent, useState } from 'react';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
@@ -20,6 +20,9 @@ function Login() {
         setRegErrDiv("שכחת להזין סיסמא!")
     }
 
+    function handleRegisterSubmit(e:FormEvent ){
+
+    }
 
     return (
 isLargeScreen ?
@@ -27,7 +30,7 @@ isLargeScreen ?
                 <Typography className='main-login-header'  variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
-                    <form className='login-form'>
+                    <form className='login-form' onSubmit={(e)=>handleRegisterSubmit(e)}>
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e)=>setUsername(e.target.value)} required maxLength={16}/>
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>
