@@ -1,10 +1,12 @@
-import '../style/register.scss'
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
+
+import '../style/register.scss'
+
 
 function Register() {
     const [username, setUsername] = useState('')
@@ -14,9 +16,10 @@ function Register() {
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
-    async function handleRegisterSubmit(e: React.SyntheticEvent) {
+    async function handleRegisterSubmit(e: FormEvent) {
         e.preventDefault()
         // now we need to fetch the users array to check if the username exist if not navigate to login and save it if otherwise change the error to username exists
+
         alert("You signed up successfully!")
         navigate('/')
     }
@@ -39,7 +42,7 @@ isLargeScreen ?
                 <Typography className='main-register-header' variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
-                    <form className='register-form' onSubmit={(e: React.SyntheticEvent) => handleRegisterSubmit(e)}>
+                    <form className='register-form' onSubmit={(e) => handleRegisterSubmit(e)}>
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='register-input'  type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>

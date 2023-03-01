@@ -13,11 +13,18 @@
     padding-right: 3vw;
     padding-left: 3vw;
 
-    #nav-create-quiz-btn {
-        opacity: 0.4;
+    .nav-quiz-btn{
+       background-color: transparent; 
+       color: #378381;
+       box-shadow: none;
+    }
+
+    .nav-quiz-btn:hover {
+       background-color: #378381;
+       color: white;
         height: 100%;
         height: 3.1vh;
-        font-size: 1.2rem;
+        font-weight: 700;
     }
 
     .first-section {

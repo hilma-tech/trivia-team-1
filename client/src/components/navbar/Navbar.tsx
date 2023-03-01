@@ -1,5 +1,4 @@
 import ComputerNavbar from "./ComputerNavbar";
-import PhoneNavBar from "./PhoneNavbar";
 
 
 const Navbar = () => (
