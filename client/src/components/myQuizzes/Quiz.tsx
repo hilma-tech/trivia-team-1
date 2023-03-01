@@ -11,6 +11,7 @@ import MenuPic from "../../images/dottedMenu.png"
 import GenericPop from "../popups/GenericPop";
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { PopupsPropType } from "../popups/GenericPop";
 
 
 interface QuizProps {
@@ -25,18 +26,28 @@ interface QuizProps {
 const Quiz: FC<QuizProps> = (props) => {
   const { setPopOpen, popOpen, popHandleClickOpen, popHandleClose } = usePopContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [popType, setPopType] = React.useState<PopupsPropType>('copyQuiz');
+  console.log('popType: ', popType);
+
   const isMobile = useMediaQuery('(min-width:600px)')
+
+  const navigate = useNavigate();
+
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const navigate = useNavigate()
+
+  const copyQuizLink = (id: number) => {
+    setPopType('deleteQuiz');
+  }
+
   const handleClose = () => {
     setAnchorEl(null);
   };
   const { id, name, url, description, answers } = props;
   const toScoreboard = (id: number) => {
-    navigate(`${id}/scoreboard`)
+    navigate(`/quiz/:userName/:quizName/scores`)
   }
   const toEdit = (id: number) => {
     console.log("rere");
@@ -46,6 +57,8 @@ const Quiz: FC<QuizProps> = (props) => {
 
   }
   const deleteQuiz = (id: number) => {
+    setPopType('deleteQuiz');
+    popHandleClickOpen()
 
   }
 
@@ -71,7 +84,7 @@ const Quiz: FC<QuizProps> = (props) => {
         </div>
 
         {/* copy popup button is here, activated only when button is pressed */}
-        <GenericPop type="saveChanges" />
+        
       </div>
     );
   }
@@ -103,15 +116,13 @@ const Quiz: FC<QuizProps> = (props) => {
           }}
         >
           <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="scoreBoardButton" onClick={() => toScoreboard(id)}><img src={ScoreboardSvg} alt="score" /><span>לוח תוצאות</span></div></MenuItem>
-          <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="emojiButtons" onClick={() => popHandleClickOpen()}><img src={LinkSvg} alt="link" /><span>שליחת קישור למשחק</span></div></MenuItem>
+          <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="emojiButtons" onClick={() => copyQuizLink(id)}><img src={LinkSvg} alt="link" /><span>שליחת קישור למשחק</span></div></MenuItem>
           <MenuItem className="quiz-menu-item" onClick={handleClose}><div className="emojiButtons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /><span>עריכת משחק</span></div></MenuItem>
           <MenuItem className="quiz-menu-item" onClick={handleClose}> <div className="emojiButtons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /><span>מחיקת משחק</span></div></MenuItem>
 
         </Menu>
-
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
-      <GenericPop type="deleteQuiz" />
     </div>)
   }
 }
