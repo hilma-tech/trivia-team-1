@@ -30,7 +30,7 @@ const GenericPop: FC<{ type: PopupsPropType }> = ({ type }) => {
       >
         {isMobile && type === "finishedQuiz" && <img className='mobile-end-game-monkey' src={happyMonkey} />}
         {isMobile && type === "savedSuccessfully" && <img className='mobile-end-game-monkey' src={savedMonkey} />}
-        <DialogTitle id="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
+        <DialogTitle className="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
           <GenericPopTitle type={type} />
         </DialogTitle>
         <DialogContent className='dialog-content-container'>

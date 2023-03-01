@@ -88,7 +88,7 @@ const Quiz: FC<QuizProps> = (props) => {
           aria-expanded={!!anchorEl ? 'true' : undefined}
           onClick={handleClick}
         >
-          <img alt="menu picture" src={MenuPic} />
+          <img alt="menu" src={MenuPic} />
         </Button>
         <div className="quiz-title">{name}</div>
         <div className="holder"></div>
