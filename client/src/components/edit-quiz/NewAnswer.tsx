@@ -9,7 +9,7 @@ import TrashSvg from '../../images/trash.svg'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { CurrentQuestion } from "./utils/Interfaces";
-import { isMobile } from "./AddQuestionBox";
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 const theme = createTheme({
@@ -35,6 +35,7 @@ interface Props {
 const NewAnswer: FC<Props> = ({ answerIndex, isChecked = false, setCurrentQuestion, currentQuestion }) => {
 
 
+    const isMobile = useMediaQuery('(max-width:600px)');
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let copy = { ...currentQuestion };
         copy.answers[answerIndex] = e.target.value;
@@ -61,7 +62,6 @@ const NewAnswer: FC<Props> = ({ answerIndex, isChecked = false, setCurrentQuesti
                 <div className="textFieldContainer">
                     <TextField className="width" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex + 1}`}
                         id="standard-size-small" variant={isMobile ? "outlined" : "standard"} value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
-
                 </div>
 
                 <IconButton >

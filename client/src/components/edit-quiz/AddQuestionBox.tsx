@@ -8,6 +8,9 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion } from './utils/Interfaces'
 import AnswersProvider from "./context/AnswersContext";
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { MobileHeader } from "./edit-quiz-mobile/editQuizParts";
+
 
 
 
@@ -18,13 +21,13 @@ interface Props {
 
 }
 
-export const isMobile = window.innerWidth < 600;
 
 const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion, questionId }) => {
 
 
     // const [answersArr, setAnswersArr] = useState<number[]>([1, 1]);
 
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     const addAnswer = () => {
         if (currentQuestion.answers.length < 4) {
@@ -45,26 +48,18 @@ const AddQuestionBox: FC<Props> = ({ setCurrentQuestion, currentQuestion, questi
 
 
     return (
+
         <div className='addQutionsContainer'>
             <div className='darganddropContainer'><button></button></div>
             <div className='quizQuestionsContainer'>
-                {isMobile &&
-                    <div className="phone-header-container">
-                        <h3>שאלה {questionId}</h3>
-                        <div className="copy-trash-imgs">
-                            <img className="icon" src={duplicateSvg} />
-                            <img className="icon" src={TrashSvg} />
+                {isMobile ? <MobileHeader handleChange={handleChange} questionId={questionId} currentQuestion={currentQuestion} /> :
+                    (<div className="header-input-container">
+                        <div className='quizQuestions' >
+                            <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
+                            <img className='selectImageQutionsSvg' src={Selectimage} />
                         </div>
-                    </div>
-                }
+                    </div>)}
 
-                <div className="header-input-container">
-                    {isMobile && <h6 id="input-header">כותרת</h6>}
-                    <div className='quizQuestions' >
-                        <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
-                        <img className='selectImageQutionsSvg' src={Selectimage} />
-                    </div>
-                </div>
                 <div className="answer-container">
                     <FormControl>
                         <RadioGroup

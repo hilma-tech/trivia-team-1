@@ -11,9 +11,7 @@ import plusBtn from '../../images/plusBtn.svg'
 import FinalBoxQuestions from './FinalBoxQuestions'
 import { useAnswerContext } from './context/AnswersContext'
 import { CurrentQuestion } from './utils/Interfaces'
-import { isMobile } from './AddQuestionBox';
-
-import AnswersProvider from './context/AnswersContext'
+import useMediaQuery from '@mui/material/useMediaQuery';
 import PhoneNavBar from '../navbar/PhoneNavbar';
 
 
@@ -26,7 +24,7 @@ import PhoneNavBar from '../navbar/PhoneNavbar';
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext();
-
+    const isMobile = useMediaQuery('(max-width:600px)');
     const [phonePage, setPhonePage] = useState(2);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
@@ -38,17 +36,10 @@ const EditQuiz: FC = () => {
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
-        if (originClassName === 'topContainer' || originClassName === 'quizHeaderContainer') return 'hide'
-        if (phonePage === 1 && originClassName === 'questions-container') {
-            return 'hide'
-        }
-        return originClassName
+        if (phonePage === 2 && (originClassName === 'topContainer' || originClassName === 'quizHeaderContainer')) return 'hide'
+        if (phonePage === 1 && originClassName === 'questions-container') return 'hide'
 
     }
-
-
-
-
 
     useEffect(() => {
         setQuestions([...questions, currentQuestion])
@@ -75,7 +66,7 @@ const EditQuiz: FC = () => {
 
     return (
         <>
-        {isMobile && <PhoneNavBar name='editQuiz' type='abc'/>}
+        {isMobile && <PhoneNavBar title="יצירת משחק" type='image'/>}
             <div className='formContanier '>
                 <div className={giveRightClasses('topContainer')}>
                     <div className='topButtonsContainer'>
