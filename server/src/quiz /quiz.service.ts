@@ -9,8 +9,25 @@ export class QuizService {
     private readonly quizRepository: Repository<Quiz>
     ) { }
     async getQuiz(quizId: number) {
-        const quiz = await this.quizRepository.findBy({ id: quizId});
-        console.log("service quiz:", quiz);
-        return quiz;
+        const quiz = await this.quizRepository.find({
+            where: {id: quizId}, relations: {scores: true, questions: {answers: true},}
+        });
+        const quitDesc = {
+            id: quiz[0].id,
+            title: quiz[0].title,
+            description: quiz[0].description,
+            image_url: quiz[0].imageUrl
+        };
+        const scoresArr = quiz[0].scores;
+        const questionsArr = quiz[0].questions;
+
+        return [quitDesc, scoresArr, questionsArr]
+
+        // return [{
+        //     id: quiz[0].id,
+        //     title: quiz[0].title,
+        //     description: quiz[0].description,
+        //     image_url: quiz[0].imageUrl
+        // }, quiz[0].scores, quiz[0].questions];
     }
 }
