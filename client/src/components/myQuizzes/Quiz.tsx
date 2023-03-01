@@ -111,7 +111,7 @@ const Quiz: FC<QuizProps> = (props) => {
 
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
-      <GenericPop type="saveChanges" />
+      <GenericPop type="deleteQuiz" />
     </div>)
   }
 }
