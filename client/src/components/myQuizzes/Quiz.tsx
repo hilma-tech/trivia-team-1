@@ -24,12 +24,15 @@ interface QuizProps {
 
 
 const Quiz: FC<QuizProps> = (props) => {
-  const { setPopOpen, popOpen, popHandleClickOpen, popHandleClose } = usePopContext();
+  const { id, name, url, description, answers } = props;
+  const { popHandleClickOpen, insertPopTypeToLs, getPopTypeFromLs  } = usePopContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [popType, setPopType] = React.useState<PopupsPropType>('copyQuiz');
-  console.log('popType: ', popType);
 
-  const isMobile = useMediaQuery('(min-width:600px)')
+  useEffect(() => {
+    insertPopTypeToLs('copyQuiz');
+  }, [])
+
+  const isMobile = useMediaQuery('(min-width:600px)');
 
   const navigate = useNavigate();
 
@@ -39,13 +42,13 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const copyQuizLink = (id: number) => {
-    setPopType('deleteQuiz');
+    insertPopTypeToLs('copyQuiz');
+    popHandleClickOpen();
   }
 
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { id, name, url, description, answers } = props;
   const toScoreboard = (id: number) => {
     navigate(`/quiz/:userName/:quizName/scores`)
   }
@@ -57,8 +60,8 @@ const Quiz: FC<QuizProps> = (props) => {
 
   }
   const deleteQuiz = (id: number) => {
-    setPopType('deleteQuiz');
-    popHandleClickOpen()
+    insertPopTypeToLs('deleteQuiz');
+    popHandleClickOpen();
 
   }
 
@@ -73,7 +76,7 @@ const Quiz: FC<QuizProps> = (props) => {
           <div className="holder"></div>
           <p>{description}</p>
           <div className="quiz-buttons">
-            <button className="scoreboard-button" onClick={() => alert('clicked!')}><span>לוח תוצאות</span></button>
+            <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
             <div>
               <button className="emoji-buttons" onClick={() => popHandleClickOpen()}><img src={LinkSvg} alt="link" /></button>
               <button className="emoji-buttons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /></button>
@@ -84,7 +87,8 @@ const Quiz: FC<QuizProps> = (props) => {
         </div>
 
         {/* copy popup button is here, activated only when button is pressed */}
-        
+        <GenericPop type={getPopTypeFromLs()} /> 
+
       </div>
     );
   }
@@ -121,6 +125,8 @@ const Quiz: FC<QuizProps> = (props) => {
           <MenuItem className="quiz-menu-item" onClick={handleClose}> <div className="emojiButtons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /><span>מחיקת משחק</span></div></MenuItem>
 
         </Menu>
+        
+        <GenericPop type={getPopTypeFromLs()} /> 
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
     </div>)

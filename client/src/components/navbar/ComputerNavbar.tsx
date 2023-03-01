@@ -7,18 +7,18 @@ import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
 const ComputerNavbar:FC = () => {
 
-    const Navigate = useNavigate()
+    const navigate = useNavigate()
     
     const onClick = (linkTo: 'myQuizzes' | 'createQuiz' | 'about') => {
         switch (linkTo){
             case 'myQuizzes':
-                Navigate('/my-quizzes')
+                navigate('/my-quizzes')
                 break;
             case 'createQuiz':
-                Navigate('/createQuiz')
+                navigate('/createQuiz')
                 break;
             case 'about':
-                Navigate('/about')
+                navigate('/about')
                 break; 
         }
     }
