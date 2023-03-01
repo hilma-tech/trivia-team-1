@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { AddScoreDto, DeleteQuizDto } from './quiz.dto';
 
@@ -28,7 +28,10 @@ export class QuizController {
     }
 
     @Post("/:id/scores")
-    async addQuizScore( @Body() addScore: AddScoreDto, @Param() id: number ){
+    async addQuizScore( @Body() addScore: AddScoreDto, @Param("id", ParseIntPipe) id: number ){
+        console.log(" controler addScore:", addScore);
+        console.log("controler id:", id);
+
         return await this.quizService.addScore(addScore, id);
     }
 
