@@ -26,16 +26,18 @@ function HighScore(props: ScoreType) {
             break;
         case 2:
             src = bronze
-            break
+            break;
     }
 
     return (
+        
         <TableRow>
             <TableCell className="bold">{id}</TableCell>
-            <TableCell>{`${name} ${src && <img src={src} />}`}</TableCell>
+            <TableCell>{<p>{name} <img src={src} /></p>}</TableCell>
             <TableCell className="bolder">{score}</TableCell>
             <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>
+        
     );
 }
 

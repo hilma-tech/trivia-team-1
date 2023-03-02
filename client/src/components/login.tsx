@@ -1,5 +1,6 @@
+import React, {  FormEvent, MouseEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
-import { useState } from 'react';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
@@ -11,6 +12,7 @@ function Login() {
     const [password,setPassword] = useState('')
     const [regErrDiv, setRegErrDiv] = useState('')
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
+    const navigate = useNavigate()
 
     function enterUsernameErr() {
         setRegErrDiv("שכחת להכניס משתמש!")
@@ -20,6 +22,26 @@ function Login() {
         setRegErrDiv("שכחת להזין סיסמא!")
     }
 
+    useEffect(()=>{
+        setTimeout(()=>{setRegErrDiv("")},4000)
+    },[regErrDiv])
+
+    async function handleLoginSubmit(e:FormEvent ){
+         // זמני
+         e.preventDefault()
+         const boolean = await fetch('http://localhost:8080/api/user/login',
+             {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify({ username: username, password: password })
+             })
+             
+         if ( await boolean.json()) {
+             setRegErrDiv('')
+             navigate('/enterance-page')
+         }
+         else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
+    }
 
     return (
 isLargeScreen ?
@@ -27,7 +49,7 @@ isLargeScreen ?
                 <Typography className='main-login-header'  variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
-                    <form className='login-form'>
+                    <form className='login-form' onSubmit={(e)=>handleLoginSubmit(e)}>
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e)=>setUsername(e.target.value)} required maxLength={16}/>
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>
