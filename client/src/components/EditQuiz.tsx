@@ -35,7 +35,6 @@ const EditQuiz: FC = () => {
     const { setQuestions, questions } = useQuestionContext()
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    // const [currentQuestionId, setCurrentQuestionId] = useState(1);
     console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
 
@@ -146,9 +145,9 @@ const EditQuiz: FC = () => {
                                                             setQuestions(prev => {
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
-                                                        }} currentQuestion={question} />
+                                                        }} currentQuestion={question} setCurrentEditQuestion = {setCurrentEditQuestion}/>
                                                         :
-                                                        <FinalQuestionBox question={question as Question} />
+                                                        <FinalQuestionBox question={question as Question} questionIndex = {index} />
                                                     }
                                                 </div>
                                             )}

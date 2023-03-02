@@ -8,7 +8,7 @@ import dragAndDropSvg from '../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion } from '../utils/Interfaces'
-import QuestionsProvider from "../context/AnswersContext";
+import QuestionsProvider, { useQuestionContext } from "../context/AnswersContext";
 import BootstrapTooltip from "../tooltip/tooltip";
 
 
@@ -16,13 +16,15 @@ import BootstrapTooltip from "../tooltip/tooltip";
 interface AddQuestionBoxProps {
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
+    setCurrentEditQuestion : React.Dispatch<React.SetStateAction<number>>
 
 
 }
 
 
-const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion }) => {
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion , setCurrentEditQuestion }) => {
 
+    const { setQuestions, questions } = useQuestionContext()
 
 
     const addAnswer = () => {
@@ -34,6 +36,21 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
         }
     }
 
+
+    const deleteQuestion = () => {
+        console.log('currentQuestion: ', currentQuestion);
+        let deleteIndex = questions.findIndex(question => question.questionId === currentQuestion.questionId)
+        console.log('deleteIndex: ', deleteIndex);
+        setQuestions(prevState => {
+           return prevState.filter((question ,index) => index!== deleteIndex);
+           
+        })
+        setCurrentEditQuestion(questions.length + 1)
+
+    }
+
+    
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setCurrentQuestion((prev) => {
             return { ...prev, questionTitle: e.target.value }
@@ -43,7 +60,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
 
     return (
-        <div className='add-questions-container'>
+        <div className='add-questions-container' > 
             <div className='darg-and-drop-container'>
                 <BootstrapTooltip title="שינוי סדר השאלות">
                     <img className='drag-and-drop-svg' src={dragAndDropSvg} alt='drag button to switch question place' />
@@ -87,7 +104,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         </button>
                     </BootstrapTooltip>
                     <BootstrapTooltip title="מחיקה">
-                        <button className="trash-btn">
+                        <button className="trash-btn" onClick={deleteQuestion}>
                             <img src={TrashSvg} className="trash-svg" alt='delete your question' />
                         </button>
                     </BootstrapTooltip>
