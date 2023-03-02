@@ -18,15 +18,18 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const moveToQuiz = () => {
         let boolHolder = changeComponent
-        boolHolder ? boolHolder = false : boolHolder = true;
-        setChangeComponent(boolHolder);
+        setChangeComponent(!boolHolder);
     }
 
     return (
         <div className='main-OpeningForTheQuiz'>
             <div className='main-paragraph-and-title'>
-                <h1>{quizTitle}</h1>
-                <p>{paragraph}</p>
+                <h1>
+                    {quizTitle}
+                </h1>
+                <p>
+                    {paragraph}
+                </p>
             </div>
             {isLargeScreen ?
                 <div className='main-img'
