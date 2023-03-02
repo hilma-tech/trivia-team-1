@@ -14,7 +14,7 @@ export class QuizDTO {
     description: string;
 
     @IsArray()
-    @ArrayMinSize(1)
+    @ArrayMinSize(4)
     @ArrayMaxSize(20)
     questions: QuestionDTO[];
 }
@@ -29,7 +29,7 @@ export class QuestionDTO {
     imageUrl: string;
 
     @IsArray()
-    @ArrayMinSize(1)
+    @ArrayMinSize(2)
     @ArrayMaxSize(4)
     answers: AnswerDTO[];
 }
