@@ -1,3 +1,0 @@
-###
-GET http://localhost:8080/api/quiz/4/scores HTTP/1.1
-###
