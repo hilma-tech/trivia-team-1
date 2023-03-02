@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz } from 'src/entities/quiz.entity';
 import { Score } from 'src/entities/score.entity';
 import { Any, Repository } from 'typeorm';
-import { ScoreObj, Scores } from './interfaces';
+import { ScoreObj, ScoreObjFromDB, Scores } from './interfaces';
 
 @Injectable()
 export class QuizService {
@@ -12,17 +12,17 @@ export class QuizService {
     ) { }
 
     async highScores(quizId: number) {
-        console.log('quizId: ', quizId);
-
         let res = await this.quizRepository.findOne({ where: { id: quizId }, relations: { scores: true } });
         let { title, scores } = res
-
-        scores.sort((a: ScoreObj, b: ScoreObj) => {
+        let scoresCopy = [...scores]
+        console.log('scoresCopy1: ', scoresCopy);
+        scoresCopy.sort((a, b) => {
             if (b.score !== a.score) return b.score - a.score;
-            return a.date.getTime() - b.date.getTime();
+            return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
-        scores.slice(0, 1)
-        console.log('scores: ', scores.slice(0, 2));
-        return { title, scores }
+        console.log('scoresCopy2: ', scoresCopy);
+        scoresCopy = scoresCopy.slice(0, 5)
+        console.log('scoresCopy3: ', scoresCopy);
+        return { title, scores: scoresCopy }
     }
 }

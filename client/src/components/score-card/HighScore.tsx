@@ -7,7 +7,7 @@ import bronze from '../../images/crowns/bronze.svg';
 interface ScoreType {
     score: {
         id: number
-        name: string;
+        player: string;
         score: number;
         date: Date;
     };
@@ -15,7 +15,7 @@ interface ScoreType {
 }
 
 function HighScore(props: ScoreType) {
-    let { id, name, score, date } = props.score;
+    let { id, player, score, date } = props.score;
     let src;
     switch (props.index) {
         case 0:
@@ -32,7 +32,7 @@ function HighScore(props: ScoreType) {
     return (
         <TableRow>
             <TableCell className="bold">{id}</TableCell>
-            <TableCell>{`${name} ${src && <img src={src} />}`}</TableCell>
+            <TableCell>{`${player} ${src && <img src={src} />}`}</TableCell>
             <TableCell className="bolder">{score}</TableCell>
             <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>
