@@ -33,7 +33,7 @@ const QuestionsProvider: FC<AnswersProviderProps> = ({ children }) => {
 
 export const useQuestionContext = () => {
     const result = useContext(QuestionsContext);
-    if (!result) throw new Error("You forgot to put the AnswersProvider!");
+    if (!result) throw new Error("You forgot to put the QuestionsProvider!");
     return result;
 }
 export default QuestionsProvider;

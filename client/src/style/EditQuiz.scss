@@ -38,11 +38,11 @@ body {
         height: 5.1020408163265305vh;
         width: 14.47939262472885vw;
         font-size: 25px;
-        border: 1px solid rgb(189, 184, 184);
+        border: 1px solid rgb(189, 184, 184); // unique color
         
         &:focus-visible, &:focus{
             outline: none;
-            border: 2px solid rgb(65, 158, 139);
+            border: 2px solid rgb(65, 158, 139);// unique color
         }            
     }
 

@@ -35,21 +35,17 @@ const EditQuiz: FC = () => {
     const { setQuestions, questions } = useQuestionContext()
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
+    // const [currentQuestionId, setCurrentQuestionId] = useState(1);
     console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
 
 
     const addQuestion = () => {
         if (questions.length < 10) {
-            setCurrentEditQuestion(currentEditQuestion + 1)
+            setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
                 const lastQuestion = prev.at(-1) as CurrentQuestion;
-                console.log('lastQuestion: ', lastQuestion);
-                if(lastQuestion.questionId > currentEditQuestion) {
-                    return [...prev.slice(0,currentEditQuestion) ,{ questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }, ...prev.slice(currentEditQuestion+1)]
-                }else{
                 return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
-                }
             })
 
 
@@ -70,21 +66,9 @@ const EditQuiz: FC = () => {
             console.log(reorderedItem, 'reorderedItem')
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
-            let editQuestionIndex = 0;
-            for (let question of items) {
-                if (question.questionId === editItem.questionId) {
-                    setCurrentEditQuestion(editQuestionIndex)
-                } else {
-                    editQuestionIndex++;
-                }
-            }
+            const editQuestionIndex = items.findIndex((question) => question.questionId === editItem.questionId);
+            setCurrentEditQuestion(editQuestionIndex);
         }
-        // const items = Array.from(questions);
-        // const [reorderedItem] = items.splice(result.source.index, 1);
-        // items.splice(result.destination.index, 0, reorderedItem);
-        // setQuestions(items);
-        // const newIndex = items.findIndex((item) => item.questionId === currentEditQuestion);
-        // setCurrentEditQuestion(newIndex);
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -156,27 +140,16 @@ const EditQuiz: FC = () => {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                 >
-                                                    <div style={{ display: 'flex' , justifyContent:'center' , flexDirection:'column', alignItems:'center' }}>
-                                                        {currentEditQuestion === index ? (
-                                                            <>
-                                                                <AddQuestionBox setCurrentQuestion={(q) => {
-                                                                    setQuestions(prev => {
-                                                                        return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
-                                                                    })
-                                                                }} currentQuestion={question} />
-                                                                <div className='plus-btn-container'>
-                                                                    <BootstrapTooltip title=" הוספת שאלה">
-                                                                        <button className='plus-btn' onClick={addQuestion}>
-                                                                            <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
-                                                                        </button>
-                                                                    </BootstrapTooltip>
-                                                                </div>
-                                                            </>
-                                                        )
-                                                            :
-                                                            <FinalQuestionBox question={question as Question} />
-                                                        }
-                                                    </div>
+                                                    {currentEditQuestion === index ?
+
+                                                        <AddQuestionBox setCurrentQuestion={(q) => {
+                                                            setQuestions(prev => {
+                                                                return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                            })
+                                                        }} currentQuestion={question} />
+                                                        :
+                                                        <FinalQuestionBox question={question as Question} />
+                                                    }
                                                 </div>
                                             )}
                                         </Draggable>
@@ -186,13 +159,13 @@ const EditQuiz: FC = () => {
                             )}
                         </Droppable>
                     </DragDropContext>
-                    {/* <div className='plus-btn-container'>
+                    <div className='plus-btn-container'>
                         <BootstrapTooltip title=" הוספת שאלה">
                             <button className='plus-btn' onClick={addQuestion}>
                                 <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
                             </button>
                         </BootstrapTooltip>
-                    </div> */}
+                    </div>
                 </div>
             </CacheProvider>
         </>
