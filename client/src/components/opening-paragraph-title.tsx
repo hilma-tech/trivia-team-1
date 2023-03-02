@@ -15,8 +15,7 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
 
     const mooveToQuiz = () => {
         let boolHolder = changeComponent
-        boolHolder ? boolHolder = false : boolHolder = true;
-        setChangeComponent(boolHolder);
+        setChangeComponent(!boolHolder);
     }
     
     return (

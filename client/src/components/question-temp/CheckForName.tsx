@@ -40,8 +40,8 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     return (
         isLargeScreen ?
             <main>
-                <div className='main-CheckForName-for-flex'>
-                    <div className='main-CheckForName'>
+                <div className='main-check-for-name-for-flex'>
+                    <div className='main-check-for-name'>
                         <div className='title-and-paragraph'>
                             <h1 className='quizTitle'>{quizTitle}</h1>
                             <p>איך קוראים לכם?</p>
@@ -50,7 +50,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                             name="player-identification" type="text"
                             placeholder="נא להזין שם" value={playerName} required
                         />
-                        <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
+                        <button className='check-for-name-button' onClick={sendNameOfPlayerToServer}>
                             <p>יאללה בואו נתחיל!</p>
                             <img src={`${triangleIcon}`} alt="icon of triangle" />
                         </button>
@@ -59,8 +59,8 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             </main>
             :
             < div>
-                <div className='main-CheckForName-for-flex'>
-                    <div className='main-CheckForName'>
+                <div className='main-check-for-name-for-flex'>
+                    <div className='main-check-for-name'>
                         <div className='title-and-paragraph'>
                             <p>איך קוראים לכם?</p>
                         </div>
@@ -68,7 +68,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                             name="player-identification" type="text"
                             placeholder="נא להזין שם" value={playerName} required
                         />
-                        <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
+                        <button className='check-for-name-button' onClick={sendNameOfPlayerToServer}>
                             <p>יאללה בואו נתחיל!</p>
                             <img src={`${triangleIcon}`} alt="icon of triangle" />
                         </button>

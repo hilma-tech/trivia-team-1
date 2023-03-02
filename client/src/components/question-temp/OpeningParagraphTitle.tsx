@@ -10,7 +10,7 @@ interface OpeningParagraphTitleProps {
     paragraph: string,
     imgUrl: string,
     changeComponent: boolean,
-    setChangeComponent: any,
+    setChangeComponent: React.Dispatch<React.SetStateAction<boolean>>,
     // type: "banana"
 }
 
@@ -24,12 +24,7 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
 
     return (
         <div className='main-OpeningForTheQuiz'>
-            {/* saugfsfresrtyrytrfaslkjfdsz */}
             <div className='main-paragraph-and-title'>
-                {/* <div>hellllllllo</div> */}
-                {/* <Typography variant="h2" className="bold h2" component="div">{`לוח תוצאות:`}</Typography>
-                <Typography variant='h2' component='div'>{quizTitle}</Typography>
-                <Typography variant='h5' component='div'>{quizTitle}</Typography> */}
                 <h1>{quizTitle}</h1>
                 <p>{paragraph}</p>
             </div>

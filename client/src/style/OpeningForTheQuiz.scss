@@ -92,10 +92,10 @@
             }
         }
 
-        .main-CheckForName-for-flex {
+        .main-check-for-name-for-flex {
             @include flexCenter();
 
-            .main-CheckForName {
+            .main-check-for-name {
                 display: flex;
                 align-items: center;
                 // justify-content: center;
@@ -162,7 +162,7 @@
 
                 }
 
-                .CheckForName-button {
+                .check-for-name-button {
                     @include flexCenter();
                     width: 18.0208vw;
                     height: 64px;
@@ -293,8 +293,8 @@
                 }
             }
 
-            .main-CheckForName-for-flex {
-                .main-CheckForName {
+            .main-check-for-name-for-flex {
+                .main-check-for-name {
                     input {
                         margin-top: 14vw;
                         margin-bottom: 10vw;
@@ -302,7 +302,7 @@
                         height: 10vw;
                     }
 
-                    .CheckForName-button {
+                    .check-for-name-button {
                         @include flexCenter();
                         width: 80vw;
                         height: 23.134vw;
