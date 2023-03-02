@@ -14,6 +14,7 @@ import Error from './components/error404';
 import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from './context/AnswersContext';
 import EditQuiz from './components/EditQuiz';
+import { PopContextProvider } from "./components/popups/popContext";
 
 import './style/background.scss'
 import './style/navbar.scss'
@@ -21,26 +22,28 @@ import './style/navbar.scss'
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <QuestionsProvider>
-        <Navbar />
-        <CssBaseline />
-        <Background>
-          <Routes>
-            <Route path="/enterance-page" element={<EnterancePage />} />
-            <Route index element={<Navigate replace to="/login" />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path='*' element={<Navigate replace to="/loading-page" />} />
-            <Route path='/edit-quiz' element={<EditQuiz />} />
-            <Route path='/error404' element={<Error />} />
-            <Route path='/loading-page' element={<LoadingMonkey />} />
-            <Route path='/my-quizzes' element={<Outlet />}>
-              <Route index element={<MyQuizes />} />
-              <Route path=':id/scores' element={<ScoreCard />} />
-            </Route>
-          </Routes >
-        </Background>
-      </QuestionsProvider>
+      <PopContextProvider>
+        <QuestionsProvider>
+          <Navbar />
+          <CssBaseline />
+          <Background>
+            <Routes>
+              <Route path="/enterance-page" element={<EnterancePage />} />
+              <Route index element={<Navigate replace to="/login" />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path='*' element={<Navigate replace to="/loading-page" />} />
+              <Route path='/edit-quiz' element={<EditQuiz />} />
+              <Route path='/error404' element={<Error />} />
+              <Route path='/loading-page' element={<LoadingMonkey />} />
+              <Route path='/my-quizzes' element={<Outlet />}>
+                <Route index element={<MyQuizes />} />
+                <Route path=':id/scores' element={<ScoreCard />} />
+              </Route>
+            </Routes >
+          </Background>
+        </QuestionsProvider>
+      </PopContextProvider>
     </ThemeProvider>
   );
 }
