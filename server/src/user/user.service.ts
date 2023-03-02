@@ -13,16 +13,16 @@ export class UserService {
   }
 
   async register(username: string, password: string | Buffer) {
-    let cryptPass: string = await bcrypt.hash(password, 15)
-    this.userRepository.save({ username: username, password: { password: cryptPass } })
+    const hashedPassword: string = await bcrypt.hash(password, 15)
+    this.userRepository.save({ username: username, password: { password: hashedPassword } })
   }
 
-  async checkUsernameExists(username: string) {
+  async doesUsernameExist(username: string) {
     const user = await this.userRepository.find({ where: { username: username } })
     return user.length > 0;
   }
 
-  async checkLoginValidation(username: string, password: string | Buffer) {
+  async validateLogin(username: string, password: string | Buffer) {
     const user = await this.userRepository.findOne({
       where: { username: username },
       relations: ['password']
@@ -30,7 +30,6 @@ export class UserService {
 
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password.password)
-
       return isMatch;
     }
     else
