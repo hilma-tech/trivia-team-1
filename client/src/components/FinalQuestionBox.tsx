@@ -12,12 +12,20 @@ import { Typography } from '@mui/material';
 
 interface FinalBoxQuestionsProps {
     question: Question;
+    index:number;
+    setCurrentEditQuestion:React.Dispatch<React.SetStateAction<number>>;
 }
 
+// const openEditMode = (index: number) => {
+//     setCurrentEditQuestion(index);
+// }
 
-const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question }) => {
+
+
+
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index }) => {
     return (
-        <div className='ready-questions-container'>
+        <div className='ready-questions-container' >
             <div className='darg-and-drop-container'>
                     <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
             </div>
@@ -44,3 +52,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question }) => {
 }
 
 export default FinalQuestionBox
+
+function setCurrentEditQuestion(index: any) {
+    throw new Error('Function not implemented.');
+}
