@@ -15,7 +15,6 @@ export class QuizController {
     @Post("/")
     async addQuiz(@Body() quiz: QuizDTO) {
         const newQuiz=await this.quizService.addQuiz(quiz);
-        console.log(newQuiz.id);
         return  newQuiz.id
     }
 
