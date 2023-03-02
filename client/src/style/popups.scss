@@ -1,0 +1,177 @@
+#confetti {
+    top: -60vh;
+    left: 2vh;
+    height: 200vh;
+    position: absolute
+}
+
+.confetti-pc {
+    background-image: url('../images/popUps/confettiGif.gif');
+}
+
+
+.computer-finish-game {
+    text-align: center;
+    border-top: 15px solid #216361;
+
+    .coputer-finish-game-inner-text {
+        line-height: 8vh;
+    }
+
+    img {
+        padding-top: 8vh;
+        width: 10vw
+    }
+}
+
+.dialogActionsStyles {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 3vh;
+}
+
+.MuiPaper-root.dialog-content-container {
+    height: 60vh;
+
+    .dialog-content-text-style.MuiTypography-root {
+        font-size: 1.3rem;
+        height: 3vh;
+        text-align: center;
+    }
+
+}
+
+.roundedButton {
+    height: 4.2vh;
+    font-size: 1.2rem;
+    width: 30vw;
+    border-radius: 80px
+}
+
+.MuiDialog-root.generic-pop-up-dialog {
+    .MuiButtonBase-root.boldButtonPopStyle {
+        width: 12vh;
+        font-weight: bolder;
+        border-radius: 50px;
+        height: 3.6vh;
+        font-size: 1.2rem
+    }
+
+    .action-injected .action-link {
+        display: flex;
+         justify-content: center;
+         align-items: center;
+         width: 10vw;
+         font-weight: bolder;
+    }
+
+    .MuiDialog-paper {
+        background-color: white;
+        box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+        width: 40vw;
+        border-radius: 15px;
+        padding-right: 1.5vh;
+        height: 30vh;
+        padding-left: 1.5vw;
+    }
+
+    .MuiPaper-elevation {
+        overflow: visible;
+        padding-top: 3vh;
+    }
+}
+
+
+.MuiDialogActions-root.dialog-actions-container .action-injected {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 3vh;
+}
+
+@media (max-width: 600px) {
+
+    .MuiDialog-root.generic-pop-up-dialog {
+
+
+        .MuiButtonBase-root.boldButtonPopStyle {
+            margin-left: 2vw;
+            width: 30vw;
+            padding-right: 0;
+            border-radius: 10px;
+            height: 5vh;
+            padding-left: 0;
+            font-size: 1rem;
+            font-weight: bolder;
+        }
+
+        .MuiPaper-elevation {
+            padding-top: 3vh;
+            padding-bottom: 1vh;
+        }
+
+        .MuiDialogActions-root.dialog-actions-container {
+            justify-content: center;
+        }
+
+        .MuiDialog-paper {
+            background-color: white;
+            box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+            border-radius: 15px;
+            width: auto;
+            height: auto;
+        }
+
+        .MuiDialogActions-root.dialog-actions-container {
+            padding-bottom: 3vh;
+
+        }
+
+        .dialogActionsStyles {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 5vh;
+        }
+
+        .dialog-content-text-style.MuiTypography-root {
+            text-align: center;
+        }
+
+        .MuiButtonBase-root.roundedButton {
+            height: 4.2vh;
+            font-size: 1.1rem;
+            width: 30vw;
+            border-radius: 80px;
+        }
+
+        .containerStyle {
+            background-color: white;
+            box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
+            border-radius: 15px;
+            width: auto;
+        }
+
+        .mobile-end-game-monkey {
+            position: absolute;
+            top: -25%;
+            width: 34%;
+            left: 32%;
+        }
+
+        .iconStyle.MuiSvgIcon-root {
+            font-size: 1.3rem;
+            margin-left: 2%;
+        }
+
+        .action-injected .action-link {
+            display: flex;
+             justify-content: center;
+             align-items: center;
+             width: 30vw;
+        }
+    
+
+        .alert-dialog-title.MuiTypography-root {
+            text-align: center;
+        }
+    }
+}

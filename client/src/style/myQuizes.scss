@@ -5,6 +5,14 @@
     overflow-y: hidden;
     overflow-x: hidden;
 
+.quiz-title {
+    margin-top: 1.6vh;
+    font-weight: bolder;
+    font-size: 1.3rem;
+    color: #0c3249;
+    opacity: 1;
+}
+
     ::-webkit-scrollbar {
         display: none
     }
@@ -33,15 +41,6 @@
             min-height: 18vh;
             display: flex;
             flex-direction: row;
-
-            h3 {
-                margin-top: 1vh;
-                font-size: 1.3rem;
-                letter-spacing: 0px;
-                color: #0c3249;
-                opacity: 1;
-                margin-bottom: 1vh;
-            }
 
             p {
                 font-size: 1rem;
@@ -83,6 +82,7 @@
             .quiz-buttons {
                 display: flex;
                 justify-content: space-between;
+                margin-top: 2vh;
 
                 button {
                     border-color: transparent;
@@ -152,13 +152,6 @@
                 height: 5vw;
                 font-weight: 800;
             }
-
-            h2 {
-                font-size: 1.5rem;
-                letter-spacing: 0px;
-                color: #0C3249;
-                opacity: 0.7;
-            }
         }
     }
 }
@@ -225,13 +218,6 @@
                     justify-content: space-between;
                     align-items: center;
 
-
-
-
-                    h3 {
-                        margin-top: 1.7vh;
-                    }
-
                     .title {
                         justify-self: center;
                     }
@@ -261,11 +247,7 @@
                     width: 20vw;
                 }
 
-                h2 {
-                    font-size: 1.3rem;
-                    font-weight: normal;
-                    margin-bottom: 10vh;
-                }
+
 
                 button {
                     width: 60vw;
