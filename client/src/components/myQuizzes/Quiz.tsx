@@ -43,6 +43,9 @@ const Quiz: FC<QuizProps> = (props) => {
 
   const copyQuizLink = (id: number) => {
     insertPopTypeToLs('copyQuiz');
+
+    //!copy to clipboard the right quiz link
+    navigator.clipboard.writeText('http://localhost:3000/quiz/ofek/italy')
     popHandleClickOpen();
   }
 
