@@ -28,15 +28,13 @@ function Register() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username: username, password: password })
-            })
-            console.log( boolean);
-            
+            })            
         if ( await boolean.json()) {
             setRegErrDiv('')
             alert("You signed up successfully!")
             navigate('/')
         }
-        else setRegErrDiv("שם משתמש זה כבר תופס!")
+        else setRegErrDiv("משהו השתבש בתהליך ההרשמה!")
     }
 
     function enterUsernameErr() {
