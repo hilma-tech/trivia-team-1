@@ -1,39 +1,30 @@
 import { useEffect, useState } from "react";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery } from "@mui/material";
 import axios from "axios";
-
+import { ScoreState } from "./interfaces";
 import HighScore from "./HighScore";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-
 import '../../style/scoreCard.scss';
 
 function ScoreCard() {
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const [quizData, setQuizData] = useState({//data in this state is temporary
-        title: 'שלום עולם',
-        scores: [
-            { id: 1, player: 'שלמה', score: 99, date: new Date() },
-            { id: 2, player: 'שלימזי גיבוט', score: 90, date: new Date() },
-            { id: 3, player: 'שפרן', score: 34, date: new Date() },
-            { id: 4, player: 'ניסים הרסר', score: 34, date: new Date() },
-            { id: 5, player: 'אופקו', score: 34, date: new Date() }
-        ]
-    });
-    let quizId = 4 //temporary
+    const [quizData, setQuizData] = useState<ScoreState>({ title: '', scores: [] });
+    const quizId = window.location.pathname.split('/')[2]
 
     async function fetchQuizData() {
         try {
-            const res = await axios.get(`api/quiz/${quizId}/scores`);
-            console.log(res);
-            // setQuizData(res)
-            return res
+            const res = await axios.get(`/api/quiz/${quizId}/scores`);
+            const scoreData = res.data
+            console.log(scoreData);
+            setQuizData(scoreData)
+            return scoreData
         } catch (err) {
             console.error(err);
         }
     }
 
     useEffect(() => {
-        fetchQuizData();// will activate once server is ready
+        fetchQuizData();
     }, [])
 
     return (

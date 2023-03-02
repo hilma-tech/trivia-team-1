@@ -1,5 +1,4 @@
-import { Controller, Get, Body, Post, Param, Put, Delete } from '@nestjs/common';
-import { Scores } from './interfaces';
+import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 
 
@@ -24,7 +23,7 @@ export class QuizController {
     }
 
     @Get("/:id/scores")
-    getQuizScores(@Param('id') id: number) {
+    getQuizScores(@Param('id', ParseIntPipe) id: number) {
         return this.quizService.highScores(id)
     }
 
