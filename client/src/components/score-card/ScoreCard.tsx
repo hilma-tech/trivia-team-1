@@ -12,11 +12,11 @@ function ScoreCard() {
     const [quizData, setQuizData] = useState({//data in this state is temporary
         title: 'שלום עולם',
         scores: [
-            { id: 1, player: 'גדשכדגכ', score: 99, date: new Date() },
-            { id: 2, player: 'ששששששששש', score: 90, date: new Date() },
-            { id: 3, player: 'הההההההה', score: 34, date: new Date() },
-            { id: 4, player: 'ללללללללל', score: 34, date: new Date() },
-            { id: 5, player: 'ררררררררררר', score: 34, date: new Date() }
+            { id: 1, player: 'שלמה', score: 99, date: new Date() },
+            { id: 2, player: 'שלימזי גיבוט', score: 90, date: new Date() },
+            { id: 3, player: 'שפרן', score: 34, date: new Date() },
+            { id: 4, player: 'ניסים הרסר', score: 34, date: new Date() },
+            { id: 5, player: 'אופקו', score: 34, date: new Date() }
         ]
     });
     let quizId = 4 //temporary
@@ -25,7 +25,7 @@ function ScoreCard() {
         try {
             const res = await axios.get(`api/quiz/${quizId}/scores`);
             console.log(res);
-
+            // setQuizData(res)
             return res
         } catch (err) {
             console.error(err);
@@ -33,7 +33,7 @@ function ScoreCard() {
     }
 
     useEffect(() => {
-        // fetchQuizData();// will activate once server is ready
+        fetchQuizData();// will activate once server is ready
     }, [])
 
     return (

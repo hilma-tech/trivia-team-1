@@ -1,20 +1,10 @@
 import { TableCell, TableRow } from "@mui/material";
-
 import gold from '../../images/crowns/gold.svg';
 import silver from '../../images/crowns/silver.svg';
 import bronze from '../../images/crowns/bronze.svg';
+import { PropsObj } from "./interfaces";
 
-interface ScoreType {
-    score: {
-        id: number
-        player: string;
-        score: number;
-        date: Date;
-    };
-    index: number
-}
-
-function HighScore(props: ScoreType) {
+function HighScore(props: PropsObj) {
     let { id, player, score, date } = props.score;
     let src;
     switch (props.index) {
@@ -26,13 +16,13 @@ function HighScore(props: ScoreType) {
             break;
         case 2:
             src = bronze
-            break
+            break;
     }
 
     return (
         <TableRow>
             <TableCell className="bold">{id}</TableCell>
-            <TableCell>{`${player} ${src && <img src={src} />}`}</TableCell>
+            <TableCell>{<p>{player} <img src={src} /></p>}</TableCell>
             <TableCell className="bolder">{score}</TableCell>
             <TableCell>{date.toLocaleDateString()}</TableCell>
         </TableRow>
