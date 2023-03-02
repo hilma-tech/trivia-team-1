@@ -8,7 +8,7 @@ body {
 }
 
 
-.form-Container {
+.form-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,7 +18,8 @@ body {
     .plus-btn-container {
         width: 2vw;
         height: 1vh;
-        margin-top: 3.5%;
+        margin-top: 2%;
+        margin-bottom: 7%;
     }
 
     .plus-btn {
@@ -36,30 +37,43 @@ body {
     .quiz-input-name{
         height: 5.1020408163265305vh;
         width: 14.47939262472885vw;
+        font-size: 25px;
+        border: 1px solid rgb(189, 184, 184); // unique color
+        
+        &:focus-visible, &:focus{
+            outline: none;
+            border: 2px solid rgb(65, 158, 139);// unique color
+        }            
     }
+
+    ::placeholder{
+        color: black;
+        padding-right: 5%;
+    }
+
 }
 
-.top-Container {
+.top-container {
     width: 68.75vw;
     display: flex;
     justify-content: space-around;
 
 }
 
-.top-Buttons-Container {
+.top-buttons-container {
     margin-top: 3%;
     display: flex;
     justify-content: space-between;
     width: 100%;
 }
 
-.top-Left-Btn {
+.top-left-btn {
     display: flex;
     width: 17%;
     justify-content: space-around;
 }
 
-.show-Quiz-Btn {
+.show-quiz-btn {
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 1px solid #0C32494D;
     border-radius: 10px;
@@ -75,7 +89,7 @@ body {
     letter-spacing: 0px;
 }
 
-.Show-Quiz-Svg {
+.Show-quiz-svg {
     background: transparent 0% 0% no-repeat padding-box;
     opacity: 1;
 }
@@ -91,13 +105,13 @@ body {
     height: 3.97219vh;
 }
 
-.link-Btn-Svg {
+.link-btn-svg {
     opacity: 1;
     width: 1vw;
     height: 1.5vh;
 }
 
-.save-Btn {
+.save-btn {
     background: $green-color;
     border: none;
     width: 6.61vw;
@@ -111,12 +125,12 @@ body {
 
 }
 
-.save-Btn-Svg {
+.save-btn-svg {
     width: 1vw;
     height: 1.5vh;
 }
 
-.quiz-Header-Container {
+.quiz-header-container {
     background-color: #FFFFFF;
     margin-top: 2%;
     width: 68.75vw;
@@ -129,7 +143,7 @@ body {
     align-items: center;
 }
 
-.quiz-Header-Image {
+.quiz-header-image {
     background-color: rgb(211, 209, 209);
     width: 30%;
     height: 80%;
@@ -139,18 +153,21 @@ body {
     align-items: center;
 }
 
-.select-Image-Quiz-Svg {
+.select-image-quiz-svg {
     width: 50%;
     height: 50%;
 }
 
-.title-Header-Container {
+.title-header-container {
     margin-right: 5%;
     display: flex;
     flex-direction: column;
+    width: 40%;
+    height: 100%;
+    justify-content: space-evenly;
 }
 
-.add-Questions-Container {
+.add-questions-container {
     margin-top: 3%;
     background-color: #FFFFFF;
     width: 68.75vw;
@@ -160,7 +177,7 @@ body {
     flex-direction: column;
     align-items: center;
 
-    .darg-and-drop-Container {
+    .darg-and-drop-container {
         width: 1.0416666666666667vw;
         height: 1.1916583912611718vh;
         margin-top: 1%;
@@ -248,7 +265,7 @@ body {
         width: 9.739583333333334vw;
     }
 
-    .select-Image-Questions-Svg {
+    .select-image-questions-svg {
         margin-right: 1.5vw;
         width: 1.6vw;
 
@@ -263,14 +280,14 @@ body {
 }
 
 
-.quiz-Questions-Container {
+.quiz-questions-container {
     width: 98%;
     display: flex;
     flex-direction: column;
 
 }
 
-.quiz-Questions {
+.quiz-questions {
     display: flex;
     margin-top: 2%;
     margin-right: 2%;
@@ -288,7 +305,7 @@ body {
     display: flex;
 }
 
-.check-boxes-Container {
+.check-boxes-container {
     margin-top: 3%;
     display: flex;
 
@@ -296,12 +313,12 @@ body {
         font-size: 0.7rem;
     }
 
-    .text-Field-input {
+    .text-field-input {
         width: 34vw;
     }
 }
 
-.check-box-Svg {
+.check-box-svg {
     display: flex;
     align-items: center;
     margin-top: 1rem;
@@ -316,11 +333,11 @@ body {
 
 }
 
-.text-Field-Container {
+.text-field-container {
     margin-right: 3%;
 }
 
-.select-Image-Svg-For-Questions {
+.select-image-svg-for-questions {
     width: 1.5625vw;
     height: 2.9791459781529297vh;
     margin-right: 2vw;
@@ -334,7 +351,7 @@ body {
 }
 
 
-.ready-Questions-Container {
+.ready-questions-container {
     background-color: #FFFFFF;
     margin-top: 2%;
     width: 68.75vw;
@@ -393,14 +410,14 @@ body {
         padding-right: 0;
     }
 
-    .darg-and-drop-Container {
+    .darg-and-drop-container {
         display: flex;
         justify-content: center;
         align-items: center;
         padding-top: 1%;
     }
 
-    .drag-and-drop-Svg{
+    .drag-and-drop-svg{
         width: 1.0416666666666667vw;
         height: 2.1916583912611718vh;
     }

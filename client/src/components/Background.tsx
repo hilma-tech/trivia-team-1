@@ -12,7 +12,7 @@ const Background = (props: ContainerProps) => (
       <div id="comp-children-container">
         {props.children}
       </div>
-    </div>
+    </div> 
   ) : (
     <div className = "background-container-phone"> 
      

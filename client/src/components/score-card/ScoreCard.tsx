@@ -11,11 +11,11 @@ function ScoreCard() {
     const [quizData, setQuizData] = useState({//data in this state is temporary
         quizName: 'שלום עולם',
         scores: [
-            { id: 1, name: 'גדשכדגכ', score: 99, date: new Date() },
-            { id: 2, name: 'ששששששששש', score: 90, date: new Date() },
-            { id: 3, name: 'הההההההה', score: 34, date: new Date() },
-            { id: 4, name: 'ללללללללל', score: 34, date: new Date() },
-            { id: 5, name: 'ררררררררררר', score: 34, date: new Date() }
+            { id: 1, name: 'שלמה', score: 99, date: new Date() },
+            { id: 2, name: 'שלימזי גיבוט', score: 90, date: new Date() },
+            { id: 3, name: 'שפרן', score: 34, date: new Date() },
+            { id: 4, name: 'ניסים הרסר', score: 34, date: new Date() },
+            { id: 5, name: 'אופקו', score: 34, date: new Date() }
         ]
     });
 
