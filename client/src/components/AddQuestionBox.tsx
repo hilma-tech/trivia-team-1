@@ -17,12 +17,13 @@ interface AddQuestionBoxProps {
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
     setCurrentEditQuestion : React.Dispatch<React.SetStateAction<number>>
+    duplicateQuestion:() => void
 
 
 }
 
 
-const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion , setCurrentEditQuestion }) => {
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion , setCurrentEditQuestion , duplicateQuestion}) => {
 
     const { setQuestions, questions } = useQuestionContext()
 
@@ -97,7 +98,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                 <div className="footer-container-questions-btn">
 
                     <BootstrapTooltip title="שכפול">
-                        <button className="duplicate-btn">
+                        <button className="duplicate-btn" onClick={duplicateQuestion}>
                             <img src={duplicateSvg} className="duplicate-svg" alt='duplicate your question' />
                         </button>
                     </BootstrapTooltip>

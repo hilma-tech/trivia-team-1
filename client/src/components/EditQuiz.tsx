@@ -83,6 +83,25 @@ const EditQuiz: FC = () => {
     }
 
 
+    const duplicateQuestion = () => {
+        if (questions.length < 10) {
+            setCurrentEditQuestion(questions.length);
+            setQuestions((prev) => {
+                if ('correctAnswer' in prev[currentEditQuestion]) {
+                    const lastQuestion = prev.at(-1) as CurrentQuestion;
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, questionTitle: prev[currentEditQuestion].questionTitle , correctAnswer: prev[currentEditQuestion].correctAnswer}]
+                }else{
+                    setCurrentEditQuestion(prev[currentEditQuestion].questionId);
+                    alert("Please add a correct answer")
+                    return prev;
+                }
+            })
+
+
+        }
+    }
+
+
     return (
         <>
             <CacheProvider value={cacheRtl}>
@@ -150,7 +169,7 @@ const EditQuiz: FC = () => {
                                                                 console.log('prevIn: ', prev);
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
-                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} />
+                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} duplicateQuestion={duplicateQuestion} />
                                                         :
                                                         <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} />
                                                     }
