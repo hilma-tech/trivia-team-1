@@ -38,9 +38,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
 
     const deleteQuestion = () => {
-        console.log('currentQuestion: ', currentQuestion);
         let deleteIndex = questions.findIndex(question => question.questionId === currentQuestion.questionId)
-        console.log('deleteIndex: ', deleteIndex);
         setQuestions(prevState => {
            return prevState.filter((question ,index) => index!== deleteIndex);
            

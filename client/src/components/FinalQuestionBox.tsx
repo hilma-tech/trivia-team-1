@@ -16,16 +16,19 @@ interface FinalBoxQuestionsProps {
     setCurrentEditQuestion:React.Dispatch<React.SetStateAction<number>>;
 }
 
-// const openEditMode = (index: number) => {
-//     setCurrentEditQuestion(index);
-// }
 
 
 
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setCurrentEditQuestion}) => {
 
-const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index }) => {
+
+    const openEditMode = (index: number) => {
+        setCurrentEditQuestion(index);
+    }
+
+
     return (
-        <div className='ready-questions-container' >
+        <div className='ready-questions-container' onClick={() => openEditMode(index)}>
             <div className='darg-and-drop-container'>
                     <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
             </div>
@@ -53,6 +56,6 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index }) => {
 
 export default FinalQuestionBox
 
-function setCurrentEditQuestion(index: any) {
-    throw new Error('Function not implemented.');
-}
+
+
+

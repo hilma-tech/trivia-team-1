@@ -15,6 +15,7 @@ import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import BootstrapTooltip from '../tooltip/tooltip'
+import MonkeySvg from '../images/monkeyInEdit.svg'
 
 
 
@@ -35,8 +36,6 @@ const EditQuiz: FC = () => {
     const { setQuestions, questions } = useQuestionContext()
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    // const [currentQuestionId, setCurrentQuestionId] = useState(1);
-    console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
 
 
@@ -44,8 +43,14 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                const lastQuestion = prev.at(-1) as CurrentQuestion;
-                return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
+                if ('correctAnswer' in prev[currentEditQuestion]) {
+                    const lastQuestion = prev.at(-1) as CurrentQuestion;
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
+                }else{
+                    setCurrentEditQuestion(prev[currentEditQuestion].questionId);
+                    alert("Please add a correct answer")
+                    return prev;
+                }
             })
 
 
@@ -57,13 +62,11 @@ const EditQuiz: FC = () => {
         const items = Array.from(questions);
         const editItem = items[currentEditQuestion];
         const [reorderedItem] = items.splice(result.source.index, 1);
-        console.log(result.source.index)
         if (editItem.questionId === reorderedItem.questionId) {
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
             setCurrentEditQuestion(result.destination.index)
         } else {
-            console.log(reorderedItem, 'reorderedItem')
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
             const editQuestionIndex = items.findIndex((question) => question.questionId === editItem.questionId);
@@ -144,6 +147,7 @@ const EditQuiz: FC = () => {
 
                                                         <AddQuestionBox setCurrentQuestion={(q) => {
                                                             setQuestions(prev => {
+                                                                console.log('prevIn: ', prev);
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
                                                         }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} />
@@ -166,6 +170,9 @@ const EditQuiz: FC = () => {
                             </button>
                         </BootstrapTooltip>
                     </div>
+                </div>
+                <div className='monkey-in-edit-page-svg'>
+                    <img src={MonkeySvg} className='monkey-svg' alt='image of cute monkey with computer' />
                 </div>
             </CacheProvider>
         </>
