@@ -4,6 +4,7 @@ import fullScreenIcon from '../../images/question-template/full-screen.png';
 import '../../style/questionTemp.scss'
 import { useNavigate } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
+import { Type } from '../popups/GenericPopParts';
 
 interface QuestionTempState {
     answers: {
@@ -45,7 +46,6 @@ const QuestionTemp = () => {
         }
     ]);
     const [numOfQuestion, setNumOfQuestion] = useState(0);
-    console.log('numOfQuestion: ', numOfQuestion);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
     const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
     const [changeColorToGreen, setChangeColorToGreen] = useState<number>(1000);
@@ -53,7 +53,7 @@ const QuestionTemp = () => {
     const [changeFlexDir, setChangeFlexDir] = useState(true);
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
-    const { popHandleClickOpen } = usePopContext();
+    const { popHandleClickOpen, setPopType } = usePopContext();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -62,7 +62,11 @@ const QuestionTemp = () => {
     }, []);
 
     useEffect(() => {
-        if (numOfQuestion === answers.length - 1) navigateToEndGameScreen();
+        if (numOfQuestion === answers.length - 1){
+            navigateToEndGameScreen();
+
+        } 
+            
 
     }, [numOfQuestion])
 
@@ -87,8 +91,6 @@ const QuestionTemp = () => {
     const actualAnswer = useMemo(() => getActualAnswer(), [numOfQuestion]);
     const doChangeFlexDir = useMemo(() => checkIfThereAreImg(), [numOfQuestion]);
 
-
-
     const setInfoFromServer: () => Promise<void> = async () => {
         let copyAnswers = [...answers];
         let copyQuestion = [...question];
@@ -107,12 +109,14 @@ const QuestionTemp = () => {
             })
     }
 
-    const navigateToEndGameScreen = () => {
-        console.log('here');
-        
+    const navigateToEndGameScreen = () => {        
         setNumOfQuestion(0);
-        console.log(isLargeScreen)
-        isLargeScreen ? navigate('/finished-game-pc') : popHandleClickOpen();
+        let url = window.location.href;
+        if (isLargeScreen) navigate('/quiz/:userName/:quizName/finished-game-pc');
+        else {
+            setPopType(Type.FinishedQuiz);
+            popHandleClickOpen();
+        } 
     }
 
     const calcWidthOfRec = () => {

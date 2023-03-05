@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuPic from "../../images/dottedMenu.png"
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { Type } from "../popups/GenericPopParts";
 
 
 interface QuizProps {
@@ -37,9 +38,8 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const copyQuizLink = (id: number) => {
-    setPopType('copyQuiz');
-
-    //!copy to clipboard the right quiz link
+    setPopType(Type.CopyQuiz);
+  //!copy to clipboard the right quiz link
     navigator.clipboard.writeText('http://localhost:3000/quiz/ofek/italy')
     popHandleClickOpen();
   }
@@ -51,14 +51,13 @@ const Quiz: FC<QuizProps> = (props) => {
     navigate(`/quiz/:userName/:quizName/scores`)
   }
   const toEdit = (id: number) => {
-    console.log("rere");
 
   }
   const linkCopied = (id: number) => {
 
   }
   const deleteQuiz = (id: number) => {
-    setPopType('deleteQuiz');
+    setPopType(Type.DeleteQuiz);
     popHandleClickOpen();
 
   }
@@ -76,7 +75,7 @@ const Quiz: FC<QuizProps> = (props) => {
           <div className="quiz-buttons">
             <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
             <div>
-              <button className="emoji-buttons" onClick={() => popHandleClickOpen()}><img src={LinkSvg} alt="link" /></button>
+              <button className="emoji-buttons" onClick={() => copyQuizLink(id)}><img src={LinkSvg} alt="copy link" /></button>
               <button className="emoji-buttons" onClick={() => toEdit(id)}><img src={EditSvg} alt="edit" /></button>
               <button className="emoji-buttons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /></button>
 

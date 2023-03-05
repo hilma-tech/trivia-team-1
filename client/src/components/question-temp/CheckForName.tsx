@@ -30,14 +30,11 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                 moveToPlayGame();
             })
             .catch((err) => {
-                console.log("sendNameOfPlayerToServer");
-                console.log(err, "catch");
             })
             moveToPlayGame()
     }
 
     const moveToPlayGame = () => {
-        //TODO: navigate();
         navigate('/quiz/ohad/italy/questions');
     }
 
