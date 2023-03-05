@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
 import '../../style/questionTemp.scss'
+import { useNavigate } from 'react-router-dom';
+import { usePopContext } from '../popups/popContext';
 
 interface QuestionTempState {
     answers: {
@@ -43,19 +45,26 @@ const QuestionTemp = () => {
         }
     ]);
     const [numOfQuestion, setNumOfQuestion] = useState(0);
+    console.log('numOfQuestion: ', numOfQuestion);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
     const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
     const [changeColorToGreen, setChangeColorToGreen] = useState<number>(1000);
     const [changeColorToRed, setChangeColorToRed] = useState<number>(1000);
     const [changeFlexDir, setChangeFlexDir] = useState(true);
-
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
+    const { popHandleClickOpen } = usePopContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setInfoFromServer();
         checkIfThereAreImg();
     }, []);
+
+    useEffect(() => {
+        if (numOfQuestion === answers.length - 1) navigateToEndGameScreen();
+
+    }, [numOfQuestion])
 
     const getActualQuestion = () => {
         return question[numOfQuestion]
@@ -96,6 +105,14 @@ const QuestionTemp = () => {
             .catch((err) => {
                 console.log(err, "catch");
             })
+    }
+
+    const navigateToEndGameScreen = () => {
+        console.log('here');
+        
+        setNumOfQuestion(0);
+        console.log(isLargeScreen)
+        isLargeScreen ? navigate('/finished-game-pc') : popHandleClickOpen();
     }
 
     const calcWidthOfRec = () => {
@@ -159,6 +176,7 @@ const QuestionTemp = () => {
             let picIndex = `pic${index}`
             return (
                 <>
+                    
                     <button
                         className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}

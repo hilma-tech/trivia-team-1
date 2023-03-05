@@ -12,7 +12,7 @@ export class Question {
     @Column({ name: "image_url",  nullable: true })
     imageUrl: string;
 
-    @ManyToOne(() => Quiz, (quiz) => quiz.questions, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @ManyToOne(() => Quiz, (quiz) => quiz.questions, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE', orphanedRowAction: "delete" })
     quiz: Quiz;
 
     @OneToMany(() => Answer, (answers) => answers.question, {cascade:true})

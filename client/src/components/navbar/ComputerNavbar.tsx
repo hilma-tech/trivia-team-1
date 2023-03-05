@@ -1,10 +1,29 @@
 import { Button, Link, Typography } from "@mui/material";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
 
-const ComputerNavbar:FC = () => (
+const ComputerNavbar:FC = () => {
+
+    const navigate = useNavigate()
+    
+    const onClick = (linkTo: 'myQuizzes' | 'createQuiz' | 'about') => {
+        switch (linkTo){
+            case 'myQuizzes':
+                navigate('/my-quizzes')
+                break;
+            case 'createQuiz':
+                navigate('/createQuiz')
+                break;
+            case 'about':
+                navigate('/about')
+                break; 
+        }
+    }
+    
+    return (
     <div className="navbar-container-computer">
         <div className="first-section">
             <div className="btn-container">
@@ -16,7 +35,7 @@ const ComputerNavbar:FC = () => (
                 <div className="vl"></div>
             </div>
             <div className="links-container">
-                <Button className="nav-quiz-btn">
+                <Button onClick={() => onClick('myQuizzes')} className="nav-quiz-btn">
                     החידונים שלי
                 </Button>
                 <div className="vl-container">
@@ -33,6 +52,6 @@ const ComputerNavbar:FC = () => (
             </div>
         </div>
     </div>
-)
+)}
 
 export default ComputerNavbar;
