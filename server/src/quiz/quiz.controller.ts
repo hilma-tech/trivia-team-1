@@ -1,4 +1,8 @@
 import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
+<<<<<<< HEAD:server/src/quiz /quiz.controller.ts
+=======
+import { QuizDTO } from './quiz.dto';
+>>>>>>> 81e447fb7310c1ea8379203fecd458e35fc6b60c:server/src/quiz/quiz.controller.ts
 import { QuizService } from './quiz.service';
 import { AddScoreDto, DeleteQuizDto } from './quiz.dto';
 
@@ -13,13 +17,15 @@ export class QuizController {
     }
 
     @Post("/")
-    register() {
-        return "hello smidth"
+    async addQuiz(@Body() quiz: QuizDTO) {
+        const newQuiz=await this.quizService.addQuiz(quiz);
+        return  newQuiz.id
     }
 
     @Put("/:id")
-    login() {
-        return "hello smidth"
+    editQuiz(@Param('id', ParseIntPipe) id: number,@Body() quiz: QuizDTO) {
+        this.quizService.editQuiz(id,quiz);
+        return 
     }
 
     @Get("/:id/scores")

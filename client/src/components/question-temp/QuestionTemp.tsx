@@ -1,6 +1,7 @@
-import { type } from 'os';
 import React, { useState, useEffect, useMemo } from 'react';
-import '../../style/questionTemp.scss';
+import { useMediaQuery } from '@mui/material';
+import fullScreenIcon from '../../images/question-template/full-screen.png';
+import '../../style/questionTemp.scss'
 
 interface QuestionTempState {
     answers: {
@@ -14,8 +15,12 @@ interface QuestionTempState {
     }[],
 }
 
+interface stateObj {
+    [key: string]: boolean;
+}
 
 const QuestionTemp = () => {
+
     const [answers, setAnswers] = useState<QuestionTempState["answers"]>([[
         { ans: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
         { ans: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
@@ -43,6 +48,9 @@ const QuestionTemp = () => {
     const [changeColorToGreen, setChangeColorToGreen] = useState<number>(1000);
     const [changeColorToRed, setChangeColorToRed] = useState<number>(1000);
     const [changeFlexDir, setChangeFlexDir] = useState(true);
+
+    const isLargeScreen = useMediaQuery("(min-width: 600px)")
+    const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
 
     useEffect(() => {
         setInfoFromServer();
@@ -78,20 +86,19 @@ const QuestionTemp = () => {
         await fetch(`#`)
             .then((res) => res.json)
             .then((data) => {
-                console.log("hiiiii");
                 // copyAnswers = data.answers;
                 // copyQuestion = data.questions;
                 // setAnswers(copyAnswers);
                 // setQuestion(copyQuestion);
                 // setQuantityOfQuestion(data.questions.length);
-                // culcWidthOfRec();
+                // calcWidthOfRec();
             })
             .catch((err) => {
                 console.log(err, "catch");
             })
     }
 
-    const culcWidthOfRec = () => {
+    const calcWidthOfRec = () => {
         let widthOfScreen = 82.5;
         let temp = widthOfScreen / quantityOfQuestion;
         let numToPushToState = temp * numOfQuestion;
@@ -100,7 +107,7 @@ const QuestionTemp = () => {
 
     const checkIfCorrect = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
         if (actualAnswer[index].isCorrect) {
-            console.log("correct");
+            console.log();
             setTimeout(mooveToNextQuestion, 500);
         } else {
             console.log("incorrect");
@@ -136,32 +143,52 @@ const QuestionTemp = () => {
             }
         }
     }
+    const resizeFull = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
+        e.stopPropagation()
+        setIsFullScreen(prev => ({ ...prev, [picIndex]: !prev[picIndex] }))
+    }
+    const resizeShrink = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
+        e.stopPropagation();
+        if (isFullScreen[picIndex] === false) return;
+        setIsFullScreen(prev => ({ ...prev, [picIndex]: false }))
+    }
+
 
     const renderMap = () => {
-        return actualAnswer.map((answer, index) => {
+        return actualAnswer.map((answer, index: number) => {
+            let picIndex = `pic${index}`
             return (
-                <button className={
-                    !actualAnswer[0].url ? 'ans-button-no-img'
-                        : 'ans-button-with-img'
-                }
-                    key={index} style={{
-                        backgroundColor: changeColorToRed === index
-                            ? '#F28787'
-                            : changeColorToGreen === index
-                                ? '#80DCC9'
-                                : '#0C32490A'
-                    }}
-                    onClick={(e) => checkIfCorrect(e, index)}
-                >
-                    <p className='answer-button'>
-                        {answer.ans}
-                    </p>
-                    {answer.url ?
-                        <img className="button-img"
-                            src={`${answer.url}`} alt=""
-                        />
-                        : null}
-                </button>
+                <>
+                    <button
+                        className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
+                        key={index}
+                        style={{ backgroundColor: changeColorToRed === index ? '#F28787' : changeColorToGreen === index ? '#80DCC9' : '#0C32490A' }}
+                        onClick={(e) => checkIfCorrect(e, index)}
+                    >
+                        <div>
+                            <p className='answer-button'>{answer.ans}</p>
+                        </div>
+                        {answer.url ?
+                            <div className='div-imgs'>
+                                {!isLargeScreen &&
+                                    <div className='icon-div' onClick={(e) => resizeFull(e, picIndex)}>
+                                        <img src={fullScreenIcon} alt='fullScreenIcon' />
+                                    </div>
+                                }
+                                <div
+                                    className={`img-div ${isFullScreen[picIndex] ? `full-screen` : ''}`}
+                                    onClick={(e) => resizeShrink(e, picIndex)}
+                                >
+                                    <img
+                                        className='button-img'
+                                        src={`${answer.url}`}
+                                        alt=""
+                                    />
+                                </div>
+                            </div>
+                            : null}
+                    </button>
+                </>
             )
         })
     }
@@ -183,7 +210,7 @@ const QuestionTemp = () => {
                     <div className='question-place-father'>
                         <div className='question-place-child'>
                             <div className='question-img-place'>
-                                <img className='question-img' src={`${actualQuestion.url}`}
+                                <img className='question-img img' src={`${actualQuestion.url}`}
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
@@ -192,17 +219,17 @@ const QuestionTemp = () => {
                             </h2>
                             <hr id='hr' />
                             <div className={changeFlexDir ?
-                                 'button-place-one' 
-                                 : 
-                                 'button-place-two'}
-                                 >
+                                'button-place-one'
+                                :
+                                'button-place-two'}
+                            >
                                 {renderMap()}
                             </div>
                         </div>
                     </div>
                 </div>
             </main>
-       </div>
+        </div>
     );
 }
 

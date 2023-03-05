@@ -11,7 +11,16 @@ export const defaultTheme: object = {
       },
     },
   },
+  
   muiLink: {},
+  components: {
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "rgba(15,62,91, 0.1)",
+        },
+      },
+    },},
   typography: {
     fontFamily: "'Rubik', sans-serif",
     h1: {
@@ -34,6 +43,7 @@ export const defaultTheme: object = {
       fontWeight: '600'
     },
     h5: {
+      
       color: PrimaryFontColor,
       fontWeight: '600'
     },
@@ -45,6 +55,10 @@ export const defaultTheme: object = {
       color: PrimaryFontColor,
       fontSize: "20px",
     },
+    body2: {
+      color: PrimaryFontColor,
+      fontWeight: 'medium'
+    }
   },
   palette: {
     primary: {
@@ -55,3 +69,4 @@ export const defaultTheme: object = {
     },
   },
 }
+

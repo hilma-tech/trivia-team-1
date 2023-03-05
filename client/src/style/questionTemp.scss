@@ -9,11 +9,9 @@
     position: relative;
 
     .main-QuastionTemp {
-        /* direction: rtl; */
         width: 100%;
         height: 100%;
         background: #FFFFFF 0% 0% no-repeat padding-box;
-        /* background-color: black; */
         opacity: 1;
 
         .score-rectangle {
@@ -21,9 +19,6 @@
             width: 10vw;
             height: 1vh;
         }
-
-
-
 
         .numOfQuestion-place {
             display: flex;
@@ -34,9 +29,9 @@
                 width: 15%;
                 height: 6vh;
                 color: white;
-                background: rgba(0,0,0,0.3);
+                background: rgba(0, 0, 0, 0.3);
                 border-radius: 10px;
-               
+
                 @include flexCenter();
                 margin-top: 1vh;
                 margin-left: 1vw;
@@ -67,25 +62,23 @@
 
                             width: 15vw;
                             height: 10vh;
-
                             background: transparent;
-                            /* url('img/images.png') 0% 0% no-repeat padding-box; */
                             opacity: 1;
                         }
                     }
 
                     #hr {
-                        width: 80%;
                         margin-bottom: 1rem;
                     }
 
                     #questionTitle {
                         padding-right: 10%;
+                        padding-top: 1.5vh;
                         width: 80%;
                         height: 5vh;
                         text-align: right;
-                        font-family: rubik;
-                        font-size: 1.1rem;
+                        font-size: 0.9rem;
+                        font-weight: lighter;
                         letter-spacing: 0px;
                         color: #0C3249;
                         opacity: 1;
@@ -103,7 +96,6 @@
                             background: #0C32490A 0% 0% no-repeat padding-box;
                             border-radius: 6.25rem;
                             opacity: 1;
-                            /* padding: 3rem; */
                             margin: .4rem;
                             display: flex;
                             align-items: center;
@@ -134,6 +126,58 @@
                             border-color: transparent;
                             position: relative;
 
+                            .div-imgs {
+                                position: relative;
+                                width: 100%;
+                                height: 100%;
+
+                                .icon-div {
+                                    @include flexCenter();
+                                    position: absolute;
+                                    top: 16vw;
+                                    right: 28vw;
+                                    background-color: #ffffffbf;
+                                    border-radius: 50%;
+                                    width: 6vw;
+                                    height: 6vw;
+                                    z-index: 1;
+
+                                    img {
+                                        width: 85%;
+                                        height: 85%;
+                                    }
+                                }
+
+                                .img-div {
+                                    @include flexCenter();
+                                    border: none;
+                                    width: 100%;
+                                    height: auto;
+                                    transition: 1s ease-out;
+                                    margin-top: 10%;
+
+                                    img {
+                                        width: 80%;
+                                        height: auto;
+
+                                    }
+                                }
+
+                                .img-div.full-screen {
+                                    @include flexCenter();
+                                    position: fixed;
+                                    top: 0px;
+                                    left: 0px;
+                                    right: 0px;
+                                    bottom: 0px;
+                                    width: 100%;
+                                    z-index: 3;
+                                    background-color: #000000;
+                                    transition: 1s ease-out;
+                                    margin: 0;
+                                }
+                            }
+
                             p {
                                 position: absolute;
                                 top: -5%;
@@ -148,18 +192,6 @@
                                 @include flexCenter();
                                 margin-bottom: -2rem;
                                 z-index: 1;
-                            }
-
-                            img {
-                                position: absolute;
-                                right: calc(50% - 40%);
-                                top: calc(50% - 40%);
-                                width: 80%;
-                                height: 80%;
-                                /* UI Properties */
-                                background: transparent 0% 0% no-repeat padding-box;
-                                /* background-color: #000000; */
-                                opacity: 1;
                             }
                         }
                     }
@@ -179,33 +211,41 @@
 }
 
 @media screen and (max-width: 600px) {
+    :root{
+        font-size: 1rem;
+    }
     html {
         font-size: 6px;
     }
 
+    #hr{
+        width: 100%;
+        text-align: center;
+    }
+
     .question-temp {
         .main-QuastionTemp {
+            border: none;
+            overflow: hidden;
+
             .numOfQuestion-place {
                 width: 30%;
-            
-                top:7%;
-                right:15%;
+                top: 7%;
+                right: 15%;
                 position: absolute;
+
                 .numOfQuestion {
                     width: 100%;
                     height: 4vh;
                 }
             }
-            /* direction: rtl; */
-            border: none;
-            overflow: hidden;
+
             .question-content {
                 #question-img {
                     margin-top: 6rem;
                 }
 
                 .question-place-father #questionTitle {
-                    font: normal normal normal 20px/20px Rubik;
                     margin-top: 5rem;
                     margin-bottom: 2rem;
                     width: 30rem;
@@ -213,11 +253,8 @@
 
                 .question-place-father {
                     width: 85%;
-                    .question-place-child {
 
-                        #answer-button {
-                            font: normal normal normal 14px/16px Rubik
-                        }
+                    .question-place-child {
 
                         .button-place-one {
                             margin-top: 5rem;
@@ -229,25 +266,32 @@
 
                         .question-img-place {
                             margin: 4vh;
+
                             #hr {
                                 margin-top: 10rem;
                                 margin-bottom: 3rem;
+                                height: 1px;
+                                background-color:#43776d;
+                                border: none;
                             }
-                            .question-img {
 
+                            .question-img {
                                 width: 90%;
                                 height: 20vh;
-    
-                                /* url('img/images.png') 0% 0% no-repeat padding-box; */
                             }
                         }
+
                         #questionTitle {
+                            font-size: 1.3rem;
+                            padding-top: 3vh;
                             padding-right: 5%;
                             margin: 3vh;
                         }
+
                         .button-place-one {
-                            margin: 0;   
+                            margin: 0;
                         }
+
                         .button-place-two {
                             margin: 0;
 
@@ -255,12 +299,6 @@
                                 width: 40vw;
                                 height: 30vw;
                                 margin: 0;
-
-                                p {}
-
-                                img {
-                                    
-                                }
                             }
                         }
                     }
@@ -268,8 +306,4 @@
             }
         }
     }
-
-    // .main-QuastionTemp .question-place-father .button-place-two .ans-button-with-img img {
-    //     width: 4.0625rem;
-    // }
 }
