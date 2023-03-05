@@ -48,7 +48,7 @@
         font-weight: bolder;
         border-radius: 50px;
         height: 3.6vh;
-        font-size: 1.2rem
+        font-size: 1.2rem;
     }
     
     .action-injected .action-link {
@@ -57,6 +57,10 @@
         align-items: center;
         width: 10vw;
         font-weight: bolder;
+    }
+
+    .MuiDialogActions-root{
+        padding-bottom: 3vh;
     }
     
     .MuiDialog-paper {
@@ -79,7 +83,6 @@
 .MuiDialogActions-root.dialog-actions-container .action-injected {
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 3vh;
 }
 
 @media (max-width: 600px) {
@@ -116,7 +119,7 @@
         }
 
         .MuiDialogActions-root.dialog-actions-container {
-            padding-bottom: 3vh;
+            padding-bottom: 5vh;
             
         }
         
