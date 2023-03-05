@@ -1,10 +1,6 @@
 import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
-<<<<<<< HEAD:server/src/quiz /quiz.controller.ts
-=======
 import { QuizDTO } from './quiz.dto';
->>>>>>> 81e447fb7310c1ea8379203fecd458e35fc6b60c:server/src/quiz/quiz.controller.ts
 import { QuizService } from './quiz.service';
-import { AddScoreDto, DeleteQuizDto } from './quiz.dto';
 
 
 @Controller('api/quiz')
@@ -13,13 +9,8 @@ export class QuizController {
 
     }
     @Get("/:id")
-<<<<<<< HEAD
-    async getQuiz(@Param('id', ParseIntPipe) id:number ){
-        this.quizService.getQuiz(id);
-=======
     getQuiz() {
         return "hello smidth"
->>>>>>> 00d285421b87ad21886f320e070e081f87ed2799
     }
 
     @Post("/")
@@ -40,19 +31,6 @@ export class QuizController {
     }
 
     @Post("/:id/scores")
-<<<<<<< HEAD
-    async addQuizScore( @Body() addScore: AddScoreDto, @Param("id", ParseIntPipe) id: number ){
-        console.log(" controler addScore:", addScore);
-        console.log("controler id:", id);
-
-        return await this.quizService.addScore(addScore, id);
-    }
-
-    @Post("/:id")
-    async deleteQuiz( @Body("id") idForDelete: DeleteQuizDto["id"] ){
-        return await this.quizService.deleteQuiz(idForDelete);
-    }
-=======
     addQuizScore() {
         return "hello rrttrhgkjjhfgmhfjghiyhcghniyjnjktghmuthyjudefrghjk"
     }
@@ -62,5 +40,4 @@ export class QuizController {
         return "hello smidth"
     }
 
->>>>>>> 00d285421b87ad21886f320e070e081f87ed2799
 }
