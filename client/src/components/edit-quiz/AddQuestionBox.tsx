@@ -1,15 +1,15 @@
 import React, { FC} from "react";
-import Selectimage from '../images/image.svg'
+import Selectimage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
-import AddAnswer from '../images/addAnswer.svg'
-import duplicateSvg from '../images/copy.svg'
-import TrashSvg from '../images/trash.svg'
-import dragAndDropSvg from '../images/drag-and-drop.svg'
+import AddAnswer from '../../images/addAnswer.svg'
+import duplicateSvg from '../../images/copy.svg'
+import TrashSvg from '../../images/trash.svg'
+import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion } from '../utils/Interfaces'
-import { useQuestionContext } from "../context/AnswersContext";
-import BootstrapTooltip from "../tooltip/tooltip";
+import { CurrentQuestion } from '../../utils/Interfaces'
+import { useQuestionContext } from "../../context/AnswersContext";
+import BootstrapTooltip from "../../tooltip/tooltip";
 
 
 
@@ -46,7 +46,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
            return prevState.filter((question ,index) => index!== deleteIndex);
            
         })
-        setCurrentEditQuestion(questions.length -2)
+        setCurrentEditQuestion(questions.length - 2)
 
     }
 
@@ -54,7 +54,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setCurrentQuestion((prev) => {
-            return { ...prev, questionTitle: e.target.value }
+            return { ...prev, title: e.target.value }
         });
 
     }
@@ -71,7 +71,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
             <div className='quiz-questions-container'>
                 <div className='quiz-questions' >
                     <BootstrapTooltip title="שינוי שם">
-                        <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
+                        <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.title} onChange={handleChange} />
                     </BootstrapTooltip>
                     <BootstrapTooltip title="הוספת תמונה לשאלה">
                         <img className='select-image-questions-svg' src={Selectimage} alt='add here to the question' />

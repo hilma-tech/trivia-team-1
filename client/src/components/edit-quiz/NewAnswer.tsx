@@ -3,12 +3,12 @@ import { IconButton, TextField} from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
-import SelectImage from '../images/image.svg'
-import TrashSvg from '../images/trash.svg'
+import SelectImage from '../../images/image.svg'
+import TrashSvg from '../../images/trash.svg'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import { CurrentQuestion } from "../utils/Interfaces";
-import BootstrapTooltip from "../tooltip/tooltip";
+import { CurrentQuestion } from "../../utils/Interfaces";
+import BootstrapTooltip from "../../tooltip/tooltip";
 
 
 const theme = createTheme({

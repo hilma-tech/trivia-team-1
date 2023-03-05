@@ -13,7 +13,7 @@ import Register from "./components/register";
 import Error from './components/error404';
 import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from './context/AnswersContext';
-import EditQuiz from './components/EditQuiz';
+import EditQuiz from './components/edit-quiz/EditQuiz';
 
 import './style/background.scss'
 import './style/navbar.scss'

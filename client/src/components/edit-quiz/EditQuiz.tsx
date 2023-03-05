@@ -1,21 +1,21 @@
 import React, { FC, useState } from 'react';
-import '../style/EditQuiz.scss'
-import ShowQuizBtn from '../images/showquizzbtn.svg'
-import LinkBtn from '../images/linkBtn.svg'
-import saveBtn from '../images/saveBtn.svg'
-import Selectimage from '../images/image.svg'
+import '../../style/EditQuiz.scss'
+import ShowQuizBtn from '../../images/showquizzbtn.svg'
+import LinkBtn from '../../images/linkBtn.svg'
+import saveBtn from '../../images/saveBtn.svg'
+import Selectimage from '../../images/image.svg'
 import AddQuestionBox from './AddQuestionBox'
-import plusBtn from '../images/plusBtn.svg'
+import plusBtn from '../../images/plusBtn.svg'
 import FinalQuestionBox from './FinalQuestionBox'
-import { useQuestionContext } from '../context/AnswersContext'
-import { CurrentQuestion, Question } from '../utils/Interfaces'
+import { useQuestionContext } from '../../context/AnswersContext'
+import { CurrentQuestion, Question } from '../../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TextField } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
-import BootstrapTooltip from '../tooltip/tooltip'
-import MonkeySvg from '../images/monkeyInEdit.svg'
+import BootstrapTooltip from '../../tooltip/tooltip'
+import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios';
 
 
@@ -34,7 +34,7 @@ const EditQuiz: FC = () => {
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     console.log('currentEditQuestion: ', currentEditQuestion);
-    const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
+    const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
 
 
     const addQuestion = () => {
@@ -42,9 +42,9 @@ const EditQuiz: FC = () => {
             setCurrentEditQuestion(questions.length);
             console.log('currentEditQuestionIn: ' ,currentEditQuestion)
             setQuestions((prev) => {
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].questionTitle!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title!== "" ) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}], questionTitle: "" }]
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}], title: "" }]
                 }else{
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct answer")
@@ -76,7 +76,7 @@ const EditQuiz: FC = () => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
         setQuestionDetails((prev) => {
-            return id === "quizInputName" ? { ...prev, quizName: value } : { ...prev, quizDescription: value };
+            return id === "quizInputName" ? { ...prev, title: value } : { ...prev, description: value };
         });
 
     }
@@ -87,9 +87,9 @@ const EditQuiz: FC = () => {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
                 console.log('prev: ', prev);
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].questionTitle!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title!== "" ) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, questionTitle: prev[currentEditQuestion].questionTitle , isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect)}]
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title , isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect)}]
                 }else{
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct inputs")
@@ -103,11 +103,12 @@ const EditQuiz: FC = () => {
 
 
     const saveQuiz = () => {
-
-        axios.post('http://localhost:8080/api/quiz/' , {
+        console.log('here');
+        
+        axios.post('http://localhost:8080/api/quiz' , {
             creatorId:1,
-            title: questionDetails.quizName,
-            description:questionDetails.quizDescription,
+            title: questionDetails.title,
+            description:questionDetails.description,
             questions: questions
         })
         .then(function(res){
@@ -150,7 +151,7 @@ const EditQuiz: FC = () => {
                         </div>
                         <div className='title-header-container'>
                             <BootstrapTooltip title="שינוי שם">
-                                <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.quizName} onChange={handleChange} />
+                                <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />
                             </BootstrapTooltip>
                             <BootstrapTooltip title="שינוי שם">
                                 <TextField
@@ -158,7 +159,7 @@ const EditQuiz: FC = () => {
                                     label="תיאור חידון"
                                     multiline
                                     rows={2}
-                                    value={questionDetails.quizDescription}
+                                    value={questionDetails.description}
                                     onChange={handleChange}
                                 />
                             </BootstrapTooltip>
