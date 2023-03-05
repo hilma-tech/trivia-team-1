@@ -6,14 +6,20 @@ import { QuizDTO } from './quiz.dto';
 import { QuizService } from './quiz.service';
 import { AddScoreDto, DeleteQuizDto } from './quiz.dto';
 
+
 @Controller('api/quiz')
 export class QuizController {
-    constructor(private readonly quizService: QuizService) { 
-        
+    constructor(private readonly quizService: QuizService) {
+
     }
     @Get("/:id")
+<<<<<<< HEAD
     async getQuiz(@Param('id', ParseIntPipe) id:number ){
         this.quizService.getQuiz(id);
+=======
+    getQuiz() {
+        return "hello smidth"
+>>>>>>> 00d285421b87ad21886f320e070e081f87ed2799
     }
 
     @Post("/")
@@ -29,11 +35,12 @@ export class QuizController {
     }
 
     @Get("/:id/scores")
-    getQuizScores(){
-        return "hello smidth"
+    getQuizScores(@Param('id', ParseIntPipe) id: number) {
+        return this.quizService.highScores(id)
     }
 
     @Post("/:id/scores")
+<<<<<<< HEAD
     async addQuizScore( @Body() addScore: AddScoreDto, @Param("id", ParseIntPipe) id: number ){
         console.log(" controler addScore:", addScore);
         console.log("controler id:", id);
@@ -45,4 +52,15 @@ export class QuizController {
     async deleteQuiz( @Body("id") idForDelete: DeleteQuizDto["id"] ){
         return await this.quizService.deleteQuiz(idForDelete);
     }
+=======
+    addQuizScore() {
+        return "hello rrttrhgkjjhfgmhfjghiyhcghniyjnjktghmuthyjudefrghjk"
+    }
+
+    @Delete("/:id")
+    deleteQuiz() {
+        return "hello smidth"
+    }
+
+>>>>>>> 00d285421b87ad21886f320e070e081f87ed2799
 }

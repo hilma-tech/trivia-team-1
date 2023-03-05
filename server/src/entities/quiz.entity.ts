@@ -1,5 +1,5 @@
 import { User } from "./user.entity";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Score } from "./score.entity";
 import { Question } from "./question.entity";
 @Entity()
@@ -16,9 +16,11 @@ export class Quiz {
     @Column({ name: "image_url", nullable: true })
     imageUrl: string;
 
-    @ManyToOne(() => User, (user) => user.quizzes, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @ManyToOne(() => User, (user) => user.quizzes, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @JoinColumn({ name: "creator_id" })
     creator: User;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     @OneToMany(() => Score, (scores) => scores.quiz, {onDelete: 'CASCADE'})
     scores: Score[]
@@ -30,6 +32,11 @@ export class Quiz {
 
     @OneToMany(() => Question, (questions) => questions.quiz, {cascade:true})
 >>>>>>> 81e447fb7310c1ea8379203fecd458e35fc6b60c
-    questions: Question[]
+=======
+    @OneToMany(() => Score, (scores) => scores.quiz, { cascade: true })
+    scores: Score[]
 
+    @OneToMany(() => Question, (questions) => questions.quiz, { cascade: true })
+>>>>>>> 00d285421b87ad21886f320e070e081f87ed2799
+    questions: Question[]
 }
