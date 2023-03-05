@@ -1,4 +1,3 @@
-
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { CssBaseline, ThemeProvider } from '@mui/material';
 
