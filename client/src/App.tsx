@@ -23,16 +23,16 @@ function App() {
       <CssBaseline />
       <Background>
         <Routes>
-          <Route path="/enterance-page" element={<EnterancePage />} />
+          <Route path="enterance-page" element={<EnterancePage />} />
           <Route index element={<Navigate replace to="/login" />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
           <Route path='*' element={<Navigate replace to="/loading-page" />} />
-          <Route path='/error404' element={<Error />} />
-          <Route path='/loading-page' element={<LoadingMonkey />} />
-          <Route path='/my-quizzes' element={<Outlet />}>
+          <Route path='error404' element={<Error />} />
+          <Route path='loading-page' element={<LoadingMonkey />} />
+          <Route path='my-quizzes' element={<Outlet />}>
             <Route index element={<MyQuizes/>} />
-            <Route path='/:id/scoreboard' element={<ScoreCard />} />
+            <Route path=':id/scoreboard' element={<ScoreCard />} />
           </Route>
         </Routes >
       </Background>
