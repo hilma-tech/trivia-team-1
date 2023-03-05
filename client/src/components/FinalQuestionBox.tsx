@@ -41,7 +41,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setC
                         <RadioGroup>
                             <div className="radio-ready-container" dir='rtl'>
                                 {question.answers.map((answer, index) =>
-                                    <FormControlLabel  key={index} value={`answer${index+1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer}</Typography>}  checked={question.correctAnswer === index+1} />
+                                    <FormControlLabel  key={index} value={`answer${index+1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>}  checked={answer.isCorrect} />
                                 )}
                             </div>
                         </RadioGroup>

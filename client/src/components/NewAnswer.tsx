@@ -1,18 +1,13 @@
-import React, { FC, useState, useContext, useEffect, useRef } from "react";
-import { IconButton, TextField, makeStyles, createStyles, Theme } from "@mui/material";
-import { useQuestionContext } from '../context/AnswersContext'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CheckBoxSvg from '../images/checkicon.svg';
+import React, { FC } from "react";
+import { IconButton, TextField} from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
-import { CacheProvider } from '@emotion/react';
 import createCache from '@emotion/cache';
 import SelectImage from '../images/image.svg'
 import TrashSvg from '../images/trash.svg'
-import MuiCheckbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { CurrentQuestion } from "../utils/Interfaces";
-import { parse } from "node:path/win32";
 import BootstrapTooltip from "../tooltip/tooltip";
 
 
@@ -31,19 +26,19 @@ interface NewAnswerProps {
     isChecked?: boolean;
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
+    currentEditQuestion:number
 
 }
 
 
-const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, isChecked = false, setCurrentQuestion, currentQuestion }) => {
+const NewAnswer: FC<NewAnswerProps> = ({ answerIndex,  setCurrentQuestion, currentQuestion , currentEditQuestion }) => {
 
-    const { setQuestions, questions } = useQuestionContext()
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCurrentQuestion(prev => {
             const answers = [...prev.answers];
-            answers[answerIndex] = e.target.value;
+            answers[answerIndex].text = e.target.value;
             return { ...prev, answers };
         });
     };
@@ -51,7 +46,13 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, isChecked = false, setCurr
     const handleCorrectAnswer = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const isChecked = (e.target as HTMLInputElement).checked;
         setCurrentQuestion(prev => {
-            return { ...prev, correctAnswer: isChecked ? answerIndex + 1 : undefined };
+            const UpdateAnswers = prev.answers.map((answer, index) => {
+                if (index === answerIndex) {
+                    return {...answer , isCorrect: isChecked}
+                }
+                return answer;
+            });
+            return {...prev, answers: UpdateAnswers };
         });
 
     }
@@ -67,12 +68,12 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, isChecked = false, setCurr
         <div className="check-boxes-container" dir='rtl'>
             <div className="check-box-svg">
                 <BootstrapTooltip title="סמן תשובה נכונה">
-                    <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.correctAnswer === answerIndex + 1} onChange={handleCorrectAnswer} />} />
+                    <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.answers[answerIndex].isCorrect} onChange={handleCorrectAnswer} />} />
                 </BootstrapTooltip>
             </div>
             <div className="text-field-container">
                 <TextField className="text-field-input" sx={{ paddingBottom: '1px' }} label={`תשובה ${answerIndex + 1}`}
-                    id="standard-size-small" variant="standard" value={currentQuestion.answers[answerIndex]} onChange={handleChange} />
+                    id="standard-size-small" variant="standard" value={currentQuestion.answers[answerIndex].text} onChange={handleChange} />
 
             </div>
 

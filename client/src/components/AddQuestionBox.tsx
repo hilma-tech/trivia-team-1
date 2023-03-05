@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, Ref, ForwardedRef } from "react";
+import React, { FC} from "react";
 import Selectimage from '../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../images/addAnswer.svg'
@@ -8,7 +8,7 @@ import dragAndDropSvg from '../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion } from '../utils/Interfaces'
-import QuestionsProvider, { useQuestionContext } from "../context/AnswersContext";
+import { useQuestionContext } from "../context/AnswersContext";
 import BootstrapTooltip from "../tooltip/tooltip";
 
 
@@ -18,12 +18,13 @@ interface AddQuestionBoxProps {
     currentQuestion: CurrentQuestion;
     setCurrentEditQuestion : React.Dispatch<React.SetStateAction<number>>
     duplicateQuestion:() => void
+    currentEditQuestion : number;
 
 
 }
 
 
-const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion , setCurrentEditQuestion , duplicateQuestion}) => {
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion , setCurrentEditQuestion , duplicateQuestion , currentEditQuestion}) => {
 
     const { setQuestions, questions } = useQuestionContext()
 
@@ -32,7 +33,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
         if (currentQuestion.answers.length < 4) {
             setCurrentQuestion(prevState => ({
                 ...prevState,
-                answers: [...prevState.answers, '']
+                answers: [...prevState.answers, {text: '' , isCorrect:false , imageUrl: '' }]
             }));
         }
     }
@@ -40,11 +41,12 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     const deleteQuestion = () => {
         let deleteIndex = questions.findIndex(question => question.questionId === currentQuestion.questionId)
+        console.log('deleteIndex: ', deleteIndex);
         setQuestions(prevState => {
            return prevState.filter((question ,index) => index!== deleteIndex);
            
         })
-        setCurrentEditQuestion(questions.length + 1)
+        setCurrentEditQuestion(questions.length -2)
 
     }
 
@@ -72,7 +74,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
                     </BootstrapTooltip>
                     <BootstrapTooltip title="הוספת תמונה לשאלה">
-                        <img className='select-image-questions-svg' src={Selectimage} alt='add image here to the question' />
+                        <img className='select-image-questions-svg' src={Selectimage} alt='add here to the question' />
                     </BootstrapTooltip>
 
                 </div>
@@ -83,7 +85,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         >
 
                             {currentQuestion.answers.map((answer, index) => (
-                                <NewAnswer key={index} answerIndex={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} />
+                                <NewAnswer key={index} answerIndex={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} currentEditQuestion={currentEditQuestion} />
                             ))}
                         </RadioGroup>
                     </FormControl>

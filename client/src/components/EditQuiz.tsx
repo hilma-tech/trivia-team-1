@@ -10,18 +10,15 @@ import FinalQuestionBox from './FinalQuestionBox'
 import { useQuestionContext } from '../context/AnswersContext'
 import { CurrentQuestion, Question } from '../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { createTheme, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import BootstrapTooltip from '../tooltip/tooltip'
 import MonkeySvg from '../images/monkeyInEdit.svg'
+import axios from 'axios';
 
 
-
-const theme = createTheme({
-    direction: 'rtl',
-});
 
 
 const cacheRtl = createCache({
@@ -36,16 +33,18 @@ const EditQuiz: FC = () => {
     const { setQuestions, questions } = useQuestionContext()
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
+    console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
 
 
     const addQuestion = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
+            console.log('currentEditQuestionIn: ' ,currentEditQuestion)
             setQuestions((prev) => {
-                if ('correctAnswer' in prev[currentEditQuestion] && prev[currentEditQuestion].answers.every(answer => answer !== '') && prev[currentEditQuestion].questionTitle!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].questionTitle!== "" ) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}], questionTitle: "" }]
                 }else{
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct answer")
@@ -88,9 +87,9 @@ const EditQuiz: FC = () => {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
                 console.log('prev: ', prev);
-                if (prev[currentEditQuestion].answers.every(answer => answer !== '') &&   'correctAnswer' in prev[currentEditQuestion] && prev[currentEditQuestion].questionTitle!== "") {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].questionTitle!== "" ) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, questionTitle: prev[currentEditQuestion].questionTitle , correctAnswer: prev[currentEditQuestion].correctAnswer}]
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, questionTitle: prev[currentEditQuestion].questionTitle , isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect)}]
                 }else{
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct inputs")
@@ -102,6 +101,24 @@ const EditQuiz: FC = () => {
         }
     }
 
+
+    const saveQuiz = () => {
+
+        axios.post('http://localhost:8080/api/quiz/' , {
+            creatorId:1,
+            title: questionDetails.quizName,
+            description:questionDetails.quizDescription,
+            questions: questions
+        })
+        .then(function(res){
+            console.log(res)
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+    }
+
+   
 
     return (
         <>
@@ -118,8 +135,8 @@ const EditQuiz: FC = () => {
                             </div>
                             <div className='top-left-btn'>
                                 <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
-                                <button className='save-btn'>
-                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
+                                <button className='save-btn' onClick={saveQuiz}>
+                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here '  />
                                     שמירה
                                 </button>
                             </div>
@@ -128,7 +145,7 @@ const EditQuiz: FC = () => {
                     <div className='quiz-header-container'>
                         <div className='quiz-header-image'>
                             <BootstrapTooltip title="הוספת תמונה לחידון">
-                                <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz image here' />
+                                <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
                             </BootstrapTooltip>
                         </div>
                         <div className='title-header-container'>
@@ -167,10 +184,9 @@ const EditQuiz: FC = () => {
 
                                                         <AddQuestionBox setCurrentQuestion={(q) => {
                                                             setQuestions(prev => {
-                                                                console.log('prevIn: ', prev);
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
-                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} duplicateQuestion={duplicateQuestion} />
+                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} />
                                                         :
                                                         <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} />
                                                     }
