@@ -56,7 +56,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
 
     <popContext.Provider value={contextValue}>
       <>
-        {popType === Type.FinishedQuiz && popOpen && <img id='confe  tti' src={confettiGif} />}
+        {popType === Type.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
         <Dialog
           className="generic-pop-up-dialog"
           open={popOpen}
