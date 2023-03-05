@@ -6,7 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from 'react-router-dom';
-import { PopupsPropType } from './GenericPop';
+import { PopupsPropType } from './popContext';
 import '../../style/popups.scss'
 
 

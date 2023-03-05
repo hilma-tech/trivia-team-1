@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
 import '../../style/questionTemp.scss'
-import GenericPop from '../popups/GenericPop';
 import { useNavigate } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
 
@@ -177,7 +176,7 @@ const QuestionTemp = () => {
             let picIndex = `pic${index}`
             return (
                 <>
-                    <GenericPop type='finishedQuiz' />
+                    
                     <button
                         className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}

@@ -8,10 +8,8 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuPic from "../../images/dottedMenu.png"
-import GenericPop from "../popups/GenericPop";
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { PopupsPropType } from "../popups/GenericPop";
 
 
 interface QuizProps {
@@ -24,13 +22,10 @@ interface QuizProps {
 
 
 const Quiz: FC<QuizProps> = (props) => {
-  const { id, name, url, description, answers } = props;
-  const { popHandleClickOpen, insertPopTypeToLs, getPopTypeFromLs  } = usePopContext();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-  useEffect(() => {
-    insertPopTypeToLs('copyQuiz');
-  }, [])
+  const { id, name, url, description, answers } = props;
+  const { setPopType ,popHandleClickOpen  } = usePopContext();
 
   const isMobile = useMediaQuery('(min-width:600px)');
 
@@ -42,7 +37,7 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const copyQuizLink = (id: number) => {
-    insertPopTypeToLs('copyQuiz');
+    setPopType('copyQuiz');
 
     //!copy to clipboard the right quiz link
     navigator.clipboard.writeText('http://localhost:3000/quiz/ofek/italy')
@@ -63,7 +58,7 @@ const Quiz: FC<QuizProps> = (props) => {
 
   }
   const deleteQuiz = (id: number) => {
-    insertPopTypeToLs('deleteQuiz');
+    setPopType('deleteQuiz');
     popHandleClickOpen();
 
   }
@@ -90,7 +85,6 @@ const Quiz: FC<QuizProps> = (props) => {
         </div>
 
         {/* copy popup button is here, activated only when button is pressed */}
-        <GenericPop type={getPopTypeFromLs()} /> 
 
       </div>
     );
@@ -129,7 +123,6 @@ const Quiz: FC<QuizProps> = (props) => {
 
         </Menu>
         
-        <GenericPop type={getPopTypeFromLs()} /> 
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
     </div>)
