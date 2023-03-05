@@ -2,6 +2,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
 import '../../style/questionTemp.scss'
+import { useNavigate } from 'react-router-dom';
+import { usePopContext } from '../popups/popContext';
+import { Type } from '../popups/GenericPopParts';
 
 interface QuestionTempState {
     answers: {
@@ -48,14 +51,24 @@ const QuestionTemp = () => {
     const [changeColorToGreen, setChangeColorToGreen] = useState<number>(1000);
     const [changeColorToRed, setChangeColorToRed] = useState<number>(1000);
     const [changeFlexDir, setChangeFlexDir] = useState(true);
-
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
+    const { popHandleClickOpen, setPopType } = usePopContext();
+    const navigate = useNavigate();
 
     useEffect(() => {
         setInfoFromServer();
         checkIfThereAreImg();
     }, []);
+
+    useEffect(() => {
+        if (numOfQuestion === answers.length - 1){
+            navigateToEndGameScreen();
+
+        } 
+            
+
+    }, [numOfQuestion])
 
     const getActualQuestion = () => {
         return question[numOfQuestion]
@@ -78,8 +91,6 @@ const QuestionTemp = () => {
     const actualAnswer = useMemo(() => getActualAnswer(), [numOfQuestion]);
     const doChangeFlexDir = useMemo(() => checkIfThereAreImg(), [numOfQuestion]);
 
-
-
     const setInfoFromServer: () => Promise<void> = async () => {
         let copyAnswers = [...answers];
         let copyQuestion = [...question];
@@ -96,6 +107,16 @@ const QuestionTemp = () => {
             .catch((err) => {
                 console.log(err, "catch");
             })
+    }
+
+    const navigateToEndGameScreen = () => {        
+        setNumOfQuestion(0);
+        let url = window.location.href;
+        if (isLargeScreen) navigate('/quiz/:userName/:quizName/finished-game-pc');
+        else {
+            setPopType(Type.FinishedQuiz);
+            popHandleClickOpen();
+        } 
     }
 
     const calcWidthOfRec = () => {
@@ -159,6 +180,7 @@ const QuestionTemp = () => {
             let picIndex = `pic${index}`
             return (
                 <>
+                    
                     <button
                         className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}
