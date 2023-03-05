@@ -15,10 +15,10 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface QuizProps {
   id: number;
-  name: string;
-  url: string;
+  title: string;
+  imageUrl: string;
   description: string;
-  answers: number
+  questions: number
 }
 
 
@@ -34,7 +34,7 @@ const Quiz: FC<QuizProps> = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const { id, name, url, description, answers } = props;
+  const { id, title, imageUrl, description, questions } = props;
   const toScoreboard = (id: number) => {
     navigate(`${id}/scoreboard`)
   }
@@ -52,11 +52,11 @@ const Quiz: FC<QuizProps> = (props) => {
   if (isMobile) {
     return (
       <div className="quiz">
-        <div className="quiz-image" style={{ backgroundImage: `url('${url}')`, backgroundSize: "cover" }}>
-          <span>{answers} תשובות</span>
+        <div className="quiz-image" style={{ backgroundImage: `url('${imageUrl}')`, backgroundSize: "cover" }}>
+          <span>{questions} תשובות</span>
         </div>
         <div className="quiz-data">
-          <div className="quiz-title">{name}</div>
+          <div className="quiz-title">{title}</div>
           <div className="holder"></div>
           <p>{description}</p>
           <div className="quiz-buttons">
@@ -77,8 +77,8 @@ const Quiz: FC<QuizProps> = (props) => {
   }
   else {
     return (<div className="quiz">
-      <div className="quiz-image" style={{ backgroundImage: `url('${url}')`, backgroundSize: "cover" }}>
-        <span className="answers">{answers} תשובות</span>
+      <div className="quiz-image" style={{ backgroundImage: `url('${imageUrl}')`, backgroundSize: "cover" }}>
+        <span className="answers">{questions} תשובות</span>
       </div>
       <div className="quiz-data">
         <Button
@@ -90,7 +90,7 @@ const Quiz: FC<QuizProps> = (props) => {
         >
           <img alt="menu" src={MenuPic} />
         </Button>
-        <div className="quiz-title">{name}</div>
+        <div className="quiz-title">{title}</div>
         <div className="holder"></div>
         <Menu
           className="quiz-menu"

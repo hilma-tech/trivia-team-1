@@ -1,31 +1,41 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
-
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import NoQuiz from "./NoQuizes";
 import Quiz from "./Quiz";
-
 import "../../style/myQuizes.scss"
+import axios, { AxiosResponse } from 'axios';
 
 interface Quiz {
-    name: string;
-    url: string;
+    title: string;
+    imageUrl: string;
     description: string;
     id: number;
-    answers: number;
+    questions: number;
 }
-
-const arr: Quiz[] = 
-[
-    { name: 'שגיא', description: 'שגיא', id: 1, answers: 8, url: 'https://static1.personality-database.com/profile_images/c63483c6c8214070acd427f0a75e2f46.png' },
-    { name: 'שגיא', description: 'שגיא', id: 2, answers: 8, url: 'https://static1.personality-database.com/profile_images/c63483c6c8214070acd427f0a75e2f46.png' },
-    { name: 'שקרקקרקרגיא', description: 'שגיא', id: 3, answers: 4, url: 'https://static1.personality-database.com/profile_images/c63483c6c8214070acd427f0a75e2f46.png' },
-    { name: 'שגיא', description: 'שגיא', id: 4, answers: 3, url: 'https://static1.personality-database.com/profile_images/c63483c6c8214070acd427f0a75e2f46.png' }
-]
-
 const MyQuizes: FC = () => {
-    const [quizes, setQuizes] = useState<Quiz[]>(arr
-    );
+    const [quizes, setQuizes] = useState<Quiz[]>([{   title: "dfdf",
+        imageUrl: "https://static1.personality-database.com/profile_images/c63483c6c8214070acd427f0a75e2f46.png",
+        description: "dfdf",
+        id: 1,
+        questions: 3}]);
+    const id=1;
+
+
+    const axiosInstance = axios.create({
+        baseURL: `api/`
+      });
+
+    useEffect(()=>{
+        getQuizes()
+    },[])
+    async function getQuizes(){
+        const res:AxiosResponse<any, any>= await axiosInstance.get(`user/${id}/quizzes`)
+        console.log(res.data);
+        setQuizes(res.data);
+    }
+
+
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
     return (
@@ -34,19 +44,19 @@ const MyQuizes: FC = () => {
             <div className="container">
                 {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}
                     id={quiz.id}
-                    name={quiz.name}
-                    url={quiz.url}
+                    title={quiz.title}
+                    imageUrl={quiz.imageUrl}
                     description={quiz.description}
-                    answers={quiz.answers} />) : <NoQuiz />}
+                    questions={quiz.questions} />) : <NoQuiz />}
             </div>
         </div> : <PhonePageWithNav type="return" title="החידונים שלי" className="comp-children-container my-quizzes">
             <div className="container">
                 {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}
                     id={quiz.id}
-                    name={quiz.name}
-                    url={quiz.url}
+                    title={quiz.title}
+                    imageUrl={quiz.imageUrl}
                     description={quiz.description}
-                    answers={quiz.answers} />) : <NoQuiz />}
+                    questions={quiz.questions} />) : <NoQuiz />}
             </div>
         </PhonePageWithNav>);
 }

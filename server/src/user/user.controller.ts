@@ -25,8 +25,8 @@ export class UserController {
 
     @Get("/:id/quizzes")
        async getUserQuizzes(@Param('id') id: number) {
-            const user = await this.userService.getUserQuizzes(id)
-            return user.quizzes
+            const quizzes = await this.userService.getUserQuizzes(id)            
+            return quizzes
     }
 
 }
