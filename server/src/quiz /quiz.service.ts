@@ -18,7 +18,7 @@ export class QuizService {
             id: quiz[0].id,
             title: quiz[0].title,
             description: quiz[0].description,
-            image_url: quiz[0].imageUrl
+            imageUrl: quiz[0].imageUrl
         };
         const scoresArr = quiz[0].scores;
         const questionsArr = quiz[0].questions;
