@@ -1,12 +1,13 @@
-import React, { FormEvent, MouseEvent, useEffect, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
+import axios from 'axios';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
+import { useUser } from '../context/UserContext';
 
 import '../style/login.scss'
-import { useUser } from '../context/UserContext';
 
 function Login() {
     const { setUser } = useUser()
@@ -33,21 +34,22 @@ function Login() {
     async function handleLoginSubmit(e: FormEvent) {
         // זמני
         e.preventDefault()
-        const boolean = await fetch('http://localhost:8080/api/user/login',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: username, password: password })
-            })
-
-        const result = await boolean.json()
-        if (result) {
-            localStorage.setItem("quizUser", JSON.stringify({ userId: result.id, username: result.username }))
-            setUser({ userId: result.id, username: result.username })
-            setRegErrDiv('')
-            navigate('/enterance-page')
+        try {
+            const {data} = await axios.post('http://localhost:8080/api/user/login',
+                  { username: username, password: password }
+                )
+                
+            if (data) {
+                localStorage.setItem("quizUser", JSON.stringify({ userId: data.id, username: data.username }))
+                setUser({ userId: data.id, username: data.username })
+                setRegErrDiv('')
+                navigate('/enterance-page')
+            }
+            else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
+            // Handle successful response here...
+        } catch (error) {
+          console.log(error, "Error"); 
         }
-        else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
     }
 
     return (

@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
+import axios from 'axios';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
@@ -16,25 +17,26 @@ function Register() {
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
-    useEffect(()=>{
-        setTimeout(()=>{setRegErrDiv("")},4000)
-    },[regErrDiv])
+    useEffect(() => {
+        setTimeout(() => { setRegErrDiv("") }, 4000)
+    }, [regErrDiv])
 
     async function handleRegisterSubmit(e: FormEvent) {
         // זמני
-        e.preventDefault()
-        const boolean = await fetch('http://localhost:8080/api/user/register',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: username, password: password })
-            })            
-        if ( await boolean.json()) {
-            setRegErrDiv('')
-            alert("You signed up successfully!")
-            navigate('/')
+        try {
+            e.preventDefault()
+            const {data} = await axios.post('http://localhost:8080/api/user/register',
+                   { username: username, password: password }
+                )
+            if (data) {
+                setRegErrDiv('')
+                alert("You signed up successfully!")
+                navigate('/')
+            }
+            else setRegErrDiv("משהו השתבש בתהליך ההרשמה!")
+        } catch (error) {
+            console.log(error, "Error");
         }
-        else setRegErrDiv("משהו השתבש בתהליך ההרשמה!")
     }
 
     function enterUsernameErr() {
