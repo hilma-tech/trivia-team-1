@@ -33,7 +33,7 @@
                 margin-top: 3vw;
                 margin-bottom: -8vw;
 
-                p {
+                .main-paragraph-and-title-p {
                     margin-bottom: 2.7604vw;
                     padding: 5vw;
                     padding-top: 2vw;
@@ -65,14 +65,14 @@
                 z-index: 2;
                 margin-bottom: 1vw;
 
-                img {
+                .main-button-to-quiz-img {
                     width: 1.0938vw;
                     height: 1.25vw;
                     background: transparent 0% 0% no-repeat padding-box;
                     opacity: 1;
                 }
 
-                p {
+                .main-button-to-quiz-p {
                     width: 8.125vw;
                     height: 1.6146vw;
                     text-align: center;
@@ -115,7 +115,7 @@
                         margin-top: 2vw;
                     }
 
-                    p {
+                    .main-check-for-name-p {
                         width: 12vw;
                         height: 1.6146vw;
                         text-align: center;
@@ -128,7 +128,7 @@
                     }
                 }
 
-                input {
+                .main-check-for-name-input {
                     margin-top: .5vw;
                     margin-bottom: 3.2292vw;
                     width: 18.0208vw;
@@ -157,7 +157,7 @@
                     box-shadow: 0px .3vh 0px 0px #216361;
                     border-color: #378381;
 
-                    p {
+                    .check-for-name-button-p {
                         margin-left: 1vw;
                         width: 12.5vw;
                         height: 1.6146vw;
@@ -281,7 +281,7 @@
                         margin-top: 20vw;
                         box-shadow: 0px .5vh 0px 0px #216361;
                         margin-bottom: 13vh;
-                        p {
+                        .check-for-name-button-p {
                             font: bold 7vw 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                             width: 60vw;
                             height: 8vw;

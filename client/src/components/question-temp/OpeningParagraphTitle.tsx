@@ -24,10 +24,10 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
     return (
         <div className='main-OpeningForTheQuiz'>
             <div className='main-paragraph-and-title'>
-                <h1>
+                <h1 className='main-paragraph-and-title-title'>
                     {quizTitle}
                 </h1>
-                <p>
+                <p className='main-paragraph-and-title-p'>
                     {paragraph}
                 </p>
             </div>
@@ -41,8 +41,8 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
                     }}>
                     <div className='main-button-place'>
                         <button onClick={moveToQuiz} className='main-button-to-quiz'>
-                            <p>התחילו לשחק</p>
-                            <img src={`${triangleIcon}`} alt="icon of triangle" />
+                            <p className='main-button-to-quiz-p'>התחילו לשחק</p>
+                            <img className='main-button-to-quiz-img' src={`${triangleIcon}`} alt="icon of triangle" />
                         </button>
                     </div>
                 </div>
@@ -51,8 +51,8 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
                     <img className='main-img' src={`${imgUrl}}`}
                         alt="pic of something that connected to the question" />
                     <button onClick={moveToQuiz} className='main-button-to-quiz'>
-                        <p>התחילו לשחק</p>
-                        <img src={`${triangleIcon}`} alt="icon of triangle" />
+                        <p className='main-button-to-quiz-p'>התחילו לשחק</p>
+                        <img className='main-button-to-quiz-img' src={`${triangleIcon}`} alt="icon of triangle" />
                     </button>
                 </div >
             }

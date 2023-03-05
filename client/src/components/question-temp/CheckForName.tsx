@@ -44,15 +44,15 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                     <div className='main-check-for-name'>
                         <div className='title-and-paragraph'>
                             <h1 className='quizTitle'>{quizTitle}</h1>
-                            <p>איך קוראים לכם?</p>
+                            <p className='main-check-for-name-p'>איך קוראים לכם?</p>
                         </div>
-                        <input onChange={(ev) => setPlayerName(ev.target.value)}
+                        <input className='main-check-for-name-input' onChange={(ev) => setPlayerName(ev.target.value)}
                             name="player-identification" type="text"
                             placeholder="נא להזין שם" value={playerName} required
                         />
                         <button className='check-for-name-button' onClick={sendNameOfPlayerToServer}>
-                            <p>יאללה בואו נתחיל!</p>
-                            <img src={`${triangleIcon}`} alt="icon of triangle" />
+                            <p className='check-for-name-button-p'>יאללה בואו נתחיל!</p>
+                            <img className='check-for-name-button-img' src={`${triangleIcon}`} alt="icon of triangle" />
                         </button>
                     </div>
                 </div>
