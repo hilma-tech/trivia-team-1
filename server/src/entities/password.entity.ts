@@ -8,7 +8,7 @@ export class Password {
     @Column()
     password: string;
 
-    @OneToOne(() => User, (user) => user.password)
+    @OneToOne(() => User, (user) => user.password, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     @JoinColumn({name: "user_id", referencedColumnName: "id"})
     user: User
 }
