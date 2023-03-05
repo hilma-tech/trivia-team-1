@@ -17,7 +17,6 @@ import EditQuiz from './components/EditQuiz';
 
 import './style/background.scss'
 import './style/navbar.scss'
-import { PopContextProvider } from "./components/popups/popContext";
 
 function App() {
   return (
