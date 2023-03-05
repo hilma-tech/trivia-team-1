@@ -43,7 +43,7 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                if ('correctAnswer' in prev[currentEditQuestion]) {
+                if ('correctAnswer' in prev[currentEditQuestion] && prev[currentEditQuestion].answers.every(answer => answer !== '') && prev[currentEditQuestion].questionTitle!== "" ) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
                     return [...prev, { questionId: lastQuestion.questionId + 1, answers: ["", ""], questionTitle: "" }]
                 }else{
@@ -87,12 +87,13 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                if ('correctAnswer' in prev[currentEditQuestion]) {
+                console.log('prev: ', prev);
+                if (prev[currentEditQuestion].answers.every(answer => answer !== '') &&   'correctAnswer' in prev[currentEditQuestion] && prev[currentEditQuestion].questionTitle!== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
                     return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, questionTitle: prev[currentEditQuestion].questionTitle , correctAnswer: prev[currentEditQuestion].correctAnswer}]
                 }else{
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
-                    alert("Please add a correct answer")
+                    alert("Please add a correct inputs")
                     return prev;
                 }
             })
