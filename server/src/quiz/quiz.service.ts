@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz } from 'src/entities/quiz.entity';
+import { Score } from 'src/entities/score.entity';
 import { Repository } from 'typeorm';
 import { QuizDTO } from './quiz.dto';
 
@@ -20,14 +21,29 @@ export class QuizService {
         await this.quizRepository.save({ id: id, ...quiz })
     }
 
-    async highScores(quizId: number) {
-        const res = await this.quizRepository.findOne({ where: { id: quizId }, relations: { scores: true } });
+    async highScores(id: number) {
+        const res = await this.quizRepository.findOne({ where: { id }, relations: { scores: true } });
         let { title, scores } = res
-        scores.sort((a, b) => {
+        scores.sort((a, b) => {//sort first by score descending then by date ascending
             if (b.score !== a.score) return b.score - a.score;
             return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
         scores = scores.slice(0, 5)
         return { title, scores }
+    }
+    async addScore(id: number, params: { player: string, score: number }) {
+        const quiz = await this.quizRepository.findOne({ where: { id }, relations: { scores: true } });
+        const newScore = new Score();
+        newScore.score = params.score;
+        newScore.player = params.player;
+        newScore.date = new Date();
+        newScore.quiz = quiz;
+        await this.quizRepository
+            .createQueryBuilder()
+            .relation(Quiz, 'scores')
+            .of(quiz)
+            .add(newScore);
+        console.log('newScore.id: ', newScore.quiz);
+        return { id: newScore.id }
     }
 }

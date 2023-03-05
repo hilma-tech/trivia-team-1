@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
 import { Quiz } from "./quiz.entity";
 import { User } from "./user.entity";
 @Entity()
@@ -9,7 +9,7 @@ export class Score {
     @Column()
     score: number;
 
-    @Column({ type: 'date' })
+    @CreateDateColumn()
     date: Date;
 
     @Column()

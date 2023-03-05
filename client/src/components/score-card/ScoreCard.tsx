@@ -13,11 +13,9 @@ function ScoreCard() {
 
     async function fetchQuizData() {
         try {
-            const res = await axios.get(`/api/quiz/${quizId}/scores`);
-            const scoreData = res.data
-            console.log(scoreData);
-            setQuizData(scoreData)
-            return scoreData
+            const { data } = await axios.get(`/api/quiz/${quizId}/scores`);
+            setQuizData(data)
+            return data
         } catch (err) {
             console.error(err);
         }
