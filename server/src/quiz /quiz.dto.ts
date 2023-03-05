@@ -13,4 +13,7 @@ export class AddScoreDto {
     @IsString()
     @IsNotEmpty()
     player: string;
+
+    @IsInt()
+    quizId: number;
 }

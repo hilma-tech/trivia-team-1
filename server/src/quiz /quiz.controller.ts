@@ -7,10 +7,10 @@ export class QuizController {
     constructor(private readonly quizService: QuizService) { 
         
     }
-    @Get("/:id")
-    async getQuiz(@Param('id', ParseIntPipe) id:number ){
-        this.quizService.getQuiz(id);
-    }
+    // @Get("/:id")
+    // async getQuiz(@Param('id', ParseIntPipe) id:number ){
+    //     this.quizService.getQuiz(id);
+    // }
 
     @Post("/")
     register() {
