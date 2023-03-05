@@ -28,14 +28,13 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
 
     useEffect(() => {
         async function getHistoryLength() {
-            let theUser
             const strUser = localStorage.getItem('quizHistoryLength')
             if (!strUser) {
                 localStorage.setItem('quizHistoryLength', JSON.stringify(window.history.length))
                 setInitialHistoryLength(window.history.length)
             }
             else {
-                theUser = JSON.parse(strUser)
+                const theUser = JSON.parse(strUser)
                 setInitialHistoryLength(theUser)
             }
         }
@@ -45,17 +44,14 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
     useEffect(() => {
         // If username is empty or session expires, navigate to login page and go back to initial history length
         async function getUser() {
-            let theUser
             const userStr = localStorage.getItem('quizUser')
             if (userStr) {
-                theUser = JSON.parse(userStr);
+                const theUser = JSON.parse(userStr);
                 if (theUser.username === '') {
-                    console.log("hihihi");
                     const delta = window.history.length - initialHistoryLength;
                     if (delta > 0 && window.location.pathname !== '/login' && window.location.pathname !== '/register') {
                         window.history.go(-delta);
                         navigate("/login");
-                        console.log("delta ", delta)
                     }
                 }
             }

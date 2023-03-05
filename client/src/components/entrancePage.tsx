@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
 
@@ -15,7 +14,6 @@ function EnterancePage() {
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
-    console.log(user)
     function toMyQuizes() {
         navigate('/my-quizzes')
     }

@@ -34,7 +34,6 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
 
     const moveToPlayGame = () => {
         //TODO: navigate();
-        console.log("navigate");
     }
 
     return (

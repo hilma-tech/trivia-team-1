@@ -39,7 +39,6 @@ const Quiz: FC<QuizProps> = (props) => {
     navigate(`${id}/scoreboard`)
   }
   const toEdit = (id: number) => {
-    console.log("rere");
 
   }
   const linkCopied = (id: number) => {

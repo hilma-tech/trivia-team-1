@@ -41,8 +41,7 @@ function Login() {
             })
 
         const result = await boolean.json()
-        console.log(result);
-        if (await result) {
+        if (result) {
             localStorage.setItem("quizUser", JSON.stringify({ userId: result.id, username: result.username }))
             setUser({ userId: result.id, username: result.username })
             setRegErrDiv('')

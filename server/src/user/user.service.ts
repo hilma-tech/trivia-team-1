@@ -30,7 +30,7 @@ export class UserService {
 
     if (user) {
       const isMatch = await bcrypt.compare(password, user.password.password)
-      return isMatch ? JSON.stringify({id: user.id, username: user.username, quizzes: user.quizzes}): isMatch;
+      return isMatch ? {id: user.id, username: user.username, quizzes: user.quizzes}: isMatch;
     }
     else
      return false;
