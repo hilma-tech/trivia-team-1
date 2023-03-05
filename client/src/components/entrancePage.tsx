@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, useMediaQuery } from '@mui/material';
 
+import { useUser } from '../context/UserContext';
 import monkeyEnter from '../images/monkeyEnter.svg';
 import magicWand from '../images/magic-wand.svg';
 import logout from '../images/logout.svg';
@@ -10,23 +11,11 @@ import leavesEnterance from '../images/leaves-enterance.svg';
 import '../style/entrancePage.scss'
 
 function EnterancePage() {
-    let [currentUser, setCurrentUser] = useState('')
+    const {user, setUser} = useUser()
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
-    useEffect(() => {
-      async function enterenceFunc(){ 
-        let theUser;
-        const userStr = localStorage.getItem('quizUser');
-        if (userStr !== "" && userStr !==null) {
-          theUser =await JSON.parse(userStr);
-          setCurrentUser(theUser.username)
-        }
-        else navigate('/loading-monkey')
-    }
-    enterenceFunc()
-    }, [])
-
+    console.log(user)
     function toMyQuizes() {
         navigate('/my-quizzes')
     }
@@ -36,6 +25,8 @@ function EnterancePage() {
     }
 
     function toLogin() {
+        localStorage.setItem("quizUser", JSON.stringify({ userId: 0, username: '' }))
+        setUser({ userId: 0, username: '' })
         navigate('/login')
     }
 
@@ -46,7 +37,7 @@ function EnterancePage() {
                 <h2 className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>
                 <div className='entrance-container-div'>
                     <div className='entrance-button-div'>
-                        <h2 className='user-hello'>{`שלום, ${currentUser}`}</h2>
+                        <h2 className='user-hello'>{`שלום, ${user.username}`}</h2>
                         <Button className='enterance-page-button create-quiz-button' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz' /> צור חידון חדש</Button>
                         <Button className='enterance-page-button my-quizes-button' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                     </div>

@@ -6,17 +6,17 @@ import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
 
 import '../style/login.scss'
+import { useUser } from '../context/UserContext';
 
 function Login() {
+    const { setUser } = useUser()
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [regErrDiv, setRegErrDiv] = useState('')
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const navigate = useNavigate()
 
-    useEffect(() => {
-        localStorage.setItem("quizUser", "" )
-    }, [])
+    const navigate = useNavigate()
 
     useEffect(() => {
         setTimeout(() => { setRegErrDiv("") }, 4000)
@@ -40,10 +40,11 @@ function Login() {
                 body: JSON.stringify({ username: username, password: password })
             })
 
-            const result = await boolean.json()
-            console.log(result );
+        const result = await boolean.json()
+        console.log(result);
         if (await result) {
-            localStorage.setItem("quizUser", JSON.stringify(result))
+            localStorage.setItem("quizUser", JSON.stringify({ userId: result.id, username: result.username }))
+            setUser({ userId: result.id, username: result.username })
             setRegErrDiv('')
             navigate('/enterance-page')
         }
