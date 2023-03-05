@@ -1,51 +1,39 @@
-import React, { useState, createContext, useEffect, FC, ReactNode, useContext } from "react";
-import {CurrentQuestion, Question} from '../utils/Interfaces'
+import React, { useState, createContext, FC, ReactNode, useContext } from "react";
+import { CurrentQuestion, Question } from '../utils/Interfaces'
+
 interface AnswersContextInterface {
     setQuestions: React.Dispatch<React.SetStateAction<CurrentQuestion[]>>;
-    sendInput: boolean;
-    questions:Question[];
-    setSendInput: React.Dispatch<React.SetStateAction<boolean>>;
-    emptyQuestionEdit : boolean;
-    setEmptyQuestionEdit : React.Dispatch<React.SetStateAction<boolean>>;
-
+    questions: CurrentQuestion[];
 }
 
 interface AnswersProviderProps {
     children: ReactNode;
 }
 
-export const AnswersContext = createContext<AnswersContextInterface | null>(null);
+export const QuestionsContext = createContext<AnswersContextInterface | null>(null);
 
 
-const AnswersProvider: FC<AnswersProviderProps> = ({ children }) => {
+const QuestionsProvider: FC<AnswersProviderProps> = ({ children }) => {
 
-    const [sendInput, setSendInput] = useState(false);
-    const [questions, setQuestions] = useState<any[]>([]);
-    const [emptyQuestionEdit, setEmptyQuestionEdit] = useState(true);
-
-    // useEffect(() => {
-    //     console.log(currentAnswers.length)
-    // },[currentAnswers.length])
-
-    // useEffect(() => {
-    //     console.log("currentAnswers:", currentAnswers);
-    // }, [sendInput])
+    const [questions, setQuestions] = useState<CurrentQuestion[]>([
+        { questionId: 0, questionTitle: "", answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}] }
+    ]);
 
     const contextValue: AnswersContextInterface = {
-        setSendInput: setSendInput,
-        sendInput: sendInput,
         setQuestions: setQuestions,
-        questions: questions,
-        emptyQuestionEdit :emptyQuestionEdit,
-        setEmptyQuestionEdit: setEmptyQuestionEdit
+        questions: questions
     }
 
     return (
-        <AnswersContext.Provider value={contextValue}>
+        <QuestionsContext.Provider value={contextValue}>
             {children}
-        </AnswersContext.Provider>
+        </QuestionsContext.Provider>
     )
 }
 
-export const useAnswerContext = () => useContext(AnswersContext)!
-export default AnswersProvider;
+export const useQuestionContext = () => {
+    const result = useContext(QuestionsContext);
+    if (!result) throw new Error("You forgot to put the QuestionsProvider!");
+    return result;
+}
+export default QuestionsProvider;

@@ -1,9 +1,10 @@
 import React, { Component, FC, useState, createContext, useContext, useEffect } from 'react';
-import { useAnswerContext } from '../context/AnswersContext'
+import { useAnswerContext } from './context/AnswersContext'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
+
 
 
 interface Props {
@@ -14,9 +15,7 @@ interface Props {
 
 
 const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
-    const { sendInput, setQuestions: setCurrentAnswers, questions: questions } = useAnswerContext()
-    // const [questionId, setQuestionId] = useState(1);
-
+    const {  setQuestions, questions} = useAnswerContext()
 
 
     useEffect(() => {
@@ -38,7 +37,7 @@ const FinalBoxQuestions: FC<Props> = ({ questionId }) => {
                                 <RadioGroup>
                                     <div className="radio-ready-Contanier" dir='rtl'>
                                         {question.answers.map((answer, index: number) =>
-                                            <FormControlLabel key={index} value={'answer2'} control={<Radio />} label={answer} />
+                                            <FormControlLabel key={index} value={`answer${index+1}`} control={<Radio />} label={answer}  checked={question.correctAnswer === index+1} />
                                         )}
                                     </div>
                                 </RadioGroup>
