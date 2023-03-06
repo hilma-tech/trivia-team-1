@@ -24,7 +24,7 @@ export class QuizService {
     async highScores(id: number) {
         const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
         let { title, scores } = res
-        scores.sort((a, b) => {//sort first by score descending then by date ascending
+        scores.sort((a, b) => {//sort by score descending then by date ascending
             if (b.score !== a.score) return b.score - a.score;
             return a.date.getTime() - b.date.getTime();
             // return new Date(a.date).getTime() - new Date(b.date).getTime();
