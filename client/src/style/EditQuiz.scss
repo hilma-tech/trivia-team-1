@@ -34,19 +34,20 @@ body {
         height: 4vh;
     }
 
-    .quiz-input-name{
+    .quiz-input-name {
         height: 5.1020408163265305vh;
         width: 14.47939262472885vw;
         font-size: 25px;
         border: 1px solid rgb(189, 184, 184); // unique color
-        
-        &:focus-visible, &:focus{
+
+        &:focus-visible,
+        &:focus {
             outline: none;
-            border: 2px solid rgb(65, 158, 139);// unique color
-        }            
+            border: 2px solid rgb(65, 158, 139); // unique color
+        }
     }
 
-    ::placeholder{
+    ::placeholder {
         color: black;
         padding-right: 5%;
     }
@@ -416,42 +417,50 @@ body {
         padding-top: 1%;
     }
 
-    .drag-and-drop-svg{
+    .drag-and-drop-svg {
         width: 1.0416666666666667vw;
         height: 2.1916583912611718vh;
     }
 
-    .empty-div{
+    .empty-div {
         height: 1.5vh;
     }
 
 
 }
 
-.monkey-in-edit-page-svg{
+.monkey-in-edit-page-svg {
     position: fixed;
     bottom: 20px;
     right: 2.5rem;
 }
 
 @media screen and (max-width: 600px) {
-    .hide{
+    .hide {
         display: none;
     }
 
-    .addQutionsContainer{
+    .addQutionsContainer {
         border: 0px;
 
     }
-    .trashSvgForQuestions{
+
+    .trashSvgForQuestions {
         opacity: 0.1;
     }
 
-    .trashSvgForQuestions, .slectImageSvgForQuestions, .selectImageQutionsSvg, .duplicate-svg,  .trash-svg, .add-answer-svg, .icon{
-        width:3.3vw;
+    .trashSvgForQuestions,
+    .slectImageSvgForQuestions,
+    .selectImageQutionsSvg,
+    .duplicate-svg,
+    .trash-svg,
+    .add-answer-svg,
+    .icon {
+        width: 3.3vw;
         margin-right: 2vw;
     }
-    .add-answer-btn{
+
+    .add-answer-btn {
         width: 50vw;
     }
 
@@ -465,12 +474,68 @@ body {
         align-items: center;
     }
 
-    #input-header{
+    #input-header {
         margin: 0;
     }
 
-    .addQutionsContainer{
+    .addQutionsContainer {
         width: 85vw;
     }
-    
+
+    .phone-first-page-container {
+        display: flex;
+        width: 85vw;
+        flex-direction: column;
+
+        .input-container {
+
+            .MuiInputBase-input {
+                height: 0.8vh;
+                background-color: #EDF0F299;
+                width: 78.5vw;
+                border: none;
+            }
+
+            .MuiOutlinedInput-root {
+                border-radius: 8px;
+            }
+
+            padding-top: 5vh;
+        }
+
+        .select-image-container {
+            margin-top: 10vh;
+            width: 85vw;
+            background-color: #EDF0F2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 40vw;
+
+            .MuiTypography-root{
+                font-weight: bold;
+                color: #738793;
+                line-height: 80%;
+            }
+
+            img {
+                width: 15%;
+            }
+        }
+
+        .button-container{
+            padding-top: 20vh;
+            .MuiButtonBase-root{
+                width: 100%;
+                font-size: 1.3rem;
+                font-weight: bolder;    
+                line-height: 140%;
+            }
+        }
+    }
+
+
+
+
 }
