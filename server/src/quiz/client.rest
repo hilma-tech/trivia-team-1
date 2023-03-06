@@ -5,6 +5,6 @@ POST http://localhost:8080/api/quiz/2/scores HTTP/1.1
 content-type: application/json
 
 {
-    "score": 101,
-    "player": "יעכגדש"
+    "score": 13,
+    "player": "דוד"
 }

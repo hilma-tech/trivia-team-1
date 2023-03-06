@@ -17,6 +17,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
 
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     function sendNameOfPlayerToServer() {
+        sessionStorage.setItem('playerName', playerName)
         //TODO: change this from "#"
         fetch(`#`, {
             method: 'POST',
@@ -31,7 +32,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             })
             .catch((err) => {
             })
-            moveToPlayGame()
+        moveToPlayGame()
     }
 
     const moveToPlayGame = () => {
@@ -47,9 +48,13 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                             <h1 className='quizTitle'>{quizTitle}</h1>
                             <p>איך קוראים לכם?</p>
                         </div>
-                        <input onChange={(ev) => setPlayerName(ev.target.value)}
-                            name="player-identification" type="text"
-                            placeholder="נא להזין שם" value={playerName} required
+                        <input
+                            onChange={(ev) => setPlayerName(ev.target.value)}
+                            name="player-identification"
+                            type="text"
+                            placeholder="נא להזין שם"
+                            value={playerName}
+                            required
                         />
                         <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
                             <p>יאללה בואו נתחיל!</p>
@@ -65,9 +70,13 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                         <div className='title-and-paragraph'>
                             <p>איך קוראים לכם?</p>
                         </div>
-                        <input onChange={(ev) => setPlayerName(ev.target.value)}
-                            name="player-identification" type="text"
-                            placeholder="נא להזין שם" value={playerName} required
+                        <input
+                            onChange={(ev) => setPlayerName(ev.target.value)}
+                            name="player-identification"
+                            type="text"
+                            placeholder="נא להזין שם"
+                            value={playerName}
+                            required
                         />
                         <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
                             <p>יאללה בואו נתחיל!</p>

@@ -29,7 +29,7 @@ export class QuizService {
             return a.date.getTime() - b.date.getTime();
             // return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
-        scores = scores.slice(0, 5)
+        // scores = scores.slice(0, 5)
         return { title, scores }
     }
     async addScore(id: number, params: { player: string, score: number }) {

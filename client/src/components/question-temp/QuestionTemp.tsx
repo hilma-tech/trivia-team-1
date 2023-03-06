@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
-import fullScreenIcon from '../../images/question-template/full-screen.png';
-import '../../style/questionTemp.scss'
 import { useNavigate } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
 import { Type } from '../popups/GenericPopParts';
+import fullScreenIcon from '../../images/question-template/full-screen.png';
+import '../../style/questionTemp.scss'
+import axios from 'axios';
 
 interface QuestionTempState {
     answers: {
@@ -62,11 +63,12 @@ const QuestionTemp = () => {
     }, []);
 
     useEffect(() => {
-        if (numOfQuestion === answers.length - 1){
+        if (numOfQuestion === answers.length - 1) {
+            postScore();
             navigateToEndGameScreen();
 
-        } 
-            
+        }
+
 
     }, [numOfQuestion])
 
@@ -109,14 +111,14 @@ const QuestionTemp = () => {
             })
     }
 
-    const navigateToEndGameScreen = () => {        
+    const navigateToEndGameScreen = () => {
         setNumOfQuestion(0);
         let url = window.location.href;
         if (isLargeScreen) navigate('/quiz/:userName/:quizName/finished-game-pc');
         else {
             setPopType(Type.FinishedQuiz);
             popHandleClickOpen();
-        } 
+        }
     }
 
     const calcWidthOfRec = () => {
@@ -173,6 +175,17 @@ const QuestionTemp = () => {
         if (isFullScreen[picIndex] === false) return;
         setIsFullScreen(prev => ({ ...prev, [picIndex]: false }))
     }
+    const postScore = async () => {
+        let quizId = window.location.pathname.split('/')[3]//this will need to be fixed
+        console.log('quizId: ', quizId);
+        let playerName = sessionStorage.getItem('playerName') || 'סגייז';
+        let { data } = await axios.post(`/api/quiz/${quizId}/scores`, {
+            score: Math.floor(Math.random() * 101),
+            player: playerName
+        })
+        console.log('data: ', data);
+        console.log('playerName: ', playerName);
+    }
 
 
     const renderMap = () => {
@@ -180,7 +193,7 @@ const QuestionTemp = () => {
             let picIndex = `pic${index}`
             return (
                 <>
-                    
+
                     <button
                         className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}
