@@ -5,7 +5,8 @@ import silver from '../../images/crowns/silver.svg';
 import bronze from '../../images/crowns/bronze.svg';
 
 function HighScore(props: PropsObj) {
-    let { player, score, date } = props.score;
+    const newDate = new Date(props.score.date);
+    const formattedDate = `${(newDate.getMonth() + 1).toString().padStart(2, '0')}/${newDate.getDate().toString().padStart(2, '0')}/${newDate.getFullYear().toString().slice(-2)}`;
     const rank = props.index + 1
     let src;
     switch (rank) {
@@ -23,9 +24,9 @@ function HighScore(props: PropsObj) {
     return (
         <TableRow>
             <TableCell className="bold">{rank}</TableCell>
-            <TableCell>{<p>{player} <img src={src} alt={src} /></p>}</TableCell>
-            <TableCell className="bolder">{score}</TableCell>
-            <TableCell>{date}</TableCell>
+            <TableCell>{<p>{props.score.player} <img src={src} alt={src} /></p>}</TableCell>
+            <TableCell className="bolder">{props.score.score}</TableCell>
+            <TableCell>{formattedDate}</TableCell>
         </TableRow>
     );
 }

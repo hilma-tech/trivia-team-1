@@ -22,28 +22,23 @@ export class QuizService {
     }
 
     async highScores(id: number) {
-        const res = await this.quizRepository.findOne({ where: { id }, relations: { scores: true } });
+        const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
         let { title, scores } = res
         scores.sort((a, b) => {//sort first by score descending then by date ascending
             if (b.score !== a.score) return b.score - a.score;
-            return new Date(a.date).getTime() - new Date(b.date).getTime();
+            return a.date.getTime() - b.date.getTime();
+            // return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
         scores = scores.slice(0, 5)
         return { title, scores }
     }
     async addScore(id: number, params: { player: string, score: number }) {
-        const quiz = await this.quizRepository.findOne({ where: { id }, relations: { scores: true } });
-        const newScore = new Score();
-        newScore.score = params.score;
-        newScore.player = params.player;
-        newScore.date = new Date();
-        newScore.quiz = quiz;
-        await this.quizRepository
-            .createQueryBuilder()
-            .relation(Quiz, 'scores')
-            .of(quiz)
-            .add(newScore);
-        console.log('newScore.id: ', newScore.quiz);
-        return { id: newScore.id }
+        const quiz = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
+        const scoreObj = new Score();
+        scoreObj.player = params.player;
+        scoreObj.score = params.score;
+        quiz.scores.push(scoreObj)
+        await this.quizRepository.save(quiz)
+        return { id: scoreObj.id }
     }
 }
