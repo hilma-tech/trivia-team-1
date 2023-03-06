@@ -8,7 +8,7 @@ import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../../images/plusBtn.svg'
 import FinalQuestionBox from './FinalQuestionBox'
 import { useQuestionContext } from '../../context/AnswersContext'
-import { CurrentQuestion, Question } from '../../utils/Interfaces'
+import { CurrentQuestion, Question , imageFile } from '../../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TextField } from '@mui/material';
 import createCache from '@emotion/cache';
@@ -17,6 +17,8 @@ import { CacheProvider } from '@emotion/react';
 import BootstrapTooltip from '../../tooltip/tooltip'
 import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios';
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+
 
 
 
@@ -31,21 +33,21 @@ const cacheRtl = createCache({
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions } = useQuestionContext()
-    console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
+    const [quizImageObject, setQuizImageObject] = useState<imageFile | null> (null)
 
+
+    const filesUploader = useFiles()
 
     const addQuestion = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
-            console.log('currentEditQuestionIn: ' ,currentEditQuestion)
             setQuestions((prev) => {
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}], title: "" }]
-                }else{
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
+                } else {
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct answer")
                     return prev;
@@ -86,11 +88,10 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                console.log('prev: ', prev);
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title , isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect)}]
-                }else{
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
+                } else {
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct inputs")
                     return prev;
@@ -101,25 +102,29 @@ const EditQuiz: FC = () => {
         }
     }
 
+    const handleImageFile = (value : imageFile) => {
+        setQuizImageObject(value)
+    }
+
 
     const saveQuiz = () => {
         console.log('here');
-        
-        axios.post('http://localhost:8080/api/quiz' , {
-            creatorId:1,
+
+        axios.post('http://localhost:8080/api/quiz', {
+            creatorId: 1,
             title: questionDetails.title,
-            description:questionDetails.description,
+            description: questionDetails.description,
             questions: questions
         })
-        .then(function(res){
-            console.log(res)
-        })
-        .catch(function(err){
-            console.log(err)
-        })
+            .then(function (res) {
+                console.log(res)
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
     }
 
-   
+
 
     return (
         <>
@@ -137,18 +142,21 @@ const EditQuiz: FC = () => {
                             <div className='top-left-btn'>
                                 <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
                                 <button className='save-btn' onClick={saveQuiz}>
-                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here '  />
+                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
                                     שמירה
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div className='quiz-header-container'>
-                        <div className='quiz-header-image'>
-                            <BootstrapTooltip title="הוספת תמונה לחידון">
-                                <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
-                            </BootstrapTooltip>
-                        </div>
+                        <label style={{border:'none'}}>
+                            <div className='quiz-header-image-btn'>
+                                <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                                <BootstrapTooltip title="הוספת תמונה לחידון">
+                                    <img className='select-image-quiz-svg' src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
+                                </BootstrapTooltip>
+                            </div>
+                        </label>
                         <div className='title-header-container'>
                             <BootstrapTooltip title="שינוי שם">
                                 <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />
@@ -187,7 +195,7 @@ const EditQuiz: FC = () => {
                                                             setQuestions(prev => {
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
-                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} />
+                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
                                                         :
                                                         <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} />
                                                     }
