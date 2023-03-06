@@ -1,4 +1,10 @@
+.score-card-container::-webkit-scrollbar {
+    width: 0 !important
+}
+
 .score-card-container {
+    overflow-y: auto;
+
     .score-card {
         margin: 3vw 4vw;
         padding: .1vw;

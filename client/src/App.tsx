@@ -24,6 +24,7 @@ import UserProvider from "./context/UserContext";
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <UserProvider>
       <PopContextProvider>
         <QuestionsProvider>
           <Navbar />
@@ -52,6 +53,7 @@ function App() {
           </Background>
         </QuestionsProvider>
       </PopContextProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 }
