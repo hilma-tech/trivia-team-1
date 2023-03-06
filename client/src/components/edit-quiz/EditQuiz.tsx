@@ -3,7 +3,6 @@ import '../../style/EditQuiz.scss'
 import ShowQuizBtn from '../../images/showquizzbtn.svg'
 import LinkBtn from '../../images/linkBtn.svg'
 import saveBtn from '../../images/saveBtn.svg'
-import useMediaQuery from '@mui/material';
 import Selectimage from '../../images/image.svg'
 import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../../images/plusBtn.svg'
@@ -11,13 +10,13 @@ import FinalQuestionBox from './FinalQuestionBox'
 import { useQuestionContext } from '../../context/AnswersContext'
 import { CurrentQuestion, Question } from '../../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { TextField } from '@mui/material';
+import { TextField, useMediaQuery } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import BootstrapTooltip from '../../tooltip/tooltip'
 import MonkeySvg from '../../images/monkeyInEdit.svg'
-import axios from 'axios';
+import axios from 'axios'
 import PhoneNavBar from '../navbar/PhoneNavbar';
 
 
@@ -29,9 +28,9 @@ const cacheRtl = createCache({
 });
 
 
-const isMobile: boolean = useMediaQuery('(max-width:600px)');
 
 const EditQuiz: FC = () => {
+    const isMobile = useMediaQuery('(max-width:600px)');
 
     const { setQuestions, questions } = useQuestionContext();
     const [phonePage, setPhonePage] = useState(1)
@@ -176,10 +175,10 @@ const EditQuiz: FC = () => {
                             </BootstrapTooltip>
                         </div>
                     </div>
-                    <DragDropContext className={giveRightClasses('questions-container')} onDragEnd={handleDragEnd}>
+                    <DragDropContext onDragEnd={handleDragEnd}>
                         <Droppable droppableId="droppable">
                             {(provided) => (
-                                <div className="all-final-questions questions-container" {...provided.droppableProps} ref={provided.innerRef}>
+                                <div  className={giveRightClasses("all-final-questions questions-container")} {...provided.droppableProps} ref={provided.innerRef}>
                                     {questions.map((question, index: number) => (
                                         <Draggable
                                             key={question.questionId.toString()}
