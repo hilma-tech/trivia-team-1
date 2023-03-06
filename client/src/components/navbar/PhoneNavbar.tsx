@@ -7,12 +7,12 @@ import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
 import '../../style/phoneNavbar.scss'
 
-const PhoneNavBar: FC< PhonePageWithNavProps > = ({ title, type }) => (
+const PhoneNavBar: FC<PhonePageWithNavProps> = ({ title, type }) => (
     //phone size
 
-  type!=="banana"? <div className="navbar-container-phone">
+    type !== "banana" ? <div className="navbar-container-phone">
         <div className="img-container">
-            <img src={returnBtn} onClick={()=>{window.history.back()}} />
+            <img src={returnBtn} onClick={() => { window.history.back() }} />
         </div>
         <div className="header-container">
             <h4>{title}</h4>
@@ -20,12 +20,12 @@ const PhoneNavBar: FC< PhonePageWithNavProps > = ({ title, type }) => (
         <div className="img-container" >
             <img className={type === "return" ? ' hide-monkey' : 'image'} src={monkey} />
         </div>
-    </div> 
-    :
-     <div className="banana-container-phone">
-    <h2 className="banana-nav-content">BANANA.games <img src={navbarLogo} />
-        </h2> 
     </div>
+        :
+        <div className="banana-container-phone">
+            <h2 className="banana-nav-content">BANANA.games <img src={navbarLogo} />
+            </h2>
+        </div>
 );
 
 export default PhoneNavBar;

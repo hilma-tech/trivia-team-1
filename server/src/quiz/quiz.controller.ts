@@ -2,13 +2,14 @@ import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@
 import { QuizDTO } from './quiz.dto';
 import { QuizService } from './quiz.service';
 
+
 @Controller('api/quiz')
 export class QuizController {
-    constructor(private readonly quizService: QuizService) { 
-        
+    constructor(private readonly quizService: QuizService) {
+
     }
     @Get("/:id")
-    getQuiz(){
+    getQuiz() {
         return "hello smidth"
     }
 
@@ -25,18 +26,18 @@ export class QuizController {
     }
 
     @Get("/:id/scores")
-    getQuizScores(){
-        return "hello smidth"
+    getQuizScores(@Param('id', ParseIntPipe) id: number) {
+        return this.quizService.highScores(id)
     }
 
     @Post("/:id/scores")
-    addQuizScore(){
+    addQuizScore() {
         return "hello rrttrhgkjjhfgmhfjghiyhcghniyjnjktghmuthyjudefrghjk"
     }
 
     @Delete("/:id")
-    deleteQuiz(){
+    deleteQuiz() {
         return "hello smidth"
     }
-    
+
 }
