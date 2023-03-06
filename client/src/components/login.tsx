@@ -62,10 +62,10 @@ function Login() {
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>
-                        <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} />
-
-                        <Button color='primary' variant='contained' className='login-submit-button' type='submit'>הרשמה</Button>
-
+                        <input className='login-input' id='new-pass' type='password'  value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
+                       
+                        <Button color='primary' variant='contained' className='login-submit-button' type='submit'>התחבר</Button>
+                       
                         <div className='to-register-link'>
                             <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                         </div>
@@ -88,9 +88,9 @@ function Login() {
                     <div className='login-label'>שם משתמש</div>
                     <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                     <div className='login-label'>סיסמה</div>
-                    <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} />
-
-                    <Button color='primary' variant='contained' className='login-submit-button' type='submit'>הרשמה</Button>
+                    <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
+                   
+                    <Button color='primary' variant='contained' className='login-submit-button' type='submit'>התחבר</Button>
                     <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                     <div className='reg-err-div'>{regErrDiv}</div>
                 </form>
