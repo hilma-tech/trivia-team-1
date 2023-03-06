@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { QuizType } from "./MyQuizes";
 import TrashSvg from "../../images/trash.svg";
 import LinkSvg from "../../images/link.svg";
 import EditSvg from "../../images/edit.svg";
@@ -17,16 +18,28 @@ interface QuizProps {
   title: string;
   imageUrl: string;
   description: string;
-  questions: number
+  questions: number;
+  setQuizes: React.Dispatch<React.SetStateAction<QuizType[]>>;
+  quizzes: QuizType[];
 }
 
 
 const Quiz: FC<QuizProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const { setPopType ,popHandleClickOpen,setDeletedQuizId  } = usePopContext();
+  const [savedId, setId] = React.useState<number>(-800);
+  const { setPopType ,popHandleClickOpen,setDeletedQuizId, deletedQuizId  } = usePopContext();
   const isMobile = useMediaQuery('(min-width:600px)');
   const navigate = useNavigate();
-  const { id, title, imageUrl, description, questions } = props;
+  const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
+
+  useEffect(() => {
+    console.log(savedId, "yohai", deletedQuizId);
+    
+    if(deletedQuizId===0 && savedId!==-800){
+      deleteQuizFromClient(savedId);
+      }
+  }, [deletedQuizId])
+
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -54,12 +67,26 @@ const Quiz: FC<QuizProps> = (props) => {
   const linkCopied = (id: number) => {
 
   }
-  const deleteQuiz = (id: number) => {
+
+  const deleteQuizFromClient = (id: number) => {
+    console.log(quizzes, id);
+    let newQuiz = quizzes.filter(quiz => quiz.id !== id);    
+    setQuizes(newQuiz);
+  }
+
+  const deleteQuiz =  async (id: number) => {
+    console.log(id , deletedQuizId);
+    
     setPopType("deleteQuiz");
     setDeletedQuizId(id);
-    popHandleClickOpen();
-
+    setId(id);
+    popHandleClickOpen();  
+    // if(deletedQuizId===0){
+    // deleteQuizFromClient(id);
+    // }
   }
+
+  
 
   if (isMobile) {
     return (

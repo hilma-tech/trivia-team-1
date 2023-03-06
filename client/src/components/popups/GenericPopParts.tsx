@@ -8,6 +8,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from 'react-router-dom';
 import { PopupsPropType } from './popContext';
 import '../../style/popups.scss'
+import axios, { AxiosResponse } from 'axios';
+ 
 
 
 export const GenericPopTitle: FC<{ type: PopupsPropType }> = ({ type }) => {
@@ -60,7 +62,7 @@ export const GenericPopContent: FC<{ type: PopupsPropType }> = ({ type }) => {
 }
 
 export const GenericPopActions: FC<{ type: PopupsPropType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
 
@@ -68,8 +70,11 @@ export const GenericPopActions: FC<{ type: PopupsPropType }> = ({ type }) => {
         popHandleClose();
         navigate('/enterance-page')
     }
-    const deleteQuiz = (id:number)=>{
+       async function deleteQuiz(id:number){
+        console.log("bb", id, "oo");
         
+        await axios.delete(`api/quiz/${id}`);
+        setDeletedQuizId(0);
     }
 
     switch (type) {

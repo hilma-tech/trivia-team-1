@@ -10,7 +10,7 @@ interface OpeningParagraphTitleProps {
     paragraph: string,
     imgUrl: string,
     changeComponent: boolean,
-    setChangeComponent: any,
+    setChangeComponent: React.Dispatch<React.SetStateAction<boolean>>,
     // type: "banana"
 }
 
@@ -18,20 +18,18 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const moveToQuiz = () => {
         let boolHolder = changeComponent
-        boolHolder ? boolHolder = false : boolHolder = true;
-        setChangeComponent(boolHolder);
+        setChangeComponent(!boolHolder);
     }
 
     return (
         <div className='main-OpeningForTheQuiz'>
-            {/* saugfsfresrtyrytrfaslkjfdsz */}
             <div className='main-paragraph-and-title'>
-                {/* <div>hellllllllo</div> */}
-                {/* <Typography variant="h2" className="bold h2" component="div">{`לוח תוצאות:`}</Typography>
-                <Typography variant='h2' component='div'>{quizTitle}</Typography>
-                <Typography variant='h5' component='div'>{quizTitle}</Typography> */}
-                <h1>{quizTitle}</h1>
-                <p>{paragraph}</p>
+                <h1 className='main-paragraph-and-title-title'>
+                    {quizTitle}
+                </h1>
+                <p className='main-paragraph-and-title-p'>
+                    {paragraph}
+                </p>
             </div>
             {isLargeScreen ?
                 <div className='main-img'
@@ -43,8 +41,8 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
                     }}>
                     <div className='main-button-place'>
                         <button onClick={moveToQuiz} className='main-button-to-quiz'>
-                            <p>התחילו לשחק</p>
-                            <img src={`${triangleIcon}`} alt="icon of triangle" />
+                            <p className='main-button-to-quiz-p'>התחילו לשחק</p>
+                            <img className='main-button-to-quiz-img' src={`${triangleIcon}`} alt="icon of triangle" />
                         </button>
                     </div>
                 </div>
@@ -53,8 +51,8 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
                     <img className='main-img' src={`${imgUrl}}`}
                         alt="pic of something that connected to the question" />
                     <button onClick={moveToQuiz} className='main-button-to-quiz'>
-                        <p>התחילו לשחק</p>
-                        <img src={`${triangleIcon}`} alt="icon of triangle" />
+                        <p className='main-button-to-quiz-p'>התחילו לשחק</p>
+                        <img className='main-button-to-quiz-img' src={`${triangleIcon}`} alt="icon of triangle" />
                     </button>
                 </div >
             }

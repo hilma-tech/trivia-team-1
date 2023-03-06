@@ -19,11 +19,11 @@ function OpeningForTheQuiz() {
 
 
     useEffect(() => {
-        getInfoFromServer();
+        getQuizDetailsFromServer();
     }, []);
 
-    const getInfoFromServer = async () => {
-        await fetch(`#`)
+    const getQuizDetailsFromServer = async () => {
+        await fetch(`#`) //TODO: temporary.
             // get image, title, and paragraph for server and push them into state
             .then((res) => res.json)
             .then((data) => {

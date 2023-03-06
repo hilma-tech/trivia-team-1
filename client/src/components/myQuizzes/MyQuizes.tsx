@@ -6,7 +6,7 @@ import Quiz from "./Quiz";
 import "../../style/myQuizes.scss"
 import axios, { AxiosResponse } from 'axios';
 
-interface Quiz {
+export interface QuizType {
     title: string;
     imageUrl: string;
     description: string;
@@ -14,13 +14,9 @@ interface Quiz {
     questions: number;
 }
 const MyQuizes: FC = () => {
-    const [quizes, setQuizes] = useState<Quiz[]>([{   title: "dfdf",
-        imageUrl: "https://static1.personality-database.com/profile_images/c63483c6c8214070acd427f0a75e2f46.png",
-        description: "dfdf",
-        id: 1,
-        questions: 3}]);
-    const id=1;
-
+    const [quizes, setQuizes] = useState<QuizType[]>([]);
+    const id=2;
+    console.log(`Quizes: ${quizes}`)
 
     const axiosInstance = axios.create({
         baseURL: `api/`
@@ -31,7 +27,6 @@ const MyQuizes: FC = () => {
     },[])
     async function getQuizes(){
         const res:AxiosResponse<any, any>= await axiosInstance.get(`user/${id}/quizzes`)
-        console.log(res.data);
         setQuizes(res.data);
     }
 
@@ -43,6 +38,8 @@ const MyQuizes: FC = () => {
             <h1 className="title">החידונים שלי:</h1>
             <div className="container">
                 {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}
+                    setQuizes={setQuizes}
+                    quizzes={quizes}
                     id={quiz.id}
                     title={quiz.title}
                     imageUrl={quiz.imageUrl}
@@ -52,6 +49,8 @@ const MyQuizes: FC = () => {
         </div> : <PhonePageWithNav type="return" title="החידונים שלי" className="comp-children-container my-quizzes">
             <div className="container">
                 {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}
+                    setQuizes={setQuizes}
+                    quizzes={quizes}
                     id={quiz.id}
                     title={quiz.title}
                     imageUrl={quiz.imageUrl}

@@ -19,4 +19,7 @@ export class QuizService {
   
         await this.quizRepository.save({ id: id, ...quiz })
     }
+    async deleteQuiz(quizId: number) {
+        await this.quizRepository.delete( quizId );
+    }
 }
