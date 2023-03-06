@@ -3,9 +3,9 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import dragAndDropSvg from '../images/drag-and-drop.svg'
-import { CurrentQuestion, Question } from '../utils/Interfaces';
-import { useQuestionContext } from '../context/AnswersContext';
+import dragAndDropSvg from '../../images/drag-and-drop.svg'
+import { CurrentQuestion, Question } from '../../utils/Interfaces';
+import { useQuestionContext } from '../../context/AnswersContext';
 import { Typography } from '@mui/material';
 
 
@@ -34,7 +34,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setC
             </div>
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
-                    <p className='question-title-final-box'>{question.questionTitle}</p>
+                    <p className='question-title-final-box'>{question.title}</p>
                 </div>
                 <div className="answer-container">
                     <FormControl>

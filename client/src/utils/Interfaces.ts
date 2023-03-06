@@ -8,8 +8,9 @@ export interface Answers{
 
 export interface CurrentQuestion {
     questionId: number;
-    questionTitle: string;
+    title: string;
     answers: Answers[];
+    imageUrl?:string;
 }
 
 export type Question = Required<CurrentQuestion>;
