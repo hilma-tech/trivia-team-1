@@ -5,6 +5,8 @@ import '../../style/questionTemp.scss'
 import { useNavigate } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
 import { Type } from '../popups/GenericPopParts';
+import axios from 'axios';
+
 
 interface QuestionTempState {
     answers: {
@@ -94,19 +96,16 @@ const QuestionTemp = () => {
     const setInfoFromServer: () => Promise<void> = async () => {
         let copyAnswers = [...answers];
         let copyQuestion = [...question];
-        await fetch(`#`)
-            .then((res) => res.json)
-            .then((data) => {
+        const quizId = 1;
+        const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+        console.log("response:", response);
                 // copyAnswers = data.answers;
                 // copyQuestion = data.questions;
                 // setAnswers(copyAnswers);
                 // setQuestion(copyQuestion);
                 // setQuantityOfQuestion(data.questions.length);
                 // calcWidthOfRec();
-            })
-            .catch((err) => {
-                console.log(err, "catch");
-            })
+            
     }
 
     const navigateToEndGameScreen = () => {        
