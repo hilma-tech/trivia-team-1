@@ -1,5 +1,5 @@
 .entrance-page {
-    padding-top: 6vh;
+    padding-top: 4vh;
     height: 73vh;
     width: 68.75vw;
     margin: 0%;
@@ -17,7 +17,6 @@
         margin-right: 5%;
         font-weight: 600;
         font-size: 2vmax;
-        margin-bottom: 3%;
     }
 
 
@@ -32,15 +31,7 @@
         margin-left: 5%;
     }
 
-    .entrance-button-div {
-        grid-area: buttons;
-    }
 
-    .user-hello {
-        margin-bottom: 8%;
-        font-weight: 1000;
-        font-size: 2vmax;
-    }
 
     .monkey-enter-pic {
         grid-area: img;
@@ -55,11 +46,16 @@
     }
 
     .entrance-button-div {
+        grid-area: buttons;
+        padding: 0%;
+        font-weight: 1000;
+        font-size: 2vmax;
         .enterance-page-button {
             font-weight: 800;
             width: 15.625vw;
-            height: 10vh;
-            margin-left: 35px;
+            height: 7.5vh;
+            margin-top: 10%;
+            margin-left: 1.8vw;
             font-size: 1.5vmax;
 
             img {
@@ -88,7 +84,8 @@
         position: absolute;
         bottom: 16vh;
         font-weight: 1000;
-        img{
+
+        img {
             margin-left: 8%;
         }
     }

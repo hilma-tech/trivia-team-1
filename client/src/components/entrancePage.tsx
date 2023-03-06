@@ -35,7 +35,7 @@ function EnterancePage() {
                 <h2 className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</h2>
                 <div className='entrance-container-div'>
                     <div className='entrance-button-div'>
-                        <h2 className='user-hello'>{`שלום, ${user.username}`}</h2>
+                        <div> {`שלום, ${user.username}`}</div>
                         <Button className='enterance-page-button create-quiz-button' color='primary' variant='contained' onClick={toEditQuiz}><img src={magicWand} alt='new quiz' /> צור חידון חדש</Button>
                         <Button className='enterance-page-button my-quizes-button' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                     </div>

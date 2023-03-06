@@ -38,16 +38,15 @@
             opacity: 1;
             margin-bottom: 5vh;
             width: 95%;
-            min-height: 18vh;
+            height: 29.5vh;
             display: flex;
             flex-direction: row;
 
-            p {
+            .p {
                 font-size: 1rem;
                 letter-spacing: 0px;
                 color: #0C3249;
                 opacity: 0.7;
-                margin-bottom: 2vh;
             }
 
             .quiz-image {
@@ -82,7 +81,6 @@
             .quiz-buttons {
                 display: flex;
                 justify-content: space-between;
-                margin-top: 2vh;
 
                 button {
                     border-color: transparent;
@@ -101,7 +99,8 @@
                     background: #378381 0% 0% no-repeat padding-box;
                     border-radius: 50px;
                     opacity: 1;
-                    min-width: 8vw;
+                    font-size: 1vw;
+                    width: 8vw;
                     text-align: center;
                     letter-spacing: 0px;
                     color: white;
