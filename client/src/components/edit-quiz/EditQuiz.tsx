@@ -16,14 +16,11 @@ import '../../style/EditQuiz.scss'
 
 
 
-
-
-
-
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions, setEmptyQuestionEdit, emptyQuestionEdit } = useAnswerContext();
     const isMobile = useMediaQuery('(max-width:600px)');
+    console.log(isMobile)
     const [phonePage, setPhonePage] = useState(2);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState<CurrentQuestion>({
@@ -35,7 +32,7 @@ const EditQuiz: FC = () => {
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
-        if (phonePage === 2 && (originClassName === 'topContainer' || originClassName === 'quizHeaderContainer')) return 'hide'
+        if (phonePage === 2 && (originClassName === 'top-container' || originClassName === 'quizHeaderContainer')) return 'hide'
         if (phonePage === 1 && originClassName === 'questions-container') return 'hide'
 
     }
@@ -67,7 +64,7 @@ const EditQuiz: FC = () => {
         <>
         {isMobile && <PhoneNavBar title="יצירת משחק" type='image'/>}
             <div className='formContanier '>
-                <div className={giveRightClasses('topContainer')}>
+                <div className={giveRightClasses('abcd')}>
                     <div className='topButtonsContainer'>
                         <div className='topRightbtn'>
                             <button className='showQuizBtn'>
