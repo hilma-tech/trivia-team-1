@@ -8,7 +8,7 @@ import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../../images/plusBtn.svg'
 import FinalQuestionBox from './FinalQuestionBox'
 import { useQuestionContext } from '../../context/AnswersContext'
-import { CurrentQuestion, Question } from '../../utils/Interfaces'
+import { CurrentQuestion, Question, imageFile } from '../../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { TextField, useMediaQuery } from '@mui/material';
 import createCache from '@emotion/cache';
@@ -19,6 +19,7 @@ import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios'
 import PhoneNavBar from '../navbar/PhoneNavbar';
 import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 
 
 
@@ -34,23 +35,24 @@ const EditQuiz: FC = () => {
 
     const isMobile = useMediaQuery('(max-width:600px)');
     const { setQuestions, questions } = useQuestionContext();
-    const [phonePage, setPhonePage] = useState(1)
+    const [phonePage, setPhonePage] = useState(1);
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
+    const [quizImageObject, setQuizImageObject] = useState<imageFile | null>(null)
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
-        if (phonePage === 2 && (originClassName === 'top-container' || originClassName === 'quiz-header-container')) return 'hide'
-        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container')) return 'hide'
-
+        if (isMobile && originClassName === 'monkey-svg') return 'hide'
+        if (phonePage === 2 && originClassName === 'quiz-header-wrapper') return 'hide'
+        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'plus-btn-container')) return 'hide';
     }
+
+    const filesUploader = useFiles()
 
     const addQuestion = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
-            console.log('currentEditQuestionIn: ', currentEditQuestion)
             setQuestions((prev) => {
                 if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
@@ -96,7 +98,6 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                console.log('prev: ', prev);
                 if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
                     return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
@@ -109,6 +110,10 @@ const EditQuiz: FC = () => {
 
 
         }
+    }
+
+    const handleImageFile = (value: imageFile) => {
+        setQuizImageObject(value)
     }
 
 
@@ -136,14 +141,14 @@ const EditQuiz: FC = () => {
             <CacheProvider value={cacheRtl}>
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
-
-                    {phonePage === 1 && <EditQuizHeader saveQuiz={saveQuiz} handleChange={handleChange} questionDetails={questionDetails} setPhonePage={setPhonePage}/>}
-
+                    <div className={giveRightClasses('quiz-header-wrapper')}>
+                        <EditQuizHeader questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
+                    </div>
                     <div className={giveRightClasses('question-dnd-container')}>
                         <DragDropContext onDragEnd={handleDragEnd}>
                             <Droppable droppableId="droppable">
                                 {(provided) => (
-                                    <div className={giveRightClasses("all-final-questions questions-container")} {...provided.droppableProps} ref={provided.innerRef}>
+                                    <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
                                         {questions.map((question, index: number) => (
                                             <Draggable
                                                 key={question.questionId.toString()}
@@ -162,7 +167,7 @@ const EditQuiz: FC = () => {
                                                                 setQuestions(prev => {
                                                                     return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                                 })
-                                                            }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} />
+                                                            }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
                                                             :
                                                             <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} />
                                                         }
@@ -175,20 +180,20 @@ const EditQuiz: FC = () => {
                                 )}
                             </Droppable>
                         </DragDropContext>
-                        <div className='plus-btn-container'>
-                            <BootstrapTooltip title=" הוספת שאלה">
-                                <button className='plus-btn' onClick={addQuestion}>
-                                    <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
-                                </button>
-                            </BootstrapTooltip>
-                        </div>
+                    </div>
+                    <div className={giveRightClasses('plus-btn-container')}>
+                        <BootstrapTooltip title=" הוספת שאלה">
+                            <button className='plus-btn' onClick={addQuestion}>
+                                <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
+                            </button>
+                        </BootstrapTooltip>
                     </div>
 
-                </div>
+                </div >
                 <div className='monkey-in-edit-page-svg'>
                     <img src={MonkeySvg} className={giveRightClasses('monkey-svg')} alt='image of cute monkey with computer' />
                 </div>
-            </CacheProvider>
+            </CacheProvider >
         </>
     );
 }

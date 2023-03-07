@@ -142,25 +142,36 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
+
+    
 }
 
-.quiz-header-image {
+.quiz-header-image-btn {
     background-color: rgb(211, 209, 209);
-    width: 30%;
-    height: 80%;
+    width: 17vw;
+    height: 17vh;
     margin-right: 3%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    outline: none;
+
+    
+
+}
+
+.upload-btn{
+    display: none;
 }
 
 .select-image-quiz-svg {
-    width: 50%;
-    height: 50%;
+    width: 100%;
+    height: 100%;
 }
 
 .title-header-container {
-    margin-right: 5%;
+    margin-right: 3%;
     display: flex;
     flex-direction: column;
     width: 40%;
@@ -440,12 +451,20 @@ body {
         display: none;
     }
 
-    .addQutionsContainer {
+    .add-questions-container {
         border: 0px;
+        .select-image-questions-svg{
+            width: 5vw;
+            margin-right: 2vw;
+        }
 
     }
 
-    .trashSvgForQuestions {
+    .select-image-svg-for-questions{
+        width: 5vw;
+    }
+
+    .trash-svg-for-questions {
         opacity: 0.1;
     }
 

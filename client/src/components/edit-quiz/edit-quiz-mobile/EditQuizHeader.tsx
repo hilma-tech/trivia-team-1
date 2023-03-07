@@ -1,12 +1,14 @@
 import { Box, Button, TextField, Typography, useMediaQuery } from "@mui/material"
-import { FC } from "react"
+import { FC, useState } from "react"
 import ShowQuizBtn from '../../../images/showquizzbtn.svg'
 import saveBtn from '../../../images/saveBtn.svg'
 import LinkBtn from '../../../images/linkBtn.svg'
 import Selectimage from '../../../images/image.svg'
 import '../../../style/EditQuiz.scss'
 import BootstrapTooltip from "../../../tooltip/tooltip"
-
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import useImageFileUpload from '../../../context/imageFilesZus'
+import { imageFile } from "../../../utils/Interfaces"
 
 interface QuizHeader {
     saveQuiz: () => void;
@@ -21,9 +23,16 @@ interface QuizHeader {
 
 
 export const EditQuizHeader: FC<QuizHeader> = ({ saveQuiz, questionDetails, handleChange, setPhonePage }) => {
+    const filesUploader = useFiles();
+    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
+
+    const handleImageFile = (value: imageFile) => {
+        addImageFile(value)
+    }
+
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
     return isMobile ? (
-        <div className="phone-first-page-container">
+        <div className="phone-first-page-container" >
             <div className="input-container">
                 <Typography variant="body1">שם המשחק</Typography>
                 <TextField id="quizInputName" value={questionDetails.title} onChange={handleChange} />
@@ -33,6 +42,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ saveQuiz, questionDetails, hand
                 <TextField id="outlined-multiline-static" value={questionDetails.description} onChange={handleChange} />
             </div>
             <div className="select-image-container">
+                <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                 <BootstrapTooltip title="הוספת תמונה לחידון">
                     <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
                 </BootstrapTooltip>

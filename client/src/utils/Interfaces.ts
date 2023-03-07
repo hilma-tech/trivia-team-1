@@ -13,6 +13,11 @@ export interface CurrentQuestion {
     imageUrl?:string;
 }
 
+export interface imageFile{
+    link:string , 
+    id:number;
+}
+
 export type Question = Required<CurrentQuestion>;
 
 
