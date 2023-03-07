@@ -1,17 +1,11 @@
-#confetti {
-    top: -60vh;
-    left: 2vh;
-    height: 200vh;
-    position: absolute
-}
 
-.confetti-pc {
-    background-image: url('../images/popUps/confettiGif.gif');
-}
+
 
 
 
 .computer-finish-game {
+    background-image: url('../images/popUps/confettiGif.gif');
+    background-size: 50vh;
     text-align: center;
     border-top: 15px solid #216361;
     .coputer-finish-game-inner-text {
@@ -32,13 +26,13 @@
 
 .MuiPaper-root.dialog-content-container {
     height: 60vh;
-
+    
     .dialog-content-text-style.MuiTypography-root {
         font-size: 1.3rem;
         height: 3vh;
         text-align: center;
     }
-
+    
 }
 
 .roundedButton {
@@ -54,17 +48,21 @@
         font-weight: bolder;
         border-radius: 50px;
         height: 3.6vh;
-        font-size: 1.2rem
+        font-size: 1.2rem;
     }
-
+    
     .action-injected .action-link {
         display: flex;
-         justify-content: center;
-         align-items: center;
-         width: 10vw;
-         font-weight: bolder;
+        justify-content: center;
+        align-items: center;
+        width: 10vw;
+        font-weight: bolder;
     }
 
+    .MuiDialogActions-root{
+        padding-bottom: 3vh;
+    }
+    
     .MuiDialog-paper {
         background-color: white;
         box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
@@ -85,7 +83,6 @@
 .MuiDialogActions-root.dialog-actions-container .action-injected {
     display: flex;
     justify-content: flex-end;
-    padding-bottom: 3vh;
 }
 
 @media (max-width: 600px) {
@@ -103,12 +100,12 @@
             font-size: 1rem;
             font-weight: bolder;
         }
-
+        
         .MuiPaper-elevation {
             padding-top: 3vh;
             padding-bottom: 1vh;
         }
-
+        
         .MuiDialogActions-root.dialog-actions-container {
             justify-content: center;
         }
@@ -122,27 +119,27 @@
         }
 
         .MuiDialogActions-root.dialog-actions-container {
-            padding-bottom: 3vh;
-
+            padding-bottom: 5vh;
+            
         }
-
+        
         .dialogActionsStyles {
             display: flex;
             justify-content: center;
             padding-bottom: 5vh;
         }
-
+        
         .dialog-content-text-style.MuiTypography-root {
             text-align: center;
         }
-
+        
         .MuiButtonBase-root.roundedButton {
             height: 4.2vh;
             font-size: 1.1rem;
             width: 30vw;
             border-radius: 80px;
         }
-
+        
         .containerStyle {
             background-color: white;
             box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
@@ -164,14 +161,21 @@
 
         .action-injected .action-link {
             display: flex;
-             justify-content: center;
-             align-items: center;
+            justify-content: center;
+            align-items: center;
              width: 30vw;
-        }
+            }
     
 
-        .alert-dialog-title.MuiTypography-root {
-            text-align: center;
+            .alert-dialog-title.MuiTypography-root {
+                text-align: center;
+            }
+        }
+        #confetti {
+            z-index: 500;
+            width: 100vw;
+            top: -60vh;
+            height: 200vh;
+            position: absolute
         }
     }
-}

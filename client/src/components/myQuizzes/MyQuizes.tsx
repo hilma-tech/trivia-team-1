@@ -16,7 +16,7 @@ export interface QuizType {
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
     const id=2;
-    console.log(`Quizes: ${quizes}`)
+    console.log(`Quizes:`, quizes)
 
     const axiosInstance = axios.create({
         baseURL: `api/`

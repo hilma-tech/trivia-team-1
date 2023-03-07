@@ -1,42 +1,35 @@
 import { useEffect, useState } from "react";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery } from "@mui/material";
-
+import axios from "axios";
+import { ScoreState } from "./interfaces";
 import HighScore from "./HighScore";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-
 import '../../style/scoreCard.scss';
 
 function ScoreCard() {
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const [quizData, setQuizData] = useState({//data in this state is temporary
-        quizName: 'שלום עולם',
-        scores: [
-            { id: 1, name: 'שלמה', score: 99, date: new Date() },
-            { id: 2, name: 'שלימזי גיבוט', score: 90, date: new Date() },
-            { id: 3, name: 'שפרן', score: 34, date: new Date() },
-            { id: 4, name: 'ניסים הרסר', score: 34, date: new Date() },
-            { id: 5, name: 'אופקו', score: 34, date: new Date() }
-        ]
-    });
+    const [quizData, setQuizData] = useState<ScoreState>({ title: '', scores: [] });
+    const quizId = window.location.pathname.split('/')[2]
 
-    // async function fetchQuizData() {
-    //     try {
-    //         const res = await axios.get('/quiz?ID=12345');
-    //         console.log(res);
-    //     } catch (err) {
-    //         console.error(err);
-    //     }
-    // }
+    async function fetchQuizData() {
+        try {
+            const {data} = await axios.get(`/api/quiz/${quizId}/scores`);
+            setQuizData(data)
+            return data
+        } catch (err) {
+            console.error(err);
+        }
+    }
 
     useEffect(() => {
-        // fetchQuizData();// will activate once server is ready
+        fetchQuizData();
     }, [])
 
     return (
         isLargeScreen ? <div className="comp-children-container score-card-container">
             <div className="score-card">
                 <Typography variant="h5" className="h2" component="div">{`לוח תוצאות:`}</Typography>
-                <Typography variant="h6" className="h3 hide-mobile" component="div">{quizData.quizName}</Typography>
+                <Typography variant="h6" className="h3 hide-mobile" component="div">{quizData.title}</Typography>
                 <TableContainer>
                     <Table>
                         <TableHead>

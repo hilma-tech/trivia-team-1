@@ -4,20 +4,26 @@ import { useNavigate } from "react-router-dom";
 
 import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
+enum LinkTo {
+    MyQuizzes= 'myQuizzes',
+    CreateQuiz= 'createQuiz',
+    About = 'about'
+}
+
 
 const ComputerNavbar:FC = () => {
 
     const navigate = useNavigate()
     
-    const onClick = (linkTo: 'myQuizzes' | 'createQuiz' | 'about') => {
+    const onClick = (linkTo: LinkTo) => {
         switch (linkTo){
-            case 'myQuizzes':
+            case LinkTo.MyQuizzes:
                 navigate('/my-quizzes')
                 break;
-            case 'createQuiz':
-                navigate('/createQuiz')
+            case LinkTo.CreateQuiz:
+                navigate('/edit-quiz')
                 break;
-            case 'about':
+            case LinkTo.About:
                 navigate('/about')
                 break; 
         }
@@ -27,7 +33,7 @@ const ComputerNavbar:FC = () => {
     <div className="navbar-container-computer">
         <div className="first-section">
             <div className="btn-container">
-                <Button className="nav-quiz-btn" variant="contained" color="primary">
+                <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() => onClick(LinkTo.CreateQuiz)} > 
                     יצירת חידון
                 </Button>
             </div>
@@ -35,13 +41,13 @@ const ComputerNavbar:FC = () => {
                 <div className="vl"></div>
             </div>
             <div className="links-container">
-                <Button onClick={() => onClick('myQuizzes')} className="nav-quiz-btn">
+                <Button onClick={() => onClick(LinkTo.MyQuizzes)} className="nav-quiz-btn">
                     החידונים שלי
                 </Button>
                 <div className="vl-container">
                     <div className="vl"></div>
                 </div>
-                <Button className="nav-quiz-btn">אודות</Button>
+                <Button className="nav-quiz-btn" onClick={() => onClick(LinkTo.About)}>אודות</Button>
             </div>
         </div>
         <div className="logo-nav-bar-container">
