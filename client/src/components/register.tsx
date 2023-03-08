@@ -18,11 +18,11 @@ function Register() {
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
     useEffect(() => {
-        setTimeout(() => { setRegErrDiv("") }, 4000)
+        const timeout = setTimeout(() =>  setRegErrDiv("") , 4000)
+        return () => clearTimeout(timeout);
     }, [regErrDiv])
 
     async function handleRegisterSubmit(e: FormEvent) {
-        // זמני
         try {
             e.preventDefault()
             const {data} = await axios.post('http://localhost:8080/api/user/register',
@@ -57,7 +57,7 @@ function Register() {
                 <Typography className='main-register-header' variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
-                    <form className='register-form' onSubmit={(e) => handleRegisterSubmit(e)}>
+                    <form className='register-form' onSubmit={handleRegisterSubmit}>
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='register-input' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>
