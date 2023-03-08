@@ -67,6 +67,9 @@ export const defaultTheme: object = {
     secondary: {
       main: "#BE7F6B",
     },
+    info: {
+      main: "#EDF0F2"
+    }
   },
 }
 

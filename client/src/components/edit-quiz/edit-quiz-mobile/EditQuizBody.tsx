@@ -4,6 +4,7 @@ import Selectimage from '../../../images/image.svg'
 import duplicateSvg from '../../../images/copy.svg'
 import TrashSvg from '../../../images/trash.svg'
 import { CurrentQuestion } from "../utils/Interfaces";
+import { useMediaQuery } from "@mui/material";
 
 interface Props {
     currentQuestion: CurrentQuestion;
@@ -11,10 +12,12 @@ interface Props {
     questionId: number;
 }
 
-export const MobileHeader: FC<Props> = ({handleChange, currentQuestion, questionId}) => (
+const isMobile: boolean = useMediaQuery('(max-width:600px)')
+
+export const EditQuizBody: FC<Props> = ({handleChange, currentQuestion, questionId}) => (
     <div>
         <div className="phone-header-container">
-            <h3>שאלה {questionId}</h3>
+            <h1>שאלה {questionId}</h1>
             <div className="copy-trash-imgs">
                 <img className="icon" src={duplicateSvg} />
                 <img className="icon" src={TrashSvg} />
@@ -25,7 +28,7 @@ export const MobileHeader: FC<Props> = ({handleChange, currentQuestion, question
         <div className="header-input-container">
             <h6 id="input-header">כותרת</h6>
             <div className='quizQuestions' >
-                <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.questionTitle} onChange={handleChange} />
+                <input type="text" placeholder="שאלה" className="question-input second-page" value={currentQuestion.questionTitle} onChange={handleChange} />
                 <img className='selectImageQutionsSvg' src={Selectimage} />
             </div>
         </div>

@@ -43,9 +43,9 @@ const EditQuiz: FC = () => {
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
-        if (isMobile && originClassName === 'monkey-svg') return 'hide'
+        if (originClassName === 'monkey-svg'|| originClassName === 'plus-btn-container') return 'hide'
         if (phonePage === 2 && originClassName === 'quiz-header-wrapper') return 'hide'
-        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'plus-btn-container')) return 'hide';
+        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' )) return 'hide';
     }
 
     const filesUploader = useFiles()
