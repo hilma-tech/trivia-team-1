@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Selectimage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../../images/addAnswer.svg'

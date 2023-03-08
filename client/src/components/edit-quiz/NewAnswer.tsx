@@ -50,14 +50,13 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
         });
     };
 
-    const handleCorrectAnswer = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const isChecked = (e.target as HTMLInputElement).checked;
+    const handleCorrectAnswer = () => {
         setCurrentQuestion(prev => {
             const UpdateAnswers = prev.answers.map((answer, index) => {
                 if (index === answerIndex) {
-                    return { ...answer, isCorrect: isChecked }
+                    return { ...answer, isCorrect: true }
                 }
-                return answer;
+                return { ...answer, isCorrect: false };
             });
             return { ...prev, answers: UpdateAnswers };
         });
@@ -81,7 +80,14 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
         <div className="check-boxes-container" dir='rtl'>
             <div className="check-box-svg">
                 <BootstrapTooltip title="סמן תשובה נכונה">
-                    <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.answers[answerIndex].isCorrect} onChange={handleCorrectAnswer} />} />
+                    <FormControlLabel
+                        value={'' + answerIndex + 1}
+                        label=""
+                        control={<Radio
+                            checked={currentQuestion.answers[answerIndex].isCorrect}
+                            onChange={handleCorrectAnswer}
+                        />}
+                    />
                 </BootstrapTooltip>
             </div>
             <div className="text-field-container">
@@ -91,18 +97,19 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
             </div>
 
 
-            <IconButton >
-                <label className="label-in-new-answer">
+            {/* */}
+            <IconButton centerRipple className="add-image-icon">
+                <label>
                     <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                     <BootstrapTooltip title="הוספת תמונה לתשובה">
-                        <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="select-image-svg-for-questions" alt='add image to your answer' />
+                        <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="add-image-icon-placeholder" alt='add image to your answer' />
                     </BootstrapTooltip>
                 </label>
             </IconButton>
 
 
-            <IconButton onClick={deleteAnswer}>
-                <img src={TrashSvg} className="trash-svg-for-questions" alt='delete your answer here' />
+            <IconButton onClick={deleteAnswer} className="remove-answer">
+                <img src={TrashSvg} className="trash-icon" alt='delete your answer here' />
             </IconButton>
         </div>
     )

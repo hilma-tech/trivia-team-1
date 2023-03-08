@@ -22,13 +22,16 @@ import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 
 
 
-
 const cacheRtl = createCache({
     key: 'muirtl',
     stylisPlugins: [rtlPlugin],
 });
 
-
+export const isFull = (question: CurrentQuestion) => {
+    return question.answers.some(answer => answer.isCorrect)
+        && question.answers.every(answer => answer.text !== '')
+        && question.title !== "";
+}
 
 const EditQuiz: FC = () => {
 
@@ -44,7 +47,7 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
+                if (isFull(prev[currentEditQuestion])) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
                     return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
                 } else {
@@ -108,20 +111,19 @@ const EditQuiz: FC = () => {
 
 
     const saveQuiz = () => {
-        console.log('here');
 
         axios.post('http://localhost:8080/api/quiz', {
             creatorId: 1,
             title: questionDetails.title,
-            description: questionDetails.description,
+            description:  questionDetails.description,
             questions: questions
         })
-            .then(function (res) {
-                console.log(res)
-            })
-            .catch(function (err) {
-                console.log(err)
-            })
+                .then(function  (res)  {
+                    console.log(res)
+                })
+                .catch(function  (err)  {
+                    console.log(err)
+                })
     }
 
 
@@ -177,7 +179,7 @@ const EditQuiz: FC = () => {
                         <Droppable droppableId="droppable">
                             {(provided) => (
                                 <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
-                                    {questions.map((question, index: number) => (
+                                    {questions.map((question, index) => (
                                         <Draggable
                                             key={question.questionId.toString()}
                                             draggableId={question.questionId.toString()}
@@ -190,14 +192,13 @@ const EditQuiz: FC = () => {
                                                     {...provided.dragHandleProps}
                                                 >
                                                     {currentEditQuestion === index ?
-
                                                         <AddQuestionBox setCurrentQuestion={(q) => {
                                                             setQuestions(prev => {
                                                                 return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                             })
                                                         }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
                                                         :
-                                                        <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} />
+                                                        <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
                                                     }
                                                 </div>
                                             )}

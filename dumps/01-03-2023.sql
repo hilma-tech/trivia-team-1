@@ -1,0 +1,188 @@
+-- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
+--
+-- Host: localhost    Database: monkey_quiz
+-- ------------------------------------------------------
+-- Server version	8.0.32-0ubuntu0.22.04.2
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `answer`
+--
+
+DROP TABLE IF EXISTS `answer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `answer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `text` varchar(255) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `is_correct` tinyint NOT NULL,
+  `question_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_c3d19a89541e4f0813f2fe09194` (`question_id`),
+  CONSTRAINT `FK_c3d19a89541e4f0813f2fe09194` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `answer`
+--
+
+LOCK TABLES `answer` WRITE;
+/*!40000 ALTER TABLE `answer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `answer` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `password`
+--
+
+DROP TABLE IF EXISTS `password`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `password` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `password` varchar(255) NOT NULL,
+  `user_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `REL_4cd77c9b2e2522ee9d3671b3bc` (`user_id`),
+  CONSTRAINT `FK_4cd77c9b2e2522ee9d3671b3bc1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `password`
+--
+
+LOCK TABLES `password` WRITE;
+/*!40000 ALTER TABLE `password` DISABLE KEYS */;
+/*!40000 ALTER TABLE `password` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `question`
+--
+
+DROP TABLE IF EXISTS `question`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `question` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `quiz_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_aecfc55f7d8e7bb703193e03118` (`quiz_id`),
+  CONSTRAINT `FK_aecfc55f7d8e7bb703193e03118` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `question`
+--
+
+LOCK TABLES `question` WRITE;
+/*!40000 ALTER TABLE `question` DISABLE KEYS */;
+/*!40000 ALTER TABLE `question` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `quiz`
+--
+
+DROP TABLE IF EXISTS `quiz`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `quiz` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `image_url` varchar(255) DEFAULT NULL,
+  `creator_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_5716583af6b99b4aedef89a4bb6` (`creator_id`),
+  CONSTRAINT `FK_5716583af6b99b4aedef89a4bb6` FOREIGN KEY (`creator_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `quiz`
+--
+
+LOCK TABLES `quiz` WRITE;
+/*!40000 ALTER TABLE `quiz` DISABLE KEYS */;
+/*!40000 ALTER TABLE `quiz` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `score`
+--
+
+DROP TABLE IF EXISTS `score`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `score` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `score` varchar(255) NOT NULL,
+  `date` date NOT NULL,
+  `player` varchar(255) NOT NULL,
+  `quiz_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_3f8f22210586c69c9af89b4f8e6` (`quiz_id`),
+  CONSTRAINT `FK_3f8f22210586c69c9af89b4f8e6` FOREIGN KEY (`quiz_id`) REFERENCES `quiz` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `score`
+--
+
+LOCK TABLES `score` WRITE;
+/*!40000 ALTER TABLE `score` DISABLE KEYS */;
+/*!40000 ALTER TABLE `score` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `IDX_78a916df40e02a9deb1c4b75ed` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user`
+--
+
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2023-03-01 12:08:41

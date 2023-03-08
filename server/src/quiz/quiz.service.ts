@@ -12,23 +12,31 @@ export class QuizService {
     ) { }
 
     async addQuiz(quiz: QuizDTO) {
-        const { questions ,creatorId, ...rest} = quiz;
-        console.log(quiz);
-        
-        // console.log('rest: ', rest);
-        // console.log('questions: ', questions);
-        
-        const newQuestions = questions.map((question) => {return {
-            title: question.title,
-            answers : question.answers ,
-            imageUrl: question.imageUrl
-        }})
-        console.log('newQuestions: ', newQuestions[0].answers);
+        const { questions, creatorId, ...rest } = quiz;
 
-        return this.quizRepository.save({questions:newQuestions,creator:{id:creatorId} ,...rest })
+        const newQuestions = questions.map((question) => {
+            return {
+                title: question.title,
+                answers: question.answers,
+                imageUrl: question.imageUrl
+            }
+        })
+
+        return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
     }
     async editQuiz(id: number, quiz: QuizDTO) {
-  
+
         await this.quizRepository.save({ id: id, ...quiz })
+    }
+
+    async highScores(quizId: number) {
+        const res = await this.quizRepository.findOne({ where: { id: quizId }, relations: { scores: true } });
+        let { title, scores } = res
+        scores.sort((a, b) => {//sort by score descending then by date ascending
+            if (b.score !== a.score) return b.score - a.score;
+            return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+        scores = scores.slice(0, 5)
+        return { title, scores }
     }
 }
