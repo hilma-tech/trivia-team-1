@@ -81,7 +81,7 @@ function OpeningForTheQuiz() {
                             <footer className='CheckForName-footer'>
                                 <img src={leave} alt="icon of triangle" />
                             </footer>
-                        </main>
+                            </main>
                     </PhonePageWithNav>
                 }
             </div>

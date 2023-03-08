@@ -23,23 +23,17 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle
     }
 
     return (
-        <div className='main-OpeningForTheQuiz'>
-            {/* saugfsfresrtyrytrfaslkjfdsz */}
-            <div className='main-paragraph-and-title'>
-                {/* <div>hellllllllo</div> */}
-                {/* <Typography variant="h2" className="bold h2" component="div">{`לוח תוצאות:`}</Typography>
-                <Typography variant='h2' component='div'>{quizTitle}</Typography>
-                <Typography variant='h5' component='div'>{quizTitle}</Typography> */}
-                <h1>{quizTitle}</h1>
-                <p>{paragraph}</p>
-            </div>
+        <div className='comp-children-container main-OpeningForTheQuiz'>
+            <h1 className='main-quiz-title'>{quizTitle}</h1>
+            <div className='main-paragraph'>   {paragraph}  </div>
             {isLargeScreen ?
                 <div className='main-img'
                     style={{
                         backgroundImage: `url("${imgUrl}")`,
                         objectFit: 'cover',
                         backgroundSize: 'cover',
-                        backgroundRepeat: 'no-repeat'
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'center'
                     }}>
                     <div className='main-button-place'>
                         <button onClick={moveToQuiz} className='main-button-to-quiz'>

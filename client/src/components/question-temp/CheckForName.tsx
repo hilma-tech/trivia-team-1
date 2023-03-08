@@ -31,7 +31,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             })
             .catch((err) => {
             })
-            moveToPlayGame()
+        moveToPlayGame()
     }
 
     const moveToPlayGame = () => {
@@ -40,8 +40,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
 
     return (
         isLargeScreen ?
-            <main>
-                <div className='main-CheckForName-for-flex'>
+            <main className='comp-children-container compChildrenContainer-boaz'>
                     <div className='main-CheckForName'>
                         <div className='title-and-paragraph'>
                             <h1 className='quizTitle'>{quizTitle}</h1>
@@ -56,7 +55,6 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                             <img src={`${triangleIcon}`} alt="icon of triangle" />
                         </button>
                     </div>
-                </div>
             </main>
             :
             < div>
