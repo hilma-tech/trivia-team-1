@@ -13,7 +13,7 @@ export class Question {
     imageUrl: string;
 
     @ManyToOne(() => Quiz, (quiz) => quiz.questions, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE', orphanedRowAction: "delete" })
-    // @JoinColumn({ name: "quiz_id" })
+    @JoinColumn({ name: "quiz_id" })
     quiz: Quiz;
 
     @OneToMany(() => Answer, (answers) => answers.question, { cascade: true })

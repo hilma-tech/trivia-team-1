@@ -16,6 +16,6 @@ export class Score {
     player: string;
 
     @ManyToOne(() => Quiz, (quiz) => quiz.scores, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    // @JoinColumn({ name: "quiz_id" })
+    @JoinColumn({ name: "quiz_id" })
     quiz: Quiz;
 }
