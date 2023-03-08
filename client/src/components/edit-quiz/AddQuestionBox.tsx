@@ -1,4 +1,4 @@
-import React, { FC} from "react";
+import React, { FC } from "react";
 import Selectimage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../../images/addAnswer.svg'
@@ -16,15 +16,15 @@ import BootstrapTooltip from "../../tooltip/tooltip";
 interface AddQuestionBoxProps {
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
-    setCurrentEditQuestion : React.Dispatch<React.SetStateAction<number>>
-    duplicateQuestion:() => void
-    currentEditQuestion : number;
+    setCurrentEditQuestion: React.Dispatch<React.SetStateAction<number>>
+    duplicateQuestion: () => void
+    currentEditQuestion: number;
 
 
 }
 
 
-const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion , setCurrentEditQuestion , duplicateQuestion , currentEditQuestion}) => {
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion, setCurrentEditQuestion, duplicateQuestion, currentEditQuestion }) => {
 
     const { setQuestions, questions } = useQuestionContext()
 
@@ -33,7 +33,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
         if (currentQuestion.answers.length < 4) {
             setCurrentQuestion(prevState => ({
                 ...prevState,
-                answers: [...prevState.answers, {text: '' , isCorrect:false , imageUrl: '' }]
+                answers: [...prevState.answers, { text: '', isCorrect: false, imageUrl: '' }]
             }));
         }
     }
@@ -41,16 +41,15 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     const deleteQuestion = () => {
         let deleteIndex = questions.findIndex(question => question.questionId === currentQuestion.questionId)
-        console.log('deleteIndex: ', deleteIndex);
         setQuestions(prevState => {
-           return prevState.filter((question ,index) => index!== deleteIndex);
-           
+            return prevState.filter((question, index) => index !== deleteIndex);
+
         })
         setCurrentEditQuestion(questions.length - 2)
 
     }
 
-    
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setCurrentQuestion((prev) => {
@@ -61,7 +60,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
 
     return (
-        <div className='add-questions-container' > 
+        <div className='add-questions-container' >
             <div className='darg-and-drop-container'>
                 <BootstrapTooltip title="שינוי סדר השאלות">
                     <img className='drag-and-drop-svg' src={dragAndDropSvg} alt='drag button to switch question place' />

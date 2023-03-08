@@ -27,7 +27,6 @@ function OpeningForTheQuiz() {
             // get image, title, and paragraph for server and push them into state
             .then((res) => res.json)
             .then((data) => {
-                console.log("hiiiii");
 
                 // setImgUrl(data.imgUrl);
                 // setQuizTitle(data.quizTitle);

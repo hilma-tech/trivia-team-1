@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IconButton, TextField} from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
@@ -26,12 +26,12 @@ interface NewAnswerProps {
     isChecked?: boolean;
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
-    currentEditQuestion:number
+    currentEditQuestion: number
 
 }
 
 
-const NewAnswer: FC<NewAnswerProps> = ({ answerIndex,  setCurrentQuestion, currentQuestion , currentEditQuestion }) => {
+const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, currentQuestion, currentEditQuestion }) => {
 
 
 
@@ -48,18 +48,18 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex,  setCurrentQuestion, curre
         setCurrentQuestion(prev => {
             const UpdateAnswers = prev.answers.map((answer, index) => {
                 if (index === answerIndex) {
-                    return {...answer , isCorrect: isChecked}
+                    return { ...answer, isCorrect: isChecked }
                 }
                 return answer;
             });
-            return {...prev, answers: UpdateAnswers };
+            return { ...prev, answers: UpdateAnswers };
         });
 
     }
 
-    const deleteAnswer = (e:any) => {
+    const deleteAnswer = (e: any) => {
         setCurrentQuestion(prev => {
-            return {...prev, answers: [...prev.answers.slice(0 ,answerIndex),...prev.answers.slice(answerIndex+1)]}
+            return { ...prev, answers: [...prev.answers.slice(0, answerIndex), ...prev.answers.slice(answerIndex + 1)] }
         })
 
     }

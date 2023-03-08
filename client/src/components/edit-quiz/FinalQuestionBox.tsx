@@ -12,14 +12,14 @@ import { Typography } from '@mui/material';
 
 interface FinalBoxQuestionsProps {
     question: Question;
-    index:number;
-    setCurrentEditQuestion:React.Dispatch<React.SetStateAction<number>>;
+    index: number;
+    setCurrentEditQuestion: React.Dispatch<React.SetStateAction<number>>;
 }
 
 
 
 
-const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setCurrentEditQuestion}) => {
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurrentEditQuestion }) => {
 
 
     const openEditMode = (index: number) => {
@@ -30,7 +30,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setC
     return (
         <div className='ready-questions-container' onClick={() => openEditMode(index)}>
             <div className='darg-and-drop-container'>
-                    <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
+                <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
             </div>
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
@@ -41,7 +41,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setC
                         <RadioGroup>
                             <div className="radio-ready-container" dir='rtl'>
                                 {question.answers.map((answer, index) =>
-                                    <FormControlLabel  key={index} value={`answer${index+1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>}  checked={answer.isCorrect} />
+                                    <FormControlLabel key={index} value={`answer${index + 1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>} checked={answer.isCorrect} />
                                 )}
                             </div>
                         </RadioGroup>

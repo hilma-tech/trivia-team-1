@@ -34,19 +34,20 @@ body {
         height: 4vh;
     }
 
-    .quiz-input-name{
+    .quiz-input-name {
         height: 5.1020408163265305vh;
         width: 14.47939262472885vw;
         font-size: 25px;
         border: 1px solid rgb(189, 184, 184); // unique color
-        
-        &:focus-visible, &:focus{
+
+        &:focus-visible,
+        &:focus {
             outline: none;
-            border: 2px solid rgb(65, 158, 139);// unique color
-        }            
+            border: 2px solid rgb(65, 158, 139); // unique color
+        }
     }
 
-    ::placeholder{
+    ::placeholder {
         color: black;
         padding-right: 5%;
     }
@@ -416,19 +417,19 @@ body {
         padding-top: 1%;
     }
 
-    .drag-and-drop-svg{
+    .drag-and-drop-svg {
         width: 1.0416666666666667vw;
         height: 2.1916583912611718vh;
     }
 
-    .empty-div{
+    .empty-div {
         height: 1.5vh;
     }
 
 
 }
 
-.monkey-in-edit-page-svg{
+.monkey-in-edit-page-svg {
     position: fixed;
     bottom: 20px;
     right: 2.5rem;

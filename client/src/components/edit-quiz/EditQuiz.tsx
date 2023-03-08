@@ -31,21 +31,18 @@ const cacheRtl = createCache({
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions } = useQuestionContext()
-    console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
 
 
     const addQuestion = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
-            console.log('currentEditQuestionIn: ' ,currentEditQuestion)
             setQuestions((prev) => {
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}], title: "" }]
-                }else{
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
+                } else {
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct answer")
                     return prev;
@@ -86,11 +83,10 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                console.log('prev: ', prev);
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true)  && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title!== "" ) {
+                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title , isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect)}]
-                }else{
+                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
+                } else {
                     setCurrentEditQuestion(prev[currentEditQuestion].questionId);
                     alert("Please add a correct inputs")
                     return prev;
@@ -103,23 +99,22 @@ const EditQuiz: FC = () => {
 
 
     const saveQuiz = () => {
-        console.log('here');
-        
-        axios.post('http://localhost:8080/api/quiz' , {
-            creatorId:1,
+
+        axios.post('http://localhost:8080/api/quiz', {
+            creatorId: 1,
             title: questionDetails.title,
-            description:questionDetails.description,
+            description: questionDetails.description,
             questions: questions
         })
-        .then(function(res){
-            console.log(res)
-        })
-        .catch(function(err){
-            console.log(err)
-        })
+            .then(function (res) {
+                console.log(res)
+            })
+            .catch(function (err) {
+                console.log(err)
+            })
     }
 
-   
+
 
     return (
         <>
@@ -137,7 +132,7 @@ const EditQuiz: FC = () => {
                             <div className='top-left-btn'>
                                 <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
                                 <button className='save-btn' onClick={saveQuiz}>
-                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here '  />
+                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
                                     שמירה
                                 </button>
                             </div>
