@@ -24,39 +24,65 @@ interface stateObj {
     [key: string]: boolean;
 }
 
-const QuestionTemp = () => {
+interface AnswerFromServer {
+    text: string;
+    url: string;
+    isCorrect: boolean;
+}
 
-    const [answers, setAnswers] = useState<QuestionTempState["answers"]>([[
-        { ans: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
-        { ans: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
-        { ans: "ארץ האגדות", url: "awvev", isCorrect: false },
-        { ans: "מדינת הגמדים", url: "dvdsv", isCorrect: false }
-    ], [
-        { ans: "לאונרדו דה וינצ'י", url: "", isCorrect: true },
-        { ans: "נועה קירל", url: "", isCorrect: false },
-        { ans: "שפע יששכר", url: "", isCorrect: false },
-        { ans: "לאונרד הכהן", url: "", isCorrect: false }
-    ]
-    ]);
-    const [question, setQuestion] = useState<QuestionTempState["question"]>([
+interface QuestionFromServer {
+    questionTitle: string;
+    url: string;
+    answers: AnswerFromServer[];
+}
+
+const QuestionTemp = () => {
+    const [questions, setQuestions] = useState<QuestionFromServer[]>([
         {
-            questionTitle: "איטליה מכונה גם...", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg"
-        }
-        ,
+            questionTitle: "איטליה מכונה גם...", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg",
+            answers: [
+                { text: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
+                { text: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
+                { text: "ארץ האגדות", url: "awvev", isCorrect: false },
+                { text: "מדינת הגמדים", url: "dvdsv", isCorrect: false }
+            ]
+        },
         {
-            questionTitle: "?מי מהבאים היה איטלקי", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg"
+            questionTitle: "?מי מהבאים היה איטלקי", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg", answers: [
+                { text: "לאונרדו דה וינצ'י", url: "", isCorrect: true },
+                { text: "נועה קירל", url: "", isCorrect: false },
+                { text: "שפע יששכר", url: "", isCorrect: false },
+                { text: "לאונרד הכהן", url: "", isCorrect: false }
+            ]
         }
     ]);
-    const [numOfQuestion, setNumOfQuestion] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
     const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
-    const [changeColorToGreen, setChangeColorToGreen] = useState<number>(1000);
-    const [changeColorToRed, setChangeColorToRed] = useState<number>(1000);
+
+    const [greenIndex, setGreenIndex] = useState<number | undefined>();
+    const [redIndex, setRedIndex] = useState<number | undefined>();
+
     const [changeFlexDir, setChangeFlexDir] = useState(true);
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
     const { popHandleClickOpen, setPopType } = usePopContext();
+
     const navigate = useNavigate();
+
+    const currentQuestion = questions[currentQuestionIndex];
+
+    const checkIfThereAreImg = () => {
+        for (let i = 0; i < currentQuestion.answers.length; i++) {
+            if (currentQuestion.answers[i].url) {
+                setChangeFlexDir(false);
+            } else {
+                setChangeFlexDir(true);
+            }
+        }
+    }
+    
+    useEffect(checkIfThereAreImg, [currentQuestionIndex]);
 
     useEffect(() => {
         setInfoFromServer();
@@ -64,105 +90,70 @@ const QuestionTemp = () => {
     }, []);
 
     useEffect(() => {
-        if (numOfQuestion === answers.length - 1){
+        if (currentQuestionIndex === currentQuestion.answers.length - 1) {
             navigateToEndGameScreen();
-
-        } 
-            
-
-    }, [numOfQuestion])
-
-    const getActualQuestion = () => {
-        return question[numOfQuestion]
-    }
-
-    const getActualAnswer = () => {
-        return answers[numOfQuestion]
-    }
-    const checkIfThereAreImg = () => {
-        for (let i = 0; i < actualAnswer.length; i++) {
-            if (actualAnswer[i].url) {
-                setChangeFlexDir(false);
-            } else {
-                setChangeFlexDir(true);
-            }
         }
-    }
+    }, [currentQuestionIndex])
 
-    const actualQuestion = useMemo(() => getActualQuestion(), [numOfQuestion]);
-    const actualAnswer = useMemo(() => getActualAnswer(), [numOfQuestion]);
-    const doChangeFlexDir = useMemo(() => checkIfThereAreImg(), [numOfQuestion]);
-
-    const setInfoFromServer: () => Promise<void> = async () => {
-        let copyAnswers = [...answers];
-        let copyQuestion = [...question];
-        const quizId = 1;
-        const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
-        console.log("response:", response);
-                // copyAnswers = data.answers;
-                // copyQuestion = data.questions;
-                // setAnswers(copyAnswers);
-                // setQuestion(copyQuestion);
-                // setQuantityOfQuestion(data.questions.length);
-                // calcWidthOfRec();
-            
-    }
-
-    const navigateToEndGameScreen = () => {        
-        setNumOfQuestion(0);
-        let url = window.location.href;
-        if (isLargeScreen) navigate('/quiz/:userName/:quizName/finished-game-pc');
-        else {
-            setPopType(Type.FinishedQuiz);
-            popHandleClickOpen();
-        } 
-    }
-
+    //TODO: use this
     const calcWidthOfRec = () => {
         let widthOfScreen = 82.5;
         let temp = widthOfScreen / quantityOfQuestion;
-        let numToPushToState = temp * numOfQuestion;
+        let numToPushToState = temp * currentQuestionIndex;
         setScoreRecWidth(numToPushToState);
     }
 
-    const checkIfCorrect = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, index: number) => {
-        if (actualAnswer[index].isCorrect) {
-            console.log();
-            setTimeout(mooveToNextQuestion, 500);
+    const setInfoFromServer: () => Promise<void> = async () => {
+        // let copyQuestion = [...questions];
+        const quizId = 2;
+        const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+        console.log("response:", response.data);
+        // copyQuestion = response.data[2];
+        setQuestions(response.data.questions);
+        // setQuantityOfQuestion(data.questions.length);
+        // calcWidthOfRec();
+    }
+
+    const navigateToEndGameScreen = () => {
+        setCurrentQuestionIndex(0);
+        if (isLargeScreen) alert("HERE");
+        else {
+            setPopType(Type.FinishedQuiz);
+            popHandleClickOpen();
+        }
+        //TODO: use this instead of alert
+        // navigate('/quiz/:userName/:quizName/finished-game-pc')
+    }
+
+    const checkIfCorrect = (index: number) => {
+        if (currentQuestion.answers[index].isCorrect) {
+            setTimeout(moveToNextQuestion, 500);
         } else {
-            console.log("incorrect");
-            // make the Question red or something
-            funcForChangeColorToGreen();
-            funcForChangeColorToRed(index);
-            setTimeout(mooveToNextQuestion, 500);
+            makeCorrectAnswerGreen();
+            makeAnswerRed(index);
+            setTimeout(moveToNextQuestion, 500);
         }
     }
 
-    const mooveToNextQuestion = () => {
-        let copyOfNumOfQuestion = numOfQuestion;
-        if (copyOfNumOfQuestion < answers.length - 1) {
-            copyOfNumOfQuestion++;
+    const moveToNextQuestion = () => {
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(prev => prev + 1);
+        } else {
+            navigateToEndGameScreen();
         }
-        setNumOfQuestion(copyOfNumOfQuestion);
-        setChangeColorToRed(10000);
-        setChangeColorToGreen(10000);
+        setRedIndex(undefined);
+        setGreenIndex(undefined);
     }
 
-    const funcForChangeColorToRed = (index: number) => {
-        let holderBool = index;
-        setChangeColorToRed(holderBool);
+    const makeAnswerRed = (index: number) => {
+        setRedIndex(index);
     }
 
-    const funcForChangeColorToGreen = () => {
-        let correctAnsIndex: number;
-        for (let i = 0; i < actualAnswer.length; i++) {
-            if (actualAnswer[i].isCorrect) {
-                correctAnsIndex = i;
-                setChangeColorToGreen(correctAnsIndex);
-                break;
-            }
-        }
+    const makeCorrectAnswerGreen = () => {
+        const correctAnswerIndex = currentQuestion.answers.findIndex((answer) => answer.isCorrect);
+        setGreenIndex(correctAnswerIndex);
     }
+
     const resizeFull = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
         e.stopPropagation()
         setIsFullScreen(prev => ({ ...prev, [picIndex]: !prev[picIndex] }))
@@ -175,19 +166,18 @@ const QuestionTemp = () => {
 
 
     const renderMap = () => {
-        return actualAnswer.map((answer, index: number) => {
+        return currentQuestion.answers.map((answer, index: number) => {
             let picIndex = `pic${index}`
             return (
                 <>
-                    
                     <button
-                        className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
+                        className={!currentQuestion.answers[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}
-                        style={{ backgroundColor: changeColorToRed === index ? '#F28787' : changeColorToGreen === index ? '#80DCC9' : '#0C32490A' }}
-                        onClick={(e) => checkIfCorrect(e, index)}
+                        style={{ backgroundColor: redIndex === index ? '#F28787' : greenIndex === index ? '#80DCC9' : '#0C32490A' }}
+                        onClick={() => checkIfCorrect(index)}
                     >
                         <div>
-                            <p className='answer-button'>{answer.ans}</p>
+                            <p className='answer-button'>{answer.text}</p>
                         </div>
                         {answer.url ?
                             <div className='div-imgs'>
@@ -223,7 +213,7 @@ const QuestionTemp = () => {
                 <div className='numOfQuestion-place'>
                     <div className='numOfQuestion'>
                         <p>
-                            שאלה {quantityOfQuestion}/{numOfQuestion}
+                            שאלה {quantityOfQuestion}/{currentQuestionIndex}
                         </p>
                     </div>
                 </div>
@@ -231,12 +221,12 @@ const QuestionTemp = () => {
                     <div className='question-place-father'>
                         <div className='question-place-child'>
                             <div className='question-img-place'>
-                                <img className='question-img img' src={`${actualQuestion.url}`}
+                                <img className='question-img img' src={`${currentQuestion.url}`}
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
                             <h2 id='questionTitle'>
-                                {actualQuestion.questionTitle}
+                                {currentQuestion.questionTitle}
                             </h2>
                             <hr id='hr' />
                             <div className={changeFlexDir ?

@@ -39,7 +39,6 @@ function App() {
               <Route path='/loading-page' element={<LoadingMonkey />} /> 
               <Route path='/quiz/:userName/:quizName' element={<Outlet />} >
                 <Route index element={<OpeningForTheQuiz />} />
-                <Route path='questions' element={<QuestionTemp />} />
                 <Route path='scores' element={<ScoreCard />} />
                 <Route path='finished-game-pc' element ={<SummaryGameDesktop />} />
               </Route>
@@ -47,6 +46,7 @@ function App() {
                 <Route index element={<MyQuizes />} />
                 <Route path=':id/scores' element={<ScoreCard />} />
               </Route>
+                <Route path='questions' element={<QuestionTemp />} />
             </Routes >
           </Background>
         </QuestionsProvider>
