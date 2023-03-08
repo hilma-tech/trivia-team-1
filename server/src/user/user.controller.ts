@@ -27,4 +27,9 @@ export class UserController {
     getUserQuizzes() {
         return "hello smidth"
     }
+
+    @Post("add-fake-data")
+    addFakeData() {
+        return this.userService.addFakeData(10);
+    }
 }

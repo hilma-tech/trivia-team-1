@@ -40,4 +40,8 @@ export class QuizController {
         return "hello smidth"
     }
 
+    @Post("add-fake-data")
+    addFakeData(@Body() userIds: Array<number>) {
+        this.quizService.addFakeData(userIds, 5);
+    }
 }
