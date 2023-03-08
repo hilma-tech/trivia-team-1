@@ -102,9 +102,10 @@ const QuestionTemp = () => {
         const quizId = 2;
         const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
         copyQuestion = (response.data.questions);
+        console.log("response.data:", response.data.id);
+        
         setQuestions(copyQuestion);
         setQuantityOfQuestion(response.data.questions.length);
-        // calcWidthOfRec();
     }
 
     const calcWidthOfRec = () => {
@@ -139,7 +140,6 @@ const QuestionTemp = () => {
     const moveToNextQuestion = () => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
-            // calcWidthOfRec();
         } else {
             navigateToEndGameScreen();
         }
@@ -207,7 +207,6 @@ const QuestionTemp = () => {
             )
         })
     }
-    console.log("scoreRecWidthhhhhhhhhh:", scoreRecWidth);
 
     return (
         <div className='question-temp comp-children-container'>

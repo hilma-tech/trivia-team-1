@@ -15,8 +15,8 @@ import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from './context/AnswersContext';
 import EditQuiz from './components/EditQuiz';
 import { PopContextProvider } from "./components/popups/popContext";
-import OpeningForTheQuiz from "./components/question-temp/OpeningForTheQuiz";
-import QuestionTemp from "./components/question-temp/QuestionTemp";
+import OpeningForTheQuiz from "./components/question-temp/openingForTheQuiz";
+import QuestionTemp from "./components/question-temp/questionTemp";
 import './style/background.scss'
 import './style/navbar.scss'
 

@@ -3,7 +3,7 @@ import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, Tab
 import triangleIcon from '../../images/question-template/triangle-icon.svg';
 import italyPic from '../../images/question-template/italy.png';
 import '../../style/OpeningForTheQuiz.scss';
-import OpeningForTheQuiz from './OpeningForTheQuiz';
+import OpeningForTheQuiz from './openingForTheQuiz';
 
 interface OpeningParagraphTitleProps {
     quizTitle: string,
@@ -11,7 +11,6 @@ interface OpeningParagraphTitleProps {
     imgUrl: string,
     changeComponent: boolean,
     setChangeComponent: any,
-    // type: "banana"
 }
 
 const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle, paragraph, imgUrl, changeComponent, setChangeComponent }) => {

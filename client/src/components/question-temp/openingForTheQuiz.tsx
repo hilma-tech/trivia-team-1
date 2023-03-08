@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import triangleIcon from '../../images/triangeIcon.svg';
 import italyPic from '../../images/question-template/italy.png';
 import leave from '../../images/openingParagraph/leaveOpeningForTheQuiz.svg';
-import OpeningParagraphTitle from './OpeningParagraphTitle';
-import CheckForName from './CheckForName';
+import OpeningParagraphTitle from './openingParagraphTitle';
+import CheckForName from './checkForName';
 import PhonePageWithNav from '../navbar/phonePageWithNav';
 import { useMediaQuery } from "@mui/material";
+import axios from 'axios';
 import '../../style/OpeningForTheQuiz.scss';
 
 
@@ -23,22 +24,13 @@ function OpeningForTheQuiz() {
     }, []);
 
     const getInfoFromServer = async () => {
-        await fetch(`#`)
-            // get image, title, and paragraph for server and push them into state
-            .then((res) => res.json)
-            .then((data) => {
-                console.log("hiiiii");
-
-                // setImgUrl(data.imgUrl);
-                // setQuizTitle(data.quizTitle);
-                // setParagraph(data.paragraph);
-            })
-            .catch((err) => {
-                console.log(err, "catch");
-            })
+        const quizId = 2;
+        const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+                setImgUrl(response.data.imgUrl);
+                setQuizTitle(response.data.title);
+                setParagraph(response.data.description);
     }
     return (
-
         isLargeScreen ?
             <div className='compChildrenContainer-boaz'>
                 {changeComponent ?
