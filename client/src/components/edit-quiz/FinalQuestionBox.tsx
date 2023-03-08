@@ -7,6 +7,7 @@ import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import { CurrentQuestion, Question } from '../../utils/Interfaces';
 import { useQuestionContext } from '../../context/AnswersContext';
 import { Typography } from '@mui/material';
+import isFull from './EditQuiz';
 
 
 
@@ -14,16 +15,27 @@ interface FinalBoxQuestionsProps {
     question: Question;
     index: number;
     setCurrentEditQuestion: React.Dispatch<React.SetStateAction<number>>;
+    currentEditQuestion:number
 }
 
 
 
 
-const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurrentEditQuestion }) => {
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurrentEditQuestion ,currentEditQuestion }) => {
 
 
-    const openEditMode = (index: number) => {
-        setCurrentEditQuestion(index);
+    const { questions } = useQuestionContext()
+
+
+
+    const openEditMode = (index: number ) => {
+        if(isFull(questions[currentEditQuestion])  ){
+            setCurrentEditQuestion(index);
+        }else{
+            alert("please finish edit that question");
+        }
+        //TODO: else:
+        //TODO: alert user to finish editing the question
     }
 
 
