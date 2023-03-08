@@ -19,9 +19,9 @@
     }
 
     .title {
-        font-size: 1.7rem;
-        margin-right: 3vh;
-        margin-top: 4vh;
+        font-size: 3.5vh;
+        margin-right: 4vh;
+        margin-top: 3vh;
     }
 
     .container {
@@ -133,19 +133,20 @@
         .no-quizzes {
             text-align: center;
 
-            * {
-                margin-bottom: 5vh;
+            h2{
+                font-size: 3.5vh;
+                margin-bottom: 6vh;
             }
 
             img {
-                width: 25%;
+                height: 18.5vh;
             }
 
             button {
                 background: #378381 0% 0% no-repeat padding-box;
                 border-radius: 8px;
                 opacity: 1;
-                font-size: 1.1rem;
+                font-size: 2.5vh;
                 letter-spacing: 0px;
                 color: white;
                 opacity: 1;
@@ -245,10 +246,15 @@
                 margin-top: 15vh;
 
                 img {
-                    width: 20vw;
+                   height: 17.9vh;
+                   margin-bottom: 1vh;
                 }
 
-
+                h2{
+                    font-size: 2.9vh;
+                    font-weight: 300;
+                    margin-bottom: 9vh;
+                }
 
                 button {
                     width: 60vw;

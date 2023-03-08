@@ -50,8 +50,8 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
                 if (theUser.username === '') {
                     const delta = window.history.length - initialHistoryLength;
                     if (delta > 0 && window.location.pathname !== '/login' && window.location.pathname !== '/register') {
-                        window.history.go(-delta);
-                        navigate("/login");
+                        // window.history.go(-delta);
+                        // navigate("/login");
                     }
                 }
             }

@@ -5,6 +5,8 @@ import '../../style/questionTemp.scss'
 import { useNavigate } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
 import { Type } from '../popups/GenericPopParts';
+import leave from '../../images/openingParagraph/leaveOpeningForTheQuiz.svg';
+import PhonePageWithNav from '../navbar/phonePageWithNav';
 
 interface QuestionTempState {
     answers: {
@@ -56,17 +58,18 @@ const QuestionTemp = () => {
     const { popHandleClickOpen, setPopType } = usePopContext();
     const navigate = useNavigate();
 
+
     useEffect(() => {
         setInfoFromServer();
         checkIfThereAreImg();
     }, []);
 
     useEffect(() => {
-        if (numOfQuestion === answers.length - 1){
+        if (numOfQuestion === answers.length - 1) {
             navigateToEndGameScreen();
 
-        } 
-            
+        }
+
 
     }, [numOfQuestion])
 
@@ -109,14 +112,14 @@ const QuestionTemp = () => {
             })
     }
 
-    const navigateToEndGameScreen = () => {        
+    const navigateToEndGameScreen = () => {
         setNumOfQuestion(0);
         let url = window.location.href;
         if (isLargeScreen) navigate('/quiz/:userName/:quizName/finished-game-pc');
         else {
             setPopType(Type.FinishedQuiz);
             popHandleClickOpen();
-        } 
+        }
     }
 
     const calcWidthOfRec = () => {
@@ -180,15 +183,15 @@ const QuestionTemp = () => {
             let picIndex = `pic${index}`
             return (
                 <>
-                    
+
                     <button
                         className={!actualAnswer[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}
                         style={{ backgroundColor: changeColorToRed === index ? '#F28787' : changeColorToGreen === index ? '#80DCC9' : '#0C32490A' }}
                         onClick={(e) => checkIfCorrect(e, index)}
                     >
-                        <div>
-                            <p className='answer-button'>{answer.ans}</p>
+                        <div className='answer-button'>
+                            <p>{answer.ans}</p>
                         </div>
                         {answer.url ?
                             <div className='div-imgs'>
@@ -215,7 +218,7 @@ const QuestionTemp = () => {
         })
     }
 
-    return (
+    return (isLargeScreen ?
         <div className='question-temp comp-children-container'>
             <main className='main-QuastionTemp'>
                 <div
@@ -236,9 +239,9 @@ const QuestionTemp = () => {
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
-                            <h2 id='questionTitle'>
+                            <div id='questionTitle'>
                                 {actualQuestion.questionTitle}
-                            </h2>
+                            </div>
                             <hr id='hr' />
                             <div className={changeFlexDir ?
                                 'button-place-one'
@@ -251,7 +254,45 @@ const QuestionTemp = () => {
                     </div>
                 </div>
             </main>
-        </div>
+        </div> : <PhonePageWithNav className='question-temp' title='איטליה מה אתם יועים?' type='return'>
+            <main className='main-QuastionTemp'>
+                <div
+                    className='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
+                </div>
+                <div className='numOfQuestion-place'>
+                    <div className='numOfQuestion'>
+                        <p>
+                            שאלה {quantityOfQuestion}/{numOfQuestion}
+                        </p>
+                    </div>
+                </div>
+                <div className='question-content'>
+                    <div className='question-place-father'>
+                        <div className='question-place-child'>
+                            <div className='question-img-place'>
+                                <img className='question-img img' src={`${actualQuestion.url}`}
+                                    alt="pic of something that connected to the question"
+                                />
+                            </div>
+                            <div id='questionTitle'>
+                                {actualQuestion.questionTitle}
+                            </div>
+                            <hr id='hr' />
+                            <div className={changeFlexDir ?
+                                'button-place-one'
+                                :
+                                'button-place-two'}
+                            >
+                                {renderMap()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer className='CheckForName-footer'>
+                <img src={leave} alt="icon of triangle" />
+            </footer>
+        </PhonePageWithNav>
     );
 }
 
