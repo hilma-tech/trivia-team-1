@@ -43,9 +43,10 @@ const EditQuiz: FC = () => {
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
-        if (originClassName === 'monkey-svg'|| originClassName === 'plus-btn-container') return 'hide'
+        if (originClassName === 'monkey-svg'|| originClassName === 'plus-btn-container' ) return 'hide'
         if (phonePage === 2 && originClassName === 'phone-first-page-container') return 'hide'
-        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' )) return 'hide';
+        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'button-container-second-page' )) return 'hide';
+        else return originClassName
     }
 
     const filesUploader = useFiles()
@@ -112,7 +113,7 @@ const EditQuiz: FC = () => {
         }
     }
 
-    const handleImageFile = (value: imageFile) => {
+    const handleImageFile = (value : UploadedFile) => {
         setQuizImageObject(value)
     }
 

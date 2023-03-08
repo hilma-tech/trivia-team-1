@@ -80,7 +80,10 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuesti
     }
 
     const handleImageFile = (value: imageFile) => {
+        value.questionIndex = currentEditQuestion
+        console.log('value: ', value);
         addImageFile(value)
+        currentQuestion.imageUrl = value.link;
     }
 
 
@@ -97,9 +100,14 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuesti
                 <div className="input-container second-page">
                     <Typography variant="body1">כותרת</Typography>
                     <div className="input-div">
-                        <TextField id="quizInputName" value={currentQuestion.title} onChange={handleChange} />
-                        <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
-                        <img className='select-image-questions-svg' src={questionsImagesArr.length > 0 ? questionsImagesArr[index].link : Selectimage} alt='add here to the question' />
+                            <TextField id="quizInputName" value={currentQuestion.title} onChange={handleChange} />
+                        <label className="label-in-new-answer">
+                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                            <BootstrapTooltip title="הוספת תמונה לשאלה">
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : Selectimage} alt='add here to the question' />
+                            </BootstrapTooltip>
+                        </label>
+
                     </div>
                 </div>
                 <div className="answer-container">
@@ -116,8 +124,8 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuesti
 
                 </div>
                 <div className="add-answer-container">
-                    <Button onClick={addAnswer} color="inherit"  className="add-answer-btn">
-                        <img src={AddAnswer} className="add-answer-svg" alt='add answer to your question' /> 
+                    <Button onClick={addAnswer} color="inherit" className="add-answer-btn">
+                        <img src={AddAnswer} className="add-answer-svg" alt='add answer to your question' />
                         הוספת תשובה
                     </Button>
                 </div>

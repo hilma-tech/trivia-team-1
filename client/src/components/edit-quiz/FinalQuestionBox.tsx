@@ -7,19 +7,22 @@ import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import { CurrentQuestion, Question } from '../../utils/Interfaces';
 import { useQuestionContext } from '../../context/AnswersContext';
 import { Typography } from '@mui/material';
+import useImageFileUpload from '../../context/imageFilesZus';
 
 
 
 interface FinalBoxQuestionsProps {
     question: Question;
-    index:number;
-    setCurrentEditQuestion:React.Dispatch<React.SetStateAction<number>>;
+    index: number;
+    setCurrentEditQuestion: React.Dispatch<React.SetStateAction<number>>;
 }
 
 
 
 
-const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setCurrentEditQuestion}) => {
+const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurrentEditQuestion }) => {
+
+    const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
 
 
     const openEditMode = (index: number) => {
@@ -30,18 +33,22 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question , index  , setC
     return (
         <div className='ready-questions-container' onClick={() => openEditMode(index)}>
             <div className='darg-and-drop-container'>
-                    <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
+                <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
             </div>
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
                     <p className='question-title-final-box'>{question.title}</p>
+                    <img className='question-image-final-box' src={question.imageUrl} alt='question' />
                 </div>
                 <div className="answer-container">
                     <FormControl>
                         <RadioGroup>
                             <div className="radio-ready-container" dir='rtl'>
                                 {question.answers.map((answer, index) =>
-                                    <FormControlLabel  key={index} value={`answer${index+1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>}  checked={answer.isCorrect} />
+                                    <div className='final-box-answer-and-image-container'>
+                                        <FormControlLabel key={index} value={`answer${index + 1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>} checked={answer.isCorrect} />
+                                        <img className='answer-image' src={answer.imageUrl} alt='show the image yu upload' />
+                                    </div>
                                 )}
                             </div>
                         </RadioGroup>

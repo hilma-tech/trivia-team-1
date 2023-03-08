@@ -14,6 +14,7 @@ export interface CurrentQuestion {
 }
 
 export interface imageFile{
+    questionIndex?:number;
     link:string , 
     id:number;
 }

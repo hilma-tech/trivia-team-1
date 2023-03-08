@@ -57,7 +57,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion,s
                 <Button onClick={() => { setPhonePage(2) }} color="primary" variant="contained">המשך</Button>
             </div>
         </div>
-            <div className="button-container-second-page">
+            <div className={giveRightClasses("button-container-second-page")}>
                 <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
                 <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
             </div>
