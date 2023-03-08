@@ -30,7 +30,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
     return (
         <div className='ready-questions-container' onClick={() => openEditMode(index)}>
             <div className='darg-and-drop-container'>
-                <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop Svg' />
+                <img className='drag-and-drop-svg' src={dragAndDropSvg} alt=' drag and drop icon' />
             </div>
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
