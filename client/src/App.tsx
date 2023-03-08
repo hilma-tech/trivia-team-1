@@ -19,12 +19,14 @@ import OpeningForTheQuiz from "./components/question-temp/OpeningForTheQuiz";
 import QuestionTemp from "./components/question-temp/QuestionTemp";
 import './style/background.scss'
 import './style/navbar.scss'
+import UserProvider from "./context/UserContext";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <PopContextProvider>
         <QuestionsProvider>
+          <UserProvider>
           <Navbar />
           <CssBaseline />
           <Background>
@@ -49,6 +51,7 @@ function App() {
               </Route>
             </Routes >
           </Background>
+      </UserProvider>
         </QuestionsProvider>
       </PopContextProvider>
     </ThemeProvider>
