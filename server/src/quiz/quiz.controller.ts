@@ -2,6 +2,7 @@ import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@
 import { QuizDTO } from './quiz.dto';
 import { QuizService } from './quiz.service';
 
+
 @Controller('api/quiz')
 export class QuizController {
     constructor(private readonly quizService: QuizService) {
@@ -25,8 +26,8 @@ export class QuizController {
     }
 
     @Get("/:id/scores")
-    getQuizScores() {
-        return "hello smidth"
+    getQuizScores(@Param('id', ParseIntPipe) id: number) {
+        return this.quizService.highScores(id)
     }
 
     @Post("/:id/scores")

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useMediaQuery } from "@mui/material";
 import triangleIcon from '../../icons/icon-awesome-play.png';
+import { useNavigate } from 'react-router-dom';
 import arrowRight from '../../icons/arrow-right.svg';
 import PhonePageWithNav from '../navbar/phonePageWithNav';
 
@@ -12,6 +13,8 @@ interface CheckForNameProps {
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
 
     const [playerName, setPlayerName] = useState("");
+    const navigate = useNavigate();
+
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     function sendNameOfPlayerToServer() {
         //TODO: change this from "#"
@@ -27,14 +30,12 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                 moveToPlayGame();
             })
             .catch((err) => {
-                console.log("sendNameOfPlayerToServer");
-                console.log(err, "catch");
             })
+            moveToPlayGame()
     }
 
     const moveToPlayGame = () => {
-        //TODO: navigate();
-        console.log("navigate");
+        navigate('/quiz/ohad/italy/questions');
     }
 
     return (
