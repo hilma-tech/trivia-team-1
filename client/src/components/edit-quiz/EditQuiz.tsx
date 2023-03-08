@@ -200,4 +200,3 @@ const EditQuiz: FC = () => {
 }
 
 export default EditQuiz;
-

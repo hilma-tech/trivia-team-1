@@ -190,8 +190,9 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuesti
     )
 };
 
-export default AddQuestionBox;
 
 function questionImageObject(arg0: (state: any) => any) {
     throw new Error("Function not implemented.");
 }
+
+export default AddQuestionBox;
