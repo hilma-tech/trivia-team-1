@@ -12,23 +12,20 @@ export class QuizService {
     ) { }
 
     async addQuiz(quiz: QuizDTO) {
-        const { questions ,creatorId, ...rest} = quiz;
-        console.log(quiz);
-        
-        // console.log('rest: ', rest);
-        // console.log('questions: ', questions);
-        
-        const newQuestions = questions.map((question) => {return {
-            title: question.title,
-            answers : question.answers ,
-            imageUrl: question.imageUrl
-        }})
-        console.log('newQuestions: ', newQuestions[0].answers);
+        const { questions, creatorId, ...rest } = quiz;
 
-        return this.quizRepository.save({questions:newQuestions,creator:{id:creatorId} ,...rest })
+        const newQuestions = questions.map((question) => {
+            return {
+                title: question.title,
+                answers: question.answers,
+                imageUrl: question.imageUrl
+            }
+        })
+
+        return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
     }
     async editQuiz(id: number, quiz: QuizDTO) {
-  
+
         await this.quizRepository.save({ id: id, ...quiz })
     }
 }
