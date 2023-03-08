@@ -205,7 +205,7 @@ const QuestionTemp = () => {
                                         className='button-img'
                                         src={`${answer.url}`}
                                         alt=""
-                                    />
+                                        my-quizzes                          />
                                 </div>
                             </div>
                             : null}
