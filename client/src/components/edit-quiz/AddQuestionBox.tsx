@@ -74,7 +74,10 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
     }
 
     const handleImageFile = (value :imageFile) => {
+        value.questionIndex = currentEditQuestion
+        console.log('value: ', value);
         addImageFile(value)
+        currentQuestion.imageUrl = value.link;
     }
 
 
@@ -94,7 +97,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                     <label>
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                         <BootstrapTooltip title="הוספת תמונה לשאלה">
-                            <img className='select-image-questions-svg' src={questionsImagesArr.length > 0 ? questionsImagesArr[index].link : Selectimage} alt='add here to the question' />
+                            <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : Selectimage} alt='add here to the question' />
                         </BootstrapTooltip>
                     </label>
 

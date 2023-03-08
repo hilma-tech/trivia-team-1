@@ -156,7 +156,6 @@ body {
     border: none;
     outline: none;
 
-    
 
 }
 
@@ -327,6 +326,10 @@ body {
     .text-field-input {
         width: 34vw;
     }
+
+    .trash-svg-for-questions{
+        margin-bottom: 5.5px;
+    }
 }
 
 .check-box-svg {
@@ -392,7 +395,15 @@ body {
     .question-container {
         padding-right: 1.5%;
         margin-bottom: 2%;
+        display: flex;
+        
+    }
 
+    .question-image-final-box{
+        width: 3.5vw;
+        object-fit: contain;
+        margin-right: 1vw;
+        
     }
 
     .answer-container {
@@ -434,6 +445,15 @@ body {
 
     .empty-div{
         height: 1.5vh;
+    }
+
+    .final-box-answer-and-image-container{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .answer-image{
+        width: 2.5vw;
     }
 
 

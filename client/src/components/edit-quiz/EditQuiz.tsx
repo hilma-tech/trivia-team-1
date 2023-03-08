@@ -102,7 +102,7 @@ const EditQuiz: FC = () => {
         }
     }
 
-    const handleImageFile = (value : imageFile) => {
+    const handleImageFile = (value : UploadedFile) => {
         setQuizImageObject(value)
     }
 

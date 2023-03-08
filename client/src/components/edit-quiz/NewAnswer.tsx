@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IconButton, TextField} from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
@@ -7,8 +7,13 @@ import SelectImage from '../../images/image.svg'
 import TrashSvg from '../../images/trash.svg'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import { CurrentQuestion } from "../../utils/Interfaces";
+import { CurrentQuestion, imageFile } from "../../utils/Interfaces";
 import BootstrapTooltip from "../../tooltip/tooltip";
+import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import useImageFileUpload from '../../context/imageFilesZus'
+import { Index } from "typeorm";
+
+
 
 
 const theme = createTheme({
@@ -26,13 +31,15 @@ interface NewAnswerProps {
     isChecked?: boolean;
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
     currentQuestion: CurrentQuestion;
-    currentEditQuestion:number
+    currentEditQuestion: number
 
 }
 
 
-const NewAnswer: FC<NewAnswerProps> = ({ answerIndex,  setCurrentQuestion, currentQuestion , currentEditQuestion }) => {
+const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, currentQuestion, currentEditQuestion }) => {
 
+    const filesUploader = useFiles()
+    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,21 +55,27 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex,  setCurrentQuestion, curre
         setCurrentQuestion(prev => {
             const UpdateAnswers = prev.answers.map((answer, index) => {
                 if (index === answerIndex) {
-                    return {...answer , isCorrect: isChecked}
+                    return { ...answer, isCorrect: isChecked }
                 }
                 return answer;
             });
-            return {...prev, answers: UpdateAnswers };
+            return { ...prev, answers: UpdateAnswers };
         });
 
     }
 
-    const deleteAnswer = (e:any) => {
+    const deleteAnswer = (e: any) => {
         setCurrentQuestion(prev => {
-            return {...prev, answers: [...prev.answers.slice(0 ,answerIndex),...prev.answers.slice(answerIndex+1)]}
+            return { ...prev, answers: [...prev.answers.slice(0, answerIndex), ...prev.answers.slice(answerIndex + 1)] }
         })
 
     }
+
+    const handleImageFile = (value: imageFile) => {
+        addImageFile(value)
+        currentQuestion.answers[answerIndex].imageUrl = value.link;
+    }
+
 
     return (
         <div className="check-boxes-container" dir='rtl'>
@@ -79,9 +92,12 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex,  setCurrentQuestion, curre
 
 
             <IconButton >
-                <BootstrapTooltip title="הוספת תמונה לתשובה">
-                    <img src={SelectImage} className="select-image-svg-for-questions" alt='add image to your answer' />
-                </BootstrapTooltip>
+                <label className="label-in-new-answer">
+                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                    <BootstrapTooltip title="הוספת תמונה לתשובה">
+                        <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="select-image-svg-for-questions" alt='add image to your answer' />
+                    </BootstrapTooltip>
+                </label>
             </IconButton>
 
 
