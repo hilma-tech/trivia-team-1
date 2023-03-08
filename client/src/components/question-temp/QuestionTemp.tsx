@@ -26,33 +26,25 @@ interface stateObj {
 
 interface AnswerFromServer {
     text: string;
-    url: string;
+    imageUrl: string;
     isCorrect: boolean;
 }
 
 interface QuestionFromServer {
-    questionTitle: string;
-    url: string;
+    title: string;
+    imageUrl: string;
     answers: AnswerFromServer[];
 }
 
 const QuestionTemp = () => {
     const [questions, setQuestions] = useState<QuestionFromServer[]>([
         {
-            questionTitle: "איטליה מכונה גם...", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg",
+            title: "איטליה מכונה גם...", imageUrl: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg",
             answers: [
-                { text: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
-                { text: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
-                { text: "ארץ האגדות", url: "awvev", isCorrect: false },
-                { text: "מדינת הגמדים", url: "dvdsv", isCorrect: false }
-            ]
-        },
-        {
-            questionTitle: "?מי מהבאים היה איטלקי", url: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg", answers: [
-                { text: "לאונרדו דה וינצ'י", url: "", isCorrect: true },
-                { text: "נועה קירל", url: "", isCorrect: false },
-                { text: "שפע יששכר", url: "", isCorrect: false },
-                { text: "לאונרד הכהן", url: "", isCorrect: false }
+                { text: "ארץ המגף", imageUrl: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
+                { text: "התפוח הגדול", imageUrl: "sdvsdv", isCorrect: false },
+                { text: "ארץ האגדות", imageUrl: "awvev", isCorrect: false },
+                { text: "מדינת הגמדים", imageUrl: "dvdsv", isCorrect: false }
             ]
         }
     ]);
@@ -62,10 +54,10 @@ const QuestionTemp = () => {
 
     const [greenIndex, setGreenIndex] = useState<number | undefined>();
     const [redIndex, setRedIndex] = useState<number | undefined>();
+    const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
 
     const [changeFlexDir, setChangeFlexDir] = useState(true);
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
     const { popHandleClickOpen, setPopType } = usePopContext();
 
     const navigate = useNavigate();
@@ -74,15 +66,14 @@ const QuestionTemp = () => {
 
     const checkIfThereAreImg = () => {
         for (let i = 0; i < currentQuestion.answers.length; i++) {
-            if (currentQuestion.answers[i].url) {
+            if (currentQuestion.answers[i].imageUrl) {
                 setChangeFlexDir(false);
+                break;
             } else {
                 setChangeFlexDir(true);
             }
         }
     }
-    
-    useEffect(checkIfThereAreImg, [currentQuestionIndex]);
 
     useEffect(() => {
         setInfoFromServer();
@@ -90,28 +81,36 @@ const QuestionTemp = () => {
     }, []);
 
     useEffect(() => {
+        checkIfThereAreImg()
+    }, [currentQuestionIndex]);
+
+    useEffect(() => {
         if (currentQuestionIndex === currentQuestion.answers.length - 1) {
             navigateToEndGameScreen();
         }
     }, [currentQuestionIndex])
 
-    //TODO: use this
-    const calcWidthOfRec = () => {
-        let widthOfScreen = 82.5;
-        let temp = widthOfScreen / quantityOfQuestion;
-        let numToPushToState = temp * currentQuestionIndex;
-        setScoreRecWidth(numToPushToState);
-    }
+    useEffect(() => {
+        calcWidthOfRec();
+    }, [quantityOfQuestion, currentQuestionIndex])
+
+    
+    
 
     const setInfoFromServer: () => Promise<void> = async () => {
-        // let copyQuestion = [...questions];
+        let copyQuestion = [...questions];
         const quizId = 2;
         const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
-        console.log("response:", response.data);
-        // copyQuestion = response.data[2];
-        setQuestions(response.data.questions);
-        // setQuantityOfQuestion(data.questions.length);
+        copyQuestion = (response.data.questions);
+        setQuestions(copyQuestion);
+        setQuantityOfQuestion(response.data.questions.length);
         // calcWidthOfRec();
+    }
+
+    const calcWidthOfRec = () => {
+        const divWidth = 68.75;
+        let numToPushToState = (divWidth / quantityOfQuestion) * (currentQuestionIndex + 1);
+        setScoreRecWidth(numToPushToState);
     }
 
     const navigateToEndGameScreen = () => {
@@ -126,6 +125,8 @@ const QuestionTemp = () => {
     }
 
     const checkIfCorrect = (index: number) => {
+        console.log("checkIfCorrect");
+
         if (currentQuestion.answers[index].isCorrect) {
             setTimeout(moveToNextQuestion, 500);
         } else {
@@ -138,6 +139,7 @@ const QuestionTemp = () => {
     const moveToNextQuestion = () => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
+            // calcWidthOfRec();
         } else {
             navigateToEndGameScreen();
         }
@@ -154,46 +156,48 @@ const QuestionTemp = () => {
         setGreenIndex(correctAnswerIndex);
     }
 
-    const resizeFull = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
+    const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
         e.stopPropagation()
-        setIsFullScreen(prev => ({ ...prev, [picIndex]: !prev[picIndex] }))
+        setFullScreenIndex(index)
     }
-    const resizeShrink = (e: React.MouseEvent<HTMLDivElement>, picIndex: string): void => {
+    const resizeShrink = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
         e.stopPropagation();
-        if (isFullScreen[picIndex] === false) return;
-        setIsFullScreen(prev => ({ ...prev, [picIndex]: false }))
+        setFullScreenIndex(undefined);
     }
 
 
     const renderMap = () => {
-        return currentQuestion.answers.map((answer, index: number) => {
-            let picIndex = `pic${index}`
+        return currentQuestion.answers.map((answer, index) => {
             return (
                 <>
                     <button
-                        className={!currentQuestion.answers[0].url ? 'ans-button-no-img' : 'ans-button-with-img'}
+                        className={!currentQuestion.answers[0].imageUrl ? 'ans-button-no-img' : 'ans-button-with-img'}
                         key={index}
                         style={{ backgroundColor: redIndex === index ? '#F28787' : greenIndex === index ? '#80DCC9' : '#0C32490A' }}
-                        onClick={() => checkIfCorrect(index)}
+                        onClick={() => {
+                            checkIfCorrect(index);
+                            console.log("11")
+                        }}
                     >
                         <div>
                             <p className='answer-button'>{answer.text}</p>
                         </div>
-                        {answer.url ?
+                        {answer.imageUrl ?
                             <div className='div-imgs'>
                                 {!isLargeScreen &&
-                                    <div className='icon-div' onClick={(e) => resizeFull(e, picIndex)}>
+                                    <div className='icon-div' onClick={(e) => resizeFull(e, index)}>
                                         <img src={fullScreenIcon} alt='fullScreenIcon' />
-                                    </div>
-                                }
+                                    </div>}
                                 <div
-                                    className={`img-div ${isFullScreen[picIndex] ? `full-screen` : ''}`}
-                                    onClick={(e) => resizeShrink(e, picIndex)}
+                                    className={`img-div ${fullScreenIndex === index ? `full-screen` : ''}`}
+                                    onClick={(e) => {
+                                        if (fullScreenIndex === index) resizeShrink(e, index)
+                                    }}
                                 >
                                     <img
                                         className='button-img'
-                                        src={`${answer.url}`}
-                                        alt=""
+                                        src={`${answer.imageUrl}`}
+                                        alt="picture of answer"
                                     />
                                 </div>
                             </div>
@@ -203,17 +207,18 @@ const QuestionTemp = () => {
             )
         })
     }
+    console.log("scoreRecWidthhhhhhhhhh:", scoreRecWidth);
 
     return (
         <div className='question-temp comp-children-container'>
             <main className='main-QuastionTemp'>
                 <div
-                    className='score-rectangle' style={{ width: `${scoreRecWidth}rem` }}>
+                    className='score-rectangle' style={{ width: `${scoreRecWidth}vw` }}>
                 </div>
                 <div className='numOfQuestion-place'>
                     <div className='numOfQuestion'>
                         <p>
-                            שאלה {quantityOfQuestion}/{currentQuestionIndex}
+                            שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
                         </p>
                     </div>
                 </div>
@@ -221,12 +226,12 @@ const QuestionTemp = () => {
                     <div className='question-place-father'>
                         <div className='question-place-child'>
                             <div className='question-img-place'>
-                                <img className='question-img img' src={`${currentQuestion.url}`}
+                                <img className='question-img img' src={`${currentQuestion.imageUrl}`}
                                     alt="pic of something that connected to the question"
                                 />
                             </div>
                             <h2 id='questionTitle'>
-                                {currentQuestion.questionTitle}
+                                {currentQuestion.title}
                             </h2>
                             <hr id='hr' />
                             <div className={changeFlexDir ?
@@ -245,3 +250,6 @@ const QuestionTemp = () => {
 }
 
 export default QuestionTemp;
+
+
+

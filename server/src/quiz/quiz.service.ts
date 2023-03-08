@@ -37,6 +37,7 @@ export class QuizService {
             relations: {scores: true, questions: {answers: true},
         }
         });
+        console.log("quiz:", quiz);
         return quiz;
     }
 }

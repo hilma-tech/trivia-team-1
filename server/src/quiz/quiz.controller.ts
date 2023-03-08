@@ -10,7 +10,6 @@ export class QuizController {
     }
     @Get("/:id")
     async getQuiz(@Param('id', ParseIntPipe) id:number ){
-        console.log("hiiiiii");
         return await this.quizService.getQuiz(id);
     }
 
