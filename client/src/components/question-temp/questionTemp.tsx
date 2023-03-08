@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
 import '../../style/questionTemp.scss'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
 import { Type } from '../popups/GenericPopParts';
 import axios from 'axios';
@@ -99,8 +99,8 @@ const QuestionTemp = () => {
 
     const setInfoFromServer: () => Promise<void> = async () => {
         let copyQuestion = [...questions];
-        const quizId = 2;
-        const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+        let { quizName } = useParams();
+        const response = await axios.get(`http://localhost:8080/api/quiz/${quizName}`)
         copyQuestion = (response.data.questions);
         console.log("response.data:", response.data.id);
         

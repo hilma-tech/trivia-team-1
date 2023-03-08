@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import triangleIcon from '../../images/triangeIcon.svg';
 import italyPic from '../../images/question-template/italy.png';
 import leave from '../../images/openingParagraph/leaveOpeningForTheQuiz.svg';
@@ -24,8 +25,8 @@ function OpeningForTheQuiz() {
     }, []);
 
     const getInfoFromServer = async () => {
-        const quizId = 2;
-        const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+        let { quizName } = useParams();
+        const response = await axios.get(`http://localhost:8080/api/quiz/${quizName}`)
                 setImgUrl(response.data.imgUrl);
                 setQuizTitle(response.data.title);
                 setParagraph(response.data.description);
