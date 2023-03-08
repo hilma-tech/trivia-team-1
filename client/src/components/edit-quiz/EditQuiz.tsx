@@ -44,7 +44,7 @@ const EditQuiz: FC = () => {
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
         if (originClassName === 'monkey-svg'|| originClassName === 'plus-btn-container') return 'hide'
-        if (phonePage === 2 && originClassName === 'quiz-header-wrapper') return 'hide'
+        if (phonePage === 2 && originClassName === 'phone-first-page-container') return 'hide'
         if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' )) return 'hide';
     }
 
@@ -141,8 +141,8 @@ const EditQuiz: FC = () => {
             <CacheProvider value={cacheRtl}>
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
-                    <div className={giveRightClasses('quiz-header-wrapper')}>
-                        <EditQuizHeader questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
+                    <div className='quiz-header-wrapper'>
+                        <EditQuizHeader giveRightClasses={giveRightClasses} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
                     </div>
                     <div className={giveRightClasses('question-dnd-container')}>
                         <DragDropContext onDragEnd={handleDragEnd}>
@@ -163,7 +163,7 @@ const EditQuiz: FC = () => {
                                                     >
                                                         {currentEditQuestion === index ?
 
-                                                            <AddQuestionBox setCurrentQuestion={(q) => {
+                                                            <AddQuestionBox addQuestion={addQuestion} setCurrentQuestion={(q) => {
                                                                 setQuestions(prev => {
                                                                     return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
                                                                 })

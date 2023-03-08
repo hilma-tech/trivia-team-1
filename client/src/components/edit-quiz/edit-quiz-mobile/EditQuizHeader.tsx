@@ -19,10 +19,13 @@ interface QuizHeader {
     };
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     setPhonePage: React.Dispatch<React.SetStateAction<number>>;
+    addQuestion: () => void;
+    giveRightClasses: (originClassName: string) => string | undefined;
+
 }
 
 
-export const EditQuizHeader: FC<QuizHeader> = ({ saveQuiz, questionDetails, handleChange, setPhonePage }) => {
+export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion,saveQuiz, questionDetails, handleChange, setPhonePage }) => {
     const filesUploader = useFiles();
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
 
@@ -32,7 +35,8 @@ export const EditQuizHeader: FC<QuizHeader> = ({ saveQuiz, questionDetails, hand
 
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
     return isMobile ? (
-        <div className="phone-first-page-container" >
+        <div>
+        <div className={giveRightClasses("phone-first-page-container")} >
             <div className="input-container">
                 <Typography variant="body1">שם המשחק</Typography>
                 <TextField id="quizInputName" value={questionDetails.title} onChange={handleChange} />
@@ -48,8 +52,14 @@ export const EditQuizHeader: FC<QuizHeader> = ({ saveQuiz, questionDetails, hand
                 </BootstrapTooltip>
                 <Typography variant="body1">העלאת תמונה</Typography>
             </div>
+
             <div className="button-container">
                 <Button onClick={() => { setPhonePage(2) }} color="primary" variant="contained">המשך</Button>
+            </div>
+        </div>
+            <div className="button-container-second-page">
+                <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
+                <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
             </div>
         </div>)
         :

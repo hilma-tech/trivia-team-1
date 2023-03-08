@@ -13,6 +13,7 @@ import BootstrapTooltip from "../../tooltip/tooltip";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../context/imageFilesZus'
+import { Link } from "react-router-dom";
 // import '../../style/EditQuiz.scss'
 
 
@@ -24,12 +25,13 @@ interface AddQuestionBoxProps {
     duplicateQuestion: () => void
     currentEditQuestion: number;
     index: number;
+    addQuestion: () => void;
 
 
 }
 
 
-const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion, setCurrentEditQuestion, duplicateQuestion, currentEditQuestion, index }) => {
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuestion, currentQuestion, setCurrentEditQuestion, duplicateQuestion, currentEditQuestion, index }) => {
     console.log('index: ', index);
     console.log('currentEditQuestion: ', currentEditQuestion);
     console.log('currentQuestion: ', currentQuestion);
@@ -100,10 +102,26 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <img className='select-image-questions-svg' src={questionsImagesArr.length > 0 ? questionsImagesArr[index].link : Selectimage} alt='add here to the question' />
                     </div>
                 </div>
-                <div className="button-container">
-                    <Button className="add-a-question" onClick={() => { console.log('hi')}} color="info" variant="contained">+ הוספת שאלה</Button>
-                    <Button onClick={() => { console.log('hi')}} color="primary" variant="contained">סיום</Button>
+                <div className="answer-container">
+                    <FormControl>
+                        <RadioGroup
+                            name="radio-buttons-group"
+                        >
+
+                            {currentQuestion.answers.map((answer, index) => (
+                                <NewAnswer key={index} answerIndex={index} setCurrentQuestion={setCurrentQuestion} currentQuestion={currentQuestion} currentEditQuestion={currentEditQuestion} />
+                            ))}
+                        </RadioGroup>
+                    </FormControl>
+
                 </div>
+                <div className="add-answer-container">
+                    <Button onClick={addAnswer} color="inherit"  className="add-answer-btn">
+                        <img src={AddAnswer} className="add-answer-svg" alt='add answer to your question' /> 
+                        הוספת תשובה
+                    </Button>
+                </div>
+                <div className="hr-line"></div>
             </div>)
             :
 
