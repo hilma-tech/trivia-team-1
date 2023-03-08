@@ -20,7 +20,8 @@ function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setTimeout(() => { setRegErrDiv("") }, 4000)
+        const timeout = setTimeout(() =>  setRegErrDiv("") , 4000)
+        return () => clearTimeout(timeout);
     }, [regErrDiv])
 
     function enterUsernameErr() {
@@ -32,7 +33,6 @@ function Login() {
     }
 
     async function handleLoginSubmit(e: FormEvent) {
-        // זמני
         e.preventDefault()
         try {
             const {data} = await axios.post('http://localhost:8080/api/user/login',
@@ -49,6 +49,7 @@ function Login() {
             // Handle successful response here...
         } catch (error) {
           console.log(error, "Error"); 
+          setRegErrDiv("משהו השתבש בתהליך!")
         }
     }
 
@@ -58,14 +59,14 @@ function Login() {
                 <Typography className='main-login-header' variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
-                    <form className='login-form' onSubmit={(e) => handleLoginSubmit(e)}>
+                    <form className='login-form' onSubmit={handleLoginSubmit}>
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>
-                        <input className='login-input' id='new-pass' type='password'  value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
-                       
-                        <Button color='primary' variant='contained' className='login-submit-button' type='submit'>התחבר</Button>
-                       
+                        <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} />
+
+                        <Button color='primary' variant='contained' className='login-submit-button' type='submit'>הרשמה</Button>
+
                         <div className='to-register-link'>
                             <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                         </div>
@@ -88,9 +89,9 @@ function Login() {
                     <div className='login-label'>שם משתמש</div>
                     <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                     <div className='login-label'>סיסמה</div>
-                    <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr}  onChange={(e)=>setPassword(e.target.value)} required maxLength={16}/>
-                   
-                    <Button color='primary' variant='contained' className='login-submit-button' type='submit'>התחבר</Button>
+                    <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} />
+
+                    <Button color='primary' variant='contained' className='login-submit-button' type='submit'>הרשמה</Button>
                     <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>
                     <div className='reg-err-div'>{regErrDiv}</div>
                 </form>

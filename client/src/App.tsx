@@ -27,6 +27,7 @@ function App() {
       <UserProvider>
       <PopContextProvider>
         <QuestionsProvider>
+          <UserProvider>
           <Navbar />
           <CssBaseline />
           <Background>
@@ -51,6 +52,7 @@ function App() {
               </Route>
             </Routes >
           </Background>
+      </UserProvider>
         </QuestionsProvider>
       </PopContextProvider>
       </UserProvider>

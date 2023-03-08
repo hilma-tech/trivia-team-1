@@ -1,9 +1,8 @@
-export interface CurrentUser {
+export type User = {
     userId: number;
     username: string;
 }
 
-export type User = Required<CurrentUser>;
 
 
 
