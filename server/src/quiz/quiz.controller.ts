@@ -36,8 +36,8 @@ export class QuizController {
     }
 
     @Delete("/:id")
-    deleteQuiz() {
-        return "hello smidth"
+    async deleteQuiz(@Param("id", ParseIntPipe) id:number){
+    return await this.quizService.deleteQuiz(id);
     }
 
     //TODO: temporary
@@ -46,3 +46,5 @@ export class QuizController {
         this.quizService.addFakeData(userIds, 5);
     }
 }
+
+

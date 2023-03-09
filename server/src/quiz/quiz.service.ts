@@ -126,4 +126,8 @@ export class QuizService {
 
         return score;
     }
+
+    async deleteQuiz(quizId: number) {
+        await this.quizRepository.delete( quizId );
+        }
 }
