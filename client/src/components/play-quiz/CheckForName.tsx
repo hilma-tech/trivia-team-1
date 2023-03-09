@@ -32,6 +32,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   }
 
   const moveToPlayGame = () => {
+    //TODO: temporary
     navigate("/quiz/ohad/italy/questions");
   };
 
