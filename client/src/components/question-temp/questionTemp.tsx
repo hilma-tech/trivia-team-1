@@ -42,9 +42,9 @@ const QuestionTemp = () => {
             title: "איטליה מכונה גם...", imageUrl: "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg",
             answers: [
                 { text: "ארץ המגף", imageUrl: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
-                { text: "התפוח הגדול", imageUrl: "sdvsdv", isCorrect: false },
-                { text: "ארץ האגדות", imageUrl: "awvev", isCorrect: false },
-                { text: "מדינת הגמדים", imageUrl: "dvdsv", isCorrect: false }
+                { text: "התפוח הגדול", imageUrl: "", isCorrect: false },
+                { text: "ארץ האגדות", imageUrl: "", isCorrect: false },
+                { text: "מדינת הגמדים", imageUrl: "", isCorrect: false }
             ]
         }
     ]);
@@ -59,6 +59,8 @@ const QuestionTemp = () => {
     const [changeFlexDir, setChangeFlexDir] = useState(true);
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const { popHandleClickOpen, setPopType } = usePopContext();
+    let { quizName } = useParams();
+
 
     const navigate = useNavigate();
 
@@ -99,7 +101,6 @@ const QuestionTemp = () => {
 
     const setInfoFromServer: () => Promise<void> = async () => {
         let copyQuestion = [...questions];
-        let { quizName } = useParams();
         const response = await axios.get(`http://localhost:8080/api/quiz/${quizName}`)
         copyQuestion = (response.data.questions);
         console.log("response.data:", response.data.id);
@@ -176,7 +177,6 @@ const QuestionTemp = () => {
                         style={{ backgroundColor: redIndex === index ? '#F28787' : greenIndex === index ? '#80DCC9' : '#0C32490A' }}
                         onClick={() => {
                             checkIfCorrect(index);
-                            console.log("11")
                         }}
                     >
                         <div>

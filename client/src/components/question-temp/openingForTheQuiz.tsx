@@ -18,6 +18,7 @@ function OpeningForTheQuiz() {
     const [paragraph, setParagraph] = useState("לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת");
     const [changeComponent, setChangeComponent] = useState(true);
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
+    let { quizName } = useParams();
 
 
     useEffect(() => {
@@ -25,7 +26,6 @@ function OpeningForTheQuiz() {
     }, []);
 
     const getInfoFromServer = async () => {
-        let { quizName } = useParams();
         const response = await axios.get(`http://localhost:8080/api/quiz/${quizName}`)
                 setImgUrl(response.data.imgUrl);
                 setQuizTitle(response.data.title);
