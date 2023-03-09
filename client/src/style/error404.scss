@@ -1,16 +1,19 @@
-.error-div{
+.error-div {
     padding-top: 16vh;
     text-align: center;
-    .error-span{
+    height: 91vh;
+    .error-span {
         font-size: 13vmax;
         color: #0C3249;
         opacity: 70%;
         font-weight: 900;
     }
-    .error-monkey{
+
+    .error-monkey {
         width: 8vw;
     }
-    .error-descrip{
+
+    .error-descrip {
         text-align: center;
         position: relative;
         bottom: 4vh;

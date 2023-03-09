@@ -26,6 +26,7 @@ import "./style/navbar.scss";
 function App() {
   return (
     <ThemeProvider theme={theme}>
+      <UserProvider>
       <PopContextProvider>
         <QuestionsProvider>
           <UserProvider>
@@ -55,6 +56,7 @@ function App() {
       </UserProvider>
         </QuestionsProvider>
       </PopContextProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 }

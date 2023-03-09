@@ -159,8 +159,24 @@ const EditQuiz: FC = () => {
                                     label="תיאור חידון"
                                     multiline
                                     rows={2}
+                                    size="small"
                                     value={questionDetails.description}
                                     onChange={handleChange}
+                                    sx={{
+                                        "& .MuiInputLabel-root": { color: 'black', fontSize: "2vh" },//styles the label
+                                        "& .MuiOutlinedInput-root": {
+                                            "& > fieldset": { borderColor: "transparent" },
+
+                                        },
+                                    }}
+                                    inputProps={{
+                                        style: {
+                                            height: "4.5vh",
+                                            fontSize: "2vh",
+                                            lineHeight: "2.5vh",
+                                            paddingTop: "0.5vh"
+                                        },
+                                    }}
                                 />
                             </BootstrapTooltip>
                         </div>
