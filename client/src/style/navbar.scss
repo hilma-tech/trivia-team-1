@@ -1,7 +1,6 @@
 @import '../style/background.scss';
 
 .navbar-container-computer {
-    width: 100vw;
     height: 7vh;
     display: flex;
     align-items: center;
@@ -30,7 +29,9 @@
     .first-section {
         display: flex;
         align-items: center;
-
+        button{
+            font-size: 2vh;
+        }
     }
 
     .navbar-logo-container {
@@ -64,7 +65,12 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
-
+        #logo-name{
+            font-size: 2vh;
+        }
+        img{
+            height: 3vh;
+        }
     }
 
     a {
