@@ -77,7 +77,7 @@ const QuestionTemp = () => {
   useEffect(() => {
     console.log(currentQuestion)
     if (questions.length > 2) {
-      if (currentQuestionIndex === questions.length) {
+      if (currentQuestionIndex === questions.length -1 ) {
         navigateToEndGameScreen();
       }
 

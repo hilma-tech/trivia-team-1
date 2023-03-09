@@ -17,8 +17,7 @@ button{
         left: 15.625vw;
         width: 68vw;
         height: 72vh;
-        /* UI Properties */
-        background: #FFFFFF 0% 0% no-repeat padding-box;
+        background: white 0% 0% no-repeat padding-box;
         border-radius: 10px;
         opacity: 1;
         border: 4px solid #0C3249;
@@ -28,19 +27,17 @@ button{
             flex-direction: column;
 
             .main-paragraph-and-title {
-                // border: #0C3249 2px solid;
                 @include flexCenter();
                 flex-direction: column;
                 width: 42.8125vw;
                 height: auto;
-                /* UI Properties */
-                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background: white 0% 0% no-repeat padding-box;
                 opacity: 1;
                 z-index: 2;
                 margin-top: 3vw;
                 margin-bottom: -8vw;
 
-                p {
+                .main-paragraph-and-title-p {
                     margin-bottom: 2.7604vw;
                     padding: 5vw;
                     padding-top: 2vw;
@@ -50,11 +47,9 @@ button{
 
             .main-img {
                 @include flexCenter();
-                // z-index: 1;
                 margin-bottom: -10vw;
                 width: 64.3229vw;
                 height: 50vh;
-                /* UI Properties */
                 background: transparent 0% 0% no-repeat padding-box;
                 opacity: 1;
             }
@@ -67,42 +62,38 @@ button{
                 @include flexCenter();
                 width: 15.625vw;
                 height: 4.1667vw;
-                /* UI Properties */
                 background: #378381 0% 0% no-repeat padding-box;
-                border: 3px solid #FFFFFF;
+                border: 3px solid white;
                 border-radius: .4167vw;
                 opacity: 1;
                 z-index: 2;
                 margin-bottom: 1vw;
 
-                img {
+                .main-button-to-quiz-img {
                     width: 1.0938vw;
                     height: 1.25vw;
-                    /* UI Properties */
                     background: transparent 0% 0% no-repeat padding-box;
                     opacity: 1;
                 }
 
-                p {
+                .main-button-to-quiz-p {
                     width: 8.125vw;
                     height: 1.6146vw;
-                    /* UI Properties */
                     text-align: center;
                     font: normal normal bold 1.3542vw/1.6146vw Rubik;
                     letter-spacing: 0px;
-                    color: #FFFFFF;
+                    color: white;
                     opacity: 1;
                 }
             }
         }
 
-        .main-CheckForName-for-flex {
+        .main-check-for-name-for-flex {
             @include flexCenter();
 
-            .main-CheckForName {
+            .main-check-for-name {
                 display: flex;
                 align-items: center;
-                // justify-content: center;
                 flex-direction: column;
 
                 .title-and-paragraph {
@@ -112,13 +103,12 @@ button{
                     justify-content: space-between;
                     width: 42.8125vw;
                     height: 255px;
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
+                    background: white 0% 0% no-repeat padding-box;
                     opacity: 1;
 
                     .quizTitle {
                         width: 40vw;
                         height: 2.6042vw;
-                        /* UI Properties */
                         text-align: center;
                         font: normal normal medium 2.1875vw/2.6042vw "Rubik, sans-serif";
                         font-size: 2.1875vw;
@@ -129,10 +119,9 @@ button{
                         margin-top: 2vw;
                     }
 
-                    p {
+                    .main-check-for-name-p {
                         width: 12vw;
                         height: 1.6146vw;
-                        /* UI Properties */
                         text-align: center;
                         font: normal normal normal 26px/31px "Rubik, sans-serif";
                         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -143,14 +132,12 @@ button{
                     }
                 }
 
-                input {
+                .main-check-for-name-input {
                     margin-top: .5vw;
                     margin-bottom: 3.2292vw;
                     width: 18.0208vw;
                     height: 62px;
-                    /* UI Properties */
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
-                    // background-color: black;
+                    background: white 0% 0% no-repeat padding-box;
                     border: 1px solid #0C3249;
                     border-radius: .5208vw;
                     opacity: 1;
@@ -162,31 +149,27 @@ button{
                     letter-spacing: 0px;
                     color: #0C3249;
                     opacity: 0.7;
-                    // border-color: transparent;
-
                 }
 
-                .CheckForName-button {
+                .check-for-name-button {
                     @include flexCenter();
                     width: 18.0208vw;
                     height: 64px;
-                    /* UI Properties */
                     background: #378381 0% 0% no-repeat padding-box;
                     border-radius: .4167vw;
                     opacity: 0.7;
                     box-shadow: 0px .3vh 0px 0px #216361;
                     border-color: #378381;
 
-                    p {
+                    .check-for-name-button-p {
                         margin-left: 1vw;
                         width: 12.5vw;
                         height: 1.6146vw;
-                        /* UI Properties */
                         text-align: left;
                         font: normal normal bold 26px/31px "Rubik, sans-serif";
                         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                         letter-spacing: 0px;
-                        color: #FFFFFF;
+                        color: white;
                         opacity: 1;
                     }
                 }
@@ -198,7 +181,6 @@ button{
 
 @media screen and (max-width: 600px) {
 
-    // .phone-main{}
     .compChildrenContainer-boaz {
 
         .boaz-main {
@@ -210,16 +192,13 @@ button{
             height: 72vh;
 
             .main-OpeningForTheQuiz {
-                // padding: 5vw;
                 width: 80vw;
                 height: 65vh;
 
-                // border: 5px solid black;
                 .main-img {
                     width: 70vw;
                     height: 35vw;
                     overflow: hidden;
-                    // border: 5px solid black;
                     margin-top: 0vw;
                 }
 
@@ -230,14 +209,10 @@ button{
                     background-color: #378381;
                     opacity: 100%;
                     border-radius: 12px;
-                    // color: #378381;
                     margin-top: 25vw;
                     box-shadow: 0px .5vh 0px 0px #216361;
-
-
-                    // border: 5px solid black;
                     p {
-                        color: #FFFFFF;
+                        color: white;
                         opacity: 100%;
                         margin-left: 5vw;
                         font: normal normal bold 26px/31px Rubik;
@@ -254,24 +229,17 @@ button{
                     margin-top: -50vw;
                     margin-bottom: 5vw;
                     width: 70vw;
-
-                    // height: 20vh;
-                    // border: 5px solid black;
                     p {
                         width: 70vw;
                         text-align: center;
                         font-size: 4vw;
                         opacity: 100%;
-
-                        // background-color: #0C3249;
                     }
 
                     h1 {
                         margin-bottom: 5vw;
-                        // border: 5px solid black;
                         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                         font-size: 5.5vw;
-                        // font: normal normal bold 40px/31px Rubik;
                     }
                 }
 
@@ -298,8 +266,8 @@ button{
                 }
             }
 
-            .main-CheckForName-for-flex {
-                .main-CheckForName {
+            .main-check-for-name-for-flex {
+                .main-check-for-name {
                     input {
                         margin-top: 14vw;
                         margin-bottom: 10vw;
@@ -307,10 +275,7 @@ button{
                         height: 10vw;
                     }
 
-                    .CheckForName-button {
-
-
-
+                    .check-for-name-button {
                         @include flexCenter();
                         width: 80vw;
                         height: 23.134vw;
@@ -320,9 +285,7 @@ button{
                         margin-top: 20vw;
                         box-shadow: 0px .5vh 0px 0px #216361;
                         margin-bottom: 13vh;
-
-                        // border: 5px solid black;
-                        p {
+                        .check-for-name-button-p {
                             font: bold 7vw 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                             width: 60vw;
                             height: 8vw;
@@ -330,7 +293,6 @@ button{
                         }
                     }
                     .title-and-paragraph{
-                        // border: 5px solid black;
                         height: 10vh;
                         width: 80vw;
                         margin-bottom: 0vw;
@@ -350,9 +312,6 @@ button{
                 }
             }
             .OpeningParagraphTitle-footer{
-                // margin-top: 50vh;
-                // position: fixed;
-                // background-color: #0C3249;
                 width: 100vw;
                 display: flex;
                 align-items: flex-end;

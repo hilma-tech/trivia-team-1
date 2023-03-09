@@ -8,6 +8,8 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from 'react-router-dom';
 import { PopupsPropType } from './popContext';
 import '../../style/popups.scss'
+import axios, { AxiosResponse } from 'axios';
+ 
 
 export enum Type {
     SavedSuccessfully = "savedSuccessfully",
@@ -17,7 +19,6 @@ export enum Type {
     DeleteQuiz = 'deleteQuiz',
     CopyQuiz = 'copyQuiz'
 }
-
 
 export const GenericPopTitle: FC<{ type: Type }> = ({ type }) => {
 
@@ -69,13 +70,17 @@ export const GenericPopContent: FC<{ type: Type }> = ({ type }) => {
 }
 
 export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
-    const { popHandleClose } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
 
     const onClickGoToHomePage = () => {
         popHandleClose();
-        navigate('/enterance-page')
+        navigate('/entrance-page')
+    }
+       async function deleteQuiz(id:number){
+        await axios.delete(`api/quiz/${id}`);
+        setDeletedQuizId(0);
     }
 
     switch (type) {
@@ -91,7 +96,10 @@ export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
         case Type.ExitGame:
             return <div className='action-injected'>
                 <Link color="primary" className='action-link' onClick={popHandleClose}>ביטול</Link>
-                <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={popHandleClose}>אישור</Button>
+                <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={()=>{popHandleClose()
+                if(type === Type.DeleteQuiz){
+                    deleteQuiz(deletedQuizId)
+                }}}>אישור</Button>
             </div>
 
         case Type.CopyQuiz:
