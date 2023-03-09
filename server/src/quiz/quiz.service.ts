@@ -17,23 +17,8 @@ export class QuizService {
         private readonly scoreService: ScoreService
     ) { }
 
-    async getQuiz(quizId: number) {
-        const quiz = await this.quizRepository.find({
-            where: { id: quizId },
-            relations: {
-                scores: true, questions: { answers: true },
-            }
-        });
-        const quitDesc = {
-            id: quiz[0].id,
-            title: quiz[0].title,
-            description: quiz[0].description,
-            imageUrl: quiz[0].imageUrl
-        };
-        const scoresArr = quiz[0].scores;
-        const questionsArr = quiz[0].questions;
-
-        return [quitDesc, scoresArr, questionsArr];
+    async editQuiz(id: number, quiz: QuizDTO) {
+        await this.quizRepository.save({ id: id, ...quiz });
     }
 
     async addQuiz(quiz: QuizDTO) {
@@ -49,10 +34,6 @@ export class QuizService {
 
         return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
     }
-    async editQuiz(id: number, quiz: QuizDTO) {
-
-        await this.quizRepository.save({ id: id, ...quiz })
-    }
 
     async getScores(id: number) {
         const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
@@ -62,6 +43,14 @@ export class QuizService {
             return a.date.getTime() - b.date.getTime();
         });
         return { title, scores }
+    }
+
+    async getQuiz(quizId: number) {
+        const quiz = await this.quizRepository.findOne({
+            where: { id: quizId },
+            relations: { scores: true, questions: { answers: true } },
+        });
+        return quiz;
     }
 
     async addScore(id: number, params: { player: string, score: number }) {
