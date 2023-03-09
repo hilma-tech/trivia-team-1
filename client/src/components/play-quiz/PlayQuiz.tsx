@@ -168,7 +168,7 @@ const QuestionTemp = () => {
                 <p className="answer-button">{answer.text}</p>
               </div>
               {answer.imageUrl ? (
-                <div className="div-imgs">
+                <div className="image-container">
                   {!isLargeScreen && (
                     <div className="icon-div" onClick={(e) => resizeFull(e, index)}>
                       <img src={fullScreenIcon} alt="fullScreenIcon" />

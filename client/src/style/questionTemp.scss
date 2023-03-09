@@ -137,10 +137,11 @@
                             border-color: transparent;
                             position: relative;
 
-                            .div-imgs {
+                            .image-container {
                                 position: relative;
                                 width: 100%;
                                 height: 100%;
+                                overflow: hidden;
 
                                 .icon-div {
                                     @include flexCenter();
@@ -163,14 +164,14 @@
                                     @include flexCenter();
                                     border: none;
                                     width: 100%;
-                                    height: auto;
                                     transition: 1s ease-out;
-                                    margin-top: 10%;
-
+                                    height: 100%;
+                                    padding-block: 5%;
+                                    
                                     img {
                                         width: 80%;
-                                        height: auto;
-
+                                        height: 100%;
+                                        object-fit: cover;
                                     }
                                 }
 
@@ -326,7 +327,7 @@
                                     opacity: 1;
                                 }}
 
-                                .div-imgs {
+                                .image-container {
                                     .icon-div {
                                         position: absolute;
                                         top: 20vw;
