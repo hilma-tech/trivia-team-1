@@ -10,7 +10,7 @@ export class Quiz {
     @Column()
     title: string;
 
-    @Column()
+    @Column({ type: "text" })
     description: string;
 
     @Column({ name: "image_url", nullable: true })

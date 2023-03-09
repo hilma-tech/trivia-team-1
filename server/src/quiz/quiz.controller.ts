@@ -15,14 +15,14 @@ export class QuizController {
 
     @Post("/")
     async addQuiz(@Body() quiz: QuizDTO) {
-        const newQuiz=await this.quizService.addQuiz(quiz);
-        return  newQuiz.id
+        const newQuiz = await this.quizService.addQuiz(quiz);
+        return newQuiz.id
     }
 
     @Put("/:id")
-    editQuiz(@Param('id', ParseIntPipe) id: number,@Body() quiz: QuizDTO) {
-        this.quizService.editQuiz(id,quiz);
-        return 
+    editQuiz(@Param('id', ParseIntPipe) id: number, @Body() quiz: QuizDTO) {
+        this.quizService.editQuiz(id, quiz);
+        return
     }
 
     @Get("/:id/scores")
@@ -36,8 +36,15 @@ export class QuizController {
     }
 
     @Delete("/:id")
-    deleteQuiz() {
-        return "hello smidth"
+    async deleteQuiz(@Param("id", ParseIntPipe) id:number){
+    return await this.quizService.deleteQuiz(id);
     }
 
+    //TODO: temporary
+    @Post("add-fake-data")
+    addFakeData(@Body() userIds: Array<number>) {
+        this.quizService.addFakeData(userIds, 5);
+    }
 }
+
+

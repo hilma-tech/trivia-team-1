@@ -13,10 +13,12 @@ import Register from "./components/register";
 import Error from "./components/error404";
 import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from "./context/AnswersContext";
-import EditQuiz from "./components/EditQuiz";
+import EditQuiz from "./components/edit-quiz/EditQuiz";
 import { PopContextProvider } from "./components/popups/popContext";
 import OpeningForTheQuiz from "./components/play-quiz/OpeningForTheQuiz";
 import QuestionTemp from "./components/play-quiz/PlayQuiz";
+import UserProvider from "./context/UserContext";
+
 
 import "./style/background.scss";
 import "./style/navbar.scss";
@@ -26,6 +28,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <PopContextProvider>
         <QuestionsProvider>
+          <UserProvider>
           <Navbar />
           <CssBaseline />
           <Background>
@@ -50,6 +53,7 @@ function App() {
               </Route>
             </Routes>
           </Background>
+      </UserProvider>
         </QuestionsProvider>
       </PopContextProvider>
     </ThemeProvider>
