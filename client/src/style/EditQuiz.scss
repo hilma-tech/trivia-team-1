@@ -539,6 +539,8 @@ $green-color: #378381;
         margin: 0;
     }
 
+   
+
     .button-container-second-page {
         padding-top: 0;
         height: 18vh;
@@ -568,17 +570,29 @@ $green-color: #378381;
             display: flex;
             align-items: center;
 
-            img.select-image-svg-for-questions,
-            img.select-image-questions-svg {
+        .added-picture-phone{
+            position: absolute;
+        }
+
+            .select-image-svg-for-questions,
+            .select-image-questions-svg {
                 position: absolute;
                 left: 10vw;
                 opacity: 0.6;
                 width: 5vw;
             }
 
-            img.select-image-svg-for-questions {
+            .select-image-svg-for-questions {
                 left: 12vw;
             
+            }
+            .select-image-svg-for-questions.image-answer-after-added{
+                opacity: 0.3;
+            }
+            .make-into-div-size.MuiTextField-root{
+                .MuiInputBase-input{
+                    height: 20vh;
+                }
             }
         }
 
@@ -605,6 +619,11 @@ $green-color: #378381;
             font-size: 1.3rem;
             font-weight: 900;
         }
+
+        .image-answer-after-added{
+            opacity: 0.1;
+        }
+
 
     }
 
@@ -635,13 +654,14 @@ $green-color: #378381;
 
         .input-container {
             overflow: visible;
-
+            
             .MuiInputBase-input {
                 height: 0.8vh;
                 background-color: #EDF0F299;
                 width: 78.5vw;
                 border: none;
             }
+            
 
             .MuiOutlinedInput-root {
                 border-radius: 8px;
@@ -654,6 +674,7 @@ $green-color: #378381;
         .input-container.second-page {
             padding-top: 0;
         }
+
 
         .select-image-container {
             margin-top: 10vh;
