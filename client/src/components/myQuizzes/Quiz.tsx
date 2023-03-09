@@ -26,13 +26,11 @@ const Quiz: FC<QuizProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const { id, name, url, description, answers } = props;
-  const { setPopType ,popHandleClickOpen  } = usePopContext();
-
+  const { setPopType, popHandleClickOpen } = usePopContext();
+  const username = "ofek";
   const isMobile = useMediaQuery('(min-width:600px)');
 
   const navigate = useNavigate();
-  const username = "michael"
-
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -40,8 +38,8 @@ const Quiz: FC<QuizProps> = (props) => {
 
   const copyQuizLink = (id: number) => {
     setPopType(Type.CopyQuiz);
-  //!copy to clipboard the right quiz link
-    navigator.clipboard.writeText('http://localhost:3000/quiz/ofek/italy')
+    //!copy to clipboard the right quiz link
+    navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
     popHandleClickOpen();
   }
 
@@ -122,7 +120,7 @@ const Quiz: FC<QuizProps> = (props) => {
           <MenuItem className="quiz-menu-item" onClick={handleClose}> <div className="emojiButtons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /><span>מחיקת משחק</span></div></MenuItem>
 
         </Menu>
-        
+
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
     </div>)

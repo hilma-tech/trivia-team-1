@@ -27,9 +27,9 @@ const QuestionTemp = () => {
 
     const [answers, setAnswers] = useState<QuestionTempState["answers"]>([[
         { ans: "ארץ המגף", url: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg", isCorrect: true },
-        { ans: "התפוח הגדול", url: "sdvsdv", isCorrect: false },
-        { ans: "ארץ האגדות", url: "awvev", isCorrect: false },
-        { ans: "מדינת הגמדים", url: "dvdsv", isCorrect: false }
+        { ans: "התפוח הגדול", url: "", isCorrect: false },
+        { ans: "ארץ האגדות", url: "", isCorrect: false },
+        { ans: "מדינת הגמדים", url: "", isCorrect: false }
     ], [
         { ans: "לאונרדו דה וינצ'י", url: "", isCorrect: true },
         { ans: "נועה קירל", url: "", isCorrect: false },
@@ -215,7 +215,7 @@ const QuestionTemp = () => {
                                         className='button-img'
                                         src={`${answer.url}`}
                                         alt=""
-                                    />
+                                        my-quizzes                          />
                                 </div>
                             </div>
                             : null}

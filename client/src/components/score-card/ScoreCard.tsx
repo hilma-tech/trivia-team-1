@@ -6,11 +6,13 @@ import { QuizDataState } from "../../utils/Interfaces";
 import HighScore from "./HighScore";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import '../../style/scoreCard.scss';
+import LoadingMonkey from "../LoadingMonkey";
 
 const ScoreCard: FC = () => {
     const [quizData, setQuizData] = useState<QuizDataState>({ title: '', scores: [] });
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const { quizId } = useParams();
+    const [loading, setLoading] = useState<boolean>(true)
 
     async function fetchQuizData() {
         try {
@@ -24,8 +26,11 @@ const ScoreCard: FC = () => {
 
     useEffect(() => {
         fetchQuizData();
+        const timeout = setTimeout(() => setLoading(false), 3000);
+        return () => clearTimeout(timeout);
     }, [])
 
+    if (loading) return <LoadingMonkey />;
     return (
         isLargeScreen ? <div className="comp-children-container score-card-container">
             <div className="score-card">

@@ -1,6 +1,10 @@
-import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsDate, isInt, IsNotEmpty, IsNumber, isNumber, IsOptional, IsString } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class QuizDTO {
+    @IsNumber()
+    @IsNotEmpty()
+    creatorId: number;
+
     @IsString()
     @IsNotEmpty()
     title: string;
@@ -14,7 +18,7 @@ export class QuizDTO {
     description: string;
 
     @IsArray()
-    @ArrayMinSize(4)
+    @ArrayMinSize(1)
     @ArrayMaxSize(20)
     questions: QuestionDTO[];
 }
@@ -29,7 +33,7 @@ export class QuestionDTO {
     imageUrl: string;
 
     @IsArray()
-    @ArrayMinSize(2)
+    @ArrayMinSize(1)
     @ArrayMaxSize(4)
     answers: AnswerDTO[];
 }

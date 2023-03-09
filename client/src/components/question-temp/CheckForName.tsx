@@ -36,7 +36,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     }
 
     const moveToPlayGame = () => {
-        navigate('/quiz/ohad/italy/questions');
+        navigate('/ofek/quiz/1/questions');
     }
 
     return (

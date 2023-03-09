@@ -1,8 +1,16 @@
+export interface Answers{
+    text: string;
+    isCorrect: boolean;
+    imageUrl: string;
+}
+
+
+
 export interface CurrentQuestion {
     questionId: number;
-    questionTitle: string;
-    answers: string[];
-    correctAnswer?: number;
+    title: string;
+    answers: Answers[];
+    imageUrl?:string;
 }
 
 export type Question = Required<CurrentQuestion>;
