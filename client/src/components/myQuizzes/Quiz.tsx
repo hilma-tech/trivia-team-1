@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { QuizType } from "./MyQuizes";
+import { Question, QuizType } from "./MyQuizes";
 import TrashSvg from "../../images/trash.svg";
 import LinkSvg from "../../images/link.svg";
 import EditSvg from "../../images/edit.svg";
@@ -19,7 +19,7 @@ interface QuizProps {
   title: string;
   imageUrl: string;
   description: string;
-  questions: object[];
+  questions: Question[];
   setQuizes: React.Dispatch<React.SetStateAction<QuizType[]>>;
   quizzes: QuizType[];
 }
@@ -31,6 +31,7 @@ const Quiz: FC<QuizProps> = (props) => {
   const { setPopType ,popHandleClickOpen,setDeletedQuizId, deletedQuizId  } = usePopContext();
   const isMobile = useMediaQuery('(min-width:600px)');
   const navigate = useNavigate();
+  //TODO; temporary
   const username = "ofek";
   const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
 
@@ -58,12 +59,9 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const toScoreboard = (id: number) => {
-    navigate(`/${username}/quiz/${id}/scores`)
+    navigate(`/quiz/:userId/:quizId/scores`)
   }
   const toEdit = (id: number) => {
-
-  }
-  const linkCopied = (id: number) => {
 
   }
 
@@ -90,7 +88,7 @@ const Quiz: FC<QuizProps> = (props) => {
         <div className="quiz-data">
           <div className="quiz-title">{title}</div>
           <div className="holder"></div>
-          <p>{description.slice(0,50)}...</p>
+          <p>{description.length > 50 ? description.slice(0, 50) + "..." : description}</p>
           <div className="quiz-buttons">
             <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
             <div>

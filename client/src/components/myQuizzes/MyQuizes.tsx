@@ -12,8 +12,24 @@ export interface QuizType {
     imageUrl: string;
     description: string;
     id: number;
-    questions: object[];
+    questions: Question[];
 }
+
+export interface Question{
+    id: number;
+    title: string;
+    imageUrl: string;
+    answers: Answer[];
+}
+
+export interface Answer{
+    id: number;
+    text: string;
+    imageUrl: string;
+    isCorrect: boolean;
+}
+
+
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
     const [loading, setLoading] = useState<boolean>(true)
