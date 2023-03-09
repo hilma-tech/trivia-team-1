@@ -40,8 +40,7 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
         }
         getHistoryLength()
         const  rawUser = localStorage.getItem('quizUser')
-        if (rawUser)
-        setUser(JSON.parse(rawUser))
+        if (rawUser) setUser(JSON.parse(rawUser))
     }, [])
 
     useEffect(() => {

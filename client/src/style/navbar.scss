@@ -61,14 +61,17 @@
         margin: 10px;
     }
 
-    .logo-nav-bar-container {
+    .navbar-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex;
         align-items: center;
-        #logo-name{
+        gap: 0.875rem;
+        
+        .navbar-logo-name {
             font-size: 2vh;
         }
-        img{
+
+        .navbar-logo {
             height: 3vh;
         }
     }

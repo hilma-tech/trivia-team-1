@@ -31,9 +31,6 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({
           className="main-img"
           style={{
             backgroundImage: `url("${imgUrl}")`,
-            objectFit: "cover",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
           }}
         >
           <div className="main-button-place">

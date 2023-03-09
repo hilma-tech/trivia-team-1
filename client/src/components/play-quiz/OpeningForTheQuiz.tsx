@@ -54,7 +54,7 @@ function OpeningForTheQuiz() {
     <div>
       {changeComponent ? (
         <PhonePageWithNav type="banana" title={quizTitle} className="comp-children-container-question">
-          <main className="boaz-main">
+          <main className="question-main">
             <OpeningParagraphTitle
               quizTitle={quizTitle}
               paragraph={paragraph}
@@ -62,14 +62,14 @@ function OpeningForTheQuiz() {
               changeComponent={changeComponent}
               setChangeComponent={setChangeComponent}
             />
-            <footer className="OpeningParagraphTitle-footer">
+            <footer className="opening-paragraph-title-footer">
               <img src={leave} alt="icon of triangle" />
             </footer>
           </main>
         </PhonePageWithNav>
       ) : (
         <PhonePageWithNav type="return" title={quizTitle} className="comp-children-container-question">
-          <main className="boaz-main">
+          <main className="question-main">
             <CheckForName quizTitle={quizTitle} />
             <footer className="check-for-name-footer">
               <img src={leave} alt="icon of triangle" />

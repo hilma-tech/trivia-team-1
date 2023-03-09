@@ -24,7 +24,7 @@ button {
             background: #FFFFFF 0% 0% no-repeat padding-box;
             opacity: 1;
 
-            .quizTitle {
+            .quiz-title {
                 font-size: 2vw;
                 margin-top: 5.3vh;
                 /* UI Properties */
@@ -130,6 +130,9 @@ button {
             width: 64.3229vw;
             height: 55vh;
             /* UI Properties */
+            object-fit: "cover";
+            background-size: "cover";
+            background-repeat: "no-repeat";
             background: transparent 0% 0% no-repeat padding-box;
             opacity: 1;
         }
@@ -178,7 +181,7 @@ button {
     .comp-children-container-question {
         @include flexCenter();
         align-items: flex-start;
-        .boaz-main {
+        .question-main{
             @include flexCenter();
             flex-direction: column;
 
@@ -314,7 +317,7 @@ button {
                 }
             }
 
-            .OpeningParagraphTitle-footer {
+            .opening-paragraph-title-footer {
                 position: absolute;
                 left: -70px;
                 bottom: -60px;
