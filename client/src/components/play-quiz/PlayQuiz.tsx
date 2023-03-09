@@ -44,6 +44,7 @@ const QuestionTemp = () => {
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
+  const [score, setScore] = useState(0);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -110,6 +111,7 @@ const QuestionTemp = () => {
 
   const checkIfCorrect = (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
+      setScore((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();
