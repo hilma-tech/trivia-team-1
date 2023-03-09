@@ -1,6 +1,7 @@
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
+import axios from 'axios';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
@@ -16,25 +17,26 @@ function Register() {
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
-    useEffect(()=>{
-        setTimeout(()=>{setRegErrDiv("")},4000)
-    },[regErrDiv])
+    useEffect(() => {
+        const timeout = setTimeout(() =>  setRegErrDiv("") , 4000)
+        return () => clearTimeout(timeout);
+    }, [regErrDiv])
 
     async function handleRegisterSubmit(e: FormEvent) {
-        // זמני
-        e.preventDefault()
-        const boolean = await fetch('http://localhost:8080/api/user/register',
-            {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username: username, password: password })
-            })            
-        if ( await boolean.json()) {
-            setRegErrDiv('')
-            alert("You signed up successfully!")
-            navigate('/')
+        try {
+            e.preventDefault()
+            const {data} = await axios.post('http://localhost:8080/api/user/register',
+                   { username: username, password: password }
+                )
+            if (data) {
+                setRegErrDiv('')
+                alert("You signed up successfully!")
+                navigate('/')
+            }
+            else setRegErrDiv("משהו השתבש בתהליך ההרשמה!")
+        } catch (error) {
+            console.log(error, "Error");
         }
-        else setRegErrDiv("משהו השתבש בתהליך ההרשמה!")
     }
 
     function enterUsernameErr() {
@@ -55,7 +57,7 @@ function Register() {
                 <Typography className='main-register-header' variant='h1'>חידונים מטורפים</Typography>
                 <Typography variant='h2' className='descrip-enter'>בחנו את החברים שלכם בטריוויה שאתם יצרתם!</Typography>
                 <div className='entrance-container-div'>
-                    <form className='register-form' onSubmit={(e) => handleRegisterSubmit(e)}>
+                    <form className='register-form' onSubmit={handleRegisterSubmit}>
                         <Typography className='login-parag' variant='body1'>שם משתמש</Typography>
                         <input className='register-input' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>

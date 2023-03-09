@@ -31,6 +31,7 @@ const Quiz: FC<QuizProps> = (props) => {
   const { setPopType ,popHandleClickOpen,setDeletedQuizId, deletedQuizId  } = usePopContext();
   const isMobile = useMediaQuery('(min-width:600px)');
   const navigate = useNavigate();
+  const username = "ofek";
   const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
 
   useEffect(() => {    
@@ -48,7 +49,7 @@ const Quiz: FC<QuizProps> = (props) => {
   const copyQuizLink = (id: number) => {
     setPopType(Type.CopyQuiz);
   //!copy to clipboard the right quiz link
-    navigator.clipboard.writeText('http://localhost:3000/quiz/ofek/italy')
+    navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
     popHandleClickOpen();
   }
 
@@ -57,7 +58,7 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const toScoreboard = (id: number) => {
-    navigate(`/quiz/:userName/:quizName/scores`)
+    navigate(`/${username}/quiz/${id}/scores`)
   }
   const toEdit = (id: number) => {
 

@@ -5,6 +5,7 @@ import NoQuiz from "./NoQuizes";
 import Quiz from "./Quiz";
 import "../../style/myQuizes.scss"
 import axios, { AxiosResponse } from 'axios';
+import LoadingMonkey from "../LoadingMonkey";
 
 export interface QuizType {
     title: string;
@@ -15,6 +16,7 @@ export interface QuizType {
 }
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
+    const [loading, setLoading] = useState<boolean>(true)
     const id=2;
 
     const axiosInstance = axios.create({
@@ -27,13 +29,22 @@ const MyQuizes: FC = () => {
     async function getQuizes(){
         const res:AxiosResponse<any, any>= await axiosInstance.get(`user/${id}/quizzes`)
         setQuizes(res.data);
+        const timeout = setTimeout(()=> setLoading(false), 2000);
+    
+        return () => clearTimeout(timeout);
     }
 
 
+    useEffect(()=>{
+    }, [])
+
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
+
+    if(loading) return <LoadingMonkey/>;
 
     return (
         isLargeScreen ? <div className="comp-children-container my-quizzes">
+            
             <h1 className="title">החידונים שלי:</h1>
             <div className="container">
                 {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}

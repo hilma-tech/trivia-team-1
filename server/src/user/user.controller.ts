@@ -28,4 +28,10 @@ export class UserController {
         return await this.userService.getUserQuizzes(id);
     }
 
+    //TODO: temporary
+    @Post("add-fake-data")
+    addFakeData() {
+        return this.userService.addFakeData(10);
+    }
+    
 }

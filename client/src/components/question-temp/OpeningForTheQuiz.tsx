@@ -7,6 +7,7 @@ import CheckForName from './CheckForName';
 import PhonePageWithNav from '../navbar/phonePageWithNav';
 import { useMediaQuery } from "@mui/material";
 import '../../style/OpeningForTheQuiz.scss';
+import LoadingMonkey from '../LoadingMonkey';
 
 
 function OpeningForTheQuiz() {
@@ -15,11 +16,16 @@ function OpeningForTheQuiz() {
     const [quizTitle, setQuizTitle] = useState("איטליהה מה אתם יודעים?");
     const [paragraph, setParagraph] = useState("לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת");
     const [changeComponent, setChangeComponent] = useState(true);
+    const [loading, setLoading] = useState<boolean>(true);
+
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
 
     useEffect(() => {
         getQuizDetailsFromServer();
+        getInfoFromServer();
+        const timeout = setTimeout(()=> setLoading(false), 4000);
+        return () => clearTimeout(timeout);
     }, []);
 
     const getQuizDetailsFromServer = async () => {
@@ -27,7 +33,6 @@ function OpeningForTheQuiz() {
             // get image, title, and paragraph for server and push them into state
             .then((res) => res.json)
             .then((data) => {
-                console.log("hiiiii");
 
                 // setImgUrl(data.imgUrl);
                 // setQuizTitle(data.quizTitle);
@@ -37,6 +42,13 @@ function OpeningForTheQuiz() {
                 console.log(err, "catch");
             })
     }
+    function getInfoFromServer(){
+
+    };
+
+    if(loading) return <LoadingMonkey/>;
+
+    
     return (
 
         isLargeScreen ?
