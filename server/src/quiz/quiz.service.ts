@@ -81,8 +81,8 @@ export class QuizService {
     randomQuiz(id: number) {
         const quiz: DeepPartial<Quiz> = {
             creator: { id },
-            description: faker.lorem.paragraph(),
-            title: faker.lorem.sentence(),
+            description: faker.commerce.productDescription(),
+            title: faker.commerce.productName(),
             imageUrl: faker.image.imageUrl(),
             questions: [],
             scores: []
