@@ -64,7 +64,7 @@
                     width: 45%;
                     background-color: rgba(0, 0, 0, 0.4);
                     border-radius: 10px;
-                    font-size: 0.7rem;
+                    font-size: 0.6vw;
                     letter-spacing: 0px;
                     font-weight: normal;
                     color: white;
@@ -73,7 +73,7 @@
             }
 
             .quiz-data {
-                width: 79%;
+                width: calc(100% - 15vh);
                 display: flex;
                 flex-direction: column;
                 // justify-content: center;
