@@ -30,4 +30,8 @@ export class QuizService {
         scores = scores.slice(0, 5)
         return { title, scores }
     }
+
+    async deleteQuiz(quizId: number) {
+        await this.quizRepository.delete( quizId );
+        }
 }
