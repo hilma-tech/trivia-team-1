@@ -69,16 +69,13 @@ const QuestionTemp = () => {
   useEffect(() => {
     setInfoFromServer();
     checkIfThereAreImg();
+    if (!questions) {
+      navigateToEndGameScreen();
+    }
   }, []);
 
   useEffect(() => {
     checkIfThereAreImg();
-  }, [currentQuestionIndex]);
-
-  useEffect(() => {
-    if (currentQuestionIndex === currentQuestion.answers.length - 1) {
-      navigateToEndGameScreen();
-    }
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -87,9 +84,7 @@ const QuestionTemp = () => {
 
   const setInfoFromServer = async () => {
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
-
     if (!response.data) return navigate("/error404");
-
     setQuestions(response.data.questions);
     setQuantityOfQuestion(response.data.questions.length);
   };
@@ -127,7 +122,7 @@ const QuestionTemp = () => {
       navigateToEndGameScreen();
     }
     setRedIndex(undefined);
-    setGreenIndex(undefined);
+    setGreenIndex(undefined);    
   };
 
   const makeAnswerRed = (index: number) => {

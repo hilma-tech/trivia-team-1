@@ -26,7 +26,7 @@ function OpeningForTheQuiz() {
     getInfoFromServer();
   }, []);
 
-  const getInfoFromServer = async () => {
+  const getInfoFromServer = async () => {    
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
     setImgUrl(response.data.imgUrl);
     setQuizTitle(response.data.title);
