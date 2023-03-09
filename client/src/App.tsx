@@ -39,7 +39,7 @@ function App() {
               <Route path='/edit-quiz' element={<EditQuiz />} />
               <Route path='/error404' element={<Error />} />
               <Route path='/loading-page' element={<LoadingMonkey />} /> 
-              <Route path='/quiz/:userName/:quizName' element={<Outlet />} >
+              <Route path='/:username/quiz/:quizId' element={<Outlet />} >
                 <Route index element={<OpeningForTheQuiz />} />
                 <Route path='questions' element={<QuestionTemp />} />
                 <Route path='scores' element={<ScoreCard />} />

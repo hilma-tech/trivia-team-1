@@ -9,8 +9,8 @@ export class QuizController {
 
     }
     @Get("/:id")
-    getQuiz() {
-        return "hello smidth"
+    async getQuiz(@Param('id', ParseIntPipe) id:number ){
+        return await this.quizService.getQuiz(id);
     }
 
     @Post("/")
@@ -38,6 +38,12 @@ export class QuizController {
     @Delete("/:id")
     async deleteQuiz(@Param("id", ParseIntPipe) id:number){
     return await this.quizService.deleteQuiz(id);
+    }
+
+    //TODO: temporary
+    @Post("add-fake-data")
+    addFakeData(@Body() userIds: Array<number>) {
+        this.quizService.addFakeData(userIds, 5);
     }
 }
 
