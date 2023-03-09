@@ -83,7 +83,7 @@ export class QuizService {
             creator: { id },
             description: faker.commerce.productDescription(),
             title: faker.commerce.productName(),
-            imageUrl: faker.image.imageUrl(),
+            imageUrl: faker.image.imageUrl(640, 480, undefined, true),
             questions: [],
             scores: []
         }
@@ -104,8 +104,8 @@ export class QuizService {
     //TODO: temporary
     randomQuestion() {
         const question: DeepPartial<Question> = {
-            imageUrl: faker.image.imageUrl(),
-            title: faker.lorem.sentence(),
+            imageUrl: faker.image.imageUrl(640, 480, undefined, true),
+            title: faker.commerce.productName(),
             answers: []
         }
 
@@ -122,9 +122,9 @@ export class QuizService {
     //TODO: temporary
     randomAnswer(isCorrect: boolean) {
         const answer: DeepPartial<Answer> = {
-            imageUrl: faker.image.imageUrl(),
+            imageUrl: faker.image.imageUrl(640, 480, undefined, true),
             isCorrect,
-            text: faker.lorem.sentence(),
+            text: faker.commerce.productName(),
         }
 
         return answer;
