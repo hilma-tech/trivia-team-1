@@ -11,7 +11,6 @@ interface OpeningParagraphTitleProps {
     imgUrl: string,
     changeComponent: boolean,
     setChangeComponent: any,
-    // type: "banana"
 }
 
 const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({ quizTitle, paragraph, imgUrl, changeComponent, setChangeComponent }) => {

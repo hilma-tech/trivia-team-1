@@ -38,14 +38,20 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     }
 
     return (
-        isLargeScreen ?
             <main>
                 <div className='main-CheckForName-for-flex'>
                     <div className='main-CheckForName'>
-                        <div className='title-and-paragraph'>
-                            <h1 className='quizTitle'>{quizTitle}</h1>
-                            <p>איך קוראים לכם?</p>
-                        </div>
+                        {
+                            isLargeScreen ?
+                                <div className='title-and-paragraph'>
+                                    <h1 className='quizTitle'>{quizTitle}</h1>
+                                    <p>איך קוראים לכם?</p>
+                                </div>
+                                :
+                                <div className='title-and-paragraph'>
+                                    <p>איך קוראים לכם?</p>
+                                </div>
+                        }
                         <input onChange={(ev) => setPlayerName(ev.target.value)}
                             name="player-identification" type="text"
                             placeholder="נא להזין שם" value={playerName} required
@@ -57,25 +63,6 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                     </div>
                 </div>
             </main>
-            :
-            < div>
-                <div className='main-CheckForName-for-flex'>
-                    <div className='main-CheckForName'>
-                        <div className='title-and-paragraph'>
-                            <p>איך קוראים לכם?</p>
-                        </div>
-                        <input onChange={(ev) => setPlayerName(ev.target.value)}
-                            name="player-identification" type="text"
-                            placeholder="נא להזין שם" value={playerName} required
-                        />
-                        <button className='CheckForName-button' onClick={sendNameOfPlayerToServer}>
-                            <p>יאללה בואו נתחיל!</p>
-                            <img src={`${triangleIcon}`} alt="icon of triangle" />
-                        </button>
-                    </div>
-                </div>
-            </div >
-
     );
 }
 export default CheckForName;

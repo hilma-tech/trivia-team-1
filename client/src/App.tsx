@@ -49,11 +49,3 @@ function App() {
 }
 
 export default App;
-
-
-// function App() {
-//   return (
-//     <div>
-//       {/* <OpeningForTheQuiz/> */}
-//       <QuestionTemp/>
-//     </div>
