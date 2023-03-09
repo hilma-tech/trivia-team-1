@@ -19,7 +19,7 @@ interface QuizProps {
   title: string;
   imageUrl: string;
   description: string;
-  questions: number;
+  questions: object[];
   setQuizes: React.Dispatch<React.SetStateAction<QuizType[]>>;
   quizzes: QuizType[];
 }
@@ -33,9 +33,7 @@ const Quiz: FC<QuizProps> = (props) => {
   const navigate = useNavigate();
   const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
 
-  useEffect(() => {
-    console.log(savedId, "yohai", deletedQuizId);
-    
+  useEffect(() => {    
     if(deletedQuizId===0 && savedId!==-800){
      
       deleteQuizFromClient(savedId);
@@ -69,14 +67,11 @@ const Quiz: FC<QuizProps> = (props) => {
   }
 
   const deleteQuizFromClient = (id: number) => {
-    console.log(quizzes, id);
     let newQuiz = quizzes.filter(quiz => quiz.id !== id);    
     setQuizes(newQuiz);
   }
 
   const deleteQuiz =  async (id: number) => {
-    console.log(id , deletedQuizId);
-    console.log(savedId, "saved")
     setPopType(Type.DeleteQuiz);
     setDeletedQuizId(id);
     setId(id);
@@ -89,12 +84,12 @@ const Quiz: FC<QuizProps> = (props) => {
     return (
       <div className="quiz">
         <div className="quiz-image" style={{ backgroundImage: `url('${imageUrl}')`, backgroundSize: "cover" }}>
-          <span>{questions} תשובות</span>
+          <span>{questions.length} תשובות</span>
         </div>
         <div className="quiz-data">
           <div className="quiz-title">{title}</div>
           <div className="holder"></div>
-          <p>{description}</p>
+          <p>{description.slice(0,50)}...</p>
           <div className="quiz-buttons">
             <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
             <div>
@@ -114,7 +109,7 @@ const Quiz: FC<QuizProps> = (props) => {
   else {
     return (<div className="quiz">
       <div className="quiz-image" style={{ backgroundImage: `url('${imageUrl}')`, backgroundSize: "cover" }}>
-        <span className="answers">{questions} תשובות</span>
+        <span className="answers">{questions.length} תשובות</span>
       </div>
       <div className="quiz-data">
         <Button

@@ -23,10 +23,10 @@ export class UserService {
             },
           },
         });
-        const quizzes = [];
-        user.quizzes.map(quiz=> quizzes.push(
-          {title: quiz.title, description: quiz.description,id:quiz.id,imageUrl: quiz.imageUrl,questions: quiz.questions.length}
-          ))          
+        const quizzes = user.quizzes;;
+        // user.quizzes.map(quiz=> quizzes.push(
+        //   {title: quiz.title, description: quiz.description,id:quiz.id,imageUrl: quiz.imageUrl,questions: quiz.questions.length}
+        //   ))          
         return quizzes;
 
     }

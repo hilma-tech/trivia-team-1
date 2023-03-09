@@ -79,8 +79,6 @@ export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
         navigate('/enterance-page')
     }
        async function deleteQuiz(id:number){
-        console.log("bb", id, "oo");
-        
         await axios.delete(`api/quiz/${id}`);
         setDeletedQuizId(0);
     }

@@ -11,12 +11,11 @@ export interface QuizType {
     imageUrl: string;
     description: string;
     id: number;
-    questions: number;
+    questions: object[];
 }
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
     const id=2;
-    console.log(`Quizes:`, quizes)
 
     const axiosInstance = axios.create({
         baseURL: `api/`
