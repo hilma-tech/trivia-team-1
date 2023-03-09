@@ -8,9 +8,9 @@ button {
     cursor: pointer
 }
 
-.compChildrenContainer-boaz {
+.comp-children-container-question {
 
-    .main-CheckForName {
+    .main-check-for-name {
         display: flex;
         align-items: center;
         // justify-content: center;
@@ -70,7 +70,7 @@ button {
 
         }
 
-        .CheckForName-button {
+        .check-for-name-button {
             @include flexCenter();
             width: 18.0208vw;
             height: 6vh;
@@ -175,7 +175,7 @@ button {
 
 @media screen and (max-width: 600px) {
 
-    .compChildrenContainer-boaz {
+    .comp-children-container-question {
         @include flexCenter();
         align-items: flex-start;
         .boaz-main {
@@ -258,8 +258,8 @@ button {
                 }
             }
 
-            .main-CheckForName-for-flex {
-                .main-CheckForName {
+            .main-check-for-name-for-flex {
+                .main-check-for-name {
                     input {
                         margin-top: 14vw;
                         margin-bottom: 10vw;
@@ -268,7 +268,7 @@ button {
                         font-size: 4vw;
                     }
 
-                    .CheckForName-button {
+                    .check-for-name-button {
                         @include flexCenter();
                         width: 80vw;
                         height: 23.134vw;
@@ -320,7 +320,7 @@ button {
                 bottom: -60px;
             }
 
-            .CheckForName-footer {
+            .check-for-name-footer {
                 position: absolute;
                 left: -12vw;
                 bottom: -11vw;

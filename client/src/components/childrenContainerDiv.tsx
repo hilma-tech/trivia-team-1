@@ -5,7 +5,7 @@ import '../style/background.scss'
 
 function ChildrenDiv(props: ContainerProps) {
     return (
-        <div className={`compChildrenContainer-boaz ${props.className}`}>
+        <div className={`comp-children-container-question ${props.className}`}>
             {props.children}
         </div>);
 }

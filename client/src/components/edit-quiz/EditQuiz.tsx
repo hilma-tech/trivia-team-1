@@ -21,8 +21,8 @@ import axios from 'axios';
 
 
 const cacheRtl = createCache({
-    key: 'muirtl',
-    stylisPlugins: [rtlPlugin],
+  key: "muirtl",
+  stylisPlugins: [rtlPlugin],
 });
 
 export const isFull = (question: CurrentQuestion) => {
@@ -32,6 +32,7 @@ export const isFull = (question: CurrentQuestion) => {
 }
 
 const EditQuiz: FC = () => {
+ 
 
     const { setQuestions, questions } = useQuestionContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
@@ -72,6 +73,7 @@ const EditQuiz: FC = () => {
             setCurrentEditQuestion(editQuestionIndex);
         }
     }
+  
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -230,4 +232,3 @@ const EditQuiz: FC = () => {
 }
 
 export default EditQuiz;
-
