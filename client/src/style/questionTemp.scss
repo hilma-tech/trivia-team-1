@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 @mixin flexCenter {
     display: flex;
     align-items: center;
@@ -77,7 +79,7 @@
                     #hr {
                         margin-bottom: 1rem;
                         width: 85%;
-                        background-color: #378381;
+                        background-color: $green-color; //unique color
                     }
 
                     #question-title {

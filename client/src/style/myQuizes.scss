@@ -1,3 +1,5 @@
+@import "./variables.scss";
+
 .my-quizzes {
     position: relative;
     width: 100%;
@@ -96,7 +98,7 @@
                 }
 
                 .scoreboard-button {
-                    background: #378381 0% 0% no-repeat padding-box;
+                    background: $green-color 0% 0% no-repeat padding-box;
                     border-radius: 50px;
                     opacity: 1;
                     font-size: 1.6vh;
@@ -142,7 +144,7 @@
             }
 
             button {
-                background: #378381 0% 0% no-repeat padding-box;
+                background: $green-color 0% 0% no-repeat padding-box;
                 border-radius: 8px;
                 opacity: 1;
                 font-size: 2.5vh;

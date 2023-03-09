@@ -1,4 +1,5 @@
 @import '../style/background.scss';
+@import "./variables.scss";
 
 .navbar-container-computer {
     height: 7vh;
@@ -14,12 +15,12 @@
 
     .nav-quiz-btn{
        background-color: transparent; 
-       color: #378381;
+       color: $green-color;
        box-shadow: none;
     }
 
     .nav-quiz-btn:hover {
-       background-color: #378381;
+       background-color: $green-color;
        color: white;
         height: 100%;
         height: 3.1vh;
