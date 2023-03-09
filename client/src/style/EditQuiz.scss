@@ -1,11 +1,7 @@
 $green-color: #378381;
 
 
-body {
-    background-color: #E0F4F5;
-    box-sizing: border-box;
-    overflow-x: hidden;
-}
+
 
 
 .form-container {
@@ -51,6 +47,8 @@ body {
         color: black;
         padding-right: 5%;
     }
+
+    
 
 }
 
@@ -358,10 +356,10 @@ body {
     .add-image-icon-placeholder {
         width: 1.5625vw;
         height: 2.9791459781529297vh;
-        // margin-right: 2vw;
 
     }
-}
+    }
+
 
 .remove-answer {
     margin-right: 1.3vw;
@@ -446,12 +444,12 @@ body {
         padding-top: 1%;
     }
 
-    .drag-and-drop-svg {
+    .drag-and-drop-svg  {
         width: 1.0416666666666667vw;
         height: 2.1916583912611718vh;
     }
 
-    .empty-div {
+    .empty-div  {
         height: 1.5vh;
     }
 
@@ -474,6 +472,10 @@ body {
 }
 
 @media screen and (max-width: 600px) {
+
+    .question-dnd-container{
+        margin-bottom: 45%;
+    }
 
     .button-container, .button-container-second-page {
         padding-top: 20vh;
@@ -543,7 +545,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        position: absolute;
+        align-content: center;
         width: 85vw;
         left: 7.5vw;
         bottom: 15vh;
@@ -701,4 +703,19 @@ body {
 
     }
 
+}
+
+.monkey-in-edit-page-svg {
+    position: fixed;
+    bottom: 20px;
+    right: 2.5rem;
+}
+
+.footer-container{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 5vh;
 }

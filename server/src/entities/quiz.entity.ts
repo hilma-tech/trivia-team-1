@@ -10,15 +10,15 @@ export class Quiz {
     @Column()
     title: string;
 
-    @Column()
+    @Column({ type: "text" })
     description: string;
 
     @Column({ name: "image_url", nullable: true })
     imageUrl: string;
 
-    // @ManyToOne(() => User, (user) => user.quizzes, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
-    // @JoinColumn({ name: "creator_id" })
-    // creator: User;
+    @ManyToOne(() => User, (user) => user.quizzes, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @JoinColumn({ name: "creator_id" })
+    creator: User;
 
     @OneToMany(() => Score, (scores) => scores.quiz, { cascade: true })
     scores: Score[]

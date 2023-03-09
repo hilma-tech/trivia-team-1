@@ -55,17 +55,14 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                         </BootstrapTooltip>
                         <Typography variant="body1">העלאת תמונה</Typography>
                     </label>
-
+                    
                 </div>
 
                 <div className="button-container">
                     <Button onClick={() => { setPhonePage(2) }} color="primary" variant="contained">המשך</Button>
                 </div>
             </div>
-            <div className={giveRightClasses("button-container-second-page")}>
-                <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
-                <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
-            </div>
+            
         </div>)
         :
         (

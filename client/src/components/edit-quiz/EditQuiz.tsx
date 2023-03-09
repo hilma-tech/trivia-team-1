@@ -8,9 +8,9 @@ import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../../images/plusBtn.svg'
 import FinalQuestionBox from './FinalQuestionBox'
 import { useQuestionContext } from '../../context/AnswersContext'
-import { CurrentQuestion, Question, imageFile } from '../../utils/Interfaces'
+import { CurrentQuestion, Question } from '../../utils/Interfaces'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { TextField, useMediaQuery } from '@mui/material';
+import { Button, TextField, useMediaQuery } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
@@ -55,6 +55,7 @@ const EditQuiz: FC = () => {
     const filesUploader = useFiles()
 
     const addQuestion = () => {
+
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
@@ -67,6 +68,14 @@ const EditQuiz: FC = () => {
                     return prev;
                 }
             })
+            setTimeout(
+                () => {
+                    if (isMobile) {
+                        console.log('isMobilezzzzz: ', isMobile);
+                        window.scrollTo({ top: document.body.scrollHeight , behavior: 'smooth' })
+                    }
+                },50)
+
 
 
         }
@@ -88,6 +97,7 @@ const EditQuiz: FC = () => {
             setCurrentEditQuestion(editQuestionIndex);
         }
     }
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -116,7 +126,7 @@ const EditQuiz: FC = () => {
         }
     }
 
-    
+
 
 
     const saveQuiz = () => {
@@ -143,57 +153,67 @@ const EditQuiz: FC = () => {
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
                     <div className='quiz-header-wrapper'>
-                        <EditQuizHeader giveRightClasses={giveRightClasses} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage}  />
+                        <EditQuizHeader giveRightClasses={giveRightClasses} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
                     </div>
-            <div className={giveRightClasses('question-dnd-container')}>
-                <DragDropContext onDragEnd={handleDragEnd}>
-                    <Droppable droppableId="droppable">
-                        {(provided) => (
-                            <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
-                                {questions.map((question, index) => (
-                                    <Draggable
-                                        key={question.questionId.toString()}
-                                        draggableId={question.questionId.toString()}
-                                        index={index}
-                                    >
-                                        {(provided) => (
-                                            <div
-                                                ref={provided.innerRef}
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
+                    <div className={giveRightClasses('question-dnd-container')}>
+                        <DragDropContext onDragEnd={handleDragEnd}>
+                            <Droppable droppableId="droppable">
+                                {(provided) => (
+                                    <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
+                                        {questions.map((question, index) => (
+                                            <Draggable
+                                                key={question.questionId.toString()}
+                                                draggableId={question.questionId.toString()}
+                                                index={index}
                                             >
-                                                {currentEditQuestion === index ?
-                                                    <AddQuestionBox setCurrentQuestion={(q) => {
-                                                        setQuestions(prev => {
-                                                            return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
-                                                        })
-                                                    }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
-                                                    :
-                                                    <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
-                                                }
-                                            </div>
-                                        )}
-                                    </Draggable>
-                                ))}
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
-                </DragDropContext>
-            </div>
-            <div className={giveRightClasses('plus-btn-container')}>
-                <BootstrapTooltip title=" הוספת שאלה">
-                    <button className='plus-btn' onClick={addQuestion}>
-                        <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
-                    </button>
-                </BootstrapTooltip>
-            </div>
+                                                {(provided) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                    >
 
-        </div >
-        <div className='monkey-in-edit-page-svg'>
-            <img src={MonkeySvg} className={giveRightClasses('monkey-svg')} alt='image of cute monkey with computer' />
-        </div>
-        </CacheProvider >
+                                                        {currentEditQuestion === index || isMobile ?
+                                                            <AddQuestionBox setCurrentQuestion={(q) => {
+                                                                setQuestions(prev => {
+                                                                    return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                                })
+                                                            }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
+                                                            :
+                                                            <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
+                                                        }
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </DragDropContext>
+                    </div>
+                    <div className={giveRightClasses('plus-btn-container')}>
+                        <BootstrapTooltip title=" הוספת שאלה">
+                            <button className='plus-btn' onClick={addQuestion}>
+                                <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
+                            </button>
+                        </BootstrapTooltip>
+                    </div>
+
+                </div >
+                <div className='monkey-in-edit-page-svg'>
+                    <img src={MonkeySvg} className={giveRightClasses('monkey-svg')} alt='image of cute monkey with computer' />
+                </div>
+                {isMobile &&
+                    <div className='footer-container'>
+                        <div className={giveRightClasses("button-container-second-page")}>
+                            <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
+                            <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
+                        </div>
+                    </div>
+                }
+
+            </CacheProvider >
         </>
     );
 }

@@ -35,8 +35,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
         } else {
             alert("please finish edit that question");
         }
-        //     //TODO: else:
-        //     //TODO: alert user to finish editing the question
+        
     }
 
 

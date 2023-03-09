@@ -74,11 +74,9 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
     const handleImageFile = (value: imageFile) => {
         addImageFile(value)
-        console.log('value: ', value);
         currentQuestion.answers[answerIndex].imageUrl = value.link;
     }
 
-    console.log(currentQuestion);
 
 
     return (
