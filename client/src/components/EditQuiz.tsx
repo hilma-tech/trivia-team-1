@@ -33,10 +33,8 @@ const cacheRtl = createCache({
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions } = useQuestionContext()
-    console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     // const [currentQuestionId, setCurrentQuestionId] = useState(1);
-    console.log('currentEditQuestion: ', currentEditQuestion);
     const [questionDetails, setQuestionDetails] = useState({ quizName: '', quizDescription: '', QuizImageUrl: '' })
 
 
@@ -57,13 +55,11 @@ const EditQuiz: FC = () => {
         const items = Array.from(questions);
         const editItem = items[currentEditQuestion];
         const [reorderedItem] = items.splice(result.source.index, 1);
-        console.log(result.source.index)
         if (editItem.questionId === reorderedItem.questionId) {
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
             setCurrentEditQuestion(result.destination.index)
         } else {
-            console.log(reorderedItem, 'reorderedItem')
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
             const editQuestionIndex = items.findIndex((question) => question.questionId === editItem.questionId);
