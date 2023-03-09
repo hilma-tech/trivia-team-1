@@ -27,7 +27,7 @@ const ScoreCard: FC = () => {
 
     useEffect(() => {
         fetchQuizData();
-        const timeout = setTimeout(() => setLoading(false), 3000);
+        const timeout = setTimeout(()=> setLoading(false), 2000);
         return () => clearTimeout(timeout);
     }, [])
 

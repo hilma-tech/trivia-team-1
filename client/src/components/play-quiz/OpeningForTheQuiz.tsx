@@ -9,6 +9,7 @@ import PhonePageWithNav from "../navbar/phonePageWithNav";
 import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import "../../style/OpeningForTheQuiz.scss";
+import LoadingMonkey from "../LoadingMonkey";
 
 function OpeningForTheQuiz() {
   const [imgUrl, setImgUrl] = useState(
@@ -19,11 +20,14 @@ function OpeningForTheQuiz() {
     "לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת"
   );
   const [changeComponent, setChangeComponent] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { quizId } = useParams();
 
   useEffect(() => {
     getInfoFromServer();
+    const timeout = setTimeout(()=> setLoading(false), 4000);
+    return () => clearTimeout(timeout);
   }, []);
 
   const getInfoFromServer = async () => {
@@ -32,6 +36,9 @@ function OpeningForTheQuiz() {
     setQuizTitle(response.data.title);
     setParagraph(response.data.description);
   };
+
+  if(loading) return <LoadingMonkey/>;
+
   return isLargeScreen ? (
     <div className="compChildrenContainer-boaz">
       {changeComponent ? (
