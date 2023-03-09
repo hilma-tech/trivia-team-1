@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
 import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
+import { PlayerName } from "../../context/PlayerNameContext";
 import { Type } from "../popups/GenericPopParts";
 import axios from "axios";
 
@@ -45,6 +46,7 @@ const QuestionTemp = () => {
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
   const [score, setScore] = useState(0);
+  const userName = useContext(PlayerName);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -71,7 +73,7 @@ const QuestionTemp = () => {
     checkIfThereAreImg();
     if (!questions) {
       navigateToEndGameScreen();
-    }
+    }    
   }, []);
 
   useEffect(() => {
