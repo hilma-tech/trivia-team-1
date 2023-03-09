@@ -75,9 +75,13 @@ const QuestionTemp = () => {
   }, [currentQuestionIndex]);
 
   useEffect(() => {
-    if (currentQuestionIndex === currentQuestion.answers.length - 1) {
-      postScore()
-      navigateToEndGameScreen();
+    console.log(currentQuestion)
+    if (questions.length > 2) {
+      if (currentQuestionIndex === questions.length -1 ) {
+        postScore();
+        navigateToEndGameScreen();
+      }
+
     }
   }, [currentQuestionIndex]);
 
@@ -102,7 +106,7 @@ const QuestionTemp = () => {
 
   const navigateToEndGameScreen = () => {
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate("/TEMPORARY");
+    if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
       setPopType(Type.FinishedQuiz);
       popHandleClickOpen();
@@ -122,9 +126,10 @@ const QuestionTemp = () => {
   const moveToNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      navigateToEndGameScreen();
-    }
+    } 
+    // else {
+    //   navigateToEndGameScreen();
+    // }
     setRedIndex(undefined);
     setGreenIndex(undefined);
   };
