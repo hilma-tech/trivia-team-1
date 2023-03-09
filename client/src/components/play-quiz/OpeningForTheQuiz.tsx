@@ -11,9 +11,7 @@ import axios from "axios";
 import "../../style/OpeningForTheQuiz.scss";
 
 function OpeningForTheQuiz() {
-  const [imgUrl, setImgUrl] = useState(
-    "https://www.skideal.co.il/app/uploads/2020/06/Rome-e1591105892246.jpg"
-  );
+  const [imgUrl, setImgUrl] = useState("");
   const [quizTitle, setQuizTitle] = useState("איטליהה מה אתם יודעים?");
   const [paragraph, setParagraph] = useState(
     "לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת"
@@ -28,12 +26,13 @@ function OpeningForTheQuiz() {
 
   const getInfoFromServer = async () => {
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
-    setImgUrl(response.data.imgUrl);
+    setImgUrl(response.data.imageUrl);
     setQuizTitle(response.data.title);
     setParagraph(response.data.description);
   };
+
   return isLargeScreen ? (
-    <div className="comp-children-container-question">
+    <div className="comp-children-container comp-children-container-question">
       {changeComponent ? (
         <main>
           <OpeningParagraphTitle

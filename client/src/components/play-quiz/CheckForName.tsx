@@ -41,7 +41,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
       <div className="main-check-for-name-for-flex">
         <div className="main-check-for-name">
           <div className="title-and-paragraph">
-            <h1 className="quiz-title">{quizTitle}</h1>
+            <h1 className="main-quiz-title">{quizTitle}</h1>
             <p>איך קוראים לכם?</p>
           </div>
           <input
