@@ -36,8 +36,9 @@ export class QuizController {
     }
 
     @Delete("/:id")
-    deleteQuiz() {
-        return "hello smidth"
+    async deleteQuiz(@Param("id", ParseIntPipe) id:number){
+    return await this.quizService.deleteQuiz(id);
     }
-
 }
+
+
