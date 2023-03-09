@@ -48,7 +48,7 @@
         font-weight: bolder;
         border-radius: 50px;
         height: 3.6vh;
-        font-size: 1.2rem;
+        font-size: 1vw;
     }
     
     .action-injected .action-link {
@@ -71,6 +71,15 @@
         padding-right: 1.5vh;
         height: 30vh;
         padding-left: 1.5vw;
+    }
+
+
+    .pop-title.MuiTypography-root{
+        font-size: 1.3vw;
+    }
+
+    .pop-content.MuiTypography-root{
+        font-size: 0.9vw;
     }
 
     .MuiPaper-elevation {
