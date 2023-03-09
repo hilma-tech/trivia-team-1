@@ -17,6 +17,4 @@ export class Answer {
     @ManyToOne(() =>Question , (question) => question.answers, {nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE', orphanedRowAction: "delete"})
     @JoinColumn({ name: "question_id" })
     question: Question;
-
-
 }
