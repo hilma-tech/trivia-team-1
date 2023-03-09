@@ -18,6 +18,7 @@ import { PopContextProvider } from "./components/popups/popContext";
 import OpeningForTheQuiz from "./components/play-quiz/OpeningForTheQuiz";
 import QuestionTemp from "./components/play-quiz/PlayQuiz";
 import UserProvider from "./context/UserContext";
+import { PlayerNameProvider } from "./context/PlayerNameContext";
 
 
 import "./style/background.scss";
@@ -29,6 +30,7 @@ function App() {
       <PopContextProvider>
         <QuestionsProvider>
           <UserProvider>
+            <PlayerNameProvider>
           <Navbar />
           <CssBaseline />
           <Background>
@@ -53,6 +55,7 @@ function App() {
               </Route>
             </Routes>
           </Background>
+          </PlayerNameProvider>
       </UserProvider>
         </QuestionsProvider>
       </PopContextProvider>
