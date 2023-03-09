@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-
+import { DeepPartial } from 'typeorm';
 import { faker } from '@faker-js/faker/locale/he';
 
 @Injectable()
