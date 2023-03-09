@@ -89,7 +89,7 @@ const Quiz: FC<QuizProps> = (props) => {
         <div className="quiz-data">
           <div className="quiz-title">{title}</div>
           <div className="holder"></div>
-          <p>{description.length > 50 ? description.slice(0, 50) + "..." : description}</p>
+          <div className="quiz-description">{description.length > 50 ? description.slice(0, 50) + "..." : description}</div>
           <div className="quiz-buttons">
             <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
             <div>

@@ -21,30 +21,27 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({
   };
 
   return (
-    <main>
+    <>
       <div className="main-OpeningForTheQuiz">
         <div className="main-paragraph-and-title">
-          <h1>{quizTitle}</h1>
-          <p>{paragraph}</p>
+          <h1 className="main-quiz-title">{quizTitle}</h1>
+          <p className="main-paragraph">{paragraph}</p>
         </div>
         <div
           className="main-img"
           style={{
             backgroundImage: `url("${imgUrl}")`,
-            objectFit: "cover",
-            backgroundSize: "cover",
-            backgroundRepeat: "no-repeat",
           }}
         >
           <div className="main-button-place">
             <button onClick={moveToQuiz} className="main-button-to-quiz">
-              <p>התחילו לשחק</p>
+              <span>התחילו לשחק</span>
               <img src={`${triangleIcon}`} alt="icon of triangle" />
             </button>
           </div>
         </div>
       </div>
-    </main>
+    </>
   );
 };
 
