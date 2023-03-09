@@ -43,7 +43,7 @@ function Login() {
                 localStorage.setItem("quizUser", JSON.stringify({ userId: data.id, username: data.username }))
                 setUser({ userId: data.id, username: data.username })
                 setRegErrDiv('')
-                navigate('/enterance-page')
+                navigate('/entrance-page')
             }
             else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
             // Handle successful response here...
@@ -65,7 +65,7 @@ function Login() {
                         <Typography className='login-parag' variant='body1'>סיסמה</Typography>
                         <input className='login-input' id='new-pass' type='password' value={password} onInvalid={regPassErr} onChange={(e) => setPassword(e.target.value)} required maxLength={16} />
 
-                        <Button color='primary' variant='contained' className='login-submit-button' type='submit'>הרשמה</Button>
+                        <Button color='primary' variant='contained' className='login-submit-button' type='submit'>התחבר</Button>
 
                         <div className='to-register-link'>
                             <a href='Register'>עוד לא משתמש רשום? <u>הרשם כאן</u></a>

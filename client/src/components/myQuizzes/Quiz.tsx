@@ -48,7 +48,7 @@ const Quiz: FC<QuizProps> = (props) => {
     setAnchorEl(null);
   };
   const toScoreboard = (id: number) => {
-    navigate(`/${username}/quiz/${id}/scores`)
+    navigate(`/quiz/${username}/${id}/scores`)
   }
   const toEdit = (id: number) => {
 
