@@ -33,11 +33,8 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
     const { setQuestions, questions } = useQuestionContext()
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
     const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
-    console.log('questionsImagesArr: ', questionsImagesArr);
 
 
-    // const [questionImageObject, setQuestionImageObject] = useState< imageFile[]> ([])
-    // console.log('questionImageObject: ', questionImageObject);
 
 
     const filesUploader = useFiles()
@@ -75,7 +72,6 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     const handleImageFile = (value :imageFile) => {
         value.questionIndex = currentEditQuestion
-        console.log('value: ', value);
         addImageFile(value)
         currentQuestion.imageUrl = value.link;
     }

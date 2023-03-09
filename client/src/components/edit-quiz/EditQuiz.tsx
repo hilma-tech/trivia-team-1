@@ -36,6 +36,7 @@ export const isFull = (question: CurrentQuestion) => {
 const EditQuiz: FC = () => {
 
     const { setQuestions, questions } = useQuestionContext()
+    console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
     const [quizImageObject, setQuizImageObject] = useState<imageFile | null> (null)
