@@ -43,7 +43,7 @@ function Login() {
                 localStorage.setItem("quizUser", JSON.stringify({ userId: data.id, username: data.username }))
                 setUser({ userId: data.id, username: data.username })
                 setRegErrDiv('')
-                navigate('/enterance-page')
+                navigate('/entrance-page')
             }
             else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
             // Handle successful response here...
