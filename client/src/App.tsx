@@ -14,10 +14,10 @@ import Error from "./components/error404";
 import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from "./context/AnswersContext";
 import EditQuiz from "./components/edit-quiz/EditQuiz";
-import { PopContextProvider } from "./components/popups/popContext";
 import OpeningForTheQuiz from "./components/play-quiz/OpeningForTheQuiz";
 import QuestionTemp from "./components/play-quiz/PlayQuiz";
 import UserProvider from "./context/UserContext";
+import { PopContextProvider } from "./components/popups/popContext";
 
 
 import "./style/background.scss";
