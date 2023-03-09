@@ -28,6 +28,7 @@ export class UserController {
         return "hello smidth"
     }
 
+    //TODO: temporary
     @Post("add-fake-data")
     addFakeData() {
         return this.userService.addFakeData(10);

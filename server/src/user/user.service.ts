@@ -38,6 +38,7 @@ export class UserService {
      return false;
   }
 
+  //TODO: temporary
   //TODO: change this when using @hilma/auth-nest
   async addFakeData(amount: number) {
     const users: DeepPartial<User>[] = [];
@@ -48,6 +49,7 @@ export class UserService {
     return results.map((user) => user.id);
   }
 
+  //TODO: temporary
   //TODO: change this when using @hilma/auth-nest
   randomizeUser() {
     return {

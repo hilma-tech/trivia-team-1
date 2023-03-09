@@ -54,6 +54,7 @@ export class QuizService {
         return { title, scores }
     }
 
+    //TODO: temporary
     // this should be a string[] when using @hilma/auth
     addFakeData(userIds: number[], amount: number) {
         const quizzes = userIds.flatMap((id) => {
@@ -66,6 +67,7 @@ export class QuizService {
         this.quizRepository.save(quizzes);
     }
 
+    //TODO: temporary
     // this should be a string when using @hilma/auth
     randomQuiz(id: number) {
         const quiz: DeepPartial<Quiz> = {
