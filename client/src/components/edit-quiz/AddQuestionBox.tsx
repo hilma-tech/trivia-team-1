@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import Selectimage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../../images/addAnswer.svg'
@@ -25,26 +25,20 @@ interface AddQuestionBoxProps {
     duplicateQuestion: () => void
     currentEditQuestion: number;
     index: number;
-    addQuestion: () => void;
-
 
 }
 
 
-const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuestion, currentQuestion, setCurrentEditQuestion, duplicateQuestion, currentEditQuestion, index }) => {
-    console.log('index: ', index);
-    console.log('currentEditQuestion: ', currentEditQuestion);
+const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion, setCurrentEditQuestion, duplicateQuestion, currentEditQuestion, index }) => {
+    
     console.log('currentQuestion: ', currentQuestion);
 
     const { setQuestions, questions } = useQuestionContext()
     const isMobile = useMediaQuery('(max-width:600px)');
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
     const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
-    console.log('questionsImagesArr: ', questionsImagesArr);
 
 
-    // const [questionImageObject, setQuestionImageObject] = useState< imageFile[]> ([])
-    // console.log('questionImageObject: ', questionImageObject);
 
 
     const filesUploader = useFiles()
@@ -81,7 +75,6 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuesti
 
     const handleImageFile = (value: imageFile) => {
         value.questionIndex = currentEditQuestion
-        console.log('value: ', value);
         addImageFile(value)
         currentQuestion.imageUrl = value.link;
     }
@@ -148,7 +141,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ addQuestion, setCurrentQuesti
                         <label>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={questionsImagesArr.length > 0 ? questionsImagesArr[index].link : Selectimage} alt='add here to the question' />
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : Selectimage} alt='add here to the question' />
                             </BootstrapTooltip>
                         </label>
 

@@ -29,7 +29,11 @@ const cacheRtl = createCache({
     stylisPlugins: [rtlPlugin],
 });
 
-
+export const isFull = (question: CurrentQuestion) => {
+    return question.answers.some(answer => answer.isCorrect)
+        && question.answers.every(answer => answer.text !== '')
+        && question.title !== "";
+}
 
 const EditQuiz: FC = () => {
 
@@ -39,13 +43,12 @@ const EditQuiz: FC = () => {
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
-    const [quizImageObject, setQuizImageObject] = useState<imageFile | null>(null)
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
-        if (originClassName === 'monkey-svg'|| originClassName === 'plus-btn-container' ) return 'hide'
+        if (originClassName === 'monkey-svg' || originClassName === 'plus-btn-container') return 'hide'
         if (phonePage === 2 && originClassName === 'phone-first-page-container') return 'hide'
-        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'button-container-second-page' )) return 'hide';
+        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'button-container-second-page')) return 'hide';
         else return originClassName
     }
 
@@ -55,7 +58,7 @@ const EditQuiz: FC = () => {
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
-                if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
+                if (isFull(prev[currentEditQuestion])) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
                     return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
                 } else {
@@ -113,13 +116,10 @@ const EditQuiz: FC = () => {
         }
     }
 
-    const handleImageFile = (value : UploadedFile) => {
-        setQuizImageObject(value)
-    }
+    
 
 
     const saveQuiz = () => {
-        console.log('here');
 
         axios.post('http://localhost:8080/api/quiz', {
             creatorId: 1,
@@ -143,58 +143,57 @@ const EditQuiz: FC = () => {
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
                     <div className='quiz-header-wrapper'>
-                        <EditQuizHeader giveRightClasses={giveRightClasses} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
+                        <EditQuizHeader giveRightClasses={giveRightClasses} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage}  />
                     </div>
-                    <div className={giveRightClasses('question-dnd-container')}>
-                        <DragDropContext onDragEnd={handleDragEnd}>
-                            <Droppable droppableId="droppable">
-                                {(provided) => (
-                                    <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
-                                        {questions.map((question, index: number) => (
-                                            <Draggable
-                                                key={question.questionId.toString()}
-                                                draggableId={question.questionId.toString()}
-                                                index={index}
+            <div className={giveRightClasses('question-dnd-container')}>
+                <DragDropContext onDragEnd={handleDragEnd}>
+                    <Droppable droppableId="droppable">
+                        {(provided) => (
+                            <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
+                                {questions.map((question, index) => (
+                                    <Draggable
+                                        key={question.questionId.toString()}
+                                        draggableId={question.questionId.toString()}
+                                        index={index}
+                                    >
+                                        {(provided) => (
+                                            <div
+                                                ref={provided.innerRef}
+                                                {...provided.draggableProps}
+                                                {...provided.dragHandleProps}
                                             >
-                                                {(provided) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                    >
-                                                        {currentEditQuestion === index ?
+                                                {currentEditQuestion === index ?
+                                                    <AddQuestionBox setCurrentQuestion={(q) => {
+                                                        setQuestions(prev => {
+                                                            return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                        })
+                                                    }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
+                                                    :
+                                                    <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
+                                                }
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                ))}
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+                </DragDropContext>
+            </div>
+            <div className={giveRightClasses('plus-btn-container')}>
+                <BootstrapTooltip title=" הוספת שאלה">
+                    <button className='plus-btn' onClick={addQuestion}>
+                        <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
+                    </button>
+                </BootstrapTooltip>
+            </div>
 
-                                                            <AddQuestionBox addQuestion={addQuestion} setCurrentQuestion={(q) => {
-                                                                setQuestions(prev => {
-                                                                    return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
-                                                                })
-                                                            }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
-                                                            :
-                                                            <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} />
-                                                        }
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </DragDropContext>
-                    </div>
-                    <div className={giveRightClasses('plus-btn-container')}>
-                        <BootstrapTooltip title=" הוספת שאלה">
-                            <button className='plus-btn' onClick={addQuestion}>
-                                <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
-                            </button>
-                        </BootstrapTooltip>
-                    </div>
-
-                </div >
-                <div className='monkey-in-edit-page-svg'>
-                    <img src={MonkeySvg} className={giveRightClasses('monkey-svg')} alt='image of cute monkey with computer' />
-                </div>
-            </CacheProvider >
+        </div >
+        <div className='monkey-in-edit-page-svg'>
+            <img src={MonkeySvg} className={giveRightClasses('monkey-svg')} alt='image of cute monkey with computer' />
+        </div>
+        </CacheProvider >
         </>
     );
 }

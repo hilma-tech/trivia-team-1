@@ -352,17 +352,24 @@ body {
     margin-right: 3%;
 }
 
-.select-image-svg-for-questions {
-    width: 1.5625vw;
-    height: 2.9791459781529297vh;
+.add-image-icon.MuiIconButton-root {
     margin-right: 2vw;
 
+    .add-image-icon-placeholder {
+        width: 1.5625vw;
+        height: 2.9791459781529297vh;
+        // margin-right: 2vw;
+
+    }
 }
 
-.trashSvgForQuestions {
-    width: 1.5625vw;
-    height: 2.9791459781529297vh;
+.remove-answer {
     margin-right: 1.3vw;
+
+    .trash-icon {
+        width: 1.5625vw;
+        height: 2.9791459781529297vh;
+    }
 }
 
 
@@ -661,10 +668,6 @@ body {
                 font-weight: bold;
                 color: #738793;
                 line-height: 80%;
-            }
-
-            img {
-                width: 15%;
             }
         }
 

@@ -25,38 +25,43 @@ interface QuizHeader {
 }
 
 
-export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion,saveQuiz, questionDetails, handleChange, setPhonePage }) => {
+export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, saveQuiz, questionDetails, handleChange, setPhonePage }) => {
     const filesUploader = useFiles();
-    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
+    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage);
+    const [quizImageObject, setQuizImageObject] = useState<imageFile | null>(null)
 
-    const handleImageFile = (value: imageFile) => {
-        addImageFile(value)
+    const handleImageFile = (value: UploadedFile) => {
+        setQuizImageObject(value)
     }
+
 
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
     return isMobile ? (
         <div>
-        <div className={giveRightClasses("phone-first-page-container")} >
-            <div className="input-container">
-                <Typography variant="body1">שם המשחק</Typography>
-                <TextField id="quizInputName" value={questionDetails.title} onChange={handleChange} />
-            </div>
-            <div className="input-container">
-                <Typography variant="body1">תיאור</Typography>
-                <TextField id="outlined-multiline-static" value={questionDetails.description} onChange={handleChange} />
-            </div>
-            <div className="select-image-container">
-                <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
-                <BootstrapTooltip title="הוספת תמונה לחידון">
-                    <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
-                </BootstrapTooltip>
-                <Typography variant="body1">העלאת תמונה</Typography>
-            </div>
+            <div className={giveRightClasses("phone-first-page-container")} >
+                <div className="input-container">
+                    <Typography variant="body1">שם המשחק</Typography>
+                    <TextField id="quizInputName" value={questionDetails.title} onChange={handleChange} />
+                </div>
+                <div className="input-container">
+                    <Typography variant="body1">תיאור</Typography>
+                    <TextField id="outlined-multiline-static" value={questionDetails.description} onChange={handleChange} />
+                </div>
+                <div>
+                    <label className="select-image-container">
+                        <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                        <BootstrapTooltip title="הוספת תמונה לחידון">
+                            <img className='select-image-quiz-svg' src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
+                        </BootstrapTooltip>
+                        <Typography variant="body1">העלאת תמונה</Typography>
+                    </label>
 
-            <div className="button-container">
-                <Button onClick={() => { setPhonePage(2) }} color="primary" variant="contained">המשך</Button>
+                </div>
+
+                <div className="button-container">
+                    <Button onClick={() => { setPhonePage(2) }} color="primary" variant="contained">המשך</Button>
+                </div>
             </div>
-        </div>
             <div className={giveRightClasses("button-container-second-page")}>
                 <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
                 <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
@@ -84,11 +89,14 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion,s
                     </div>
                 </div>
                 <div className='quiz-header-container'>
-                    <div className='quiz-header-image'>
-                        <BootstrapTooltip title="הוספת תמונה לחידון">
-                            <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
-                        </BootstrapTooltip>
-                    </div>
+                    <label style={{ border: 'none' }}>
+                        <div className='quiz-header-image-btn'>
+                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                            <BootstrapTooltip title="הוספת תמונה לחידון">
+                                <img className='select-image-quiz-svg' src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
+                            </BootstrapTooltip>
+                        </div>
+                    </label>
                     <div className='title-header-container'>
                         <BootstrapTooltip title="שינוי שם">
                             <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />

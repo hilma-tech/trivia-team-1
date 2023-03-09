@@ -15,14 +15,14 @@ export class QuizController {
 
     @Post("/")
     async addQuiz(@Body() quiz: QuizDTO) {
-        const newQuiz=await this.quizService.addQuiz(quiz);
-        return  newQuiz.id
+        const newQuiz = await this.quizService.addQuiz(quiz);
+        return newQuiz.id
     }
 
     @Put("/:id")
-    editQuiz(@Param('id', ParseIntPipe) id: number,@Body() quiz: QuizDTO) {
-        this.quizService.editQuiz(id,quiz);
-        return 
+    editQuiz(@Param('id', ParseIntPipe) id: number, @Body() quiz: QuizDTO) {
+        this.quizService.editQuiz(id, quiz);
+        return
     }
 
     @Get("/:id/scores")
