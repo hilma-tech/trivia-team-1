@@ -47,7 +47,10 @@ function App() {
                   <Route path="finished-game-pc" element={<SummaryGameDesktop />} />
                   <Route path="questions" element={<QuestionTemp />} />
                 </Route>
-                <Route path="/my-quizzes/:userId" element={<MyQuizzes />} />
+                <Route path="/my-quizzes" element={<Outlet />}>
+                  <Route index element={<MyQuizzes />} />
+                  <Route path=":id/scores" element={<ScoreCard />} />
+                </Route>
               </Routes>
             </Background>
           </UserProvider>

@@ -15,6 +15,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
 
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   function sendNameOfPlayerToServer() {
+    sessionStorage.setItem("playerName", playerName)//TODO: Until context is set up
     //TODO: change this from "#"
     fetch(`#`, {
       method: "POST",
@@ -27,7 +28,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
       .then((data) => {
         moveToPlayGame();
       })
-      .catch((err) => {});
+      .catch((err) => { });
     moveToPlayGame();
   }
 
