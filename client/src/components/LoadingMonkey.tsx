@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Box from '@mui/material/Box';
@@ -7,13 +7,17 @@ import loadingMonkey from "../images/loadingMonkey.svg"
 
 import "../style/loadingMonkey.scss"
 
-
+const AMOUNT_UNTIL_ERROR = 5 * 1000;
 
 export default function LoadingMonkey() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setTimeout(() => navigate('/error404'), 10000)
+    if(window.innerWidth > 600){
+    const timeout = setTimeout(() => navigate("/error404"), AMOUNT_UNTIL_ERROR);
+
+    return () => clearTimeout(timeout);
+    }
   }, [])
 
 
