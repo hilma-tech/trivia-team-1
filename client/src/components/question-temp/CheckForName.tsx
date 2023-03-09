@@ -49,7 +49,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                             <p>איך קוראים לכם?</p>
                         </div>
                         <input
-                            onChange={(ev) => setPlayerName(ev.target.value)}
+                            onChange={(e) => setPlayerName(e.target.value)}
                             name="player-identification"
                             type="text"
                             placeholder="נא להזין שם"
@@ -71,7 +71,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
                             <p>איך קוראים לכם?</p>
                         </div>
                         <input
-                            onChange={(ev) => setPlayerName(ev.target.value)}
+                            onChange={(e) => setPlayerName(e.target.value)}
                             name="player-identification"
                             type="text"
                             placeholder="נא להזין שם"

@@ -31,6 +31,7 @@ const Quiz: FC<QuizProps> = (props) => {
   const isMobile = useMediaQuery('(min-width:600px)');
 
   const navigate = useNavigate();
+  const username = "michael"
 
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -48,7 +49,7 @@ const Quiz: FC<QuizProps> = (props) => {
     setAnchorEl(null);
   };
   const toScoreboard = (id: number) => {
-    navigate(`/quiz/:userName/:quizName/scores`)
+    navigate(`/${username}/quiz/${id}/scores`)
   }
   const toEdit = (id: number) => {
 

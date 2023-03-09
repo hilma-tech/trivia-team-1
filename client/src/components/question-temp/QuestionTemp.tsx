@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useMediaQuery } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { usePopContext } from '../popups/popContext';
 import { Type } from '../popups/GenericPopParts';
 import fullScreenIcon from '../../images/question-template/full-screen.png';
@@ -56,6 +56,7 @@ const QuestionTemp = () => {
     const [isFullScreen, setIsFullScreen] = useState<stateObj>({ pic0: false, pic1: false, pic2: false, pic3: false });
     const { popHandleClickOpen, setPopType } = usePopContext();
     const navigate = useNavigate();
+    const { quizId } = useParams();
 
     useEffect(() => {
         setInfoFromServer();
@@ -176,15 +177,11 @@ const QuestionTemp = () => {
         setIsFullScreen(prev => ({ ...prev, [picIndex]: false }))
     }
     const postScore = async () => {
-        let quizId = window.location.pathname.split('/')[3]//this will need to be fixed
-        console.log('quizId: ', quizId);
-        let playerName = sessionStorage.getItem('playerName') || 'סגייז';
-        let { data } = await axios.post(`/api/quiz/${quizId}/scores`, {
+        let playerName = sessionStorage.getItem('playerName') || 'אורח';
+        axios.post(`/api/quiz/${quizId}/scores`, {
             score: Math.floor(Math.random() * 101),
             player: playerName
         })
-        console.log('data: ', data);
-        console.log('playerName: ', playerName);
     }
 
 

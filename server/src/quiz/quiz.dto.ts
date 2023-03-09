@@ -46,6 +46,7 @@ export class AnswerDTO {
     @IsNotEmpty()
     isCorrect: boolean;
 }
+
 export class ScoreDTO {
     @IsNumber()
     @IsNotEmpty()

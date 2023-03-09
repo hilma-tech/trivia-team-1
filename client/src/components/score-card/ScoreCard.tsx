@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router";
 import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery } from "@mui/material";
 import axios from "axios";
-import { ScoreState } from "./interfaces";
+import { QuizDataState } from "../../utils/Interfaces";
 import HighScore from "./HighScore";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import '../../style/scoreCard.scss';
 
-function ScoreCard() {
+const ScoreCard: FC = () => {
+    const [quizData, setQuizData] = useState<QuizDataState>({ title: '', scores: [] });
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const [quizData, setQuizData] = useState<ScoreState>({ title: '', scores: [] });
-    const quizId = window.location.pathname.split('/')[2]
+    const { quizId } = useParams();
 
     async function fetchQuizData() {
         try {
