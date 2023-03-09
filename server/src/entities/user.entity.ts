@@ -10,8 +10,8 @@ export class User {
     @Column({unique: true})
     username: string;
 
-    // @OneToMany(() => Quiz, (quizzes) => quizzes.creator)
-    // quizzes: Quiz[]
+    @OneToMany(() => Quiz, (quizzes) => quizzes.creator)
+    quizzes: Quiz[]
 
     @OneToOne(() => Password, (password) => password.user, { cascade: true })
     password: Password

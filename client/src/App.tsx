@@ -13,7 +13,7 @@ import Register from "./components/register";
 import Error from './components/error404';
 import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from './context/AnswersContext';
-import EditQuiz from './components/EditQuiz';
+import EditQuiz from './components/edit-quiz/EditQuiz';
 import { PopContextProvider } from "./components/popups/popContext";
 import OpeningForTheQuiz from "./components/question-temp/OpeningForTheQuiz";
 import QuestionTemp from "./components/question-temp/QuestionTemp";
@@ -40,7 +40,7 @@ function App() {
               <Route path='/edit-quiz' element={<EditQuiz />} />
               <Route path='/error404' element={<Error />} />
               <Route path='/loading-page' element={<LoadingMonkey />} /> 
-              <Route path='/quiz/:userName/:quizName' element={<Outlet />} >
+              <Route path='/:username/quiz/:quizId' element={<Outlet />} >
                 <Route index element={<OpeningForTheQuiz />} />
                 <Route path='questions' element={<QuestionTemp />} />
                 <Route path='scores' element={<ScoreCard />} />

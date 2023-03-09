@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 
 import PhonePageWithNav from "../navbar/phonePageWithNav";
@@ -6,6 +6,7 @@ import NoQuiz from "./NoQuizes";
 import Quiz from "./Quiz";
 
 import "../../style/myQuizes.scss"
+import LoadingMonkey from "../LoadingMonkey";
 
 interface Quiz {
     name: string;
@@ -24,12 +25,22 @@ const arr: Quiz[] =
 ]
 
 const MyQuizes: FC = () => {
-    const [quizes, setQuizes] = useState<Quiz[]>(arr
-    );
+    const [quizes, setQuizes] = useState<Quiz[]>(arr);
+    const [loading, setLoading] = useState<boolean>(true)
+
+    useEffect(()=>{
+        const timeout = setTimeout(()=> setLoading(false), 3000);
+
+        return () => clearTimeout(timeout);
+    }, [])
+
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
+
+    if(loading) return <LoadingMonkey/>;
 
     return (
         isLargeScreen ? <div className="comp-children-container my-quizzes">
+            
             <h1 className="title">החידונים שלי:</h1>
             <div className="container">
                 {quizes.length ? quizes.map((quiz, i) => <Quiz key={quiz.id}
