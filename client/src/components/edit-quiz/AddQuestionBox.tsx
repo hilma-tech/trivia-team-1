@@ -93,7 +93,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                 <div className="input-container second-page">
                     <Typography variant="body1">כותרת</Typography>
                     <div className="input-div">
-                            <TextField id="quizInputName" value={currentQuestion.title} onChange={handleChange} />
+                            <TextField id="quizInputName" className="title-question-header" value={currentQuestion.title} onChange={handleChange} />
                         <label className="label-in-new-answer">
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">

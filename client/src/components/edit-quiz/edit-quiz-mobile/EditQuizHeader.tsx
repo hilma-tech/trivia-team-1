@@ -34,6 +34,13 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
         setQuizImageObject(value)
     }
 
+    const handleMovePage = () => {
+        if(questionDetails.title && questionDetails.description ) setPhonePage(2);
+        else {
+            alert('צריך למלא את הכותרת ואת התיאור על מנת להמשיך לעמוד הבא')
+        }
+    }
+
 
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
     return isMobile ? (
@@ -51,15 +58,15 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                     <label className="select-image-container">
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                         <BootstrapTooltip title="הוספת תמונה לחידון">
-                            <img className='select-image-quiz-svg' src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
+                            <img className={quizImageObject ? 'quiz-image-in': 'select-image-quiz-svg' } src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
                         </BootstrapTooltip>
-                        <Typography variant="body1">העלאת תמונה</Typography>
+                        {!quizImageObject && <Typography variant="body1">העלאת תמונה</Typography>}
                     </label>
                     
                 </div>
 
                 <div className="button-container">
-                    <Button onClick={() => { setPhonePage(2) }} color="primary" variant="contained">המשך</Button>
+                    <Button onClick={handleMovePage} color="primary" variant="contained">המשך</Button>
                 </div>
             </div>
             

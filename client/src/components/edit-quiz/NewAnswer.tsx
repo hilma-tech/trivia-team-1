@@ -12,7 +12,9 @@ import BootstrapTooltip from "../../tooltip/tooltip";
 import { useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../context/imageFilesZus'
+import EditQuizInput from "./edit-quiz-mobile/EditQuizMobileInput";
 import { Index } from "typeorm";
+import EditQuizMobileInput from "./edit-quiz-mobile/EditQuizMobileInput";
 
 
 
@@ -27,7 +29,7 @@ const cacheRtl = createCache({
     stylisPlugins: [rtlPlugin],
 });
 
-interface NewAnswerProps {
+export interface NewAnswerProps {
     answerIndex: number;
     isChecked?: boolean;
     setCurrentQuestion: React.Dispatch<React.SetStateAction<CurrentQuestion>>;
@@ -40,6 +42,7 @@ interface NewAnswerProps {
 const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, currentQuestion, currentEditQuestion }) => {
 
     const [uploadedImageUrl, setUploadedImageUrl] = useState(currentQuestion.answers[answerIndex].imageUrl);
+    const [type, setType] = useState('input');
     const filesUploader = useFiles()
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -81,18 +84,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
     return (
         isMobile ?
-            <div className="input-container radio-question input-div">
-                <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.answers[answerIndex].isCorrect} onChange={handleCorrectAnswer} />} />
-                <TextField className={uploadedImageUrl ? 'make-into-div-size' : ''} placeholder={`תשובה ${answerIndex + 1}`} id="standard-size-small" value={currentQuestion.answers[answerIndex].text} onChange={handleChange} />
-                <label className="label-in-new-answer">
-                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
-                    <img src={SelectImage} className={uploadedImageUrl ? "select-image-svg-for-questions  image-answer-after-added" : "select-image-svg-for-questions"} alt='add image to your answer' />
-                    {uploadedImageUrl && <img className="added-picture-phone" src={uploadedImageUrl} />}
-                </label>
-                <IconButton onClick={deleteAnswer}>
-                    <img src={TrashSvg} className="trash-svg-for-questions" alt='delete your answer here' />
-                </IconButton>
-            </div>
+            <EditQuizMobileInput answerIndex={answerIndex} currentQuestion={currentQuestion} uploadedImageUrl={uploadedImageUrl} filesUploader={filesUploader} handleImageFile={handleImageFile} deleteAnswer={deleteAnswer} handleCorrectAnswer={handleCorrectAnswer} handleChange={handleChange} setUploadedImageUrl={setUploadedImageUrl}/>
             :
             <div className="check-boxes-container" dir='rtl'>
                 <div className="check-box-svg">
