@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
 import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
+import { PlayerName } from "../../context/PlayerNameContext";
 import { Type } from "../popups/GenericPopParts";
 import axios from "axios";
 
@@ -44,6 +45,8 @@ const QuestionTemp = () => {
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
+  const [score, setScore] = useState(0);
+  const playerName = useContext(PlayerName);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -68,20 +71,13 @@ const QuestionTemp = () => {
   useEffect(() => {
     setInfoFromServer();
     checkIfThereAreImg();
+    if (!questions) {
+      navigateToEndGameScreen();
+    }
   }, []);
 
   useEffect(() => {
     checkIfThereAreImg();
-  }, [currentQuestionIndex]);
-
-  useEffect(() => {
-    console.log(currentQuestion)
-    if (questions.length > 2) {
-      if (currentQuestionIndex === questions.length -1 ) {
-        navigateToEndGameScreen();
-      }
-
-    }
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -90,9 +86,7 @@ const QuestionTemp = () => {
 
   const setInfoFromServer = async () => {
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
-
     if (!response.data) return navigate("/error404");
-
     setQuestions(response.data.questions);
     setQuantityOfQuestion(response.data.questions.length);
   };
@@ -104,6 +98,8 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
+    console.log('testinggggggggggggggg');
+    postScore()
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -114,6 +110,7 @@ const QuestionTemp = () => {
 
   const checkIfCorrect = (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
+      setScore((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();
@@ -125,10 +122,10 @@ const QuestionTemp = () => {
   const moveToNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
-    } 
-    // else {
-    //   navigateToEndGameScreen();
-    // }
+    }
+    else {
+      navigateToEndGameScreen();
+    }
     setRedIndex(undefined);
     setGreenIndex(undefined);
   };
@@ -141,6 +138,16 @@ const QuestionTemp = () => {
     const correctAnswerIndex = currentQuestion.answers.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
+
+  const postScore = async () => {
+    const finalScore = Math.round(score / quantityOfQuestion * 100)
+    console.log('playerName: ', playerName?.nameOfPlayer);//TODO: delete
+    console.log('finalScore: ', finalScore);// TODO: delete
+    axios.post(`/api/quiz/${quizId}/scores`, {
+      score: finalScore,
+      player: playerName?.nameOfPlayer || 'אורח'
+    })
+  }
 
   const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();
