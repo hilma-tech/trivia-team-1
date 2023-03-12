@@ -1,10 +1,15 @@
 import { Button, Typography } from "@mui/material";
-import React, { createContext, ReactNode, FC, useState, useContext } from "react";
+import { FC } from "react";
 import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
+import { usePopContext } from "./popContext";
 
 export const SummaryGameDesktop: FC = () => {
+
+  const { correctAnswers, score } = usePopContext();
+
+
   return (
     <>
       <div className="comp-children-container computer-finish-game confetti-pc">
@@ -15,7 +20,7 @@ export const SummaryGameDesktop: FC = () => {
           variant="h3"
           sx={{ fontWeight: "bolder", paddingTop: "6vh" }}
         >
-          ענית נכון על 2 שאלות. ציונך: 50
+          ענית נכון על {correctAnswers} שאלות. ציונך: {score}
         </Typography>
         <Typography component="div" className="coputer-finish-game-inner-text" variant="h6">
           שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!

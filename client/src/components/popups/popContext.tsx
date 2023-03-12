@@ -12,16 +12,24 @@ import { GenericPopActions, GenericPopContent, GenericPopTitle } from './Generic
 import { Type } from "./GenericPopParts";
 
 
-export type PopupsPropType = 'finishedQuiz'| 'savedSuccessfully'| 'copyQuiz'| 'deleteQuiz'| 'exitGame'| 'saveChanges'
+export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
+
 
 interface PopContextInterface {
-  setDeletedQuizId:React.Dispatch<React.SetStateAction<number>>;
-  deletedQuizId:number;
+  setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
+  deletedQuizId: number;
   setPopOpen: React.Dispatch<React.SetStateAction<boolean>>;
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
   setPopType: React.Dispatch<React.SetStateAction<Type>>;
+  setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
+  setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
+  setScore: React.Dispatch<React.SetStateAction<number>>;
+  correctAnswers: number;
+  numOfQuestions: number;
+  score: number;
+
 }
 
 interface PopProviderProps {
@@ -34,11 +42,14 @@ const popContext = createContext<PopContextInterface | null>(null);
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
-  const [popType, setPopType] = useState<Type>(Type.CopyQuiz)
+  const [popType, setPopType] = useState<Type>(Type.CopyQuiz);
+  const [correctAnswers, setCorrectAnswers] = useState<number>(0);
+  const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
-   function popHandleClickOpen(){
+  function popHandleClickOpen() {
     setPopOpen(true);
   };
 
@@ -53,8 +64,13 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     deletedQuizId: deletedQuizId,
     popHandleClickOpen: popHandleClickOpen,
     popHandleClose: popHandleClose,
-    setPopType: setPopType
-
+    setPopType: setPopType,
+    setCorrectAnswers: setCorrectAnswers,
+    setNumOfQuestions: setNumOfQuestions,
+    setScore: setScore,
+    correctAnswers: correctAnswers,
+    numOfQuestions: numOfQuestions,
+    score: score
   }
 
   return (
@@ -72,11 +88,11 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           {isMobile && popType === Type.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
           {isMobile && popType === Type.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
           <DialogTitle className="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
-            <GenericPopTitle type={popType} />
+            <GenericPopTitle correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} type={popType} />
           </DialogTitle>
           <DialogContent className='dialog-content-container'>
             <DialogContentText id="alert-dialog-description" className={isMobile ? "dialog-content-text-style" : ""}  >
-              <GenericPopContent type={popType} />
+              <GenericPopContent type={popType} score={score} />
             </DialogContentText>
           </DialogContent>
           <DialogActions className='dialog-actions-container'>
