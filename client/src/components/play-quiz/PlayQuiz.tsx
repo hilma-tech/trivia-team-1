@@ -60,8 +60,8 @@ const QuestionTemp = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   const checkIfThereAreImg = () => {
-    for (let i = 0; i < currentQuestion.answers.length; i++) {
-      if (currentQuestion.answers[i].imageUrl) {
+    for (let i = 0; i < currentQuestion?.answers?.length; i++) {
+      if (currentQuestion?.answers[i]?.imageUrl) {
         setChangeFlexDir(false);
         break;
       } else {
@@ -141,7 +141,7 @@ const QuestionTemp = () => {
   };
 
   const makeCorrectAnswerGreen = () => {
-    const correctAnswerIndex = currentQuestion.answers.findIndex((answer) => answer.isCorrect);
+    const correctAnswerIndex = currentQuestion?.answers?.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
 
@@ -157,11 +157,11 @@ const QuestionTemp = () => {
   const AnswersMap = () => {
     return (
       <>
-        {currentQuestion.answers.map((answer, index) => (
+        {currentQuestion?.answers?.map((answer, index) => (
           <div key={`current-answer-${index}`}>
             <button
               className={
-                !currentQuestion.answers[0].imageUrl ? "ans-button-no-img" : "ans-button-with-img"
+                changeFlexDir ? "ans-button-no-img" : "ans-button-with-img"
               }
               key={index}
               style={{
@@ -190,7 +190,7 @@ const QuestionTemp = () => {
                   >
                     <img
                       className="button-img"
-                      src={`${answer.imageUrl}`}
+                      src={`${answer?.imageUrl}`}
                       alt="picture of answer"
                     />
                   </div>
@@ -198,7 +198,8 @@ const QuestionTemp = () => {
               ) : null}
             </button>
           </div>
-        ))}
+        ))
+        }
       </>
     );
   };
@@ -221,11 +222,11 @@ const QuestionTemp = () => {
                 <div className="question-img-place">
                   <img
                     className="question-img img"
-                    src={`${currentQuestion.imageUrl}`}
+                    src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />
                 </div>
-                <h2 id="question-title">{currentQuestion.title}</h2>
+                <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
                   <AnswersMap />
@@ -252,11 +253,11 @@ const QuestionTemp = () => {
                 <div className="question-img-place">
                   <img
                     className="question-img img"
-                    src={`${currentQuestion.imageUrl}`}
+                    src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />
                 </div>
-                <h2 id="question-title">{currentQuestion.title}</h2>
+                <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
                   <AnswersMap />
