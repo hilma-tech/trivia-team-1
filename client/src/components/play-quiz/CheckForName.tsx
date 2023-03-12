@@ -4,21 +4,17 @@ import triangleIcon from "../../icons/icon-awesome-play.png";
 import { useNavigate } from "react-router-dom";
 import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-import { PlayerNameContext } from "../../context/PlayerNameContext";
-
+import { usePlayerName } from "../../context/PlayerNameContext";
 interface CheckForNameProps {
   quizTitle: string;
 }
 
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
-  const [playerName, setPlayerName] = useState("");
   const navigate = useNavigate();
-  const userName = useContext(PlayerNameContext);
-
+  const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   function moveToGameWithWithPlayerName() {
     if(playerName === "") return alert('אנא מלא את הכינוי שלך')
-    userName?.changePlayerName(playerName);
     navigate("./questions");
   }
 

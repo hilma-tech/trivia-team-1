@@ -8,7 +8,7 @@ import TrashSvg from '../../images/trash.svg'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { CurrentQuestion } from "../../utils/Interfaces";
-import BootstrapTooltip from "../../tooltip/tooltip";
+import BootstrapTooltip from "../tooltip/tooltip";
 
 
 const theme = createTheme({
