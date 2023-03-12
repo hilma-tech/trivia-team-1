@@ -48,7 +48,7 @@
         font-weight: bolder;
         border-radius: 50px;
         height: 3.6vh;
-        font-size: 1.2rem;
+        font-size: 0.8rem;
     }
     
     .action-injected .action-link {
@@ -73,6 +73,15 @@
         padding-left: 1.5vw;
     }
 
+
+    .pop-title.MuiTypography-root{
+        font-size: 1rem;
+    }
+
+    .pop-content.MuiTypography-root{
+        font-size: 0.8rem;
+    }
+
     .MuiPaper-elevation {
         overflow: visible;
         padding-top: 3vh;
@@ -86,6 +95,15 @@
 }
 
 @media (max-width: 600px) {
+
+
+    .pop-title.MuiTypography-root{
+        font-size: 1.3vh;
+    }
+
+    .pop-content.MuiTypography-root{
+        font-size: 0.9vh;
+    }
 
     .MuiDialog-root.generic-pop-up-dialog {
 

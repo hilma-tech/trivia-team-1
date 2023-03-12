@@ -9,31 +9,36 @@ import PhonePageWithNav from "../navbar/phonePageWithNav";
 import { useMediaQuery } from "@mui/material";
 import axios from "axios";
 import "../../style/OpeningForTheQuiz.scss";
+import LoadingMonkey from "../LoadingMonkey";
 
 function OpeningForTheQuiz() {
-  const [imgUrl, setImgUrl] = useState(
-    "https://www.skideal.co.il/app/uploads/2020/06/Rome-e1591105892246.jpg"
-  );
+  const [imgUrl, setImgUrl] = useState("");
   const [quizTitle, setQuizTitle] = useState("איטליהה מה אתם יודעים?");
   const [paragraph, setParagraph] = useState(
     "לפני הטיסה לאיטליה רציתי לעשות לכם חידון על הארץ המיוחדת הזאת.. מהצפון ועד לדרום מה אתם יודעים? אוהבתת"
   );
   const [changeComponent, setChangeComponent] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { quizId } = useParams();
 
   useEffect(() => {
     getInfoFromServer();
+    const timeout = setTimeout(()=> setLoading(false), 4000);
+    return () => clearTimeout(timeout);
   }, []);
 
   const getInfoFromServer = async () => {    
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
-    setImgUrl(response.data.imgUrl);
+    setImgUrl(response.data.imageUrl);
     setQuizTitle(response.data.title);
     setParagraph(response.data.description);
   };
+
+  if(loading) return <LoadingMonkey/>;
+
   return isLargeScreen ? (
-    <div className="compChildrenContainer-boaz">
+    <div className="comp-children-container comp-children-container-question">
       {changeComponent ? (
         <main>
           <OpeningParagraphTitle
@@ -53,8 +58,8 @@ function OpeningForTheQuiz() {
   ) : (
     <div>
       {changeComponent ? (
-        <PhonePageWithNav type="banana" title={quizTitle} className="compChildrenContainer-boaz">
-          <main className="boaz-main">
+        <PhonePageWithNav type="banana" title={quizTitle} className="comp-children-container-question">
+          <main className="question-main">
             <OpeningParagraphTitle
               quizTitle={quizTitle}
               paragraph={paragraph}
@@ -62,16 +67,16 @@ function OpeningForTheQuiz() {
               changeComponent={changeComponent}
               setChangeComponent={setChangeComponent}
             />
-            <footer className="OpeningParagraphTitle-footer">
+            <footer className="opening-paragraph-title-footer">
               <img src={leave} alt="icon of triangle" />
             </footer>
           </main>
         </PhonePageWithNav>
       ) : (
-        <PhonePageWithNav type="return" title={quizTitle} className="compChildrenContainer-boaz">
-          <main className="boaz-main">
+        <PhonePageWithNav type="return" title={quizTitle} className="comp-children-container-question">
+          <main className="question-main">
             <CheckForName quizTitle={quizTitle} />
-            <footer className="CheckForName-footer">
+            <footer className="check-for-name-footer">
               <img src={leave} alt="icon of triangle" />
             </footer>
           </main>

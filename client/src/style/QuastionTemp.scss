@@ -1,13 +1,4 @@
-// .img{
-//     width: 100px;
-// }
-// .button-img{
-//     width: 100px;
-// }
-// .img-div{
-
-// }
-.img-div {
+.question-img-div {
     position: relative;
     .full-screen{
         width: 100vw;
@@ -32,21 +23,6 @@
     }
 }
 
-// .ans-button-with-img {
-//     display: none;
-// }
-
-// .mobile-show {
-//     background-color: green;
-// }
-
-// @media (min-width: 600px) {
-//     .mobile-show {
-//         display: none;
-//         background-color: red;
-//         z-index: 100;
-//     }
-// }
 
 @mixin flexCenter {
     display: flex;
@@ -54,7 +30,7 @@
     justify-content: center;
 }
 
-.main-QuastionTemp {
+.main-question-temp {
     /* direction: rtl; */
     top: 10.5rem;
     left: 18.75rem;
@@ -73,12 +49,12 @@
         height: 1rem;
     }
 
-    .numOfQuestion-place {
+    .num-of-question-place {
         display: flex;
         justify-content: end;
         margin-bottom: -3rem;
 
-        .numOfQuestion {
+        .num-of-question {
             width: 9.3125rem;
             height: 2.5625rem;
             color: white;
@@ -115,7 +91,7 @@
             margin-bottom: 1rem;
         }
 
-        #questionTitle {
+        #question-title {
             width: 12.25rem;
             height: 1.9375rem;
             /* UI Properties */
@@ -203,11 +179,9 @@
 }
 
 @media screen and (max-width: 600px) {
-    html {
-        font-size: 6px;
-    }
+  
 
-    .main-QuastionTemp {
+    .main-question-temp {
         /* direction: rtl; */
         top: 10.5rem;
         left: 18.75rem;
@@ -219,7 +193,7 @@
             margin-top: 6rem;
         }
 
-        .question-place-father #questionTitle {
+        .question-place-father #question-title {
             font: normal normal normal 20px/20px Rubik;
             margin-top: 5rem;
             margin-bottom: 2rem;
@@ -248,7 +222,5 @@
         }
     }
 
-    // .main-QuastionTemp .question-place-father .button-place-two .ans-button-with-img img {
-    //     width: 4.0625rem;
-    // }
+   
 }

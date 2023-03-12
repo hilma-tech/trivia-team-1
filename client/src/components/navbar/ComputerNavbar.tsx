@@ -50,11 +50,11 @@ const ComputerNavbar:FC = () => {
                 <Button className="nav-quiz-btn" onClick={() => onClick(LinkTo.About)}>אודות</Button>
             </div>
         </div>
-        <div className="logo-nav-bar-container">
-            <Typography id="logo-name" variant="h6">BANANA.games
+        <div className="navbar-container">
+            <Typography className="navbar-logo-name" variant="h6">BANANA.games
             </Typography>
             <div className="navbar-logo-container">
-                <img src={navbarLogo} />
+                <img className="navbar-logo" src={navbarLogo} />
             </div>
         </div>
     </div>

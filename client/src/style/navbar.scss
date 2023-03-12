@@ -1,7 +1,7 @@
 @import '../style/background.scss';
+@import "./variables.scss";
 
 .navbar-container-computer {
-    width: 100vw;
     height: 7vh;
     display: flex;
     align-items: center;
@@ -15,12 +15,12 @@
 
     .nav-quiz-btn{
        background-color: transparent; 
-       color: #378381;
+       color: $green-color;
        box-shadow: none;
     }
 
     .nav-quiz-btn:hover {
-       background-color: #378381;
+       background-color: $green-color;
        color: white;
         height: 100%;
         height: 3.1vh;
@@ -30,7 +30,9 @@
     .first-section {
         display: flex;
         align-items: center;
-
+        button{
+            font-size: 2vh;
+        }
     }
 
     .navbar-logo-container {
@@ -60,11 +62,19 @@
         margin: 10px;
     }
 
-    .logo-nav-bar-container {
+    .navbar-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex;
         align-items: center;
+        gap: 0.875rem;
+        
+        .navbar-logo-name {
+            font-size: 2vh;
+        }
 
+        .navbar-logo {
+            height: 3vh;
+        }
     }
 
     a {

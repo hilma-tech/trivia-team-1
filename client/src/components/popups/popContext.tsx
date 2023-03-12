@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, FC, useState, useContext } from "react"
+import React, { createContext, ReactNode, FC, useState, useContext, useEffect } from "react"
 import { useMediaQuery } from "@mui/material";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -15,6 +15,8 @@ import { Type } from "./GenericPopParts";
 export type PopupsPropType = 'finishedQuiz'| 'savedSuccessfully'| 'copyQuiz'| 'deleteQuiz'| 'exitGame'| 'saveChanges'
 
 interface PopContextInterface {
+  setDeletedQuizId:React.Dispatch<React.SetStateAction<number>>;
+  deletedQuizId:number;
   setPopOpen: React.Dispatch<React.SetStateAction<boolean>>;
   popOpen: boolean;
   popHandleClickOpen: () => void;
@@ -31,11 +33,12 @@ const popContext = createContext<PopContextInterface | null>(null);
 
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
+  const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
   const [popType, setPopType] = useState<Type>(Type.CopyQuiz)
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
-  const popHandleClickOpen = () => {
+   function popHandleClickOpen(){
     setPopOpen(true);
   };
 
@@ -46,6 +49,8 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const contextValue: PopContextInterface = {
     setPopOpen: setPopOpen,
     popOpen: popOpen,
+    setDeletedQuizId: setDeletedQuizId,
+    deletedQuizId: deletedQuizId,
     popHandleClickOpen: popHandleClickOpen,
     popHandleClose: popHandleClose,
     setPopType: setPopType

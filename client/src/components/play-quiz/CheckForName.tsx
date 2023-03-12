@@ -22,15 +22,16 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   }
 
   const moveToPlayGame = () => {
+    //TODO: temporary
     navigate("./questions");
   };
 
   return isLargeScreen ? (
     <main>
-      <div className="main-CheckForName-for-flex">
-        <div className="main-CheckForName">
+      <div className="main-check-for-name-for-flex">
+        <div className="main-check-for-name">
           <div className="title-and-paragraph">
-            <h1 className="quizTitle">{quizTitle}</h1>
+            <h1 className="main-quiz-title">{quizTitle}</h1>
             <p>איך קוראים לכם?</p>
           </div>
           <input
@@ -50,8 +51,8 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     </main>
   ) : (
     <div>
-      <div className="main-CheckForName-for-flex">
-        <div className="main-CheckForName">
+      <div className="main-check-for-name-for-flex">
+        <div className="main-check-for-name">
           <div className="title-and-paragraph">
             <p>איך קוראים לכם?</p>
           </div>

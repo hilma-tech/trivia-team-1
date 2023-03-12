@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Question, QuizType } from "./MyQuizes";
 import TrashSvg from "../../images/trash.svg";
 import LinkSvg from "../../images/link.svg";
 import EditSvg from "../../images/edit.svg";
@@ -15,22 +16,31 @@ import { Type } from "../popups/GenericPopParts";
 
 interface QuizProps {
   id: number;
-  name: string;
-  url: string;
+  title: string;
+  imageUrl: string;
   description: string;
-  answers: number
+  questions: Question[];
+  setQuizes: React.Dispatch<React.SetStateAction<QuizType[]>>;
+  quizzes: QuizType[];
 }
 
 
 const Quiz: FC<QuizProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const { id, name, url, description, answers } = props;
-  const { setPopType ,popHandleClickOpen  } = usePopContext();
-  const username= "ofek";
+  const [savedId, setId] = React.useState<number>(-800);
+  const { setPopType ,popHandleClickOpen,setDeletedQuizId, deletedQuizId  } = usePopContext();
   const isMobile = useMediaQuery('(min-width:600px)');
-
   const navigate = useNavigate();
+  //TODO; temporary
+  const username = "ofek";
+  const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
+
+  useEffect(() => {    
+    if(deletedQuizId===0 && savedId!==-800){
+     
+      deleteQuizFromClient(savedId);
+      }
+  }, [deletedQuizId])
 
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,31 +57,40 @@ const Quiz: FC<QuizProps> = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const toScoreboard = (id: number) => {
     navigate(`/${username}/quiz/${id}/scores`)
+
+    // /:userName/quiz/:quizId
   }
   const toEdit = (id: number) => {
 
   }
-  const linkCopied = (id: number) => {
 
+  const deleteQuizFromClient = (id: number) => {
+    let newQuiz = quizzes.filter(quiz => quiz.id !== id);    
+    setQuizes(newQuiz);
   }
-  const deleteQuiz = (id: number) => {
+
+  const deleteQuiz =  async (id: number) => {
     setPopType(Type.DeleteQuiz);
-    popHandleClickOpen();
-
+    setDeletedQuizId(id);
+    setId(id);
+    popHandleClickOpen();  
   }
+
+  
 
   if (isMobile) {
     return (
       <div className="quiz">
-        <div className="quiz-image" style={{ backgroundImage: `url('${url}')`, backgroundSize: "cover" }}>
-          <span>{answers} תשובות</span>
+        <div className="quiz-image" style={{ backgroundImage: `url('${imageUrl}')`, backgroundSize: "cover" }}>
+          <span>{questions.length} תשובות</span>
         </div>
         <div className="quiz-data">
-          <div className="quiz-title">{name}</div>
+          <div className="quiz-title">{title}</div>
           <div className="holder"></div>
-          <p>{description}</p>
+          <div className="quiz-description">{description.length > 50 ? description.slice(0, 50) + "..." : description}</div>
           <div className="quiz-buttons">
             <button className="scoreboard-button" onClick={() => toScoreboard(id)}><span>לוח תוצאות</span></button>
             <div>
@@ -90,8 +109,8 @@ const Quiz: FC<QuizProps> = (props) => {
   }
   else {
     return (<div className="quiz">
-      <div className="quiz-image" style={{ backgroundImage: `url('${url}')`, backgroundSize: "cover" }}>
-        <span className="answers">{answers} תשובות</span>
+      <div className="quiz-image" style={{ backgroundImage: `url('${imageUrl}')`, backgroundSize: "cover" }}>
+        <span className="answers">{questions.length} תשובות</span>
       </div>
       <div className="quiz-data">
         <Button
@@ -103,7 +122,7 @@ const Quiz: FC<QuizProps> = (props) => {
         >
           <img alt="menu" src={MenuPic} />
         </Button>
-        <div className="quiz-title">{name}</div>
+        <div className="quiz-title">{title}</div>
         <div className="holder"></div>
         <Menu
           className="quiz-menu"
