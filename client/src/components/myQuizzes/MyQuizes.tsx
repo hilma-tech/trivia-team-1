@@ -6,6 +6,7 @@ import Quiz from "./Quiz";
 import "../../style/myQuizes.scss"
 import axios, { AxiosResponse } from 'axios';
 import LoadingMonkey from "../LoadingMonkey";
+import { useUser } from "../../context/UserContext";
 
 export interface QuizType {
     title: string;
@@ -32,12 +33,10 @@ export interface Answer{
 
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
-    const [loading, setLoading] = useState<boolean>(true)
-    const id=2;
+    const [loading, setLoading] = useState<boolean>(true);
+    const {user} = useUser();
+    
 
-    const axiosInstance = axios.create({
-        baseURL: `api/`
-      });
 
     console.log(quizes)
 
@@ -45,7 +44,7 @@ const MyQuizes: FC = () => {
         getQuizes()
     },[])
     async function getQuizes(){
-        const { data }:AxiosResponse<any, any>= await axiosInstance.get(`user/${id}/quizzes`)
+        const { data }:AxiosResponse<any, any>= await axios.get(`api/user/${user.userId}/quizzes`)
         const timeout = setTimeout(()=> setLoading(false), 2000);
         setQuizes(data);
         return () => clearTimeout(timeout);
