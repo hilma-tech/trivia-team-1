@@ -5,7 +5,7 @@ import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
 import { PlayerNameContext } from "../../context/PlayerNameContext";
-import { Type } from "../popups/GenericPopParts";
+import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
 
@@ -103,13 +103,12 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
-    console.log("navigateToEndGameScreen");
     setNumOfQuestions(quantityOfQuestion);
     setCorrectAnswers(score / 10);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
-      setPopType(Type.FinishedQuiz);
+      setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
     }
   };

@@ -37,7 +37,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={moveToGameWithWithPlayerName}>
+          <button className="check-for-name-button" onClick={moveToGameWithWithPlayerName}>
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
@@ -59,7 +59,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={moveToGameWithWithPlayerName}>
+          <button className="check-for-name-button" onClick={moveToGameWithWithPlayerName}>
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>

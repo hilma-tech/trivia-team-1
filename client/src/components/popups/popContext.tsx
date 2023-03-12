@@ -9,7 +9,7 @@ import happyMonkey from '../../images/popUps/happyMonkey.png'
 import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
-import { Type } from "./GenericPopParts";
+import { PopUpType } from "./GenericPopParts";
 
 
 export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
@@ -22,7 +22,7 @@ interface PopContextInterface {
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
-  setPopType: React.Dispatch<React.SetStateAction<Type>>;
+  setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
   setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
   setScore: React.Dispatch<React.SetStateAction<number>>;
@@ -42,7 +42,7 @@ const popContext = createContext<PopContextInterface | null>(null);
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
-  const [popType, setPopType] = useState<Type>(Type.CopyQuiz);
+  const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
   const [score, setScore] = useState<number>(0);
@@ -77,7 +77,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
 
     <popContext.Provider value={contextValue}>
       <>
-        {popType === Type.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
+        {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
         <Dialog
           className="generic-pop-up-dialog"
           open={popOpen}
@@ -85,8 +85,8 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          {isMobile && popType === Type.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
-          {isMobile && popType === Type.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
+          {isMobile && popType === PopUpType.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
+          {isMobile && popType === PopUpType.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
           <DialogTitle className="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
             <GenericPopTitle correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} type={popType} />
           </DialogTitle>

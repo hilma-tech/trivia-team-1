@@ -22,7 +22,7 @@ export const SummaryGameDesktop: FC = () => {
         >
           ענית נכון על {correctAnswers} שאלות. ציונך: {score}
         </Typography>
-        <Typography component="div" className="coputer-finish-game-inner-text" variant="h6">
+        <Typography component="h2" className="coputer-finish-game-inner-text" variant="h6">
           שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
         </Typography>
         <Button

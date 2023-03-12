@@ -10,7 +10,7 @@ import axios from 'axios';
 import '../../style/popups.scss'
 
 
-export enum Type {
+export enum PopUpType {
     SavedSuccessfully = "savedSuccessfully",
     FinishedQuiz = "finishedQuiz",
     ExitGame = "exitGame",
@@ -19,56 +19,67 @@ export enum Type {
     CopyQuiz = 'copyQuiz',
 }
 
-export const GenericPopTitle: FC<{type: Type, numOfQuestions: number, correctAnswers: number}> = ({ type, numOfQuestions, correctAnswers }) => {
+interface GenericPopTitleProps {
+    type: PopUpType,
+    numOfQuestions: number;
+    correctAnswers: number;
+}
+
+interface GenericPopContentProps {
+    type: PopUpType,
+    score: number
+}
+
+export const GenericPopTitle: FC<GenericPopTitleProps> = ({ type, numOfQuestions, correctAnswers }) => {
 
     switch (type) {
-        case Type.SavedSuccessfully:
+        case PopUpType.SavedSuccessfully:
             return <Typography className='pop-title' variant='h1'>נשמר בהצלחה!</Typography>
 
-        case Type.FinishedQuiz:
+        case PopUpType.FinishedQuiz:
             return <Typography className='pop-title' variant='h1'>הצלחת {correctAnswers} מתוך {numOfQuestions}</Typography>
 
-        case Type.ExitGame:
+        case PopUpType.ExitGame:
             return <Typography className='pop-title' variant="h1">האם אתה בטוח שברצונך לצאת מהמשחק</Typography>
 
-        case Type.SaveChanges:
+        case PopUpType.SaveChanges:
             return <Typography className='pop-title' variant='h1'>שים לב</Typography>
 
-        case Type.DeleteQuiz:
+        case PopUpType.DeleteQuiz:
             return <Typography className='pop-title' variant='h1'>האם אתה בטוח?</Typography>
 
-        case Type.CopyQuiz:
+        case PopUpType.CopyQuiz:
             return <Typography className='pop-title' variant='h1'>הקישור הועתק</Typography>
 
     }
 }
 
 
-export const GenericPopContent: FC<{type: Type, score: number}> = ({ type, score }) => {
+export const GenericPopContent: FC<GenericPopContentProps> = ({ type, score }) => {
     switch (type) {
-        case Type.SavedSuccessfully:
+        case PopUpType.SavedSuccessfully:
             return <Typography className='pop-content' variant='body1'>תוכלו לראות את החידונים במאגר החידונים שלכם ולשתף אותו לחברים</Typography>
 
-        case Type.FinishedQuiz:
+        case PopUpType.FinishedQuiz:
             return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {score}</Typography>
 
-        case Type.SaveChanges:
+        case PopUpType.SaveChanges:
             return <Typography className='pop-content' variant="body1"> אם תשמור את השינויים לוח התוצאות שלך יתאפס</Typography>
 
-        case Type.DeleteQuiz:
+        case PopUpType.DeleteQuiz:
             return <Typography className='pop-content' variant="body1">אם תמחק את החידון לא יהיה ניתן לשחק בו והנתונים שאספת ימחקו</Typography>
 
-        case Type.CopyQuiz:
+        case PopUpType.CopyQuiz:
             return <Typography className='pop-content' variant="body1">מצוין! עכשיו אתה יכול לשתף את החידון שלך עם חברים</Typography>
 
-        case Type.ExitGame:
+        case PopUpType.ExitGame:
             return <p></p>
 
 
     }
 }
 
-export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
+export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -83,27 +94,27 @@ export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
     }
 
     switch (type) {
-        case Type.SavedSuccessfully:
-        case Type.FinishedQuiz:
+        case PopUpType.SavedSuccessfully:
+        case PopUpType.FinishedQuiz:
             return <div>
                 <Button className='boldButtonPopStyle' variant="contained" color="primary"><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
                 <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
             </div>
 
-        case Type.SaveChanges:
-        case Type.DeleteQuiz:
-        case Type.ExitGame:
+        case PopUpType.SaveChanges:
+        case PopUpType.DeleteQuiz:
+        case PopUpType.ExitGame:
             return <div className='action-injected'>
                 <Link color="primary" className='action-link' onClick={popHandleClose}>ביטול</Link>
                 <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={() => {
                     popHandleClose()
-                    if (type === Type.DeleteQuiz) {
+                    if (type === PopUpType.DeleteQuiz) {
                         deleteQuiz(deletedQuizId)
                     }
                 }}>אישור</Button>
             </div>
 
-        case Type.CopyQuiz:
+        case PopUpType.CopyQuiz:
             return <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={popHandleClose}>אישור</Button>
 
 
