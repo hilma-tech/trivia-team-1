@@ -50,3 +50,13 @@ export class AnswerDTO {
     @IsNotEmpty()
     isCorrect: boolean;
 }
+
+export class ScoreDTO {
+    @IsNumber()
+    @IsNotEmpty()
+    score: number;
+
+    @IsString()
+    @IsNotEmpty()
+    player: string;
+}

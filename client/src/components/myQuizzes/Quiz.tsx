@@ -42,14 +42,13 @@ const Quiz: FC<QuizProps> = (props) => {
       }
   }, [deletedQuizId])
 
-
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
   const copyQuizLink = (id: number) => {
     setPopType(Type.CopyQuiz);
-  //!copy to clipboard the right quiz link
+    //!copy to clipboard the right quiz link
     navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
     popHandleClickOpen();
   }
@@ -140,7 +139,7 @@ const Quiz: FC<QuizProps> = (props) => {
           <MenuItem className="quiz-menu-item" onClick={handleClose}> <div className="emojiButtons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /><span>מחיקת משחק</span></div></MenuItem>
 
         </Menu>
-        
+
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
     </div>)

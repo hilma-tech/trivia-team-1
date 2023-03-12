@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { QuizModule } from './quiz/quiz.module';
 import { UserModule } from './user/user.module';
+import { ScoreModule } from './score/score.module';
 
 @Module({
   imports: [UserModule,
@@ -16,7 +17,8 @@ import { UserModule } from './user/user.module';
       synchronize: true,
       logging: true,
       entities: ["dist/**/*.entity{.ts,.js}"]
-    })
+    }),
+    ScoreModule
   ],
 })
 export class AppModule {}

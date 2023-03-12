@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Quiz } from 'src/entities/quiz.entity';
+import { ScoreService } from 'src/score/score.service';
 import { DeepPartial, Repository } from 'typeorm';
 import { QuizDTO } from './quiz.dto';
 import { faker } from '@faker-js/faker/locale/he';
@@ -10,14 +11,15 @@ import { Score } from 'src/entities/score.entity';
 
 @Injectable()
 export class QuizService {
-  constructor(
-    @InjectRepository(Quiz)
-    private readonly quizRepository: Repository<Quiz>,
-  ) {}
+    constructor(
+        @InjectRepository(Quiz)
+        private readonly quizRepository: Repository<Quiz>,
+        private readonly scoreService: ScoreService
+    ) { }
 
-  async editQuiz(id: number, quiz: QuizDTO) {
-    await this.quizRepository.save({ id: id, ...quiz });
-  }
+    async editQuiz(id: number, quiz: QuizDTO) {
+        await this.quizRepository.save({ id: id, ...quiz });
+    }
 
     async addQuiz(quiz: QuizDTO) {
         const { questions, creatorId, ...rest } = quiz;
@@ -33,30 +35,27 @@ export class QuizService {
         return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
     }
 
-  async highScores(quizId: number) {
-    const res = await this.quizRepository.findOne({
-      where: { id: quizId },
-      relations: { scores: true },
-    });
-    let { title, scores } = res;
-    scores.sort((a, b) => {
-      //sort by score descending then by date ascending
-      if (b.score !== a.score) return b.score - a.score;
-      return new Date(a.date).getTime() - new Date(b.date).getTime();
-    });
-    scores = scores.slice(0, 5);
-    return { title, scores };
-  }
+    async getScores(id: number) {
+        const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
+        let { title, scores } = res
+        scores.sort((a, b) => {//sort by score descending then by date ascending
+            if (b.score !== a.score) return b.score - a.score;
+            return a.date.getTime() - b.date.getTime();
+        });
+        return { title, scores }
+    }
 
-  async getQuiz(quizId: number) {
-    const quiz = await this.quizRepository.findOne({
-      where: { id: quizId },
-      relations: { scores: true, questions: { answers: true } },
-    });
-    return quiz;
-  }
-   
+    async getQuiz(quizId: number) {
+        const quiz = await this.quizRepository.findOne({
+            where: { id: quizId },
+            relations: { scores: true, questions: { answers: true } },
+        });
+        return quiz;
+    }
 
+    async addScore(id: number, params: { player: string, score: number }) {
+        return this.scoreService.addNewScore(id, params);
+    }
     //TODO: temporary
     // this should be a string[] when using @hilma/auth
     addFakeData(userIds: number[], amount: number) {
@@ -82,12 +81,12 @@ export class QuizService {
             scores: []
         }
 
-        const amountOfQuestions = faker.datatype.number({min: 3, max: 10});
+        const amountOfQuestions = faker.datatype.number({ min: 3, max: 10 });
         for (let i = 0; i < amountOfQuestions; i++) {
             quiz.questions.push(this.randomQuestion() as Question);
         }
 
-        const amountOfScores = faker.datatype.number({min: 3, max: 15});
+        const amountOfScores = faker.datatype.number({ min: 3, max: 15 });
         for (let i = 0; i < amountOfScores; i++) {
             quiz.scores.push(this.randomScore() as Score);
         }
@@ -103,8 +102,8 @@ export class QuizService {
             answers: []
         }
 
-        const amountOfAnswers = faker.datatype.number({ min: 2, max: 4})
-        const correctIndex = faker.datatype.number({min: 0, max: amountOfAnswers});
+        const amountOfAnswers = faker.datatype.number({ min: 2, max: 4 })
+        const correctIndex = faker.datatype.number({ min: 0, max: amountOfAnswers });
         for (let i = 0; i < amountOfAnswers; i++) {
             question.answers.push(this.randomAnswer(correctIndex === i) as Answer);
         }
@@ -128,13 +127,13 @@ export class QuizService {
     randomScore() {
         const score: DeepPartial<Score> = {
             player: faker.name.fullName(),
-            score: faker.datatype.number({min: 0, max: 100})
+            score: faker.datatype.number({ min: 0, max: 100 })
         }
 
         return score;
     }
 
     async deleteQuiz(quizId: number) {
-        await this.quizRepository.delete( quizId );
-        }
+        await this.quizRepository.delete(quizId);
+    }
 }

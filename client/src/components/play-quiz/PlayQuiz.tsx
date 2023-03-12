@@ -98,7 +98,6 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
-    console.log('testinggggggggggggggg');
     postScore()
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
@@ -140,9 +139,7 @@ const QuestionTemp = () => {
   };
 
   const postScore = async () => {
-    const finalScore = Math.round(score / quantityOfQuestion * 100)
-    console.log('playerName: ', playerName?.nameOfPlayer);//TODO: delete
-    console.log('finalScore: ', finalScore);// TODO: delete
+    const finalScore = Math.round(score / questions.length * 100)
     axios.post(`/api/quiz/${quizId}/scores`, {
       score: finalScore,
       player: playerName?.nameOfPlayer || 'אורח'
