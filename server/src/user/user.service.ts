@@ -1,18 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
-import { Repository } from 'typeorm';
+import { DeepPartial, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-
 import { faker } from '@faker-js/faker/locale/he';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectRepository(User)
-  private readonly userRepository: Repository<User>
-  ) {
-  }
+    constructor(@InjectRepository(User)
+    private readonly userRepository: Repository<User>
+    ) {
+    }
 
+    async getUserQuizzes(userId: number){
+      
+        const user = await this.userRepository.findOne({
+          where: { id: userId },
+          relations: {
+            quizzes: {
+              questions: true,
+            },
+          },
+        });
+        const quizzes = user.quizzes;;       
+        return quizzes;
+
+    }
   async register(username: string, password: string | Buffer) {
     const hashedPassword: string = await bcrypt.hash(password, 15)
     this.userRepository.save({ username: username, password: { password: hashedPassword } })
@@ -60,20 +73,5 @@ export class UserService {
     };
   }
 
-  /**
-   * async addFakeData(amount: number) {
-   *    const ids: string[] = [];
-   *    for (let i = 0; i < amount; i++) {
-   *      ids.push(await this.userService.createUser(randomUser));
-   *    }
-   *    return ids;
-   * }
-   * 
-   * randomizeUser() {
-   *  return {
-   *    password: faker.internet.password(),
-   *    username: faker.internet.userName()
-   *  }
-   * }
-   */
+  
 }

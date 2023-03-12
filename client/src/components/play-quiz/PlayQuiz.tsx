@@ -75,8 +75,12 @@ const QuestionTemp = () => {
   }, [currentQuestionIndex]);
 
   useEffect(() => {
-    if (currentQuestionIndex === currentQuestion.answers.length - 1) {
-      navigateToEndGameScreen();
+    console.log(currentQuestion)
+    if (questions.length > 2) {
+      if (currentQuestionIndex === questions.length -1 ) {
+        navigateToEndGameScreen();
+      }
+
     }
   }, [currentQuestionIndex]);
 
@@ -101,7 +105,7 @@ const QuestionTemp = () => {
 
   const navigateToEndGameScreen = () => {
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate("/TEMPORARY");
+    if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
       setPopType(Type.FinishedQuiz);
       popHandleClickOpen();
@@ -121,9 +125,10 @@ const QuestionTemp = () => {
   const moveToNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      navigateToEndGameScreen();
-    }
+    } 
+    // else {
+    //   navigateToEndGameScreen();
+    // }
     setRedIndex(undefined);
     setGreenIndex(undefined);
   };
@@ -168,14 +173,14 @@ const QuestionTemp = () => {
                 <p className="answer-button">{answer.text}</p>
               </div>
               {answer.imageUrl ? (
-                <div className="div-imgs">
+                <div className="image-container">
                   {!isLargeScreen && (
                     <div className="icon-div" onClick={(e) => resizeFull(e, index)}>
                       <img src={fullScreenIcon} alt="fullScreenIcon" />
                     </div>
                   )}
                   <div
-                    className={`img-div ${fullScreenIndex === index ? `full-screen` : ""}`}
+                    className={`question-img-div ${fullScreenIndex === index ? `full-screen` : ""}`}
                     onClick={(e) => {
                       if (fullScreenIndex === index) resizeShrink(e, index);
                     }}
@@ -197,10 +202,10 @@ const QuestionTemp = () => {
 
   return (
     <div className="question-temp comp-children-container">
-      <main className="main-QuastionTemp">
+      <main className="main-question-temp">
         <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
-        <div className="numOfQuestion-place">
-          <div className="numOfQuestion">
+        <div className="num-of-question-place">
+          <div className="num-of-question">
             <p>
               שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
             </p>
@@ -216,7 +221,7 @@ const QuestionTemp = () => {
                   alt="pic of something that connected to the question"
                 />
               </div>
-              <h2 id="questionTitle">{currentQuestion.title}</h2>
+              <h2 id="question-title">{currentQuestion.title}</h2>
               <hr id="hr" />
               <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
                 <AnswersMap />

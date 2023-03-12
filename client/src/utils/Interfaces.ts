@@ -19,6 +19,7 @@ export interface imageFile{
     id:number;
 }
 
+
 export type Question = Required<CurrentQuestion>;
 
 

@@ -1,247 +1,211 @@
+@import "./variables.scss";
+
 @mixin flexCenter {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-button{
+button {
     cursor: pointer
 }
 
-.compChildrenContainer-boaz {
-    @include flexCenter();
-    padding-bottom: 5vh;
-    margin-top: 10vh;
-    main {
-        top: 8.75vw;
-        left: 15.625vw;
-        width: 68vw;
-        height: 72vh;
-        /* UI Properties */
-        background: #FFFFFF 0% 0% no-repeat padding-box;
-        border-radius: 10px;
-        opacity: 1;
-        border: 4px solid #0C3249;
+.comp-children-container-question {
+    padding-inline: 3rem;
 
-        .main-OpeningForTheQuiz {
-            @include flexCenter();
+    .main-check-for-name {
+        display: flex;
+        align-items: center;
+        // justify-content: center;
+        flex-direction: column;
+
+        .title-and-paragraph {
+            display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            opacity: 1;
 
-            .main-paragraph-and-title {
-                // border: #0C3249 2px solid;
-                @include flexCenter();
-                flex-direction: column;
-                width: 42.8125vw;
-                height: auto;
+            .quiz-title {
+                font-size: 2vw;
+                margin-top: 5.3vh;
                 /* UI Properties */
-                background: #FFFFFF 0% 0% no-repeat padding-box;
-                opacity: 1;
-                z-index: 2;
-                margin-top: 3vw;
-                margin-bottom: -8vw;
-
-                p {
-                    margin-bottom: 2.7604vw;
-                    padding: 5vw;
-                    padding-top: 2vw;
-                    padding-bottom: 1vw;
-                }
-            }
-
-            .main-img {
-                @include flexCenter();
-                // z-index: 1;
-                margin-bottom: -10vw;
-                width: 64.3229vw;
-                height: 50vh;
-                /* UI Properties */
-                background: transparent 0% 0% no-repeat padding-box;
+                text-align: center;
+                font-size: 2vw;
+                letter-spacing: 0px;
+                color: #0C3249;
                 opacity: 1;
             }
-        }
 
-        .main-button-place {
-            @include flexCenter();
-
-            .main-button-to-quiz {
-                @include flexCenter();
-                width: 15.625vw;
-                height: 4.1667vw;
+            p {
+                height: 1.6146vw;
                 /* UI Properties */
-                background: #378381 0% 0% no-repeat padding-box;
-                border: 3px solid #FFFFFF;
-                border-radius: .4167vw;
+                text-align: center;
+                font-size: 1.4vw;
+                letter-spacing: 0px;
+                color: #0C3249;
                 opacity: 1;
-                z-index: 2;
                 margin-bottom: 1vw;
-
-                img {
-                    width: 1.0938vw;
-                    height: 1.25vw;
-                    /* UI Properties */
-                    background: transparent 0% 0% no-repeat padding-box;
-                    opacity: 1;
-                }
-
-                p {
-                    width: 8.125vw;
-                    height: 1.6146vw;
-                    /* UI Properties */
-                    text-align: center;
-                    font: normal normal bold 1.3542vw/1.6146vw Rubik;
-                    letter-spacing: 0px;
-                    color: #FFFFFF;
-                    opacity: 1;
-                }
             }
         }
 
-        .main-CheckForName-for-flex {
+        input {
+            margin-top: .5vw;
+            margin-bottom: 3.2292vw;
+            width: 18.0208vw;
+            height: 6vh;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            border: 1px solid #0C3249;
+            border-radius: .5208vw;
+            opacity: 1;
+            display: flex;
+            justify-content: center;
+            font-size: 1.2vw;
+            padding-right: 0.5vw;
+            text-align: right;
+            letter-spacing: 0px;
+            color: #0C3249;
+            opacity: 0.7;
+        }
+
+        .check-for-name-button {
             @include flexCenter();
+            width: 18.0208vw;
+            height: 6vh;
+            /* UI Properties */
+            background: $green-color 0% 0% no-repeat padding-box;
+            border-radius: .4167vw;
+            opacity: 0.7;
+            box-shadow: 0px .3vh 0px 0px #216361;
+            border-color: $green-color;
 
-            .main-CheckForName {
-                display: flex;
-                align-items: center;
-                // justify-content: center;
-                flex-direction: column;
+            p {
+                margin-left: 1vw;
+                width: 12.5vw;
+                height: 1.6146vw;
+                text-align: left;
+                font-size: 1.3vw;
+                font-weight: 800;
+                letter-spacing: 0px;
+                color: #FFFFFF;
+                opacity: 1;
+            }
 
-                .title-and-paragraph {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 42.8125vw;
-                    height: 255px;
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
-                    opacity: 1;
-
-                    .quizTitle {
-                        width: 40vw;
-                        height: 2.6042vw;
-                        /* UI Properties */
-                        text-align: center;
-                        font: normal normal medium 2.1875vw/2.6042vw "Rubik, sans-serif";
-                        font-size: 2.1875vw;
-                        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                        letter-spacing: 0px;
-                        color: #0C3249;
-                        opacity: 1;
-                        margin-top: 2vw;
-                    }
-
-                    p {
-                        width: 12vw;
-                        height: 1.6146vw;
-                        /* UI Properties */
-                        text-align: center;
-                        font: normal normal normal 26px/31px "Rubik, sans-serif";
-                        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                        letter-spacing: 0px;
-                        color: #0C3249;
-                        opacity: 1;
-                        margin-bottom: 1 vw;
-                    }
-                }
-
-                input {
-                    margin-top: .5vw;
-                    margin-bottom: 3.2292vw;
-                    width: 18.0208vw;
-                    height: 62px;
-                    /* UI Properties */
-                    background: #FFFFFF 0% 0% no-repeat padding-box;
-                    // background-color: black;
-                    border: 1px solid #0C3249;
-                    border-radius: .5208vw;
-                    opacity: 1;
-                    display: flex;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                    padding-right: 0.5vw;
-                    text-align: right;
-                    letter-spacing: 0px;
-                    color: #0C3249;
-                    opacity: 0.7;
-                    // border-color: transparent;
-
-                }
-
-                .CheckForName-button {
-                    @include flexCenter();
-                    width: 18.0208vw;
-                    height: 64px;
-                    /* UI Properties */
-                    background: #378381 0% 0% no-repeat padding-box;
-                    border-radius: .4167vw;
-                    opacity: 0.7;
-                    box-shadow: 0px .3vh 0px 0px #216361;
-                    border-color: #378381;
-
-                    p {
-                        margin-left: 1vw;
-                        width: 12.5vw;
-                        height: 1.6146vw;
-                        /* UI Properties */
-                        text-align: left;
-                        font: normal normal bold 26px/31px "Rubik, sans-serif";
-                        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                        letter-spacing: 0px;
-                        color: #FFFFFF;
-                        opacity: 1;
-                    }
-                }
+            img {
+                margin-left: 1vw;
+                width: 1.3vw
             }
         }
     }
 
+    .main-OpeningForTheQuiz {
+        @include flexCenter();
+        flex-direction: column;
+        isolation: isolate;
+        position: relative;
+        text-align: center;
+
+        /*TODO: figure this out! */
+        .main-quiz-title {
+            margin-top: 2vh;
+        }
+
+        .main-paragraph {
+            width: 42.8125vw;
+            background: #FFFFFF 0% 0% no-repeat padding-box;
+            opacity: 0.7;
+            margin: auto;
+        }
+
+        .main-img {
+            @include flexCenter();
+            width: 64.3229vw;
+            height: 55vh;
+            object-fit: cover;
+            background-size: cover;
+            background-repeat: no-repeat;
+            opacity: 1;
+            top: 5rem;
+            z-index: -1;
+            position: absolute;
+        }
+    }
+
+    .main-button-place {
+        @include flexCenter();
+
+        .main-button-to-quiz {
+            @include flexCenter();
+            width: 15.625vw;
+            height: 4.1667vw;
+            /* UI Properties */
+            background: $green-color 0% 0% no-repeat padding-box;
+            border: 3px solid #FFFFFF;
+            border-radius: .4167vw;
+            opacity: 1;
+            // z-index: 2;
+            // margin-bottom: 1vh;
+
+            img {
+                width: 1.0938vw;
+                height: 1.25vw;
+                /* UI Properties */
+                background: transparent 0% 0% no-repeat padding-box;
+                opacity: 1;
+            }
+
+            span {
+                width: 8.125vw;
+                height: 1.6146vw;
+                font-size: 1.25vw;
+                font-weight: 700;
+                /* UI Properties */
+                text-align: center;
+                letter-spacing: 0px;
+                color: #FFFFFF;
+                opacity: 1;
+            }
+        }
+    }
 }
 
 @media screen and (max-width: 600px) {
 
-    // .phone-main{}
-    .compChildrenContainer-boaz {
-
-        .boaz-main {
+    .comp-children-container-question {
+        @include flexCenter();
+        align-items: flex-start;
+        .question-main{
             @include flexCenter();
             flex-direction: column;
-            margin-top: 15vw;
-            border: none;
-            width: 71vw;
-            height: 72vh;
 
             .main-OpeningForTheQuiz {
-                // padding: 5vw;
                 width: 80vw;
                 height: 65vh;
 
-                // border: 5px solid black;
                 .main-img {
                     width: 70vw;
                     height: 35vw;
-                    overflow: hidden;
-                    // border: 5px solid black;
-                    margin-top: 0vw;
+                    margin-bottom: 6vh;
+                    position: static;
                 }
 
                 button {
                     @include flexCenter();
                     width: 70vw;
                     height: 18.134vw;
-                    background-color: #378381;
+                    background-color: $green-color;
                     opacity: 100%;
                     border-radius: 12px;
-                    // color: #378381;
-                    margin-top: 25vw;
                     box-shadow: 0px .5vh 0px 0px #216361;
 
 
-                    // border: 5px solid black;
                     p {
+                        font-size: 5vw;
+                        font-weight: 1000;
                         color: #FFFFFF;
                         opacity: 100%;
                         margin-left: 5vw;
-                        font: normal normal bold 26px/31px Rubik;
-                        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
                     }
 
                     img {
@@ -250,30 +214,20 @@ button{
                     }
                 }
 
-                .main-paragraph-and-title {
-                    margin-top: -50vw;
-                    margin-bottom: 5vw;
+                .main-paragraph {
                     width: 70vw;
-
-                    // height: 20vh;
-                    // border: 5px solid black;
-                    p {
-                        width: 70vw;
-                        text-align: center;
-                        font-size: 4vw;
-                        opacity: 100%;
-
-                        // background-color: #0C3249;
-                    }
-
-                    h1 {
-                        margin-bottom: 5vw;
-                        // border: 5px solid black;
-                        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-                        font-size: 5.5vw;
-                        // font: normal normal bold 40px/31px Rubik;
-                    }
+                    text-align: center;
+                    font-size: 4vw;
+                    opacity: 100%;
+                    margin-bottom: 5vw;
                 }
+
+                .main-quiz-title {
+                    margin-top: 3vh;
+                    margin-bottom: 3vh;
+                    font-size: 6vw;
+                }
+
 
                 .left-corner-leaves {
                     border: 5px solid black;
@@ -284,12 +238,14 @@ button{
 
             .main-button-place .main-button-to-quiz {
                 width: 70vw;
-                height: auto;
+                height: 4.5rem;
+                margin-top: 20rem;
 
-                p {
+                span {
+                    flex-basis: 70%;
                     width: 18.125vw;
                     height: auto;
-                    font: normal normal bold 4.3542vw/4.6146vw Rubik;
+                    font-size: 1.5rem;
                 }
 
                 img {
@@ -298,50 +254,54 @@ button{
                 }
             }
 
-            .main-CheckForName-for-flex {
-                .main-CheckForName {
+            .main-check-for-name-for-flex {
+                .main-check-for-name {
                     input {
                         margin-top: 14vw;
                         margin-bottom: 10vw;
                         width: 31vw;
                         height: 10vw;
+                        font-size: 4vw;
                     }
 
-                    .CheckForName-button {
-
-
-
+                    .check-for-name-button {
                         @include flexCenter();
                         width: 80vw;
                         height: 23.134vw;
-                        background-color: #378381;
+                        background-color: $green-color;
                         opacity: 100%;
                         border-radius: 12px;
                         margin-top: 20vw;
                         box-shadow: 0px .5vh 0px 0px #216361;
-                        margin-bottom: 13vh;
 
-                        // border: 5px solid black;
                         p {
-                            font: bold 7vw 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                            font-size: 6vw;
+                            font-weight: 1000;
                             width: 60vw;
                             height: 8vw;
                             margin-left: 4vw;
+                            margin-top: 7vw;
+                        }
+                        img {
+                            margin-left: 8vw;
+                            width: 6vw;
+                            height: auto;
                         }
                     }
-                    .title-and-paragraph{
-                        // border: 5px solid black;
+
+                    .title-and-paragraph {
                         height: 10vh;
                         width: 80vw;
-                        margin-bottom: 0vw;
-                        p{
+                        margin-top: 19vh;
+                        p {
                             width: 75vw;
                             height: 10vh;
-                            font:  9vw 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                            font-size: 6vw;
                         }
 
                     }
-                    input{
+
+                    input {
                         width: 80vw;
                         height: 7vh;
                         border-radius: 10px;
@@ -349,28 +309,20 @@ button{
                     }
                 }
             }
-            .OpeningParagraphTitle-footer{
-                // margin-top: 50vh;
-                // position: fixed;
-                // background-color: #0C3249;
-                width: 100vw;
-                display: flex;
-                align-items: flex-end;
-                justify-content: end;
-                img{
-                    margin-left:-20vw;
-                    margin-bottom: -5vh;
-                }
+
+            .opening-paragraph-title-footer {
+                position: absolute;
+                left: -70px;
+                bottom: -60px;
             }
-            .CheckForName-footer{
-                width: 100vw;
-                display: flex;
-                align-items: flex-end;
-                justify-content: end;
-                margin-top: 10vh;
-                img{
+
+            .check-for-name-footer {
+                position: absolute;
+                left: -12vw;
+                bottom: -11vw;
+
+                img {
                     width: 30vw;
-                    margin-left:-10vw;
                 }
             }
         }

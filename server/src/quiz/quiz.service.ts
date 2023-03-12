@@ -87,9 +87,9 @@ export class QuizService {
     randomQuiz(id: number) {
         const quiz: DeepPartial<Quiz> = {
             creator: { id },
-            description: faker.lorem.paragraph(),
-            title: faker.lorem.sentence(),
-            imageUrl: faker.image.imageUrl(),
+            description: faker.commerce.productDescription(),
+            title: faker.commerce.productName(),
+            imageUrl: faker.image.imageUrl(640, 480, undefined, true),
             questions: [],
             scores: []
         }
@@ -107,10 +107,11 @@ export class QuizService {
         return quiz;
     }
 
+    //TODO: temporary
     randomQuestion() {
         const question: DeepPartial<Question> = {
-            imageUrl: faker.image.imageUrl(),
-            title: faker.lorem.sentence(),
+            imageUrl: faker.image.imageUrl(640, 480, undefined, true),
+            title: faker.commerce.productName(),
             answers: []
         }
 
@@ -123,16 +124,19 @@ export class QuizService {
         return question;
     }
 
+
+    //TODO: temporary
     randomAnswer(isCorrect: boolean) {
         const answer: DeepPartial<Answer> = {
-            imageUrl: faker.image.imageUrl(),
+            imageUrl: faker.image.imageUrl(640, 480, undefined, true),
             isCorrect,
-            text: faker.lorem.sentence(),
+            text: faker.commerce.productName(),
         }
 
         return answer;
     }
 
+    //TODO: temporary
     randomScore() {
         const score: DeepPartial<Score> = {
             player: faker.name.fullName(),

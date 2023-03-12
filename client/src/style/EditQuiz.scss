@@ -1,8 +1,4 @@
-$green-color: #378381;
-
-
-
-
+$green-color: #378381; //unique color
 
 .form-container {
     display: flex;
@@ -31,10 +27,16 @@ $green-color: #378381;
     }
 
     .quiz-input-name {
-        height: 5.1020408163265305vh;
-        width: 14.47939262472885vw;
-        font-size: 25px;
-        border: 1px solid rgb(189, 184, 184); // unique color
+        height: 4.62vh;
+        font-size: 3vh;
+        border: none;
+        font-weight: 900;
+        margin-top: 2vh;
+        margin-bottom: 1vh;
+
+        &:hover {
+            border: 1px solid black
+        }
 
         &:focus-visible,
         &:focus {
@@ -45,7 +47,6 @@ $green-color: #378381;
 
     ::placeholder {
         color: black;
-        padding-right: 5%;
     }
 
     
@@ -74,13 +75,13 @@ $green-color: #378381;
 
 .show-quiz-btn {
     background: #FFFFFF 0% 0% no-repeat padding-box;
-    border: 1px solid #0C32494D;
+    border: 1px solid #0C3249; // this is a unique colorD; // this is a unique color
     border-radius: 10px;
     text-align: center;
-    font: normal normal normal 19px/23px Rubik;
     color: $green-color;
+    font-size: 1vw;
     opacity: 1;
-    width: 8.8vw;
+    width: 9vw;
     height: 3.97vh;
     display: flex;
     justify-content: space-evenly;
@@ -88,9 +89,12 @@ $green-color: #378381;
     letter-spacing: 0px;
 }
 
-.Show-quiz-svg {
+.show-quiz-svg {
     background: transparent 0% 0% no-repeat padding-box;
     opacity: 1;
+    width: 1vw;
+    height: 1.5vh;
+    margin-left: 0.1vw;
 }
 
 .link-btn {
@@ -115,8 +119,8 @@ $green-color: #378381;
     border: none;
     width: 6.61vw;
     height: 3.97vh;
+    font-size: 1vw;
     display: flex;
-    font: normal normal normal 19px/23px Rubik;
     justify-content: space-evenly;
     align-items: center;
     color: #FFFFFF;
@@ -133,8 +137,8 @@ $green-color: #378381;
     background-color: #FFFFFF;
     margin-top: 2%;
     width: 68.75vw;
-    height: 10.625vw;
-    border: 4px solid #0C3249;
+    height: 18.889vh;
+    border: 4px solid #0C3249; // this is a unique color
     border-radius: 10px;
     display: flex;
     flex-direction: row;
@@ -144,10 +148,11 @@ $green-color: #378381;
 
 }
 
-.quiz-header-image-btn {
-    background-color: rgb(211, 209, 209);
+
+.quiz-header-image{
+    background-color: rgb(226, 223, 223);
     width: 17vw;
-    height: 17vh;
+    height: 15vh;
     margin-right: 3%;
     display: flex;
     justify-content: center;
@@ -163,8 +168,8 @@ $green-color: #378381;
 }
 
 .select-image-quiz-svg {
-    width: 100%;
-    height: 100%;
+    width: 20vw;
+    height: 5vh;
 }
 
 .title-header-container {
@@ -173,14 +178,14 @@ $green-color: #378381;
     flex-direction: column;
     width: 40%;
     height: 100%;
-    justify-content: space-evenly;
+    // justify-content: space-evenly;
 }
 
 .add-questions-container {
     margin-top: 3%;
     background-color: #FFFFFF;
     width: 68.75vw;
-    border: 4px solid #0C3249;
+    border: 4px solid #0C3249; // this is a unique color
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -205,7 +210,7 @@ $green-color: #378381;
         border: none;
         text-decoration: underline;
         margin-right: 0.35vw;
-        color: #0C3249;
+        color: #0C3249; // this is a unique color
         opacity: 0.5;
         text-align: right;
         letter-spacing: 0px;
@@ -239,13 +244,12 @@ $green-color: #378381;
         justify-content: flex-end;
         height: 11vh;
         margin-left: 3%;
-
     }
 
     .duplicate-btn {
         background-color: white;
         border: none;
-        margin-left: 2rem;
+        margin-left: 1vw;
 
     }
 
@@ -256,7 +260,7 @@ $green-color: #378381;
 
     .hr-line {
         width: 100%;
-        border: 1px solid #0C3249;
+        border: 1px solid #0C3249; // this is a unique color
         opacity: 0.1;
         margin-top: 1vw;
     }
@@ -272,6 +276,11 @@ $green-color: #378381;
     .question-input {
         height: 3.0784508440913605vh;
         width: 9.739583333333334vw;
+        border: none;
+
+        &:hover {
+            border: 1px solid black
+        }
     }
 
     .select-image-questions-svg {
@@ -362,8 +371,6 @@ $green-color: #378381;
 
 
 .remove-answer {
-    margin-right: 1.3vw;
-
     .trash-icon {
         width: 1.5625vw;
         height: 2.9791459781529297vh;
@@ -375,7 +382,7 @@ $green-color: #378381;
     background-color: #FFFFFF;
     margin-top: 2%;
     width: 68.75vw;
-    border: 4px solid #0C3249;
+    border: 4px solid #0C3249; // this is a unique color
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -388,9 +395,8 @@ $green-color: #378381;
 
     .question-title-final-box {
         text-align: right;
-        font: normal normal normal 26px/31px Rubik;
         letter-spacing: 0px;
-        color: #0C3249;
+        color: #0C3249; // this is a unique color
         opacity: 1;
     }
 
@@ -428,7 +434,7 @@ $green-color: #378381;
         margin-bottom: 5%;
         text-align: right;
         letter-spacing: 0px;
-        color: #0C3249;
+        color: #0C3249; // this is a unique color
         opacity: 1;
 
     }
@@ -718,4 +724,10 @@ $green-color: #378381;
     display: flex;
     justify-content: center;
     padding-bottom: 5vh;
+    bottom: 2vh;
+    right: 2vw;
+
+    .monkey-svg {
+        width: 6.771vw;
+    }
 }

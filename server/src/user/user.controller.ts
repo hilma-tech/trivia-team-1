@@ -24,8 +24,8 @@ export class UserController {
     }
 
     @Get("/:id/quizzes")
-    getUserQuizzes() {
-        return "hello smidth"
+       async getUserQuizzes(@Param('id') id: number) {
+        return await this.userService.getUserQuizzes(id);
     }
 
     //TODO: temporary
@@ -33,4 +33,5 @@ export class UserController {
     addFakeData() {
         return this.userService.addFakeData(10);
     }
+    
 }

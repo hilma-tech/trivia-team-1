@@ -37,7 +37,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
 
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
     return isMobile ? (
-        <div>
+        <div className="first-page-wrapper">
             <div className={giveRightClasses("phone-first-page-container")} >
                 <div className="input-container">
                     <Typography variant="body1">שם המשחק</Typography>
@@ -87,7 +87,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                 </div>
                 <div className='quiz-header-container'>
                     <label style={{ border: 'none' }}>
-                        <div className='quiz-header-image-btn'>
+                        <div className='quiz-header-image'>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                             <BootstrapTooltip title="הוספת תמונה לחידון">
                                 <img className='select-image-quiz-svg' src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
