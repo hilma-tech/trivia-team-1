@@ -59,7 +59,9 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const toScoreboard = (id: number) => {
-    navigate(`/quiz/:userId/:quizId/scores`)
+    navigate(`/${username}/quiz/${id}/scores`)
+
+    // /:userName/quiz/:quizId
   }
   const toEdit = (id: number) => {
 

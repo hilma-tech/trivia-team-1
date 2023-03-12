@@ -42,7 +42,7 @@ function App() {
               <Route path="/edit-quiz" element={<EditQuiz />} />
               <Route path="/error404" element={<Error />} />
               <Route path="/loading-page" element={<LoadingMonkey />} />
-              <Route path="/quiz/:userId/:quizId" element={<Outlet />}>
+              <Route path="/:userName/quiz/:quizId" element={<Outlet />}>
                 <Route index element={<OpeningForTheQuiz />} />
                 <Route path="scores" element={<ScoreCard />} />
                 <Route path="finished-game-pc" element={<SummaryGameDesktop />} />
@@ -50,7 +50,6 @@ function App() {
               </Route>
               <Route path="/my-quizzes" element={<Outlet />}>
                 <Route index element={<MyQuizzes />} />
-                <Route path=":id/scores" element={<ScoreCard />} />
               </Route>
             </Routes>
           </Background>

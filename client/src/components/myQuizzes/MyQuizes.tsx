@@ -39,6 +39,8 @@ const MyQuizes: FC = () => {
         baseURL: `api/`
       });
 
+    console.log(quizes)
+
     useEffect(()=>{
         getQuizes()
     },[])

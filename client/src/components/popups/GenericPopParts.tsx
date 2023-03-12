@@ -76,7 +76,7 @@ export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
 
     const onClickGoToHomePage = () => {
         popHandleClose();
-        navigate('/enterance-page')
+        navigate('/entrance-page')
     }
        async function deleteQuiz(id:number){
         await axios.delete(`api/quiz/${id}`);
@@ -88,7 +88,7 @@ export const GenericPopActions: FC<{ type: Type }> = ({ type }) => {
         case Type.FinishedQuiz:
             return <div>
                 <Button className='boldButtonPopStyle' variant="contained" color="primary"><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
-                <Button className='boldButtonPopPopupsPropTypeStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
+                <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
             </div>
 
         case Type.SaveChanges:
