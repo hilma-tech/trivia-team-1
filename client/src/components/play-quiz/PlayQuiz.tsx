@@ -43,7 +43,6 @@ const QuestionTemp = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
-  const [incrementScoreBy, setIncrementScoreBy] = useState(10);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -52,7 +51,7 @@ const QuestionTemp = () => {
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  const { popHandleClickOpen, setPopType, score, setScore, setNumOfQuestions, setCorrectAnswers } = usePopContext();
+  const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, pointsPerCorrect } = usePopContext();
   const { quizId } = useParams();
 
   const navigate = useNavigate();
@@ -104,7 +103,6 @@ const QuestionTemp = () => {
 
   const navigateToEndGameScreen = () => {
     setNumOfQuestions(quantityOfQuestion);
-    setCorrectAnswers(score / 10);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -115,7 +113,7 @@ const QuestionTemp = () => {
 
   const checkIfCorrect = (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
-      setScore((prev) => prev + incrementScoreBy);
+      setCorrectAnswers((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();

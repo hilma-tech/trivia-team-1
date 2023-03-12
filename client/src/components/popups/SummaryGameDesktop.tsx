@@ -7,7 +7,7 @@ import { usePopContext } from "./popContext";
 
 export const SummaryGameDesktop: FC = () => {
 
-  const { correctAnswers, score } = usePopContext();
+  const { correctAnswers } = usePopContext();
 
 
   return (
@@ -15,14 +15,14 @@ export const SummaryGameDesktop: FC = () => {
       <div className="comp-children-container computer-finish-game confetti-pc">
         <img alt="finished game monkey" src={desktopMonkey} />
         <Typography
-          component="div"
-          className="coputer-finish-game-inner-text"
+          component="h1"
+          className="computer-finish-game-inner-text"
           variant="h3"
           sx={{ fontWeight: "bolder", paddingTop: "6vh" }}
         >
-          ענית נכון על {correctAnswers} שאלות. ציונך: {score}
+          ענית נכון על {correctAnswers} שאלות. ציונך: {correctAnswers * 10}
         </Typography>
-        <Typography component="h2" className="coputer-finish-game-inner-text" variant="h6">
+        <Typography component="h2" className="computer-finish-game-inner-text" variant="h6">
           שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
         </Typography>
         <Button

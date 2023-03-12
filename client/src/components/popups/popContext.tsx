@@ -11,10 +11,6 @@ import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
 
-
-export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
-
-
 interface PopContextInterface {
   setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
   deletedQuizId: number;
@@ -25,11 +21,9 @@ interface PopContextInterface {
   setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
   setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
-  setScore: React.Dispatch<React.SetStateAction<number>>;
   correctAnswers: number;
   numOfQuestions: number;
-  score: number;
-
+  pointsPerCorrect: number
 }
 
 interface PopProviderProps {
@@ -41,11 +35,11 @@ const popContext = createContext<PopContextInterface | null>(null);
 
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
+  const [pointsPerCorrect, setPointsPerCorrect] = useState(10)
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
   const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
@@ -67,10 +61,9 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     setPopType: setPopType,
     setCorrectAnswers: setCorrectAnswers,
     setNumOfQuestions: setNumOfQuestions,
-    setScore: setScore,
     correctAnswers: correctAnswers,
     numOfQuestions: numOfQuestions,
-    score: score
+    pointsPerCorrect: pointsPerCorrect
   }
 
   return (
@@ -92,7 +85,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           </DialogTitle>
           <DialogContent className='dialog-content-container'>
             <DialogContentText id="alert-dialog-description" className={isMobile ? "dialog-content-text-style" : ""}  >
-              <GenericPopContent type={popType} score={score} />
+              <GenericPopContent type={popType} correctAnswers={correctAnswers} pointsPerCorrect={pointsPerCorrect}/>
             </DialogContentText>
           </DialogContent>
           <DialogActions className='dialog-actions-container'>
