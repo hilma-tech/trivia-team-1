@@ -242,10 +242,13 @@
             overflow: hidden;
 
             .num-of-question-place {
+            
                 width: 30%;
-                top: 3%;
+                top: 11%;
+                // bottom: 5%;
                 right: 15%;
                 position: absolute;
+                margin-bottom: 10vh;
 
                 .num-of-question {
                     width: 100%;
@@ -293,7 +296,7 @@
                             .question-img {
                                 width: 90%;
                                 height: 20vh;
-                                margin-top: 5vh;
+                                margin-top: 20vh;
                             }
                         }
 
