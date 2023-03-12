@@ -22,6 +22,7 @@ import { PopContextProvider } from "./components/popups/popContext";
 
 import "./style/background.scss";
 import "./style/navbar.scss";
+import About from "./components/about";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route path="/entrance-page" element={<EntrancePage />} />
               <Route index element={<Navigate replace to="/login" />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/about" element={<About />} />
               <Route path="/register" element={<Register />} />
               <Route path="*" element={<Navigate replace to="/loading-page" />} />
               <Route path="/edit-quiz" element={<EditQuiz />} />
