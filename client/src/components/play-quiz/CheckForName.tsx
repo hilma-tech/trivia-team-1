@@ -4,7 +4,7 @@ import triangleIcon from "../../icons/icon-awesome-play.png";
 import { useNavigate } from "react-router-dom";
 import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-import { PlayerName } from "../../context/PlayerNameContext";
+import { PlayerNameContext } from "../../context/PlayerNameContext";
 
 interface CheckForNameProps {
   quizTitle: string;
@@ -13,18 +13,13 @@ interface CheckForNameProps {
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const [playerName, setPlayerName] = useState("");
   const navigate = useNavigate();
-  const userName = useContext(PlayerName);
+  const userName = useContext(PlayerNameContext);
 
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  function enterPlayerNameIntoContext() {
+  function moveToGameWithWithPlayerName() {
     userName?.changePlayerName(playerName);
-    moveToPlayGame();
-  }
-
-  const moveToPlayGame = () => {
-    //TODO: temporary
     navigate("./questions");
-  };
+  }
 
   return isLargeScreen ? (
     <main>
@@ -42,9 +37,9 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={enterPlayerNameIntoContext}>
+          <button className="CheckForName-button" onClick={moveToGameWithWithPlayerName}>
             <p>יאללה בואו נתחיל!</p>
-            <img src={`${triangleIcon}`} alt="icon of triangle" />
+            <img src={triangleIcon} alt="icon of triangle" />
           </button>
         </div>
       </div>
@@ -64,9 +59,9 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={enterPlayerNameIntoContext}>
+          <button className="CheckForName-button" onClick={moveToGameWithWithPlayerName}>
             <p>יאללה בואו נתחיל!</p>
-            <img src={`${triangleIcon}`} alt="icon of triangle" />
+            <img src={triangleIcon} alt="icon of triangle" />
           </button>
         </div>
       </div>
