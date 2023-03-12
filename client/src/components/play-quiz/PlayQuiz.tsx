@@ -4,8 +4,9 @@ import fullScreenIcon from "../../images/question-template/full-screen.png";
 import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
-import { PlayerName } from "../../context/PlayerNameContext";
+import { PlayerNameContext } from "../../context/PlayerNameContext";
 import { Type } from "../popups/GenericPopParts";
+import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
 
 interface AnswerFromServer {
@@ -38,6 +39,7 @@ const QuestionTemp = () => {
       ],
     },
   ]);
+  const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
@@ -46,7 +48,7 @@ const QuestionTemp = () => {
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
   const [score, setScore] = useState(0);
-  const playerName = useContext(PlayerName);
+  const playerName = useContext(PlayerNameContext);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -89,10 +91,13 @@ const QuestionTemp = () => {
     if (!response.data) return navigate("/error404");
     setQuestions(response.data.questions);
     setQuantityOfQuestion(response.data.questions.length);
+    setQuizTitle(response.data.title);
   };
 
   const calcWidthOfRec = () => {
-    const divWidth = 68.75;
+    let divWidth;
+    isLargeScreen ? divWidth = 68.75 : divWidth = 100;
+    
     let numToPushToState = (divWidth / quantityOfQuestion) * (currentQuestionIndex + 1);
     setScoreRecWidth(numToPushToState);
   };
@@ -205,6 +210,7 @@ const QuestionTemp = () => {
   };
 
   return (
+    isLargeScreen ?
     <div className="question-temp comp-children-container">
       <main className="main-question-temp">
         <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
@@ -235,7 +241,41 @@ const QuestionTemp = () => {
         </div>
       </main>
     </div>
+    :
+    <PhonePageWithNav type="return" title={quizTitle} className="question-temp comp-children-container">
+      <main className="main-question-temp">
+        <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
+        <div className="num-of-question-place">
+          <div className="num-of-question">
+            <p>
+              שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
+            </p>
+          </div>
+        </div>
+        <div className="question-content">
+          <div className="question-place-father">
+            <div className="question-place-child">
+              <div className="question-img-place">
+                <img
+                  className="question-img img"
+                  src={`${currentQuestion.imageUrl}`}
+                  alt="pic of something that connected to the question"
+                />
+              </div>
+              <h2 id="question-title">{currentQuestion.title}</h2>
+              <hr id="hr" />
+              <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                <AnswersMap />
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </PhonePageWithNav>
   );
 };
+
+
+
 
 export default QuestionTemp;
