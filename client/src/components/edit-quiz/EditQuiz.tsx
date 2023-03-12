@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import '../../style/EditQuiz.scss'
 import ShowQuizBtn from '../../images/showquizzbtn.svg'
 import LinkBtn from '../../images/linkBtn.svg'
@@ -42,7 +42,7 @@ const EditQuiz: FC = () => {
     const [phonePage, setPhonePage] = useState(1);
     console.log('questions: ', questions);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
+    const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' });
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
@@ -51,8 +51,6 @@ const EditQuiz: FC = () => {
         if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'button-container-second-page')) return 'hide';
         else return originClassName
     }
-
-    const filesUploader = useFiles()
 
     const addQuestion = () => {
 
@@ -72,12 +70,9 @@ const EditQuiz: FC = () => {
                 () => {
                     if (isMobile) {
                         console.log('isMobilezzzzz: ', isMobile);
-                        window.scrollTo({ top: document.body.scrollHeight , behavior: 'smooth' })
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
                     }
-                },50)
-
-
-
+                }, 50)
         }
 
     }

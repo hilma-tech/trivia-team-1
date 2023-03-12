@@ -47,7 +47,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
                     <p className='question-title-final-box'>{question.title}</p>
-                    {question.hasOwnProperty("imageUrl") &&
+                    {question.hasOwnProperty("imageUrl") && question.imageUrl !== "" &&
                         <img className='question-image-final-box' src={question.imageUrl} alt='question' />
                     }
                 </div>
