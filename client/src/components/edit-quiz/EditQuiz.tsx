@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import '../../style/EditQuiz.scss'
-import ShowQuizBtn from '../../images/showquizzbtn.svg'
-import LinkBtn from '../../images/linkBtn.svg'
-import saveBtn from '../../images/saveBtn.svg'
-import Selectimage from '../../images/image.svg'
+// import ShowQuizBtn from '../../images/showquizzbtn.svg'
+// import LinkBtn from '../../images/linkBtn.svg'
+// import saveBtn from '../../images/saveBtn.svg'
+// import Selectimage from '../../images/image.svg'
 import AddQuestionBox from './AddQuestionBox'
 import plusBtn from '../../images/plusBtn.svg'
 import FinalQuestionBox from './FinalQuestionBox'
@@ -19,7 +19,8 @@ import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios'
 import PhoneNavBar from '../navbar/PhoneNavbar';
 import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
-import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import { useLocation, useParams } from 'react-router';
+// import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 
 
 
@@ -37,12 +38,41 @@ export const isFull = (question: CurrentQuestion) => {
 
 const EditQuiz: FC = () => {
 
+
     const isMobile = useMediaQuery('(max-width:600px)');
     const { setQuestions, questions } = useQuestionContext();
-    const [phonePage, setPhonePage] = useState(1);
     console.log('questions: ', questions);
+    const [phonePage, setPhonePage] = useState(1);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' });
+    console.log('questionDetails: ', questionDetails);
+    console.log('questionDetails: ', questionDetails);
+    const { quizId } = useParams();
+    const location = useLocation();
+
+
+    useEffect(() => {
+        if (location.pathname.includes('edit-quiz')) {
+            console.log('i am innnnnnnnn')
+            axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+                .then(function (response) {
+                    console.log('response: ', response);
+                    setQuestionDetails(() => {
+                        return {title: response.data.title, description: response.data.description, imageUrl: response.data.imageUrl}
+                    })
+                    const getQuestions = response.data.questions;
+                    setQuestions(getQuestions)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+
+        }else{
+            setQuestions([
+                { id: 0, title: "", imageUrl:'' , answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}] }
+            ]);
+        }
+    },[]);
 
     const giveRightClasses = (originClassName: string) => {
         if (!isMobile) return originClassName;
@@ -59,9 +89,9 @@ const EditQuiz: FC = () => {
             setQuestions((prev) => {
                 if (isFull(prev[currentEditQuestion])) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
+                    return [...prev, { id: lastQuestion.id + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
                 } else {
-                    setCurrentEditQuestion(prev[currentEditQuestion].questionId);
+                    setCurrentEditQuestion(prev[currentEditQuestion].id);
                     alert("Please add a correct answer")
                     return prev;
                 }
@@ -81,14 +111,14 @@ const EditQuiz: FC = () => {
         const items = Array.from(questions);
         const editItem = items[currentEditQuestion];
         const [reorderedItem] = items.splice(result.source.index, 1);
-        if (editItem.questionId === reorderedItem.questionId) {
+        if (editItem.id === reorderedItem.id) {
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
             setCurrentEditQuestion(result.destination.index)
         } else {
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
-            const editQuestionIndex = items.findIndex((question) => question.questionId === editItem.questionId);
+            const editQuestionIndex = items.findIndex((question) => question.id === editItem.id);
             setCurrentEditQuestion(editQuestionIndex);
         }
     }
@@ -109,9 +139,9 @@ const EditQuiz: FC = () => {
             setQuestions((prev) => {
                 if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
+                    return [...prev, { id: lastQuestion.id + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
                 } else {
-                    setCurrentEditQuestion(prev[currentEditQuestion].questionId);
+                    setCurrentEditQuestion(prev[currentEditQuestion].id);
                     alert("Please add a correct inputs")
                     return prev;
                 }
@@ -125,19 +155,23 @@ const EditQuiz: FC = () => {
 
 
     const saveQuiz = () => {
+        questions.length > 4
+            ?
+            axios.post('http://localhost:8080/api/quiz', {
+                creatorId: 1,
+                title: questionDetails.title,
+                description: questionDetails.description,
+                questions: questions
+            })
+                .then(function (res) {
+                    console.log(res)
+                })
+                .catch(function (err) {
+                    console.log(err)
+                })
 
-        axios.post('http://localhost:8080/api/quiz', {
-            creatorId: 1,
-            title: questionDetails.title,
-            description: questionDetails.description,
-            questions: questions
-        })
-            .then(function (res) {
-                console.log(res)
-            })
-            .catch(function (err) {
-                console.log(err)
-            })
+            :
+            alert("Please add at least 5 questions")
     }
 
 
@@ -157,8 +191,8 @@ const EditQuiz: FC = () => {
                                     <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
                                         {questions.map((question, index) => (
                                             <Draggable
-                                                key={question.questionId.toString()}
-                                                draggableId={question.questionId.toString()}
+                                                key={question.id.toString()}
+                                                draggableId={question.id.toString()}
                                                 index={index}
                                             >
                                                 {(provided) => (

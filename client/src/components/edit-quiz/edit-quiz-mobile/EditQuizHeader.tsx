@@ -32,6 +32,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
 
     const handleImageFile = (value: UploadedFile) => {
         setQuizImageObject(value)
+        questionDetails.imageUrl = value.link;
     }
 
     const handleMovePage = () => {
@@ -43,6 +44,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
 
 
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
+    console.log('aaa', questionDetails.imageUrl)
     return isMobile ? (
         <div className="first-page-wrapper">
             <div className={giveRightClasses("phone-first-page-container")} >
@@ -58,9 +60,9 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                     <label className="select-image-container">
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                         <BootstrapTooltip title="הוספת תמונה לחידון">
-                            <img className={quizImageObject ? 'quiz-image-in': 'select-image-quiz-svg' } src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
+                            <img className={questionDetails.imageUrl ? 'quiz-image-in': 'select-image-quiz-svg' } src={questionDetails.imageUrl ? questionDetails.imageUrl  :  Selectimage} alt='add your quiz photo here' />
                         </BootstrapTooltip>
-                        {!quizImageObject && <Typography variant="body1">העלאת תמונה</Typography>}
+                        {!questionDetails.imageUrl && <Typography variant="body1">העלאת תמונה</Typography>}
                     </label>
                     
                 </div>
@@ -97,7 +99,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                         <div className='quiz-header-image'>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
                             <BootstrapTooltip title="הוספת תמונה לחידון">
-                                <img className='select-image-quiz-svg' src={quizImageObject === null ? Selectimage : quizImageObject.link} alt='add your quiz photo here' />
+                                <img className='select-image-quiz-svg' src={questionDetails.imageUrl ? questionDetails.imageUrl  :  Selectimage} alt='add your quiz photo here' />
                             </BootstrapTooltip>
                         </div>
                     </label>

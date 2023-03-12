@@ -21,7 +21,8 @@ const ComputerNavbar:FC = () => {
                 navigate('/my-quizzes')
                 break;
             case LinkTo.CreateQuiz:
-                navigate('/edit-quiz')
+                navigate('/add-quiz')
+                window.location.reload()
                 break;
             case LinkTo.About:
                 navigate('/about')

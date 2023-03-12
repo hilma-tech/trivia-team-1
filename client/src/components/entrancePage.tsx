@@ -19,7 +19,7 @@ function EnterancePage() {
     }
 
     function toEditQuiz() {
-        navigate('/edit-quiz')
+        navigate('/add-quiz')
     }
 
     function logout() {

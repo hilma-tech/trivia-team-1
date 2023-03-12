@@ -1,4 +1,4 @@
-import React, { useState, createContext, FC, ReactNode, useContext } from "react";
+import React, { useState, createContext, FC, ReactNode, useContext, useEffect } from "react";
 import { CurrentQuestion } from '../utils/Interfaces'
 
 interface AnswersContextInterface {
@@ -16,8 +16,11 @@ export const QuestionsContext = createContext<AnswersContextInterface | null>(nu
 const QuestionsProvider: FC<AnswersProviderProps> = ({ children }) => {
 
     const [questions, setQuestions] = useState<CurrentQuestion[]>([
-        { questionId: 0, title: "", imageUrl:'' , answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}] }
+        { id: 0, title: "", imageUrl:'' , answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}] }
     ]);
+
+    
+
 
     const contextValue: AnswersContextInterface = {
         setQuestions: setQuestions,

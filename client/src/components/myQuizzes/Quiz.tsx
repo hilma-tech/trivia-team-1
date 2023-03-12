@@ -64,6 +64,8 @@ const Quiz: FC<QuizProps> = (props) => {
     // /:userName/quiz/:quizId
   }
   const toEdit = (id: number) => {
+    console.log('id: ', id);
+    navigate(`/edit-quiz/${id}`)
 
   }
 

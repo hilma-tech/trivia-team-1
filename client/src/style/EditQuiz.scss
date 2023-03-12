@@ -49,7 +49,7 @@ $green-color: #378381; //unique color
         color: black;
     }
 
-    
+
 
 }
 
@@ -149,7 +149,7 @@ $green-color: #378381; //unique color
 }
 
 
-.quiz-header-image{
+.quiz-header-image {
     background-color: rgb(226, 223, 223);
     width: 17vw;
     height: 15vh;
@@ -168,8 +168,9 @@ $green-color: #378381; //unique color
 }
 
 .select-image-quiz-svg {
-    width: 20vw;
-    height: 5vh;
+    width: 50%;
+    height: 50%;
+    margin-bottom: 2vh;
 }
 
 .title-header-container {
@@ -334,7 +335,7 @@ $green-color: #378381; //unique color
         width: 34vw;
     }
 
-    .trash-svg-for-questions{
+    .trash-svg-for-questions {
         margin-bottom: 5.5px;
     }
 }
@@ -366,7 +367,7 @@ $green-color: #378381; //unique color
         height: 2.9791459781529297vh;
 
     }
-    }
+}
 
 
 .remove-answer {
@@ -389,7 +390,7 @@ $green-color: #378381; //unique color
     align-items: center;
 
     .answer-and-questions-container {
-        width: 95%;
+        width: 98%;
     }
 
     .question-title-final-box {
@@ -407,14 +408,14 @@ $green-color: #378381; //unique color
         padding-right: 1.5%;
         margin-bottom: 2%;
         display: flex;
-        
+
     }
 
-    .question-image-final-box{
+    .question-image-final-box {
         width: 3.5vw;
         object-fit: contain;
         margin-right: 1vw;
-        
+
     }
 
     .answer-container {
@@ -449,21 +450,21 @@ $green-color: #378381; //unique color
         padding-top: 1%;
     }
 
-    .drag-and-drop-svg  {
+    .drag-and-drop-svg {
         width: 1.0416666666666667vw;
         height: 2.1916583912611718vh;
     }
 
-    .empty-div  {
+    .empty-div {
         height: 1.5vh;
     }
 
-    .final-box-answer-and-image-container{
+    .final-box-answer-and-image-container {
         display: flex;
         flex-direction: row;
     }
 
-    .answer-image{
+    .answer-image {
         width: 2.5vw;
     }
 
@@ -478,11 +479,12 @@ $green-color: #378381; //unique color
 
 @media screen and (max-width: 600px) {
 
-    .question-dnd-container{
+    .question-dnd-container {
         margin-bottom: 45%;
     }
 
-    .button-container, .button-container-second-page {
+    .button-container,
+    .button-container-second-page {
         padding-top: 20vh;
 
         .MuiButtonBase-root {
@@ -556,10 +558,12 @@ $green-color: #378381; //unique color
         bottom: 15vh;
         background-color: white;
         opacity: 0.6;
+
         .add-a-question {
             height: 10vh;
             font-size: larger;
         }
+
         font-size: 1.5rem;
     }
 
@@ -583,7 +587,7 @@ $green-color: #378381; //unique color
 
             img.select-image-svg-for-questions {
                 left: 12vw;
-            
+
             }
         }
 
@@ -678,7 +682,7 @@ $green-color: #378381; //unique color
             }
         }
 
-        .label-in-new-answer{
+        .label-in-new-answer {
             display: flex;
             align-items: center;
         }
@@ -708,6 +712,21 @@ $green-color: #378381; //unique color
 
     }
 
+    .add-image-icon.MuiIconButton-root {
+        margin-right: 2vw;
+
+        .add-image-icon-placeholder {
+            width: 9.5625vw;
+            height: 2.9791459781529297vh;
+
+        }
+    }
+    
+    .quiz-image-in{
+        width: 100%;
+        height: 100%;
+    }
+
 }
 
 .monkey-in-edit-page-svg {
@@ -716,7 +735,9 @@ $green-color: #378381; //unique color
     right: 2.5rem;
 }
 
-.footer-container{
+
+
+.footer-container {
     width: 100%;
     position: fixed;
     bottom: 0;

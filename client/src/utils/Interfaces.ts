@@ -9,7 +9,7 @@ export interface Answers{
 
 
 export interface CurrentQuestion {
-    questionId: number;
+    id: number;
     title: string;
     answers: Answers[];
     imageUrl?:string;

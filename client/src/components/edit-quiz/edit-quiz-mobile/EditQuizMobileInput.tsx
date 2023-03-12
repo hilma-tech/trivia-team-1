@@ -8,7 +8,7 @@ import TrashSvg from '../../../images/trash.svg'
 const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion, uploadedImageUrl, filesUploader, handleImageFile, deleteAnswer, handleCorrectAnswer, handleChange, setUploadedImageUrl }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
     return (
-        (!uploadedImageUrl) ?
+        (!currentQuestion.answers[answerIndex].imageUrl) ?
             <div className="input-container radio-question input-div">
                 <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.answers[answerIndex].isCorrect} onChange={handleCorrectAnswer} />} />
                 <TextField className={uploadedImageUrl ? 'make-into-div-size' : ''} placeholder={`תשובה ${answerIndex + 1}`} id="standard-size-small" value={currentQuestion.answers[answerIndex].text} onChange={handleChange} />
@@ -32,7 +32,7 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
                             <img src={SelectImage} className="select-image-svg-for-questions  select-image-after-added" alt='add image to your answer' />
                         </div>
                         <div className="question-image-container">
-                            <img src={uploadedImageUrl} />
+                            <img src={currentQuestion.answers[answerIndex].imageUrl} />
                             <div className="trash-svg-container" style={{left: screenWidth/4 + 'px'}} onClick={() => { setUploadedImageUrl('') }}>
                                 <img src={TrashSvg} className="icon trash-on-answer" />
                             </div>

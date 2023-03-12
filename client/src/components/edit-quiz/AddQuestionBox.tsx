@@ -55,7 +55,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
 
     const deleteQuestion = () => {
-        let deleteIndex = questions.findIndex(question => question.questionId === currentQuestion.questionId)
+        let deleteIndex = questions.findIndex(question => question.id === currentQuestion.id)
         setQuestions(prevState => {
             return prevState.filter((question, index) => index !== deleteIndex);
 
@@ -84,7 +84,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
         isMobile ?
             (<div className="add-questions-container-phone">
                 <div className="question-number-container">
-                    <h1 className="question-number">שאלה {currentQuestion.questionId + 1}</h1>
+                    <h1 className="question-number">שאלה {currentQuestion.id + 1}</h1>
                     <div className="copy-trash-imgs">
                         <img className="icon" src={duplicateSvg} />
                         <img className="icon" src={TrashSvg} />
