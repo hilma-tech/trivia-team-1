@@ -29,15 +29,15 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
     const [initialHistoryLength, setInitialHistoryLength] = useState(0);
 
     useEffect(() => {
-        const handleUnload = () => {
-          localStorage.clear();
-        };
+        // const handleUnload = () => {
+        //     localStorage.removeItem("quizHistoryLength")
+        // };
     
-        window.addEventListener("beforeunload", handleUnload);
+        // window.addEventListener("unload", handleUnload);
     
-        return () => {
-          window.removeEventListener("beforeunload", handleUnload);
-        };
+        // return () => {
+        //   window.removeEventListener("unload", handleUnload);
+        // };
       }, []);
     
 
