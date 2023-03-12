@@ -37,7 +37,8 @@ function App() {
                 <CssBaseline />
                 <Background>
                   <Routes>
-                    <Route path="/entrance-page" element={<EntrancePage />} />
+                  <Route path="/about" element={<About />} />
+                    <Route path="/enterance-page" element={<EntrancePage />} />
                     <Route index element={<Navigate replace to="/login" />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />

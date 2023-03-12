@@ -3,10 +3,10 @@ import monkeyEnter from '../images/koren-monkey.jpeg';
 
 function About() {
     return (
-        <div className='comp-children-container about-monkey-page'>
+        <div className='comp-children-container about-page'>
             <h1 className="about-page-title">קצת עלינו</h1>
-            <div className='koren-monkey-container'>
-                <p className='koren-monkey-conent'>
+            <div className='about-page-content'>
+                <p className='about-page-text'>
                 חברת הבננה היא חברה ישראלית שנוסדה בשנת 2018 ומתמחה ביצירת חידונים ומשחקי חשיבה לילדים ולמבוגרים. החברה פועלת בתחום הטכנולוגיות החינוכיות ומייצרת חידונים מתקדמים עם טכנולוגיות חדשניות כמו זיהוי פנים ולמידה עמוקה.
 <br/>
 המנכ"ל של חברת הבננה הוא שלימזי גיבוט, אשר מוביל את החברה במסעה המרתק והמפתיע ליצירת חידונים מתקדמים ומקוריים. כמו כן, החברה מתפתחת תחת ניהולו ומתאימה את מוצריה לצרכי הלקוחות.
@@ -15,7 +15,7 @@ function About() {
 <br/>
 אנו רוצים להודות גם לשלמה ניסים ושפרן שליוו את חברת הבננה לאורך כל הדרך ותרמו להצלחתה. בזכות עזרתם והמקצועיות שלכם, החברה יכולה לספק מוצרים ושירותים מעולים ללקוחותיה ולהתפתח ולצמוח עוד יותר בעתיד.
                 </p>
-                <img className='koren-monkey-image' src={monkeyEnter} />
+                <img className='about-page-decoration' src={monkeyEnter} />
             </div>
         </div>);
 }

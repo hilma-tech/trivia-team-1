@@ -23,7 +23,7 @@ function EnterancePage() {
     }
 
     function logout() {
-        localStorage.setItem("quizUser", JSON.stringify({ userId: 0, username: '' }))
+        localStorage.removeItem("quizUser")
         setUser({ userId: 0, username: '' })
         navigate('/login')
     }

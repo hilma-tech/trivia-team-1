@@ -1,33 +1,36 @@
-.about-monkey-page{
-    .about-page-title{
+.about-page {
+    .about-page-title {
         margin-right: 5%;
         font-size: 4vmax;
         margin-bottom: 1%;
-         font-weight: 1000;
+        font-weight: 1000;
     }
-    .koren-monkey-container{
+
+    .about-page-content {
         display: flex;
-       
-        .koren-monkey-conent{
+        justify-content: space-evenly;
+
+        .about-page-text {
             font-size: 1vw;
             width: 45vw;
-            margin-right: 5%;
         }
-        .koren-monkey-image{
+
+        .about-page-decoration {
             width: 15vw;
-            margin-right: 2%;
-            margin-left: 5%;
         }
     }
-    @media screen and (max-width: 600px){
+
+    @media screen and (max-width: 600px) {
         text-align: center;
-        .about-page-title{
+
+        .about-page-title {
             margin-right: 0%;
         }
-        .koren-monkey-container{
+
+        .about-page-content {
             display: block;
-            .koren-monkey-conent{
-                // text-align: right;
+
+            .about-page-text {
                 padding-top: 5%;
                 font-weight: 1000;
                 width: 80%;
@@ -35,8 +38,9 @@
                 margin-left: auto;
                 font-size: 0.8rem;
             }
-            .koren-monkey-image{
-               position: absolute;
+
+            .about-page-decoration {
+                position: absolute;
                 margin: 0px;
                 width: 80%;
                 height: 80vh;

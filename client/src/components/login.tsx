@@ -43,12 +43,11 @@ function Login() {
                 localStorage.setItem("quizUser", JSON.stringify({ userId: data.id, username: data.username }))
                 setUser({ userId: data.id, username: data.username })
                 setRegErrDiv('')
-                navigate('/entrance-page')
+                navigate('/enterance-page')
             }
             else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
             // Handle successful response here...
         } catch (error) {
-          console.log(error, "Error"); 
           setRegErrDiv("משהו השתבש בתהליך!")
         }
     }
