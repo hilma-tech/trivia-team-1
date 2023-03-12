@@ -77,7 +77,7 @@ const QuestionTemp = () => {
   useEffect(() => {
     console.log(currentQuestion)
     if (questions.length > 2) {
-      if (currentQuestionIndex === questions.length -1 ) {
+      if (currentQuestionIndex === questions.length - 1) {
         postScore();
         navigateToEndGameScreen();
       }
@@ -126,7 +126,7 @@ const QuestionTemp = () => {
   const moveToNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
-    } 
+    }
     // else {
     //   navigateToEndGameScreen();
     // }
@@ -145,8 +145,9 @@ const QuestionTemp = () => {
 
   const postScore = async () => {
     let playerName = sessionStorage.getItem('playerName') || 'אורח';//TODO: Boaz will give me the name through context
+    let score = Math.floor(Math.random() * 101)//TODO: Boaz will calculate the score
     axios.post(`/api/quiz/${quizId}/scores`, {
-      score: Math.floor(Math.random() * 101),//TODO: Boaz will calculate the score
+      score,
       player: playerName
     })
   }

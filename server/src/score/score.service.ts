@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Score } from 'src/entities/score.entity';
 import { ScoreDTO } from 'src/quiz/quiz.dto';
-import { Repository } from 'typeorm';
 
 @Injectable()
 export class ScoreService {
