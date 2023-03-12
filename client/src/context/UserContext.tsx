@@ -16,15 +16,19 @@ interface UserProviderContext {
     setUser: React.Dispatch<React.SetStateAction<User>>;
     user: User;
 }
-interface UserProviderProps {
+interface UserStoProviderProps {
     children: ReactNode;
 }
 const UserContext = createContext<UserProviderContext | null>(null)
 
-const UserProvider: FC<UserProviderProps> = ({ children }) => {
+const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
     const [user, setUser] = useState<User>({ userId: 0, username: '' });
     const navigate = useNavigate()
     const [initialHistoryLength, setInitialHistoryLength] = useState(0);
+
+    useEffect(() => {
+
+    },[])
 
     useEffect(() => {
         async function getHistoryLength() {
@@ -40,6 +44,7 @@ const UserProvider: FC<UserProviderProps> = ({ children }) => {
         }
         getHistoryLength()
         const  rawUser = localStorage.getItem('quizUser')
+        console.log("rawUser: " , rawUser);
         if (rawUser) setUser(JSON.parse(rawUser))
     }, [])
 
