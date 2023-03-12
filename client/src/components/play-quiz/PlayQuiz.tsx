@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
 import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
+import { PlayerNameContext } from "../../context/PlayerNameContext";
 import { Type } from "../popups/GenericPopParts";
+import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
 
 interface AnswerFromServer {
@@ -37,6 +39,7 @@ const QuestionTemp = () => {
       ],
     },
   ]);
+  const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
@@ -44,6 +47,8 @@ const QuestionTemp = () => {
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
+  const [score, setScore] = useState(0);
+  const userName = useContext(PlayerNameContext);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -55,8 +60,8 @@ const QuestionTemp = () => {
   const currentQuestion = questions[currentQuestionIndex];
 
   const checkIfThereAreImg = () => {
-    for (let i = 0; i < currentQuestion.answers.length; i++) {
-      if (currentQuestion.answers[i].imageUrl) {
+    for (let i = 0; i < currentQuestion?.answers?.length; i++) {
+      if (currentQuestion?.answers[i]?.imageUrl) {
         setChangeFlexDir(false);
         break;
       } else {
@@ -68,20 +73,13 @@ const QuestionTemp = () => {
   useEffect(() => {
     setInfoFromServer();
     checkIfThereAreImg();
+    if (!questions) {
+      navigateToEndGameScreen();
+    }
   }, []);
 
   useEffect(() => {
     checkIfThereAreImg();
-  }, [currentQuestionIndex]);
-
-  useEffect(() => {
-    console.log(currentQuestion)
-    if (questions.length > 2) {
-      if (currentQuestionIndex === questions.length -1 ) {
-        navigateToEndGameScreen();
-      }
-
-    }
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -90,20 +88,22 @@ const QuestionTemp = () => {
 
   const setInfoFromServer = async () => {
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
-
     if (!response.data) return navigate("/error404");
-
     setQuestions(response.data.questions);
     setQuantityOfQuestion(response.data.questions.length);
+    setQuizTitle(response.data.title);
   };
 
   const calcWidthOfRec = () => {
-    const divWidth = 68.75;
+    let divWidth;
+    isLargeScreen ? divWidth = 68.75 : divWidth = 100;
+
     let numToPushToState = (divWidth / quantityOfQuestion) * (currentQuestionIndex + 1);
     setScoreRecWidth(numToPushToState);
   };
 
   const navigateToEndGameScreen = () => {
+    console.log("navigateToEndGameScreen");
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -113,7 +113,8 @@ const QuestionTemp = () => {
   };
 
   const checkIfCorrect = (index: number) => {
-    if (currentQuestion.answers[index].isCorrect) {
+    if (currentQuestion?.answers[index]?.isCorrect) {
+      setScore((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();
@@ -125,10 +126,10 @@ const QuestionTemp = () => {
   const moveToNextQuestion = () => {
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
-    } 
-    // else {
-    //   navigateToEndGameScreen();
-    // }
+    }
+    else {
+      navigateToEndGameScreen();
+    }
     setRedIndex(undefined);
     setGreenIndex(undefined);
   };
@@ -138,7 +139,7 @@ const QuestionTemp = () => {
   };
 
   const makeCorrectAnswerGreen = () => {
-    const correctAnswerIndex = currentQuestion.answers.findIndex((answer) => answer.isCorrect);
+    const correctAnswerIndex = currentQuestion?.answers?.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
 
@@ -154,11 +155,11 @@ const QuestionTemp = () => {
   const AnswersMap = () => {
     return (
       <>
-        {currentQuestion.answers.map((answer, index) => (
+        {currentQuestion?.answers?.map((answer, index) => (
           <div key={`current-answer-${index}`}>
             <button
               className={
-                !currentQuestion.answers[0].imageUrl ? "ans-button-no-img" : "ans-button-with-img"
+                changeFlexDir ? "ans-button-no-img" : "ans-button-with-img"
               }
               key={index}
               style={{
@@ -187,7 +188,7 @@ const QuestionTemp = () => {
                   >
                     <img
                       className="button-img"
-                      src={`${answer.imageUrl}`}
+                      src={`${answer?.imageUrl}`}
                       alt="picture of answer"
                     />
                   </div>
@@ -195,43 +196,79 @@ const QuestionTemp = () => {
               ) : null}
             </button>
           </div>
-        ))}
+        ))
+        }
       </>
     );
   };
 
   return (
-    <div className="question-temp comp-children-container">
-      <main className="main-question-temp">
-        <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
-        <div className="num-of-question-place">
-          <div className="num-of-question">
-            <p>
-              שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
-            </p>
+    isLargeScreen ?
+      <div className="question-temp comp-children-container">
+        <main className="main-question-temp">
+          <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
+          <div className="num-of-question-place">
+            <div className="num-of-question">
+              <p>
+                שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="question-content">
-          <div className="question-place-father">
-            <div className="question-place-child">
-              <div className="question-img-place">
-                <img
-                  className="question-img img"
-                  src={`${currentQuestion.imageUrl}`}
-                  alt="pic of something that connected to the question"
-                />
-              </div>
-              <h2 id="question-title">{currentQuestion.title}</h2>
-              <hr id="hr" />
-              <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                <AnswersMap />
+          <div className="question-content">
+            <div className="question-place-father">
+              <div className="question-place-child">
+                <div className="question-img-place">
+                  <img
+                    className="question-img img"
+                    src={`${currentQuestion?.imageUrl}`}
+                    alt="pic of something that connected to the question"
+                  />
+                </div>
+                <h2 id="question-title">{currentQuestion?.title}</h2>
+                <hr id="hr" />
+                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                  <AnswersMap />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+      :
+      <PhonePageWithNav type="return" title={quizTitle} className="question-temp comp-children-container">
+        <main className="main-question-temp">
+          <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
+          <div className="num-of-question-place">
+            <div className="num-of-question">
+              <p>
+                שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
+              </p>
+            </div>
+          </div>
+          <div className="question-content">
+            <div className="question-place-father">
+              <div className="question-place-child">
+                <div className="question-img-place">
+                  <img
+                    className="question-img img"
+                    src={`${currentQuestion?.imageUrl}`}
+                    alt="pic of something that connected to the question"
+                  />
+                </div>
+                <h2 id="question-title">{currentQuestion?.title}</h2>
+                <hr id="hr" />
+                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                  <AnswersMap />
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </PhonePageWithNav>
   );
 };
+
+
+
 
 export default QuestionTemp;
