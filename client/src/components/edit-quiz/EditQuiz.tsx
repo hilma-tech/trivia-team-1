@@ -14,7 +14,7 @@ import { TextField } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
-import BootstrapTooltip from '../../tooltip/tooltip'
+import BootstrapTooltip from '../tooltip/tooltip'
 import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios';
 
