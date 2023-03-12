@@ -26,7 +26,7 @@ export const SummaryGameDesktop: FC = () => {
           שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
         </Typography>
         <Button
-          sx={{ width: "14vw", height: "5vh", fontSize: "1.5rem", fontWeight: "bolder" }}
+          sx={{ width: "25vw", height: "8vh", fontSize: "1.5rem", fontWeight: "bolder", marginTop: '4vh' }}
           variant="contained"
           color="primary"
         >

@@ -43,16 +43,16 @@ const QuestionTemp = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
+  const [incrementScoreBy, setIncrementScoreBy] = useState(10);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
-  const [score, setScore] = useState(0);
   const userName = useContext(PlayerNameContext);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  const { popHandleClickOpen, setPopType } = usePopContext();
+  const { popHandleClickOpen, setPopType, score, setScore, setNumOfQuestions, setCorrectAnswers } = usePopContext();
   const { quizId } = useParams();
 
   const navigate = useNavigate();
@@ -97,13 +97,15 @@ const QuestionTemp = () => {
   const calcWidthOfRec = () => {
     let divWidth;
     isLargeScreen ? divWidth = 68.75 : divWidth = 100;
-    
+
     let numToPushToState = (divWidth / quantityOfQuestion) * (currentQuestionIndex + 1);
     setScoreRecWidth(numToPushToState);
   };
 
   const navigateToEndGameScreen = () => {
     console.log("navigateToEndGameScreen");
+    setNumOfQuestions(quantityOfQuestion);
+    setCorrectAnswers(score / 10);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -114,7 +116,7 @@ const QuestionTemp = () => {
 
   const checkIfCorrect = (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
-      setScore((prev) => prev + 1);
+      setScore((prev) => prev + incrementScoreBy);
       setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();
@@ -203,67 +205,67 @@ const QuestionTemp = () => {
 
   return (
     isLargeScreen ?
-    <div className="question-temp comp-children-container">
-      <main className="main-question-temp">
-        <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
-        <div className="num-of-question-place">
-          <div className="num-of-question">
-            <p>
-              שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
-            </p>
+      <div className="question-temp comp-children-container">
+        <main className="main-question-temp">
+          <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
+          <div className="num-of-question-place">
+            <div className="num-of-question">
+              <p>
+                שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="question-content">
-          <div className="question-place-father">
-            <div className="question-place-child">
-              <div className="question-img-place">
-                <img
-                  className="question-img img"
-                  src={`${currentQuestion.imageUrl}`}
-                  alt="pic of something that connected to the question"
-                />
-              </div>
-              <h2 id="question-title">{currentQuestion.title}</h2>
-              <hr id="hr" />
-              <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                <AnswersMap />
+          <div className="question-content">
+            <div className="question-place-father">
+              <div className="question-place-child">
+                <div className="question-img-place">
+                  <img
+                    className="question-img img"
+                    src={`${currentQuestion.imageUrl}`}
+                    alt="pic of something that connected to the question"
+                  />
+                </div>
+                <h2 id="question-title">{currentQuestion.title}</h2>
+                <hr id="hr" />
+                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                  <AnswersMap />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
-    </div>
-    :
-    <PhonePageWithNav type="return" title={quizTitle} className="question-temp comp-children-container">
-      <main className="main-question-temp">
-        <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
-        <div className="num-of-question-place">
-          <div className="num-of-question">
-            <p>
-              שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
-            </p>
+        </main>
+      </div>
+      :
+      <PhonePageWithNav type="return" title={quizTitle} className="question-temp comp-children-container">
+        <main className="main-question-temp">
+          <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
+          <div className="num-of-question-place">
+            <div className="num-of-question">
+              <p>
+                שאלה {quantityOfQuestion}/{currentQuestionIndex + 1}
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="question-content">
-          <div className="question-place-father">
-            <div className="question-place-child">
-              <div className="question-img-place">
-                <img
-                  className="question-img img"
-                  src={`${currentQuestion.imageUrl}`}
-                  alt="pic of something that connected to the question"
-                />
-              </div>
-              <h2 id="question-title">{currentQuestion.title}</h2>
-              <hr id="hr" />
-              <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                <AnswersMap />
+          <div className="question-content">
+            <div className="question-place-father">
+              <div className="question-place-child">
+                <div className="question-img-place">
+                  <img
+                    className="question-img img"
+                    src={`${currentQuestion.imageUrl}`}
+                    alt="pic of something that connected to the question"
+                  />
+                </div>
+                <h2 id="question-title">{currentQuestion.title}</h2>
+                <hr id="hr" />
+                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                  <AnswersMap />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
-    </PhonePageWithNav>
+        </main>
+      </PhonePageWithNav>
   );
 };
 
