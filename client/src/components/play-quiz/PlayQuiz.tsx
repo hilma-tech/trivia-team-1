@@ -48,7 +48,7 @@ const QuestionTemp = () => {
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
   const [score, setScore] = useState(0);
-  const userName = useContext(PlayerName);
+  const userName = useContext(PlayerNameContext);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
