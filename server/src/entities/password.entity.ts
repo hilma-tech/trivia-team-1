@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne, JoinColumn } from "typeorm";
-import { User } from "./user.entity";
+import { ExtendedUser } from "./user.entity";
 @Entity()
 export class Password {
     @PrimaryGeneratedColumn()
@@ -8,7 +8,7 @@ export class Password {
     @Column()
     password: string;
 
-    @OneToOne(() => User, (user) => user.password, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
+    @OneToOne(() => ExtendedUser, (user) => user.password, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
     @JoinColumn({name: "user_id", referencedColumnName: "id"})
-    user: User
+    user: ExtendedUser
 }

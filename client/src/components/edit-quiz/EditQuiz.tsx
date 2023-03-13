@@ -21,7 +21,7 @@ import { usePopContext } from '../popups/popContext'
 import '../../style/EditQuiz.scss';
 import plusBtn from '../../images/plusBtn.svg';
 import MonkeySvg from '../../images/monkeyInEdit.svg';
-import { Type } from '../popups/GenericPopParts';
+import { PopUpType } from '../popups/GenericPopParts';
 
 
 const cacheRtl = createCache({
@@ -156,7 +156,7 @@ const EditQuiz: FC = () => {
         if(questions.length <=4) return alert("Please add at least 5 questions")
 
         if(isEditQuizPage){
-            setPopType(Type.SaveChanges);
+            setPopType(PopUpType.SaveChanges);
             setEditedQuizId(quizId);
             setSavedQuiz({
                 creatorId: 11,
@@ -166,7 +166,7 @@ const EditQuiz: FC = () => {
             });
         }
         else{
-            setPopType(Type.AddQuiz);
+            setPopType(PopUpType.AddQuiz);
             setSavedQuiz({
                 creatorId: 11,
                 title: questionDetails.title,

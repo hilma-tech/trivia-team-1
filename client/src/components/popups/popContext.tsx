@@ -9,7 +9,7 @@ import happyMonkey from '../../images/popUps/happyMonkey.png'
 import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
-import { Type } from "./GenericPopParts";
+import { PopUpType } from "./GenericPopParts";
 import { CurrentQuestion } from "../../utils/Interfaces";
 
 
@@ -26,9 +26,13 @@ interface PopContextInterface {
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
-  setPopType: React.Dispatch<React.SetStateAction<Type>>;
+  setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   approvedPops: boolean | null;
   toggleApprovedPops: React.Dispatch<React.SetStateAction<boolean | null>>;
+  setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
+  setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
+  correctAnswers: number;
+  numOfQuestions: number;
 }
 
 interface PopProviderProps {
@@ -50,8 +54,10 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
   const [savedQuiz, setSavedQuiz] = useState<SaveQuiz>();
   const [editedQuizId, setEditedQuizId] = useState<string | undefined>("");
-  const [popType, setPopType] = useState<Type>(Type.CopyQuiz);
   const [approvedPops, toggleApprovedPops] = useState<boolean | null>(null);
+  const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
+  const [correctAnswers, setCorrectAnswers] = useState<number>(0);
+  const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
@@ -76,14 +82,18 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     popHandleClose: popHandleClose,
     setPopType: setPopType,
     approvedPops: approvedPops,
-    toggleApprovedPops: toggleApprovedPops
+    toggleApprovedPops: toggleApprovedPops,
+    setCorrectAnswers: setCorrectAnswers,
+    setNumOfQuestions: setNumOfQuestions,
+    correctAnswers: correctAnswers,
+    numOfQuestions: numOfQuestions,
   }
 
   return (
 
     <popContext.Provider value={contextValue}>
       <>
-        {popType === Type.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
+        {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
         <Dialog
           className="generic-pop-up-dialog"
           open={popOpen}
@@ -91,14 +101,14 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          {isMobile && popType === Type.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
-          {isMobile && popType === Type.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
+          {isMobile && popType === PopUpType.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
+          {isMobile && popType === PopUpType.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
           <DialogTitle className="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
-            <GenericPopTitle type={popType} />
+            <GenericPopTitle correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} type={popType} />
           </DialogTitle>
           <DialogContent className='dialog-content-container'>
             <DialogContentText id="alert-dialog-description" className={isMobile ? "dialog-content-text-style" : ""}  >
-              <GenericPopContent type={popType} />
+              <GenericPopContent type={popType} correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} />
             </DialogContentText>
           </DialogContent>
           <DialogActions className='dialog-actions-container'>
