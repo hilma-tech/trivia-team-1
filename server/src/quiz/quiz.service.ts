@@ -58,8 +58,7 @@ export class QuizService {
 
 
   //TODO: temporary
-  // this should be a string[] when using @hilma/auth
-  addFakeData(userIds: number[], amount: number) {
+  addFakeData(userIds: string[], amount: number) {
     const quizzes = userIds.flatMap((id) => {
       const userQuizzes: DeepPartial<Quiz>[] = [];
       for (let i = 0; i < amount; i++) {
@@ -71,8 +70,7 @@ export class QuizService {
   }
 
   //TODO: temporary
-  // this should be a string when using @hilma/auth
-  randomQuiz(id: number) {
+  randomQuiz(id: string) {
     const quiz: DeepPartial<Quiz> = {
       creator: { id },
       description: faker.commerce.productDescription(),

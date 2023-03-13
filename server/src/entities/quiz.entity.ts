@@ -1,4 +1,4 @@
-import { User } from "./user.entity";
+import { ExtendedUser } from "./user.entity";
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne, JoinColumn } from "typeorm";
 import { Score } from "./score.entity";
 import { Question } from "./question.entity";
@@ -16,9 +16,9 @@ export class Quiz {
     @Column({ name: "image_url", nullable: true })
     imageUrl: string;
 
-    @ManyToOne(() => User, (user) => user.quizzes, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @ManyToOne(() => ExtendedUser, (user) => user.quizzes, { nullable: false, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     @JoinColumn({ name: "creator_id" })
-    creator: User;
+    creator: ExtendedUser;
 
     @OneToMany(() => Score, (scores) => scores.quiz, { cascade: true })
     scores: Score[]

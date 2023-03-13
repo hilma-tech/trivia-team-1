@@ -41,7 +41,7 @@ export class QuizController {
 
     //TODO: temporary
     @Post("add-fake-data")
-    addFakeData(@Body() userIds: Array<number>) {
+    addFakeData(@Body() userIds: Array<string>) {
         this.quizService.addFakeData(userIds, 5);
     }
 }
