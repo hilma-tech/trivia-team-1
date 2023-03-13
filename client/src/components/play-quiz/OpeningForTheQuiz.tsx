@@ -24,18 +24,18 @@ function OpeningForTheQuiz() {
 
   useEffect(() => {
     getInfoFromServer();
-    const timeout = setTimeout(()=> setLoading(false), 4000);
+    const timeout = setTimeout(() => setLoading(false), 4000);
     return () => clearTimeout(timeout);
   }, []);
 
-  const getInfoFromServer = async () => {    
+  const getInfoFromServer = async () => {
     const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
     setImgUrl(response.data.imageUrl);
     setQuizTitle(response.data.title);
     setParagraph(response.data.description);
   };
 
-  if(loading) return <LoadingMonkey/>;
+  if (loading) return <LoadingMonkey />;
 
   return isLargeScreen ? (
     <div className="comp-children-container comp-children-container-question">
