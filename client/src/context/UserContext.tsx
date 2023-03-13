@@ -27,10 +27,6 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
     const [initialHistoryLength, setInitialHistoryLength] = useState(0);
 
     useEffect(() => {
-
-    },[])
-
-    useEffect(() => {
         async function getHistoryLength() {
             const rawHistory = localStorage.getItem('quizHistoryLength')
             if (!rawHistory) {
@@ -44,7 +40,6 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
         }
         getHistoryLength()
         const  rawUser = localStorage.getItem('quizUser')
-        console.log("rawUser: " , rawUser);
         if (rawUser) setUser(JSON.parse(rawUser))
     }, [])
 
