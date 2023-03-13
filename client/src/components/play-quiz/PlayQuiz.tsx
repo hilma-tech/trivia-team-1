@@ -5,7 +5,7 @@ import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
-import { Type } from "../popups/GenericPopParts";
+import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
 
@@ -32,11 +32,10 @@ const QuestionTemp = () => {
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
-  const [score, setScore] = useState(0);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  const { popHandleClickOpen, setPopType } = usePopContext();
+  const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
   const { quizId } = useParams();
 
   const navigate = useNavigate();
@@ -86,18 +85,19 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
-    postScore()//TODO: postScore didn't pass code review
+    postScore()
+    setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
-      setPopType(Type.FinishedQuiz);
+      setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
     }
   };
 
   const checkIfCorrect = (index: number) => {
-    if (currentQuestion?.answers[index]?.isCorrect) {
-      setScore((prev) => prev + 1);
+    if (currentQuestion.answers[index].isCorrect) {
+      setCorrectAnswers((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();
@@ -125,14 +125,12 @@ const QuestionTemp = () => {
     const correctAnswerIndex = currentQuestion?.answers?.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
-// TODO: postScore didn't pass code review
+
   const postScore = async () => {
-    const finalScore = Math.round(score / questions.length * 100)
-    console.log('finalScore: ', finalScore);
-    console.log('name: ', playerName);    
+    const finalScore = Math.round(correctAnswers / questions.length * 100)
     axios.post(`/api/quiz/${quizId}/scores`, {
       score: finalScore,
-      player:playerName
+      player: playerName
     })
   }
 
