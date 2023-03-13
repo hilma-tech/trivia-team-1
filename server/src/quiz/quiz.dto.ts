@@ -1,4 +1,4 @@
-import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { ArrayMaxSize, ArrayMinSize, IsArray, IsBoolean, IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class QuizDTO {
     @IsString()
@@ -43,10 +43,22 @@ export class AnswerDTO {
     @IsString()
     @IsNotEmpty()
     text: string;
+
     @IsString()
     @IsOptional()
     imageUrl: string;
+
     @IsBoolean()
     @IsNotEmpty()
     isCorrect: boolean;
+}
+
+export class ScoreDTO {
+    @IsNumber()
+    @IsNotEmpty()
+    score: number;
+
+    @IsString()
+    @IsNotEmpty()
+    player: string;
 }
