@@ -9,13 +9,14 @@ export class QuizController {
 
     }
     @Get("/:id")
-    async getQuiz(@Param('id', ParseIntPipe) id: number) {
-        return await this.quizService.getQuiz(id);
+    getQuiz(@Param('id', ParseIntPipe) id: number) {
+        return this.quizService.getQuiz(id);
     }
 
     @Post("/")
     async addQuiz(@Body() quiz: QuizDTO) {
-        return await this.quizService.addQuiz(quiz);
+        const newQuiz = await this.quizService.addQuiz(quiz);
+        return newQuiz.id
     }
 
     @Put("/:id")
