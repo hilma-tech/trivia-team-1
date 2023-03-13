@@ -12,7 +12,7 @@ export const SummaryGameDesktop: FC = () => {
   const {quizId, userName } = useParams();
 
   const copyLink = () => {
-
+    
   }
   return (
     <>
