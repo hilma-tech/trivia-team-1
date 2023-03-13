@@ -1,8 +1,5 @@
 import React, { FC, useState } from "react";
 import { IconButton, TextField, useMediaQuery } from "@mui/material";
-import { createTheme } from '@mui/material/styles';
-import rtlPlugin from 'stylis-plugin-rtl';
-import createCache from '@emotion/cache';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
@@ -98,14 +95,14 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
                     <label>
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לתשובה">
-                            <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="add-image-icon-placeholder" alt='add image to your answer' />
+                            <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="add-image-icon-placeholder" alt='add image to answer' />
                         </BootstrapTooltip>
                     </label>
                 </IconButton>
 
 
                 <IconButton onClick={deleteAnswer} className="remove-answer">
-                    <img src={TrashSvg} className="trash-icon" alt='delete your answer here' />
+                    <img src={TrashSvg} className="trash-icon" alt='delete answer' />
                 </IconButton>
             </div>
     )

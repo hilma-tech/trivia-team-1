@@ -153,6 +153,8 @@ const EditQuiz: FC = () => {
 
 
     const saveQuiz = async () => {
+        if(questions.length <=4) return alert("Please add at least 5 questions")
+
         if(isEditQuizPage){
             setPopType(Type.SaveChanges);
             setEditedQuizId(quizId);

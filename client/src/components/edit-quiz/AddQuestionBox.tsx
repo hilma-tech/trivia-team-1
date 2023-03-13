@@ -32,8 +32,8 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     const { setQuestions, questions } = useQuestionContext()
     const isMobile = useMediaQuery('(max-width:600px)');
-    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
-    const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
+    const addImageFile = useImageFileUpload(store => store.addQuestionImage)
+    const questionsImagesArr = useImageFileUpload(store => store.questionImagesObject)
 
 
 
@@ -114,7 +114,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                 </div>
                 <div className="add-answer-container">
                     <Button onClick={addAnswer} color="inherit" className="add-answer-btn">
-                        <img src={AddAnswer} className="add-answer-svg" alt='add answer to your question' />
+                        <img src={AddAnswer} className="add-answer-svg" alt='add answer' />
                         הוספת תשובה
                     </Button>
                 </div>
@@ -125,7 +125,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
             <div className='add-questions-container' >
                 <div className='darg-and-drop-container'>
                     <BootstrapTooltip title="שינוי סדר השאלות">
-                        <img className='drag-and-drop-svg' src={dragAndDropSvg} alt='drag button to switch question place' />
+                        <img className='drag-and-drop-svg' src={dragAndDropSvg} alt='drag to switch question place' />
                     </BootstrapTooltip>
                 </div>
 
@@ -137,7 +137,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <label>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : SelectImage} alt='add here to the question' />
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : SelectImage} alt='add image' />
                             </BootstrapTooltip>
                         </label>
 
@@ -157,7 +157,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                     </div>
                     <div className="add-answer-container">
                         <button onClick={addAnswer} className="add-answer-btn">
-                            <img src={AddAnswer} className="add-answer-svg" alt='add answer to your question' /> הוספת תשובה
+                            <img src={AddAnswer} className="add-answer-svg" alt='add answer ' /> הוספת תשובה
                         </button>
                     </div>
                     <div className="hr-line"></div>
@@ -170,7 +170,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         </BootstrapTooltip>
                         <BootstrapTooltip title="מחיקה">
                             <button className="trash-btn" onClick={deleteQuestion}>
-                                <img src={TrashSvg} className="trash-svg" alt='delete your question' />
+                                <img src={TrashSvg} className="trash-svg" alt='delete question' />
                             </button>
                         </BootstrapTooltip>
                     </div>

@@ -17,7 +17,7 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
                     <img src={SelectImage} className={uploadedImageUrl ? "select-image-svg-for-questions  image-answer-after-added" : "select-image-svg-for-questions"} alt='add image to your answer' />
                 </label>
                 <IconButton onClick={deleteAnswer}>
-                    <img src={TrashSvg} className="trash-svg-for-questions" alt='delete your answer here' />
+                    <img src={TrashSvg} className="trash-svg-for-questions" alt='delete answer' />
                 </IconButton>
             </div>
             :
@@ -29,12 +29,12 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
                     <div className="mobile-question">
                         <div className="typography">
                             <Typography variant="body1">{currentQuestion.answers[answerIndex].text}</Typography>
-                            <img src={SelectImage} className="select-image-svg-for-questions  select-image-after-added" alt='add image to your answer' />
+                            <img src={SelectImage} className="select-image-svg-for-questions  select-image-after-added" alt='add image to answer' />
                         </div>
                         <div className="question-image-container">
-                            <img src={currentQuestion.answers[answerIndex].imageUrl} />
+                            <img src={currentQuestion.answers[answerIndex].imageUrl} alt='answer image' />
                             <div className="trash-svg-container" style={{left: screenWidth/4 + 'px'}} onClick={() => { setUploadedImageUrl('') }}>
-                                <img src={TrashSvg} className="icon trash-on-answer" />
+                                <img src={TrashSvg} className="icon trash-on-answer" alt="delete answer" />
                             </div>
                         </div>
 
