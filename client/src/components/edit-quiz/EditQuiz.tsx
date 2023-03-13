@@ -1,34 +1,32 @@
 import React, { FC, useEffect, useState } from 'react';
-import '../../style/EditQuiz.scss'
-// import ShowQuizBtn from '../../images/showquizzbtn.svg'
-// import LinkBtn from '../../images/linkBtn.svg'
-// import saveBtn from '../../images/saveBtn.svg'
-// import Selectimage from '../../images/image.svg'
-import AddQuestionBox from './AddQuestionBox'
-import plusBtn from '../../images/plusBtn.svg'
-import FinalQuestionBox from './FinalQuestionBox'
-import { useQuestionContext } from '../../context/AnswersContext'
-import { CurrentQuestion, Question } from '../../utils/Interfaces'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Button, TextField, useMediaQuery } from '@mui/material';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import BootstrapTooltip from '../../tooltip/tooltip'
-import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios'
-import PhoneNavBar from '../navbar/PhoneNavbar';
-import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Button, TextField, useMediaQuery } from '@mui/material';
 import { useLocation, useParams } from 'react-router';
-// import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+
+import AddQuestionBox from './AddQuestionBox';
+import FinalQuestionBox from './FinalQuestionBox';
+import { useQuestionContext } from '../../context/AnswersContext';
+import { CurrentQuestion, Question, PhonePage } from '../../utils/Interfaces';
+import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
+import PhoneNavBar from '../navbar/PhoneNavbar';
 
 
+import '../../style/EditQuiz.scss';
+import plusBtn from '../../images/plusBtn.svg';
+import MonkeySvg from '../../images/monkeyInEdit.svg';
 
 
 const cacheRtl = createCache({
     key: 'muirtl',
     stylisPlugins: [rtlPlugin],
 });
+
+
 
 export const isFull = (question: CurrentQuestion) => {
     return question.answers.some(answer => answer.isCorrect)
@@ -38,27 +36,22 @@ export const isFull = (question: CurrentQuestion) => {
 
 const EditQuiz: FC = () => {
 
-
     const isMobile = useMediaQuery('(max-width:600px)');
     const { setQuestions, questions } = useQuestionContext();
-    console.log('questions: ', questions);
-    const [phonePage, setPhonePage] = useState(1);
+    const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' });
-    console.log('questionDetails: ', questionDetails);
-    console.log('questionDetails: ', questionDetails);
     const { quizId } = useParams();
     const location = useLocation();
 
 
+
     useEffect(() => {
         if (location.pathname.includes('edit-quiz')) {
-            console.log('i am innnnnnnnn')
             axios.get(`http://localhost:8080/api/quiz/${quizId}`)
                 .then(function (response) {
-                    console.log('response: ', response);
                     setQuestionDetails(() => {
-                        return {title: response.data.title, description: response.data.description, imageUrl: response.data.imageUrl}
+                        return { title: response.data.title, description: response.data.description, imageUrl: response.data.imageUrl }
                     })
                     const getQuestions = response.data.questions;
                     setQuestions(getQuestions)
@@ -67,19 +60,19 @@ const EditQuiz: FC = () => {
                     console.log(error)
                 })
 
-        }else{
+        } else {
             setQuestions([
-                { id: 0, title: "", imageUrl:'' , answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}] }
+                { id: 0, title: "", imageUrl: '', answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }] }
             ]);
         }
-    },[]);
+    }, []);
 
-    const giveRightClasses = (originClassName: string) => {
+    const hideDivByPage = (originClassName: string) => {
         if (!isMobile) return originClassName;
         if (originClassName === 'monkey-svg' || originClassName === 'plus-btn-container') return 'hide'
-        if (phonePage === 2 && originClassName === 'phone-first-page-container') return 'hide'
-        if (phonePage === 1 && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'button-container-second-page')) return 'hide';
-        else return originClassName
+        if (phonePage === PhonePage.secondPage && originClassName === 'phone-first-page-container') return 'hide'
+        if (phonePage === PhonePage.firstPage && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'footer-button-container-second-page')) return 'hide';
+        return originClassName
     }
 
     const addQuestion = () => {
@@ -99,7 +92,6 @@ const EditQuiz: FC = () => {
             setTimeout(
                 () => {
                     if (isMobile) {
-                        console.log('isMobilezzzzz: ', isMobile);
                         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
                     }
                 }, 50)
@@ -182,9 +174,9 @@ const EditQuiz: FC = () => {
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
                     <div className='quiz-header-wrapper'>
-                        <EditQuizHeader giveRightClasses={giveRightClasses} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
+                        <EditQuizHeader giveRightClasses={hideDivByPage} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
                     </div>
-                    <div className={giveRightClasses('question-dnd-container')}>
+                    <div className={hideDivByPage('question-dnd-container')}>
                         <DragDropContext onDragEnd={handleDragEnd}>
                             <Droppable droppableId="droppable">
                                 {(provided) => (
@@ -221,7 +213,7 @@ const EditQuiz: FC = () => {
                             </Droppable>
                         </DragDropContext>
                     </div>
-                    <div className={giveRightClasses('plus-btn-container')}>
+                    <div className={hideDivByPage('plus-btn-container')}>
                         <BootstrapTooltip title=" הוספת שאלה">
                             <button className='plus-btn' onClick={addQuestion}>
                                 <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
@@ -230,12 +222,12 @@ const EditQuiz: FC = () => {
                     </div>
 
                 </div >
-                <div className='monkey-in-edit-page-svg'>
-                    <img src={MonkeySvg} className={giveRightClasses('monkey-svg')} alt='image of cute monkey with computer' />
+                <div className='monkey-in-edit-page'>
+                    <img src={MonkeySvg} className={hideDivByPage('monkey-svg')} alt='image of cute monkey with computer' />
                 </div>
                 {isMobile &&
-                    <div className='footer-container'>
-                        <div className={giveRightClasses("button-container-second-page")}>
+                    <div className='edit-quiz-footer-container'>
+                        <div className={hideDivByPage("footer-button-container-second-page")}>
                             <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
                             <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
                         </div>

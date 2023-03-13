@@ -3,29 +3,19 @@ import { IconButton, TextField, useMediaQuery } from "@mui/material";
 import { createTheme } from '@mui/material/styles';
 import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
-import SelectImage from '../../images/image.svg'
-import TrashSvg from '../../images/trash.svg'
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import { CurrentQuestion, imageFile } from "../../utils/Interfaces";
 import BootstrapTooltip from "../../tooltip/tooltip";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
-import useImageFileUpload from '../../context/imageFilesZus'
-import { Index } from "typeorm";
+
+import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
 import EditQuizMobileInput from "./edit-quiz-mobile/EditQuizMobileInput";
+import useImageFileUpload from '../../context/imageFilesZus'
+
+import SelectImage from '../../images/image.svg'
+import TrashSvg from '../../images/trash.svg'
 
 
-
-
-const theme = createTheme({
-    direction: 'rtl',
-});
-
-
-const cacheRtl = createCache({
-    key: 'muirtl',
-    stylisPlugins: [rtlPlugin],
-});
 
 interface NewAnswerProps {
     answerIndex: number;
@@ -73,7 +63,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
     }
 
-    const handleImageFile = (value: imageFile) => {
+    const handleImageFile = (value: ImageFile) => {
         addImageFile(value)
         currentQuestion.answers[answerIndex].imageUrl = value.link;
     }
@@ -105,7 +95,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
                 <IconButton centerRipple className="add-image-icon">
                     <label>
-                        <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                        <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לתשובה">
                             <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="add-image-icon-placeholder" alt='add image to your answer' />
                         </BootstrapTooltip>

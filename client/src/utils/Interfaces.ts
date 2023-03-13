@@ -1,6 +1,6 @@
 import { FilesUploader } from "@hilma/fileshandler-client";
 
-export interface Answers{
+export interface Answers {
     text: string;
     isCorrect: boolean;
     imageUrl: string;
@@ -12,25 +12,30 @@ export interface CurrentQuestion {
     id: number;
     title: string;
     answers: Answers[];
-    imageUrl?:string;
+    imageUrl?: string;
 }
 
-export interface imageFile{
-    questionIndex?:number;
-    link:string , 
-    id:number;
+export interface ImageFile {
+    questionIndex?: number;
+    link: string,
+    id: number;
 }
 
-export interface MobileInputType{
+export interface MobileInputType {
     currentQuestion: CurrentQuestion;
     answerIndex: number;
     uploadedImageUrl: string;
     filesUploader: FilesUploader;
-    handleImageFile: (value: imageFile) => void;
+    handleImageFile: (value: ImageFile) => void;
     deleteAnswer: (e: any) => void;
-    handleCorrectAnswer :() => void;
+    handleCorrectAnswer: () => void;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     setUploadedImageUrl: React.Dispatch<React.SetStateAction<string>>
+}
+
+export enum PhonePage {
+    firstPage = 1,
+    secondPage = 2,
 }
 
 

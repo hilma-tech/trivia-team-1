@@ -158,12 +158,10 @@ $green-color: #378381; //unique color
     justify-content: center;
     align-items: center;
     border: none;
-    outline: none;
-
 
 }
 
-.upload-btn {
+.upload-quiz-image-btn {
     display: none;
 }
 
@@ -471,7 +469,7 @@ $green-color: #378381; //unique color
 
 }
 
-.monkey-in-edit-page-svg {
+.monkey-in-edit-page {
     position: fixed;
     bottom: 20px;
     right: 2.5rem;
@@ -484,7 +482,7 @@ $green-color: #378381; //unique color
     }
 
     .button-container,
-    .button-container-second-page {
+    .footer-button-container-second-page {
         padding-top: 20vh;
 
         .MuiButtonBase-root {
@@ -513,10 +511,7 @@ $green-color: #378381; //unique color
         width: 5vw;
     }
 
-    .trash-svg-for-questions {
-        opacity: 0.1;
-        width: 5vw;
-    }
+   
 
 
     .duplicate-svg,
@@ -546,7 +541,7 @@ $green-color: #378381; //unique color
         margin: 0;
     }
 
-    .button-container-second-page {
+    .footer-button-container-second-page {
         padding-top: 0;
         height: 18vh;
         display: flex;
@@ -644,6 +639,11 @@ $green-color: #378381; //unique color
 
         .input-container {
             overflow: visible;
+
+            .trash-svg-for-questions {
+                opacity: 0.1;
+                width: 5vw;
+            }
 
             .MuiInputBase-input {
                 height: 0.8vh;
@@ -789,7 +789,7 @@ $green-color: #378381; //unique color
 
 
 
-.footer-container {
+.edit-quiz-footer-container {
     width: 100%;
     position: fixed;
     bottom: 0;

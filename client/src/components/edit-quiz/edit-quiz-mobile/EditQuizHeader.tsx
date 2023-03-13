@@ -8,7 +8,7 @@ import '../../../style/EditQuiz.scss'
 import BootstrapTooltip from "../../../tooltip/tooltip"
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../../context/imageFilesZus'
-import { imageFile } from "../../../utils/Interfaces"
+import { ImageFile, PhonePage } from "../../../utils/Interfaces"
 
 interface QuizHeader {
     saveQuiz: () => void;
@@ -28,7 +28,7 @@ interface QuizHeader {
 export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, saveQuiz, questionDetails, handleChange, setPhonePage }) => {
     const filesUploader = useFiles();
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage);
-    const [quizImageObject, setQuizImageObject] = useState<imageFile | null>(null)
+    const [quizImageObject, setQuizImageObject] = useState<ImageFile | null>(null)
 
     const handleImageFile = (value: UploadedFile) => {
         setQuizImageObject(value)
@@ -36,7 +36,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
     }
 
     const handleMovePage = () => {
-        if(questionDetails.title && questionDetails.description ) setPhonePage(2);
+        if(questionDetails.title && questionDetails.description ) setPhonePage(PhonePage.secondPage);
         else {
             alert('צריך למלא את הכותרת ואת התיאור על מנת להמשיך לעמוד הבא')
         }
@@ -44,7 +44,6 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
 
 
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
-    console.log('aaa', questionDetails.imageUrl)
     return isMobile ? (
         <div className="first-page-wrapper">
             <div className={giveRightClasses("phone-first-page-container")} >
@@ -58,7 +57,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                 </div>
                 <div>
                     <label className="select-image-container">
-                        <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                        <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לחידון">
                             <img className={questionDetails.imageUrl ? 'quiz-image-in': 'select-image-quiz-svg' } src={questionDetails.imageUrl ? questionDetails.imageUrl  :  Selectimage} alt='add your quiz photo here' />
                         </BootstrapTooltip>
@@ -97,7 +96,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                 <div className='quiz-header-container'>
                     <label style={{ border: 'none' }}>
                         <div className='quiz-header-image'>
-                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לחידון">
                                 <img className='select-image-quiz-svg' src={questionDetails.imageUrl ? questionDetails.imageUrl  :  Selectimage} alt='add your quiz photo here' />
                             </BootstrapTooltip>

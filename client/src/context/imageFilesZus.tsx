@@ -1,16 +1,16 @@
 import { UploadedFile } from '@hilma/fileshandler-client';
 import { create } from 'zustand';
-import { imageFile } from '../utils/Interfaces'
+import { ImageFile } from '../utils/Interfaces'
 
 
-interface imagesFilesZus {
-    addQuestionImage:(value: imageFile) => void ;
-    questionImagesObject: imageFile[];
+interface ImagesFilesZus {
+    addQuestionImage:(value: ImageFile) => void ;
+    questionImagesObject: ImageFile[];
 }
 
-const useImageFileUpload = create<imagesFilesZus>((set) => ({
+const useImageFileUpload = create<ImagesFilesZus>((set) => ({
     questionImagesObject: [],
-    addQuestionImage: (value: imageFile) => set((prev) => {
+    addQuestionImage: (value: ImageFile) => set((prev) => {
         return { questionImagesObject: [...prev.questionImagesObject, value] }
     }),
 }))

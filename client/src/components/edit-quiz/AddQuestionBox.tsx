@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Selectimage from '../../images/image.svg'
+import SelectImage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../../images/addAnswer.svg'
 import duplicateSvg from '../../images/copy.svg'
@@ -7,14 +7,12 @@ import TrashSvg from '../../images/trash.svg'
 import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion, imageFile } from '../../utils/Interfaces'
+import { CurrentQuestion, ImageFile } from '../../utils/Interfaces'
 import { useQuestionContext } from "../../context/AnswersContext";
 import BootstrapTooltip from "../../tooltip/tooltip";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../context/imageFilesZus'
-import { Link } from "react-router-dom";
-// import '../../style/EditQuiz.scss'
 
 
 
@@ -30,14 +28,12 @@ interface AddQuestionBoxProps {
 
 
 const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQuestion, setCurrentEditQuestion, duplicateQuestion, currentEditQuestion, index }) => {
-    
-    console.log('currentQuestion: ', currentQuestion);
+
 
     const { setQuestions, questions } = useQuestionContext()
     const isMobile = useMediaQuery('(max-width:600px)');
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
     const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
-
 
 
 
@@ -73,7 +69,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     }
 
-    const handleImageFile = (value: imageFile) => {
+    const handleImageFile = (value: ImageFile) => {
         value.questionIndex = currentEditQuestion
         addImageFile(value)
         currentQuestion.imageUrl = value.link;
@@ -93,11 +89,11 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                 <div className="input-container second-page">
                     <Typography variant="body1">כותרת</Typography>
                     <div className="input-div">
-                            <TextField id="quizInputName" className="title-question-header" value={currentQuestion.title} onChange={handleChange} />
+                        <TextField id="quizInputName" className="title-question-header" value={currentQuestion.title} onChange={handleChange} />
                         <label className="label-in-new-answer">
-                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : Selectimage} alt='add here to the question' />
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : SelectImage} alt='add here to the question' />
                             </BootstrapTooltip>
                         </label>
 
@@ -139,9 +135,9 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                             <input type="text" placeholder="שאלה" className="question-input" value={currentQuestion.title} onChange={handleChange} />
                         </BootstrapTooltip>
                         <label>
-                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                            <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : Selectimage} alt='add here to the question' />
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : SelectImage} alt='add here to the question' />
                             </BootstrapTooltip>
                         </label>
 
@@ -184,8 +180,5 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 };
 
 
-function questionImageObject(arg0: (state: any) => any) {
-    throw new Error("Function not implemented.");
-}
 
 export default AddQuestionBox;

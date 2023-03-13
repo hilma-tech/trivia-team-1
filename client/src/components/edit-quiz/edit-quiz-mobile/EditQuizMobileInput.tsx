@@ -13,7 +13,7 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
                 <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.answers[answerIndex].isCorrect} onChange={handleCorrectAnswer} />} />
                 <TextField className={uploadedImageUrl ? 'make-into-div-size' : ''} placeholder={`תשובה ${answerIndex + 1}`} id="standard-size-small" value={currentQuestion.answers[answerIndex].text} onChange={handleChange} />
                 <label className="label-in-new-answer">
-                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-btn' />
+                    <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                     <img src={SelectImage} className={uploadedImageUrl ? "select-image-svg-for-questions  image-answer-after-added" : "select-image-svg-for-questions"} alt='add image to your answer' />
                 </label>
                 <IconButton onClick={deleteAnswer}>
