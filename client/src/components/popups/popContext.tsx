@@ -23,7 +23,6 @@ interface PopContextInterface {
   setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
   correctAnswers: number;
   numOfQuestions: number;
-  pointsPerCorrect: number
 }
 
 interface PopProviderProps {
@@ -35,7 +34,6 @@ const popContext = createContext<PopContextInterface | null>(null);
 
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
-  const [pointsPerCorrect, setPointsPerCorrect] = useState(10)
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
   const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
@@ -63,7 +61,6 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     setNumOfQuestions: setNumOfQuestions,
     correctAnswers: correctAnswers,
     numOfQuestions: numOfQuestions,
-    pointsPerCorrect: pointsPerCorrect
   }
 
   return (
@@ -85,7 +82,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           </DialogTitle>
           <DialogContent className='dialog-content-container'>
             <DialogContentText id="alert-dialog-description" className={isMobile ? "dialog-content-text-style" : ""}  >
-              <GenericPopContent type={popType} correctAnswers={correctAnswers} pointsPerCorrect={pointsPerCorrect}/>
+              <GenericPopContent type={popType} correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} />
             </DialogContentText>
           </DialogContent>
           <DialogActions className='dialog-actions-container'>

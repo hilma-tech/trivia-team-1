@@ -22,7 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const {playerName,setPlayerName}= usePlayerName();
+  const { playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([
     {
       title: "איטליה מכונה גם...",
@@ -51,7 +51,7 @@ const QuestionTemp = () => {
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, pointsPerCorrect } = usePopContext();
+  const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
   const { quizId } = useParams();
 
   const navigate = useNavigate();
@@ -102,6 +102,7 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
+    postScore()
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
@@ -141,16 +142,14 @@ const QuestionTemp = () => {
     const correctAnswerIndex = currentQuestion?.answers?.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
-// TODO: postScore didn't pass code review
-  // const postScore = async () => {
-  //   const finalScore = Math.round(score / questions.length * 100)
-  //   console.log('finalScore: ', finalScore);
-  //   console.log('name: ', playerName);    
-  //   axios.post(`/api/quiz/${quizId}/scores`, {
-  //     score: finalScore,
-  //     player:playerName
-  //   })
-  // }
+
+  const postScore = async () => {
+    const finalScore = Math.round(correctAnswers / questions.length * 100)
+    axios.post(`/api/quiz/${quizId}/scores`, {
+      score: finalScore,
+      player: playerName
+    })
+  }
 
   const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();

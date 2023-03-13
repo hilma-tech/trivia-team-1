@@ -28,7 +28,7 @@ interface GenericPopTitleProps {
 interface GenericPopContentProps {
     type: PopUpType,
     correctAnswers: number;
-    pointsPerCorrect: number
+    numOfQuestions: number
 
 }
 
@@ -57,13 +57,13 @@ export const GenericPopTitle: FC<GenericPopTitleProps> = ({ type, numOfQuestions
 }
 
 
-export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAnswers, pointsPerCorrect}) => {
+export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAnswers, numOfQuestions }) => {
     switch (type) {
         case PopUpType.SavedSuccessfully:
             return <Typography className='pop-content' variant='body1'>תוכלו לראות את החידונים במאגר החידונים שלכם ולשתף אותו לחברים</Typography>
 
         case PopUpType.FinishedQuiz:
-            return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {correctAnswers * pointsPerCorrect}</Typography>
+            return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {Math.round(correctAnswers / numOfQuestions * 100)}</Typography>
 
         case PopUpType.SaveChanges:
             return <Typography className='pop-content' variant="body1"> אם תשמור את השינויים לוח התוצאות שלך יתאפס</Typography>
