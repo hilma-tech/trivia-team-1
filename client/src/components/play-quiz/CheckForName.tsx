@@ -4,20 +4,16 @@ import triangleIcon from "../../icons/icon-awesome-play.png";
 import { useNavigate } from "react-router-dom";
 import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-import { PlayerNameContext } from "../../context/PlayerNameContext";
-
+import { usePlayerName } from "../../context/PlayerNameContext";
 interface CheckForNameProps {
   quizTitle: string;
 }
 
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
-  const [playerName, setPlayerName] = useState("");
   const navigate = useNavigate();
-  const userName = useContext(PlayerNameContext);
-
+  const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  function moveToGameWithWithPlayerName() {
-    userName?.changePlayerName(playerName);
+  function moveToGame() {
     navigate("./questions");
   }
 
@@ -37,7 +33,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={moveToGameWithWithPlayerName}>
+          <button className="CheckForName-button" onClick={moveToGame}>
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
@@ -59,7 +55,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={moveToGameWithWithPlayerName}>
+          <button className="CheckForName-button" onClick={moveToGame}>
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>

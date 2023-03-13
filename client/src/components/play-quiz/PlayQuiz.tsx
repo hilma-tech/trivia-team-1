@@ -4,7 +4,7 @@ import fullScreenIcon from "../../images/question-template/full-screen.png";
 import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
-import { PlayerNameContext } from "../../context/PlayerNameContext";
+import { usePlayerName } from "../../context/PlayerNameContext";
 import { Type } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
@@ -22,6 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
+  const {playerName, setPlayerName} = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -32,7 +33,6 @@ const QuestionTemp = () => {
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
   const [score, setScore] = useState(0);
-  const userName = useContext(PlayerNameContext);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -86,6 +86,7 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
+    postScore()//TODO: postScore didn't pass code review
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -124,6 +125,16 @@ const QuestionTemp = () => {
     const correctAnswerIndex = currentQuestion?.answers?.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
+// TODO: postScore didn't pass code review
+  const postScore = async () => {
+    const finalScore = Math.round(score / questions.length * 100)
+    console.log('finalScore: ', finalScore);
+    console.log('name: ', playerName);    
+    axios.post(`/api/quiz/${quizId}/scores`, {
+      score: finalScore,
+      player:playerName
+    })
+  }
 
   const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();

@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion } from '../../utils/Interfaces'
 import { useQuestionContext } from "../../context/AnswersContext";
-import BootstrapTooltip from "../../tooltip/tooltip";
+import BootstrapTooltip from "../tooltip/tooltip";
 
 
 

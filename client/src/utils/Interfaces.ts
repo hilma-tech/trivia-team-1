@@ -1,4 +1,4 @@
-export interface Answers{
+export interface Answer{
     text: string;
     isCorrect: boolean;
     imageUrl: string;
@@ -9,7 +9,7 @@ export interface Answers{
 export interface CurrentQuestion {
     questionId: number;
     title: string;
-    answers: Answers[];
+    answers: Answer[];
     imageUrl?:string;
 }
 

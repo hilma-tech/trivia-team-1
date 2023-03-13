@@ -1,16 +1,23 @@
-import React, { createContext, FC, ReactNode, useState } from 'react';
+import React, { createContext, FC, ReactNode, useContext, useState } from 'react';
 
+export const usePlayerName = () => {
+    const playerNameContext = useContext(PlayerNameContext)
+    if (!playerNameContext) {
+        throw new Error("");
+    }
 
+    return playerNameContext;
+}
 interface PlayerNameContext {
-    changePlayerName: (name: string) => void;
-    nameOfPlayer: string;
+    setPlayerName: (name: string) => void;
+    playerName: string;
 }
 
 interface PlayerNameProviderProps {
     children: ReactNode;
 }
 
-export const PlayerNameContext = createContext<PlayerNameContext | null>(null);
+const PlayerNameContext = createContext<PlayerNameContext | null>(null);
 
 export const PlayerNameProvider: FC<PlayerNameProviderProps> = ({ children }) => {
     const [nameOfPlayer, setNameOfPlayer] = useState<string>("");
@@ -18,7 +25,7 @@ export const PlayerNameProvider: FC<PlayerNameProviderProps> = ({ children }) =>
         setNameOfPlayer(name);
     };
 
-    return <PlayerNameContext.Provider value={{ nameOfPlayer, changePlayerName }}>
+    return <PlayerNameContext.Provider value={{ playerName: nameOfPlayer, setPlayerName: changePlayerName }}>
         {children}
     </PlayerNameContext.Provider>;
 
