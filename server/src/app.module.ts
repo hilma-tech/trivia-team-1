@@ -22,7 +22,7 @@ import { UserModule } from './user/user.module';
       port: Number(process.env.DB_PORT),
       synchronize: process.env.TYPEORM_SYNC === "on",
       logging: process.env.TYPEORM_LOG === "on",
-      entities: ["dist/**/*.entity{.ts,.js}"]
+      entities: ["dist/**/*.entity{.ts,.js}", "node_modules/@hilma/auth-nest/**/*.entity{.ts,.js}"]
     })
   ],
 })

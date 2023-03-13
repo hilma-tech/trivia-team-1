@@ -1,4 +1,6 @@
-import { Controller, Get, Body, Post, Param } from '@nestjs/common';
+import { RequestUser, RequestUserType, UseLocalAuth } from '@hilma/auth-nest';
+import { Controller, Get, Body, Post, Param, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { RegisterDTO } from './user.dto';
 import { UserService } from './user.service';
 
@@ -9,22 +11,25 @@ export class UserController {
     }
 
     @Post("/register")
-    async register(@Body() { username, password }: RegisterDTO) {
-        const userExist = await this.userService.doesUsernameExist(username);
-        if (userExist) return false;
-        else {
-            await this.userService.register(username, password);
-            return true;
+    async register(@Body() user: RegisterDTO) {
+        try {
+            await this.userService.createUser(user)
+            return true
+        }
+        catch {
+            return false
         }
     }
 
-    @Post("/login")
-    async login(@Body() { username, password }: RegisterDTO) {
-        return await this.userService.validateLogin(username, password)
+    @UseLocalAuth()
+    @Post("login")
+    async login(@RequestUser() user: RequestUserType, @Res() res: Response) {
+      const body = this.userService.login(user, res);
+      return res.send(body);
     }
 
     @Get("/:id/quizzes")
-       async getUserQuizzes(@Param('id') id: number) {
+    async getUserQuizzes(@Param('id') id: string) {
         return await this.userService.getUserQuizzes(id);
     }
 
@@ -33,5 +38,5 @@ export class UserController {
     addFakeData() {
         return this.userService.addFakeData(10);
     }
-    
+
 }
