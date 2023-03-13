@@ -1,60 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/entities/user.entity';
+import { ExtendedUser } from 'src/entities/user.entity';
 import { DeepPartial, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { faker } from '@faker-js/faker/locale/he';
+import { SALT } from '@hilma/auth-nest';
+import { UserConfig, UserService as AuthUserService } from '@hilma/auth-nest';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+
 
 @Injectable()
-export class UserService {
-    constructor(@InjectRepository(User)
-    private readonly userRepository: Repository<User>
-    ) {
-    }
+export class UserService extends AuthUserService {
+  constructor(
+  @Inject('USER_MODULE_OPTIONS') protected config_options: UserConfig,
+  @InjectRepository(ExtendedUser)
+  protected readonly userRepository: Repository<ExtendedUser>,
+  protected readonly jwtService: JwtService,
+  protected readonly configService: ConfigService,
+) {
+  super(config_options, userRepository, jwtService, configService);
 
-    async getUserQuizzes(userId: number){
-      
-        const user = await this.userRepository.findOne({
-          where: { id: userId },
-          relations: {
-            quizzes: {
-              questions: true,
-            },
-          },
-        });
-        const quizzes = user.quizzes;;       
-        return quizzes;
-
-    }
-  async register(username: string, password: string | Buffer) {
-    const hashedPassword: string = await bcrypt.hash(password, 15)
-    this.userRepository.save({ username: username, password: { password: hashedPassword } })
   }
 
-  async doesUsernameExist(username: string) {
-    const user = await this.userRepository.find({ where: { username: username } })
-    return user.length > 0;
-  }
+  async getUserQuizzes(userId: string) {
 
-  async validateLogin(username: string, password: string | Buffer) {
     const user = await this.userRepository.findOne({
-      where: { username: username },
-      relations: ['password']
+      where: { id: userId },
+      relations: {
+        quizzes: {
+          questions: true,
+        },
+      },
     });
+    const quizzes = user.quizzes;;
+    return quizzes;
 
-    if (user) {
-      const isMatch = await bcrypt.compare(password, user.password.password)
-      if (isMatch) return { id: user.id, username: user.username };
-      return false;
-    }
-    else
-      return false;
   }
+
+
 
   //TODO: temporary
-  //TODO: change this when using @hilma/auth-nest
   async addFakeData(amount: number) {
-    const users: DeepPartial<User>[] = [];
+    const users: DeepPartial<ExtendedUser>[] = [];
     for (let i = 0; i < amount; i++) {
       users.push(this.randomizeUser());
     }
@@ -63,15 +51,12 @@ export class UserService {
   }
 
   //TODO: temporary
-  //TODO: change this when using @hilma/auth-nest
   randomizeUser() {
     return {
-      password: {
-        password: bcrypt.hashSync(faker.internet.password(), 15),
-      },
+      password: bcrypt.hashSync(faker.internet.password(), SALT),
       username: faker.internet.userName()
     };
   }
 
-  
+
 }
