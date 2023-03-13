@@ -25,6 +25,7 @@ import "./style/background.scss";
 import "./style/navbar.scss";
 import About from "./components/about";
 import { PrivateRoute } from "@hilma/auth";
+import NavigateUser from "./components/NavigateUser";
 
 function App() {
   return (
@@ -37,13 +38,13 @@ function App() {
               <CssBaseline />
               <Background>
                 <Routes>
+                  <Route index element={<NavigateUser />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/error404" element={<Error />} />
                   <Route path="*" element={<Navigate replace to="/loading-page" />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
                   <Route path="/about" element={<About />} />
-                  <Route index element={<Navigate replace to="/login" />} />
                   <Route path="/:userName/quiz/:quizId" element={<Outlet />}>
                     <Route index element={<OpeningForTheQuiz />} />
                     <Route path="scores" element={<ScoreCard />} />
