@@ -35,7 +35,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
         } else {
             alert("please finish edit that question");
         }
-        
+
     }
 
 
@@ -58,7 +58,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
                                 {question.answers.map((answer, index) =>
                                     <div className='final-box-answer-and-image-container'>
                                         <FormControlLabel key={index} value={`answer${index + 1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>} checked={answer.isCorrect} />
-                                        {answer.imageUrl  &&
+                                        {answer.imageUrl &&
                                             <img className='answer-image' src={answer.imageUrl} alt='show the image yu upload' />
                                         }
                                     </div>

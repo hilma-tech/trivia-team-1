@@ -40,7 +40,8 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="*" element={<Navigate replace to="/loading-page" />} />
-                  <Route path="/edit-quiz" element={<EditQuiz />} />
+                  <Route path="/edit-quiz/:id" element={<EditQuiz />} />
+                  <Route path="/add-quiz" element={<EditQuiz />} />
                   <Route path="/error404" element={<Error />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
                   <Route path="/:userName/quiz/:quizId" element={<Outlet />}>

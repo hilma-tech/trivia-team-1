@@ -16,7 +16,18 @@ export class QuizService {
   ) { }
 
   async editQuiz(id: number, quiz: QuizDTO) {
-    await this.quizRepository.save({ id: id, ...quiz });
+    // await this.quizRepository.save({ id: id, ...quiz });
+    const { questions, creatorId, ...rest } = quiz;
+
+    const newQuestions = questions.map((question) => {
+      return {
+        title: question.title,
+        answers: question.answers,
+        imageUrl: question.imageUrl
+      }
+    })
+
+    return this.quizRepository.save({id:id, questions: newQuestions, creator: { id: creatorId }, ...rest })
   }
 
   async addQuiz(quiz: QuizDTO) {

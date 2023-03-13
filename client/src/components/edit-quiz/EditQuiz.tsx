@@ -14,11 +14,14 @@ import { useQuestionContext } from '../../context/AnswersContext';
 import { CurrentQuestion, Question, PhonePage } from '../../utils/Interfaces';
 import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
 import PhoneNavBar from '../navbar/PhoneNavbar';
+import { usePopContext } from '../popups/popContext'
+
 
 
 import '../../style/EditQuiz.scss';
 import plusBtn from '../../images/plusBtn.svg';
 import MonkeySvg from '../../images/monkeyInEdit.svg';
+import { Type } from '../popups/GenericPopParts';
 
 
 const cacheRtl = createCache({
@@ -35,19 +38,22 @@ export const isFull = (question: CurrentQuestion) => {
 }
 
 const EditQuiz: FC = () => {
-
     const isMobile = useMediaQuery('(max-width:600px)');
     const { setQuestions, questions } = useQuestionContext();
+    const {savedQuiz, setSavedQuiz,setEditedQuizId} = usePopContext();
     const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' });
+    const { popHandleClickOpen, popHandleClose, setPopType, approvedPops } = usePopContext();
     const { quizId } = useParams();
     const location = useLocation();
+
+    const isEditQuizPage = location.pathname.includes('edit-quiz')
 
 
 
     useEffect(() => {
-        if (location.pathname.includes('edit-quiz')) {
+        if (isEditQuizPage) {
             axios.get(`http://localhost:8080/api/quiz/${quizId}`)
                 .then(function (response) {
                     setQuestionDetails(() => {
@@ -146,24 +152,28 @@ const EditQuiz: FC = () => {
 
 
 
-    const saveQuiz = () => {
-        questions.length > 4
-            ?
-            axios.post('http://localhost:8080/api/quiz', {
-                creatorId: 1,
+    const saveQuiz = async () => {
+        if(isEditQuizPage){
+            setPopType(Type.SaveChanges);
+            setEditedQuizId(quizId);
+            setSavedQuiz({
+                creatorId: 11,
                 title: questionDetails.title,
                 description: questionDetails.description,
                 questions: questions
-            })
-                .then(function (res) {
-                    console.log(res)
-                })
-                .catch(function (err) {
-                    console.log(err)
-                })
+            });
+        }
+        else{
+            setPopType(Type.AddQuiz);
+            setSavedQuiz({
+                creatorId: 11,
+                title: questionDetails.title,
+                description: questionDetails.description,
+                questions: questions
+            });
+        }
+        popHandleClickOpen();
 
-            :
-            alert("Please add at least 5 questions")
     }
 
 
@@ -174,7 +184,7 @@ const EditQuiz: FC = () => {
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
                     <div className='quiz-header-wrapper'>
-                        <EditQuizHeader giveRightClasses={hideDivByPage} addQuestion={addQuestion} questionDetails={questionDetails} saveQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
+                        <EditQuizHeader giveRightClasses={hideDivByPage} addQuestion={addQuestion} questionDetails={questionDetails} addQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
                     </div>
                     <div className={hideDivByPage('question-dnd-container')}>
                         <DragDropContext onDragEnd={handleDragEnd}>

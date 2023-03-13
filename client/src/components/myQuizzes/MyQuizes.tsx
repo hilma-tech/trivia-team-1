@@ -41,6 +41,7 @@ const MyQuizes: FC = () => {
         getQuizes()
     },[user])
     async function getQuizes(){
+        console.log(user.userId , 'useerrrrrrr')
         const { data }:AxiosResponse<any, any>= await axios.get(`api/user/${user.userId}/quizzes`)
         const timeout = setTimeout(()=> setLoading(false), 2000);
         setQuizes(data);

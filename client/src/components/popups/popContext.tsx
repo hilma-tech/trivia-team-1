@@ -10,35 +10,52 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { Type } from "./GenericPopParts";
+import { CurrentQuestion } from "../../utils/Interfaces";
 
 
-export type PopupsPropType = 'finishedQuiz'| 'savedSuccessfully'| 'copyQuiz'| 'deleteQuiz'| 'exitGame'| 'saveChanges'
+export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
 
 interface PopContextInterface {
-  setDeletedQuizId:React.Dispatch<React.SetStateAction<number>>;
-  deletedQuizId:number;
+  setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
+  deletedQuizId: number;
+  setEditedQuizId: React.Dispatch<React.SetStateAction<string | undefined>>;
+  editedQuizId: string | undefined;
+  setSavedQuiz: React.Dispatch<React.SetStateAction<SaveQuiz | undefined>>;
+  savedQuiz: SaveQuiz | undefined;
   setPopOpen: React.Dispatch<React.SetStateAction<boolean>>;
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
   setPopType: React.Dispatch<React.SetStateAction<Type>>;
+  approvedPops: boolean | null;
+  toggleApprovedPops: React.Dispatch<React.SetStateAction<boolean | null>>;
 }
 
 interface PopProviderProps {
   children: ReactNode;
 }
 
+export interface SaveQuiz {
+  creatorId: number;
+  title: string;
+  description: string;
+  questions: CurrentQuestion[];
+}
 const popContext = createContext<PopContextInterface | null>(null);
 
 
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
+
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
-  const [popType, setPopType] = useState<Type>(Type.CopyQuiz)
+  const [savedQuiz, setSavedQuiz] = useState<SaveQuiz>();
+  const [editedQuizId, setEditedQuizId] = useState<string | undefined>("");
+  const [popType, setPopType] = useState<Type>(Type.CopyQuiz);
+  const [approvedPops, toggleApprovedPops] = useState<boolean | null>(null);
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
-   function popHandleClickOpen(){
+  function popHandleClickOpen() {
     setPopOpen(true);
   };
 
@@ -47,14 +64,19 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   };
 
   const contextValue: PopContextInterface = {
+    setEditedQuizId: setEditedQuizId,
+    editedQuizId: editedQuizId,
     setPopOpen: setPopOpen,
     popOpen: popOpen,
     setDeletedQuizId: setDeletedQuizId,
     deletedQuizId: deletedQuizId,
+    setSavedQuiz: setSavedQuiz,
+    savedQuiz: savedQuiz,
     popHandleClickOpen: popHandleClickOpen,
     popHandleClose: popHandleClose,
-    setPopType: setPopType
-
+    setPopType: setPopType,
+    approvedPops: approvedPops,
+    toggleApprovedPops: toggleApprovedPops
   }
 
   return (

@@ -11,7 +11,7 @@ import useImageFileUpload from '../../../context/imageFilesZus'
 import { ImageFile, PhonePage } from "../../../utils/Interfaces"
 
 interface QuizHeader {
-    saveQuiz: () => void;
+    addQuiz: () => void;
     questionDetails: {
         title: string;
         description: string;
@@ -25,10 +25,10 @@ interface QuizHeader {
 }
 
 
-export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, saveQuiz, questionDetails, handleChange, setPhonePage }) => {
+export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion,  addQuiz, questionDetails, handleChange, setPhonePage }) => {
     const filesUploader = useFiles();
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage);
-    const [quizImageObject, setQuizImageObject] = useState<ImageFile | null>(null)
+    const [quizImageObject, setQuizImageObject] = useState<ImageFile | null>(null);
 
     const handleImageFile = (value: UploadedFile) => {
         setQuizImageObject(value)
@@ -86,7 +86,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                         </div>
                         <div className='top-left-btn'>
                             <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
-                            <button className='save-btn' onClick={saveQuiz}>
+                            <button className='save-btn' onClick={addQuiz}>
                                 <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
                                 שמירה
                             </button>
