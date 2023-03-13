@@ -13,7 +13,8 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const navigate = useNavigate();
   const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  function moveToGame() {
+  function moveToGameWithWithPlayerName() {
+    if (playerName === "") return alert('אנא מלא את הכינוי שלך')
     navigate("./questions");
   }
 
@@ -33,7 +34,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={moveToGame}>
+          <button className="check-for-name-button" onClick={moveToGameWithWithPlayerName}>
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
@@ -55,7 +56,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="CheckForName-button" onClick={moveToGame}>
+          <button className="check-for-name-button" onClick={moveToGameWithWithPlayerName}>
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>

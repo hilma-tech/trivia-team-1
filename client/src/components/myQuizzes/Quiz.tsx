@@ -11,7 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MenuPic from "../../images/dottedMenu.png"
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Type } from "../popups/GenericPopParts";
+import { PopUpType } from "../popups/GenericPopParts";
 
 
 interface QuizProps {
@@ -48,7 +48,7 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const copyQuizLink = (id: number) => {
-    setPopType(Type.CopyQuiz);
+    setPopType(PopUpType.CopyQuiz);
   //!copy to clipboard the right quiz link
     navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
     popHandleClickOpen();
@@ -73,7 +73,7 @@ const Quiz: FC<QuizProps> = (props) => {
   }
 
   const deleteQuiz =  async (id: number) => {
-    setPopType(Type.DeleteQuiz);
+    setPopType(PopUpType.DeleteQuiz);
     setDeletedQuizId(id);
     setId(id);
     popHandleClickOpen();  

@@ -9,19 +9,20 @@ import happyMonkey from '../../images/popUps/happyMonkey.png'
 import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
-import { Type } from "./GenericPopParts";
-
-
-export type PopupsPropType = 'finishedQuiz'| 'savedSuccessfully'| 'copyQuiz'| 'deleteQuiz'| 'exitGame'| 'saveChanges'
+import { PopUpType } from "./GenericPopParts";
 
 interface PopContextInterface {
-  setDeletedQuizId:React.Dispatch<React.SetStateAction<number>>;
-  deletedQuizId:number;
+  setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
+  deletedQuizId: number;
   setPopOpen: React.Dispatch<React.SetStateAction<boolean>>;
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
-  setPopType: React.Dispatch<React.SetStateAction<Type>>;
+  setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
+  setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
+  setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
+  correctAnswers: number;
+  numOfQuestions: number;
 }
 
 interface PopProviderProps {
@@ -34,11 +35,13 @@ const popContext = createContext<PopContextInterface | null>(null);
 export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popOpen, setPopOpen] = useState<boolean>(false);
   const [deletedQuizId, setDeletedQuizId] = useState<number>(-1);
-  const [popType, setPopType] = useState<Type>(Type.CopyQuiz)
+  const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
+  const [correctAnswers, setCorrectAnswers] = useState<number>(0);
+  const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
-   function popHandleClickOpen(){
+  function popHandleClickOpen() {
     setPopOpen(true);
   };
 
@@ -53,15 +56,18 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     deletedQuizId: deletedQuizId,
     popHandleClickOpen: popHandleClickOpen,
     popHandleClose: popHandleClose,
-    setPopType: setPopType
-
+    setPopType: setPopType,
+    setCorrectAnswers: setCorrectAnswers,
+    setNumOfQuestions: setNumOfQuestions,
+    correctAnswers: correctAnswers,
+    numOfQuestions: numOfQuestions,
   }
 
   return (
 
     <popContext.Provider value={contextValue}>
       <>
-        {popType === Type.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
+        {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
         <Dialog
           className="generic-pop-up-dialog"
           open={popOpen}
@@ -69,14 +75,14 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          {isMobile && popType === Type.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
-          {isMobile && popType === Type.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
+          {isMobile && popType === PopUpType.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
+          {isMobile && popType === PopUpType.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
           <DialogTitle className="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
-            <GenericPopTitle type={popType} />
+            <GenericPopTitle correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} type={popType} />
           </DialogTitle>
           <DialogContent className='dialog-content-container'>
             <DialogContentText id="alert-dialog-description" className={isMobile ? "dialog-content-text-style" : ""}  >
-              <GenericPopContent type={popType} />
+              <GenericPopContent type={popType} correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} />
             </DialogContentText>
           </DialogContent>
           <DialogActions className='dialog-actions-container'>
