@@ -17,12 +17,17 @@
         height: 3.1vh;
         font-weight: 900;
         box-shadow: none;
+        
     }
 
     .nav-quiz-link:hover {
         background-color: $green-color;
         color: white;
         height: 3.1vh;
+    }
+
+    .nav-quiz-link{
+        color: #0C3249;
     }
 
     .first-section {
