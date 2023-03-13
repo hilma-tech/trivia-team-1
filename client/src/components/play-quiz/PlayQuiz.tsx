@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
-import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
+import "../../style/questionTemp.scss";
 
 interface AnswerFromServer {
   text: string;
@@ -98,11 +98,12 @@ const QuestionTemp = () => {
   const checkIfCorrect = (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
       setCorrectAnswers((prev) => prev + 1);
-      setTimeout(moveToNextQuestion, 500);
+      makeCorrectAnswerGreen();
+      setTimeout(moveToNextQuestion, 1000);
     } else {
       makeCorrectAnswerGreen();
       makeAnswerRed(index);
-      setTimeout(moveToNextQuestion, 500);
+      setTimeout(moveToNextQuestion, 1000);
     }
   };
 
