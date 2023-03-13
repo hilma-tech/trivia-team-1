@@ -1,13 +1,15 @@
 import { FC } from 'react';
 import { Link, Typography } from '@mui/material';
 import { usePopContext } from './popContext';
+import { copyScoreBoardLink } from '../../common/functions/copyScoreBoardLink';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ShareIcon from '@mui/icons-material/Share';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../../style/popups.scss'
+import { usePlayerName } from '../../context/PlayerNameContext';
 
 
 export enum PopUpType {
@@ -76,15 +78,15 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 
         case PopUpType.ExitGame:
             return <p></p>
-
-
     }
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
+    const { quizId, playerName } = usePlayerName();
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
+
 
     const onClickGoToHomePage = () => {
         popHandleClose();
@@ -99,7 +101,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.SavedSuccessfully:
         case PopUpType.FinishedQuiz:
             return <div>
-                <Button className='boldButtonPopStyle' variant="contained" color="primary"><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
+                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), playerName)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
                 <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
             </div>
 

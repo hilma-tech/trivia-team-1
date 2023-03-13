@@ -3,7 +3,7 @@ import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePopContext } from "../popups/popContext";
-import { usePlayerName } from "../../context/PlayerNameContext";
+import { PlayerNameProvider, usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
@@ -22,7 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const { playerName, setPlayerName } = usePlayerName();
+  const { playerName, setPlayerName, setQuizId } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -36,7 +36,7 @@ const QuestionTemp = () => {
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
-  const { quizId, userName  } = useParams();
+  const { quizId, userName } = useParams();
 
   const navigate = useNavigate();
 
@@ -54,6 +54,10 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    if(userName === undefined || quizId === undefined) throw new Error("username or quiz id can not be undefined");
+    setQuizId(Number(quizId));
+    setPlayerName(userName);
+
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
