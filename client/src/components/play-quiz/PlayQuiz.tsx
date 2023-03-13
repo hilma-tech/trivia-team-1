@@ -128,6 +128,7 @@ const QuestionTemp = () => {
   const checkIfCorrect = (index: number) => {
     if (currentQuestion?.answers[index]?.isCorrect) {
       setScore((prev) => prev + 1);
+    }
     if (currentQuestion.answers[index].isCorrect) {
       setCorrectAnswers((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
