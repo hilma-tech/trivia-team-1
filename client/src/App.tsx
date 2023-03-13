@@ -52,14 +52,14 @@ function App() {
                   </Route>
 
                   <Route path="/enterance-page" element={
-                    <PrivateRoute componentName="User" component={<EntrancePage />} redirectPath="/login" />
+                    <PrivateRoute componentName="User" component={<EntrancePage />} />
                   } />
                   <Route path="/edit-quiz" element={
-                    <PrivateRoute componentName="User" component={<EditQuiz />} redirectPath="/login" />
+                    <PrivateRoute componentName="User" component={<EditQuiz />} />
                   } />
                   <Route path="/my-quizzes" element={<Outlet />}>
                     <Route index element={
-                      <PrivateRoute componentName="User" component={<MyQuizzes />} redirectPath="/login" />
+                      <PrivateRoute componentName="User" component={<MyQuizzes />} />
                     } />
                   </Route>
                 </Routes>
