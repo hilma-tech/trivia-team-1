@@ -36,9 +36,7 @@ const MyQuizes: FC = () => {
     const [loading, setLoading] = useState<boolean>(true);
     const {user} = useUser();
     
-
-
-
+    
     useEffect(()=>{
         getQuizes()
     },[user])
