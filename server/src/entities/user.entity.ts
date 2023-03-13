@@ -1,18 +1,9 @@
 import { Quiz } from "./quiz.entity";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, OneToOne } from "typeorm";
-import { Password } from "./password.entity";
+import { ChildEntity, OneToMany } from "typeorm";
+import { User as AuthUser } from '@hilma/auth-nest';
 
-@Entity()
-export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({unique: true})
-    username: string;
-
+@ChildEntity()
+export class ExtendedUser extends AuthUser {
     @OneToMany(() => Quiz, (quizzes) => quizzes.creator)
     quizzes: Quiz[]
-
-    @OneToOne(() => Password, (password) => password.user, { cascade: true })
-    password: Password
 }

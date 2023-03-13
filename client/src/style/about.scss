@@ -1,0 +1,54 @@
+.about-page {
+    .about-page-title {
+        margin-right: 5%;
+        font-size: 4vmax;
+        margin-bottom: 1%;
+        font-weight: 1000;
+    }
+
+    .about-page-content {
+        display: flex;
+        justify-content: space-evenly;
+
+        .about-page-text {
+            font-size: 1vw;
+            width: 45vw;
+        }
+
+        .about-page-decoration {
+            width: 15vw;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        text-align: center;
+
+        .about-page-title {
+            margin-right: 0%;
+        }
+
+        .about-page-content {
+            display: block;
+
+            .about-page-text {
+                padding-top: 5%;
+                font-weight: 1000;
+                width: 80%;
+                margin-right: auto;
+                margin-left: auto;
+                font-size: 0.8rem;
+            }
+
+            .about-page-decoration {
+                position: absolute;
+                margin: 0px;
+                width: 80%;
+                height: 80vh;
+                top: 10vh;
+                right: 10%;
+                z-index: -1;
+                opacity: 0.4;
+            }
+        }
+    }
+}
