@@ -43,10 +43,22 @@ export class AnswerDTO {
     @IsString()
     @IsNotEmpty()
     text: string;
+
     @IsString()
     @IsOptional()
     imageUrl: string;
+
     @IsBoolean()
     @IsNotEmpty()
     isCorrect: boolean;
+}
+
+export class ScoreDTO {
+    @IsNumber()
+    @IsNotEmpty()
+    score: number;
+
+    @IsString()
+    @IsNotEmpty()
+    player: string;
 }
