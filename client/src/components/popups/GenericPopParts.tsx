@@ -5,9 +5,12 @@ import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ShareIcon from '@mui/icons-material/Share';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import { postScore } from '../../common/functions/postScore';
 import '../../style/popups.scss'
+import { usePlayerName } from '../../context/PlayerNameContext';
+
 
 
 export enum PopUpType {
@@ -58,12 +61,17 @@ export const GenericPopTitle: FC<GenericPopTitleProps> = ({ type, numOfQuestions
 
 
 export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAnswers, numOfQuestions }) => {
+    const { playerName, setPlayerName } = usePlayerName();
+    const { userName, quizId } = useParams()
+    const score = Math.round(correctAnswers / numOfQuestions * 100)
+
     switch (type) {
         case PopUpType.SavedSuccessfully:
             return <Typography className='pop-content' variant='body1'>תוכלו לראות את החידונים במאגר החידונים שלכם ולשתף אותו לחברים</Typography>
 
         case PopUpType.FinishedQuiz:
-            return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {Math.round(correctAnswers / numOfQuestions * 100)}</Typography>
+            postScore(quizId, playerName, score)
+            return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {score}</Typography>
 
         case PopUpType.SaveChanges:
             return <Typography className='pop-content' variant="body1"> אם תשמור את השינויים לוח התוצאות שלך יתאפס</Typography>

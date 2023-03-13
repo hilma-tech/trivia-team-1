@@ -8,6 +8,7 @@ import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
+import { postScore } from "../../common/functions/postScore";
 
 interface AnswerFromServer {
   text: string;
@@ -87,7 +88,7 @@ const QuestionTemp = () => {
   const navigateToEndGameScreen = () => {
     console.log('correctAnswers2', correctAnswers);
 
-    postScore()
+    // postScore()
     setNumOfQuestions(quantityOfQuestion);
     console.log('correctAnswers2', correctAnswers);
     setCurrentQuestionIndex(0);
@@ -95,6 +96,7 @@ const QuestionTemp = () => {
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
+      // postScore(quizId, playerName, Math.round(correctAnswers / questions.length * 100))
     }
   };
 
@@ -132,13 +134,13 @@ const QuestionTemp = () => {
     setGreenIndex(correctAnswerIndex);
   };
 
-  const postScore = async () => {
-    const finalScore = Math.round(correctAnswers / questions.length * 100)
-    axios.post(`/api/quiz/${quizId}/scores`, {
-      score: finalScore,
-      player: playerName
-    })
-  }
+  // const postScore = async () => {
+  //   const finalScore = Math.round(correctAnswers / questions.length * 100)
+  //   axios.post(`/api/quiz/${quizId}/scores`, {
+  //     score: finalScore,
+  //     player: playerName
+  //   })
+  // }
 
   const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();
