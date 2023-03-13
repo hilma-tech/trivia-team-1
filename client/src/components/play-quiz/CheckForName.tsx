@@ -1,40 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import triangleIcon from "../../icons/icon-awesome-play.png";
 import { useNavigate } from "react-router-dom";
 import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-
+import { usePlayerName } from "../../context/PlayerNameContext";
 interface CheckForNameProps {
   quizTitle: string;
 }
 
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
-  const [playerName, setPlayerName] = useState("");
   const navigate = useNavigate();
-
+  const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
-  function sendNameOfPlayerToServer() {
-    //TODO: change this from "#"
-    fetch(`#`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ playerName: playerName }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        moveToPlayGame();
-      })
-      .catch((err) => {});
-    moveToPlayGame();
-  }
-
-  const moveToPlayGame = () => {
-    //TODO: temporary
+  function moveToGame() {
     navigate("./questions");
-  };
+  }
 
   return isLargeScreen ? (
     <main>
@@ -52,9 +33,9 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="check-for-name-button" onClick={sendNameOfPlayerToServer}>
+          <button className="CheckForName-button" onClick={moveToGame}>
             <p>יאללה בואו נתחיל!</p>
-            <img src={`${triangleIcon}`} alt="icon of triangle" />
+            <img src={triangleIcon} alt="icon of triangle" />
           </button>
         </div>
       </div>
@@ -74,9 +55,9 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             value={playerName}
             required
           />
-          <button className="check-for-name-button" onClick={sendNameOfPlayerToServer}>
+          <button className="CheckForName-button" onClick={moveToGame}>
             <p>יאללה בואו נתחיל!</p>
-            <img src={`${triangleIcon}`} alt="icon of triangle" />
+            <img src={triangleIcon} alt="icon of triangle" />
           </button>
         </div>
       </div>

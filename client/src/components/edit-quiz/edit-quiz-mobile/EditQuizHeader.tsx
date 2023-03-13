@@ -5,7 +5,7 @@ import saveBtn from '../../../images/saveBtn.svg'
 import LinkBtn from '../../../images/linkBtn.svg'
 import Selectimage from '../../../images/image.svg'
 import '../../../style/EditQuiz.scss'
-import BootstrapTooltip from "../../../tooltip/tooltip"
+import BootstrapTooltip from "../../tooltip/tooltip"
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../../context/imageFilesZus'
 import { ImageFile, PhonePage } from "../../../utils/Interfaces"

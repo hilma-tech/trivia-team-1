@@ -5,15 +5,16 @@ import rtlPlugin from 'stylis-plugin-rtl';
 import createCache from '@emotion/cache';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import BootstrapTooltip from "../../tooltip/tooltip";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 
 import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
 import EditQuizMobileInput from "./edit-quiz-mobile/EditQuizMobileInput";
 import useImageFileUpload from '../../context/imageFilesZus'
+import BootstrapTooltip from "../tooltip/tooltip";
 
 import SelectImage from '../../images/image.svg'
 import TrashSvg from '../../images/trash.svg'
+
 
 
 

@@ -9,10 +9,10 @@ import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
 import { CurrentQuestion, ImageFile } from '../../utils/Interfaces'
 import { useQuestionContext } from "../../context/AnswersContext";
-import BootstrapTooltip from "../../tooltip/tooltip";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../context/imageFilesZus'
+import BootstrapTooltip from "../tooltip/tooltip";
 
 
 
