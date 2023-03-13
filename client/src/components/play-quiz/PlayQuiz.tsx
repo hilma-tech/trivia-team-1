@@ -22,23 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const [questions, setQuestions] = useState<QuestionFromServer[]>([
-    {
-      title: "איטליה מכונה גם...",
-      imageUrl:
-        "https://upload.wikimedia.org/wikipedia/he/e/e3/%D7%9E%D7%93%D7%99%D7%A0%D7%AA_%D7%94%D7%92%D7%9E%D7%93%D7%99%D7%9D.jpg",
-      answers: [
-        {
-          text: "ארץ המגף",
-          imageUrl: "https://img.mako.co.il/2021/07/07/GettyImages-51246878_re_autoOrient_i.jpg",
-          isCorrect: true,
-        },
-        { text: "התפוח הגדול", imageUrl: "", isCorrect: false },
-        { text: "ארץ האגדות", imageUrl: "", isCorrect: false },
-        { text: "מדינת הגמדים", imageUrl: "", isCorrect: false },
-      ],
-    },
-  ]);
+  const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
@@ -72,7 +56,6 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     setInfoFromServer();
-    checkIfThereAreImg();
     if (!questions) {
       navigateToEndGameScreen();
     }
@@ -80,7 +63,7 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     checkIfThereAreImg();
-  }, [currentQuestionIndex]);
+  }, [currentQuestionIndex, currentQuestion]);
 
   useEffect(() => {
     calcWidthOfRec();
@@ -103,7 +86,6 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
-    console.log("navigateToEndGameScreen");
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -173,7 +155,7 @@ const QuestionTemp = () => {
               <div>
                 <p className="answer-button">{answer.text}</p>
               </div>
-              {answer.imageUrl ? (
+              {answer?.imageUrl ? (
                 <div className="image-container">
                   {!isLargeScreen && (
                     <div className="icon-div" onClick={(e) => resizeFull(e, index)}>
@@ -181,7 +163,8 @@ const QuestionTemp = () => {
                     </div>
                   )}
                   <div
-                    className={`question-img-div ${fullScreenIndex === index ? `full-screen` : ""}`}
+                    // className={`question-img-div ${fullScreenIndex === index ? `full-screen` : ""}`}
+                    className={fullScreenIndex === index ? "question-img-div .full-screen" : "question-img-div"}
                     onClick={(e) => {
                       if (fullScreenIndex === index) resizeShrink(e, index);
                     }}
