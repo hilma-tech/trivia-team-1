@@ -22,7 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const {playerName, setPlayerName} = usePlayerName();
+  const { playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -85,8 +85,11 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
+    console.log('correctAnswers2', correctAnswers);
+
     postScore()
     setNumOfQuestions(quantityOfQuestion);
+    console.log('correctAnswers2', correctAnswers);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
     else {
@@ -95,8 +98,9 @@ const QuestionTemp = () => {
     }
   };
 
-  const checkIfCorrect = (index: number) => {
+  const checkIfCorrect = async (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
+      console.log('correct');
       setCorrectAnswers((prev) => prev + 1);
       setTimeout(moveToNextQuestion, 500);
     } else {
@@ -107,6 +111,8 @@ const QuestionTemp = () => {
   };
 
   const moveToNextQuestion = () => {
+    console.log('correctAnswers1', correctAnswers);
+
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     }

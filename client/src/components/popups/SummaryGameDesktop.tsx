@@ -8,6 +8,7 @@ import { usePopContext } from "./popContext";
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
+console.log('correct answers3', correctAnswers);
 
 
   return (
