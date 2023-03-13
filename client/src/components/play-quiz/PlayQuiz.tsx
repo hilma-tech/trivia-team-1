@@ -22,7 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const {playerName, setPlayerName} = usePlayerName();
+  const { playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -36,7 +36,7 @@ const QuestionTemp = () => {
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
-  const { quizId } = useParams();
+  const { quizId, userName  } = useParams();
 
   const navigate = useNavigate();
 
@@ -88,7 +88,7 @@ const QuestionTemp = () => {
     postScore()
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
+    if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
@@ -128,6 +128,7 @@ const QuestionTemp = () => {
   };
 
   const postScore = async () => {
+    console.log('correctAnswers: ', correctAnswers);
     const finalScore = Math.round(correctAnswers / questions.length * 100)
     axios.post(`/api/quiz/${quizId}/scores`, {
       score: finalScore,

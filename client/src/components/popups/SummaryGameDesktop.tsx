@@ -4,12 +4,16 @@ import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
+import { useParams } from "react-router";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
+  const {quizId, userName } = useParams();
 
+  const copyLink = () => {
 
+  }
   return (
     <>
       <div className="comp-children-container computer-finish-game confetti-pc">
@@ -31,7 +35,7 @@ export const SummaryGameDesktop: FC = () => {
             variant="contained"
             color="primary"
           >
-            <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} />
+            <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} onClick={copyLink}/>
             שתף תוצאה
           </Button>
         </div>
