@@ -1,20 +1,32 @@
-
-
-
-
-
 .computer-finish-game {
     background-image: url('../images/popUps/confettiGif.gif');
-    background-size: 50vh;
+    background-position: center center;
+    background-size: 50%;
     text-align: center;
     border-top: 15px solid #216361;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     .computer-finish-game-inner-text {
         line-height: 8vh;
     }
 
+    .white-background-container{
+        background-color: white;
+        width: 60%;
+        height:70%;
+    }
+
+    .MuiTypography-root.computer-finish-game-inner-text.body{
+        font-size: 3vh;
+    }
+
+    .MuiTypography-root.computer-finish-game-inner-text.header{
+        font-size: 4vh;
+    }
+
     img {
-        padding-top: 8vh;
-        width: 10vw
+        width: 8vw
     }
 }
 
