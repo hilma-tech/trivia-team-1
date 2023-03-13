@@ -76,8 +76,6 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 
         case PopUpType.ExitGame:
             return <p></p>
-
-
     }
 }
 
