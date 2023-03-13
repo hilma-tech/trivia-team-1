@@ -17,12 +17,13 @@ import { CacheProvider } from '@emotion/react';
 import BootstrapTooltip from '../tooltip/tooltip'
 import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios';
+import DemoQuiz from './DemoQuiz';
 
 
 
 const cacheRtl = createCache({
-  key: "muirtl",
-  stylisPlugins: [rtlPlugin],
+    key: "muirtl",
+    stylisPlugins: [rtlPlugin],
 });
 
 export const isFull = (question: CurrentQuestion) => {
@@ -32,8 +33,8 @@ export const isFull = (question: CurrentQuestion) => {
 }
 
 const EditQuiz: FC = () => {
- 
 
+    const [moveToShowDemoQuizBool, setMoveToWatchDemoQuizBool] = useState(false);
     const { setQuestions, questions } = useQuestionContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
@@ -73,7 +74,7 @@ const EditQuiz: FC = () => {
             setCurrentEditQuestion(editQuestionIndex);
         }
     }
-  
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
@@ -119,115 +120,123 @@ const EditQuiz: FC = () => {
             })
     }
 
+    const moveToShowDemoQuiz = () => {
 
+        setMoveToWatchDemoQuizBool(!moveToShowDemoQuizBool)
+    }
 
     return (
-        <>
-            <CacheProvider value={cacheRtl}>
-                <div className='form-container'>
-                    <div className='top-container'>
-                        <div className='top-buttons-container'>
-                            <div className='top-right-btn'>
+        moveToShowDemoQuizBool ?
+            <>
+                <CacheProvider value={cacheRtl}>
+                    <div className='form-container'>
+                        <div className='top-container'>
+                            <div className='top-buttons-container'>
+                                <div className='top-right-btn'>
 
-                                <button className='show-quiz-btn'>
-                                    <img className='show-quiz-svg' src={ShowQuizBtn} alt='show your preview quiz' />
-                                    צפייה בחידון
-                                </button>
-                            </div>
-                            <div className='top-left-btn'>
-                                <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
-                                <button className='save-btn' onClick={saveQuiz}>
-                                    <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
-                                    שמירה
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='quiz-header-container'>
-                        <div className='quiz-header-image'>
-                            <BootstrapTooltip title="הוספת תמונה לחידון">
-                                <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
-                            </BootstrapTooltip>
-                        </div>
-                        <div className='title-header-container'>
-                            <BootstrapTooltip title="שינוי שם">
-                                <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />
-                            </BootstrapTooltip>
-                            <BootstrapTooltip title="שינוי שם">
-                                <TextField
-                                    id="outlined-multiline-static"
-                                    label="תיאור חידון"
-                                    multiline
-                                    rows={2}
-                                    size="small"
-                                    value={questionDetails.description}
-                                    onChange={handleChange}
-                                    sx={{
-                                        "& .MuiInputLabel-root": { color: 'black', fontSize: "2vh" },//styles the label
-                                        "& .MuiOutlinedInput-root": {
-                                            "& > fieldset": { borderColor: "transparent" },
-
-                                        },
-                                    }}
-                                    inputProps={{
-                                        style: {
-                                            height: "4.5vh",
-                                            fontSize: "2vh",
-                                            lineHeight: "2.5vh",
-                                            paddingTop: "0.5vh"
-                                        },
-                                    }}
-                                />
-                            </BootstrapTooltip>
-                        </div>
-                    </div>
-                    <DragDropContext onDragEnd={handleDragEnd}>
-                        <Droppable droppableId="droppable">
-                            {(provided) => (
-                                <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
-                                    {questions.map((question, index) => (
-                                        <Draggable
-                                            key={question.questionId.toString()}
-                                            draggableId={question.questionId.toString()}
-                                            index={index}
-                                        >
-                                            {(provided) => (
-                                                <div
-                                                    ref={provided.innerRef}
-                                                    {...provided.draggableProps}
-                                                    {...provided.dragHandleProps}
-                                                >
-                                                    {currentEditQuestion === index ?
-                                                        <AddQuestionBox setCurrentQuestion={(q) => {
-                                                            setQuestions(prev => {
-                                                                return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
-                                                            })
-                                                        }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} />
-                                                        :
-                                                        <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
-                                                    }
-                                                </div>
-                                            )}
-                                        </Draggable>
-                                    ))}
-                                    {provided.placeholder}
+                                    <button onClick={() => moveToShowDemoQuiz()} className='show-quiz-btn'>
+                                        <img className='show-quiz-svg' src={ShowQuizBtn} alt='show your preview quiz' />
+                                        צפייה בחידון
+                                    </button>
                                 </div>
-                            )}
-                        </Droppable>
-                    </DragDropContext>
-                    <div className='plus-btn-container'>
-                        <BootstrapTooltip title=" הוספת שאלה">
-                            <button className='plus-btn' onClick={addQuestion}>
-                                <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
-                            </button>
-                        </BootstrapTooltip>
+                                <div className='top-left-btn'>
+                                    <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
+                                    <button className='save-btn' onClick={saveQuiz}>
+                                        <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
+                                        שמירה
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='quiz-header-container'>
+                            <div className='quiz-header-image'>
+                                <BootstrapTooltip title="הוספת תמונה לחידון">
+                                    <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
+                                </BootstrapTooltip>
+                            </div>
+                            <div className='title-header-container'>
+                                <BootstrapTooltip title="שינוי שם">
+                                    <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />
+                                </BootstrapTooltip>
+                                <BootstrapTooltip title="שינוי שם">
+                                    <TextField
+                                        id="outlined-multiline-static"
+                                        label="תיאור חידון"
+                                        multiline
+                                        rows={2}
+                                        size="small"
+                                        value={questionDetails.description}
+                                        onChange={handleChange}
+                                        sx={{
+                                            "& .MuiInputLabel-root": { color: 'black', fontSize: "2vh" },//styles the label
+                                            "& .MuiOutlinedInput-root": {
+                                                "& > fieldset": { borderColor: "transparent" },
+
+                                            },
+                                        }}
+                                        inputProps={{
+                                            style: {
+                                                height: "4.5vh",
+                                                fontSize: "2vh",
+                                                lineHeight: "2.5vh",
+                                                paddingTop: "0.5vh"
+                                            },
+                                        }}
+                                    />
+                                </BootstrapTooltip>
+                            </div>
+                        </div>
+                        <DragDropContext onDragEnd={handleDragEnd}>
+                            <Droppable droppableId="droppable">
+                                {(provided) => (
+                                    <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
+                                        {questions.map((question, index) => (
+                                            <Draggable
+                                                key={question.questionId.toString()}
+                                                draggableId={question.questionId.toString()}
+                                                index={index}
+                                            >
+                                                {(provided) => (
+                                                    <div
+                                                        ref={provided.innerRef}
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                    >
+                                                        {currentEditQuestion === index ?
+                                                            <AddQuestionBox setCurrentQuestion={(q) => {
+                                                                setQuestions(prev => {
+                                                                    return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                                })
+                                                            }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} />
+                                                            :
+                                                            <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
+                                                        }
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ))}
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </DragDropContext>
+                        <div className='plus-btn-container'>
+                            <BootstrapTooltip title=" הוספת שאלה">
+                                <button className='plus-btn' onClick={addQuestion}>
+                                    <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
+                                </button>
+                            </BootstrapTooltip>
+                        </div>
                     </div>
-                </div>
-                <div className='monkey-in-edit-page-svg'>
-                    <img src={MonkeySvg} className='monkey-svg' alt='image of cute monkey with computer' />
-                </div>
-            </CacheProvider>
-        </>
+                    <div className='monkey-in-edit-page-svg'>
+                        <img src={MonkeySvg} className='monkey-svg' alt='image of cute monkey with computer' />
+                    </div>
+                </CacheProvider>
+            </>
+            :
+            <>
+                <DemoQuiz/>
+            </>
     );
 }
 
