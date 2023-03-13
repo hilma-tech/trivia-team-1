@@ -10,9 +10,9 @@ export default (): AuthConfig => ({
     secretOrKey: process.env.JWT_SECRET,
   },
   roleAccess: {
-    // User: {
-    //   components: ["User"],
-    //   defaultHomePage: "Home",
-    // },
+    User: {
+      components: ["User"],
+      defaultHomePage: "",
+    },
   },
 });

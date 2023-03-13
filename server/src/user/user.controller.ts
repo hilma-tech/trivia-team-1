@@ -6,14 +6,12 @@ import { UserService } from './user.service';
 
 @Controller('api/user')
 export class UserController {
-    constructor(private readonly userService: UserService) {
-
-    }
+    constructor(private readonly userService: UserService) { }
 
     @Post("/register")
     async register(@Body() user: RegisterDTO) {
         try {
-            await this.userService.createUser(user)
+            await this.userService.createUser({ ...user, roles: [{ id: 1 }] })
             return true
         }
         catch {
@@ -24,8 +22,8 @@ export class UserController {
     @UseLocalAuth()
     @Post("login")
     async login(@RequestUser() user: RequestUserType, @Res() res: Response) {
-      const body = this.userService.login(user, res);
-      return res.send(body);
+        const body = this.userService.login(user, res);
+        return res.send(body);
     }
 
     @Get("/:id/quizzes")

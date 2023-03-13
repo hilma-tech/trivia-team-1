@@ -24,6 +24,7 @@ import { PopContextProvider } from "./components/popups/popContext";
 import "./style/background.scss";
 import "./style/navbar.scss";
 import About from "./components/about";
+import { PrivateRoute } from "@hilma/auth";
 
 function App() {
   return (
@@ -36,23 +37,30 @@ function App() {
               <CssBaseline />
               <Background>
                 <Routes>
-                  <Route path="/about" element={<About />} />
-                  <Route path="/enterance-page" element={<EntrancePage />} />
-                  <Route index element={<Navigate replace to="/login" />} />
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
-                  <Route path="*" element={<Navigate replace to="/loading-page" />} />
-                  <Route path="/edit-quiz" element={<EditQuiz />} />
                   <Route path="/error404" element={<Error />} />
+                  <Route path="*" element={<Navigate replace to="/loading-page" />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
+                  <Route path="/about" element={<About />} />
+                  <Route index element={<Navigate replace to="/login" />} />
                   <Route path="/:userName/quiz/:quizId" element={<Outlet />}>
                     <Route index element={<OpeningForTheQuiz />} />
                     <Route path="scores" element={<ScoreCard />} />
                     <Route path="finished-game-pc" element={<SummaryGameDesktop />} />
                     <Route path="questions" element={<QuestionTemp />} />
                   </Route>
+
+                  <Route path="/enterance-page" element={
+                    <PrivateRoute componentName="User" component={<EntrancePage />} redirectPath="/login" />
+                  } />
+                  <Route path="/edit-quiz" element={
+                    <PrivateRoute componentName="User" component={<EditQuiz />} redirectPath="/login" />
+                  } />
                   <Route path="/my-quizzes" element={<Outlet />}>
-                    <Route index element={<MyQuizzes />} />
+                    <Route index element={
+                      <PrivateRoute componentName="User" component={<MyQuizzes />} redirectPath="/login" />
+                    } />
                   </Route>
                 </Routes>
               </Background>
