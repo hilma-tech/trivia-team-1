@@ -8,11 +8,13 @@ import logoutImg from '../images/logout.svg';
 import leavesEnterance from '../images/leaves-enterance.svg';
 
 import '../style/entrancePage.scss'
+import { useAuth } from '@hilma/auth';
 
 function EnterancePage() {
     const {user, setUser} = useUser()
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
+    const { logout } = useAuth();
 
     function toMyQuizes() {
         navigate('/my-quizzes')
@@ -22,9 +24,9 @@ function EnterancePage() {
         navigate('/edit-quiz')
     }
 
-    function logout() {
-        localStorage.setItem("quizUser", JSON.stringify({ userId: 0, username: '' }))
-        setUser({ userId: 0, username: '' })
+    function handleLogout() {
+        setUser({ userId: "", username: '' })
+        logout();
         navigate('/login')
     }
 
@@ -43,7 +45,7 @@ function EnterancePage() {
                         <img src={monkeyEnter} alt='monkey' />
                     </div>
                 </div>
-                <Button onClick={logout} className='enterance-page-button  logout-button'><img className='logout-pic' src={logoutImg} alt='logout' /> יציאה</Button>
+                <Button onClick={handleLogout} className='enterance-page-button  logout-button'><img className='logout-pic' src={logoutImg} alt='logout' /> יציאה</Button>
             </div> :
             <div className='entrance-page-mobile'>
                 <div className='leaves-enterance'>
@@ -59,7 +61,7 @@ function EnterancePage() {
                 <div>
                     <Button className='enterance-page-button my-quizes-button' color='secondary' variant='contained' onClick={toMyQuizes}>החידונים שלי</Button>
                 </div>
-                <Button onClick={logout} className='enterance-page-button logout-button'><img className='logout-pic' src={logoutImg} alt='logout' /> יציאה</Button>
+                <Button onClick={handleLogout} className='enterance-page-button logout-button'><img className='logout-pic' src={logoutImg} alt='logout' /> יציאה</Button>
                 <div className='monkey-enter-pic'>
                     <img src={monkeyEnter} alt='monkey' />
                 </div>
