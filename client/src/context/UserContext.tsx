@@ -1,6 +1,8 @@
+import { useAuth } from "@hilma/auth";
 import { createContext, ReactNode, useState, FC, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { User } from "../utils/currentUser";
+import decode from 'jwt-decode';
 
 export const useUser = () => {
     const userContext = useContext(UserContext);
@@ -24,9 +26,10 @@ interface UserStoProviderProps {
 const UserContext = createContext<UserProviderContext | null>(null)
 
 const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
-    const [user, setUser] = useState<User>({ userId: 0, username: '' });
+    const [user, setUser] = useState<User>({ userId: "", username: '' });
     const navigate = useNavigate()
     const [initialHistoryLength, setInitialHistoryLength] = useState(0);
+    const { getAccessToken } = useAuth();
 
     useEffect(() => {
         const handleUnload = () => {
@@ -36,7 +39,7 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
         window.addEventListener("unload", handleUnload);
 
         return () => {
-          window.removeEventListener("unload", handleUnload);
+            window.removeEventListener("unload", handleUnload);
         };
     }, []);
 
@@ -45,8 +48,8 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
         async function getHistoryLength() {
             const rawHistory = localStorage.getItem('quizHistoryLength')
             if (!rawHistory) {
-                    localStorage.setItem('quizHistoryLength', JSON.stringify(window.history.length))
-                    setInitialHistoryLength(window.history.length)
+                localStorage.setItem('quizHistoryLength', JSON.stringify(window.history.length))
+                setInitialHistoryLength(window.history.length)
             }
             else {
                 const history = JSON.parse(rawHistory)
@@ -54,15 +57,19 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
             }
         }
         getHistoryLength()
-        const rawUser = localStorage.getItem('quizUser')
-        if (rawUser) setUser(JSON.parse(rawUser))
+
+        const token = getAccessToken();
+        if (token) {
+            const user = decode<{ id: string; username: string }>(token);
+            setUser({ userId: user.id, username: user.username });
+        }
     }, [])
 
     useEffect(() => {
         // If username is empty or session expires, navigate to login page and go back to initial history length
         async function getUser() {
-            const rawUser = localStorage.getItem('quizUser')
-            if (!rawUser) {
+            const token = getAccessToken();
+            if (!token) {
                 const delta = window.history.length - initialHistoryLength;
                 if (delta > 0 && window.location.pathname !== '/login' && window.location.pathname !== '/Register' && window.location.pathname !== '/about') {
                     window.history.go(-delta);

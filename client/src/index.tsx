@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-    <AuthProvider>
+    <AuthProvider accessTokenCookie='banQui'>
       <App />
     </AuthProvider>
   </BrowserRouter>

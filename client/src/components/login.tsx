@@ -40,7 +40,6 @@ function Login() {
             const { success, msg, user } = await login('/api/user/login', { username, password })
 
             if (success) {
-                localStorage.setItem("quizUser", JSON.stringify({ userId: user.id, username: user.username }))
                 setUser({ userId: user.id, username: user.username })
                 setRegErrDiv('')
                 navigate('/enterance-page')
