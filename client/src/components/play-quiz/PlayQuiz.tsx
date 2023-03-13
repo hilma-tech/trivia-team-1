@@ -174,7 +174,6 @@ const QuestionTemp = () => {
                     </div>
                   )}
                   <div
-                    // className={`question-img-div ${fullScreenIndex === index ? `full-screen` : ""}`}
                     className={fullScreenIndex === index ? "question-img-div .full-screen" : "question-img-div"}
                     onClick={(e) => {
                       if (fullScreenIndex === index) resizeShrink(e, index);
@@ -212,11 +211,11 @@ const QuestionTemp = () => {
             <div className="question-place-father">
               <div className="question-place-child">
                 <div className="question-img-place">
-                  <img
+                  {currentQuestion?.imageUrl && <img
                     className="question-img img"
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
-                  />
+                  />}
                 </div>
                 <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
@@ -243,11 +242,11 @@ const QuestionTemp = () => {
             <div className="question-place-father">
               <div className="question-place-child">
                 <div className="question-img-place">
-                  <img
+                  {currentQuestion?.imageUrl && <img
                     className="question-img img"
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
-                  />
+                  />}
                 </div>
                 <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
