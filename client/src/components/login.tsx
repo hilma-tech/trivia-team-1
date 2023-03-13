@@ -1,6 +1,7 @@
-import React, { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
+import { useAuth } from '@hilma/auth';
 import axios from 'axios';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
@@ -10,6 +11,7 @@ import { useUser } from '../context/UserContext';
 import '../style/login.scss'
 
 function Login() {
+    const { login } = useAuth();
     const { setUser } = useUser()
 
     const [username, setUsername] = useState('')
@@ -20,7 +22,7 @@ function Login() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const timeout = setTimeout(() =>  setRegErrDiv("") , 4000)
+        const timeout = setTimeout(() => setRegErrDiv(""), 4000)
         return () => clearTimeout(timeout);
     }, [regErrDiv])
 
@@ -35,20 +37,18 @@ function Login() {
     async function handleLoginSubmit(e: FormEvent) {
         e.preventDefault()
         try {
-            const {data} = await axios.post('http://localhost:8080/api/user/login',
-                  { username: username, password: password }
-                )
-                
-            if (data) {
-                localStorage.setItem("quizUser", JSON.stringify({ userId: data.id, username: data.username }))
-                setUser({ userId: data.id, username: data.username })
+            const { success, msg, user } = await login('/api/user/login', { username, password })
+
+            if (success) {
+                localStorage.setItem("quizUser", JSON.stringify({ userId: user.id, username: user.username }))
+                setUser({ userId: user.id, username: user.username })
                 setRegErrDiv('')
                 navigate('/enterance-page')
             }
             else setRegErrDiv("אחד מהפרטים שהזנת שגויים!")
             // Handle successful response here...
         } catch (error) {
-          setRegErrDiv("משהו השתבש בתהליך!")
+            setRegErrDiv("משהו השתבש בתהליך!")
         }
     }
 
