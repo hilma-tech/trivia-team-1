@@ -4,6 +4,7 @@ import { usePopContext } from "../popups/popContext";
 import { PopUpType } from "../popups/GenericPopParts";
 // import { CurrentQuestion } from "../../utils/Interfaces";
 import { useQuestionContext } from '../../context/AnswersContext'
+import { SummaryGameDesktop } from "../popups/SummaryGameDesktop";
 
 
 // interface DemoQuizProps {
@@ -14,7 +15,7 @@ const DemoQuiz = () => {
     const [quizTitle, setQuizTitle] = useState("")
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
-    const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
+    // const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
 
     const [greenIndex, setGreenIndex] = useState<number | undefined>();
     const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -23,9 +24,10 @@ const DemoQuiz = () => {
 
     const [changeFlexDir, setChangeFlexDir] = useState(true);
     const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
-    const { setQuestions, questions } = useQuestionContext()
+    const { setQuestions, questions } = useQuestionContext();
+    const [toggleEndGame, setToggleEndGame] = useState(true);
 
-
+    const quantityOfQuestion = questions.length
     const currentQuestion = questions[currentQuestionIndex];
 
     const checkIfThereAreImg = () => {
@@ -55,25 +57,18 @@ const DemoQuiz = () => {
         setScoreRecWidth(numToPushToState);
     };
 
-
-
-
-    // const navigateToEndGameScreen = () => {
-    //     setNumOfQuestions(quantityOfQuestion);
-    //     setCurrentQuestionIndex(0);
-    //     navigate("/:userName/quiz/:quizId/finished-game-pc");
-    //     else {
-    //         setPopType(PopUpType.FinishedQuiz);
-    //         popHandleClickOpen();
-    //     }
-    // };
+    const navigateToEndGameScreen = () => {
+        setNumOfQuestions(quantityOfQuestion);
+        setCurrentQuestionIndex(0);
+        setToggleEndGame(!toggleEndGame);        
+    };
     const moveToNextQuestion = () => {
         if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex((prev) => prev + 1);
         }
-        // else {
-        //     navigateToEndGameScreen();
-        // }
+        else {
+            navigateToEndGameScreen();
+        }
         setRedIndex(undefined);
         setGreenIndex(undefined);
     };
@@ -126,7 +121,7 @@ const DemoQuiz = () => {
                             <img
                                 className="button-img"
                                 src={`${answer?.imageUrl}`}
-                                alt="picture of answer"
+                                alt={answer.imageUrl ? "picture of answer" : ""}
                             />
                         </button>
                     </div>
@@ -137,6 +132,7 @@ const DemoQuiz = () => {
     };
 
     return (
+        toggleEndGame ?
         <div className="question-temp comp-children-container">
             <main className="main-question-temp">
                 <div className="score-rectangle" style={{ width: `${scoreRecWidth}vw` }}></div>
@@ -167,6 +163,8 @@ const DemoQuiz = () => {
                 </div>
             </main>
         </div>
+        :
+        <SummaryGameDesktop/>
     );
 };
 

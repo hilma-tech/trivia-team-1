@@ -18,6 +18,7 @@ import BootstrapTooltip from '../tooltip/tooltip'
 import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios';
 import DemoQuiz from './DemoQuiz';
+import littleArrow from '../../images/question-template/littleArrow.svg'
 
 
 
@@ -34,7 +35,7 @@ export const isFull = (question: CurrentQuestion) => {
 
 const EditQuiz: FC = () => {
 
-    const [moveToShowDemoQuizBool, setMoveToWatchDemoQuizBool] = useState(false);
+    const [moveToShowDemoQuizBool, setMoveToWatchDemoQuizBool] = useState(true);
     const { setQuestions, questions } = useQuestionContext()
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
@@ -120,8 +121,8 @@ const EditQuiz: FC = () => {
             })
     }
 
-    const moveToShowDemoQuiz = () => {
-
+    const toggleDemoAndEdit = () => {
+        console.log("toggleDemoAndEdit");
         setMoveToWatchDemoQuizBool(!moveToShowDemoQuizBool)
     }
 
@@ -134,7 +135,7 @@ const EditQuiz: FC = () => {
                             <div className='top-buttons-container'>
                                 <div className='top-right-btn'>
 
-                                    <button onClick={() => moveToShowDemoQuiz()} className='show-quiz-btn'>
+                                    <button onClick={() => toggleDemoAndEdit()} className='show-quiz-btn'>
                                         <img className='show-quiz-svg' src={ShowQuizBtn} alt='show your preview quiz' />
                                         צפייה בחידון
                                     </button>
@@ -234,9 +235,16 @@ const EditQuiz: FC = () => {
                 </CacheProvider>
             </>
             :
-            <>
+            <div>
+            <button className='move-to-edit-button' onClick={() => toggleDemoAndEdit()}>
+                <img 
+                src={`${littleArrow}`}
+                alt= "arrow"
+                />
+                <p>חזרה לעריכה</p>
+            </button>                                           I
                 <DemoQuiz/>
-            </>
+            </div>
     );
 }
 
