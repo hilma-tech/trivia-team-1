@@ -4,12 +4,19 @@ import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
+import { postScore } from "../../common/functions/postScore";
+import { useParams } from "react-router-dom";
+import { usePlayerName } from "../../context/PlayerNameContext";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-console.log('correct answers3', correctAnswers);
+  const { playerName, setPlayerName } = usePlayerName();
+  const { userName, quizId } = useParams()
 
+  console.log('correct answers3', correctAnswers);
+  const score = Math.round(correctAnswers / numOfQuestions * 100)
+  postScore(quizId, playerName, score)
 
   return (
     <>
@@ -22,7 +29,7 @@ console.log('correct answers3', correctAnswers);
             variant="h3"
             sx={{ fontWeight: "bolder", paddingTop: "6vh" }}
           >
-            ענית נכון על {correctAnswers} שאלות. ציונך: {Math.round(correctAnswers / numOfQuestions * 100)}
+            ענית נכון על {correctAnswers} שאלות. ציונך: {score}
           </Typography>
           <Typography component="h2" className="computer-finish-game-inner-text body" variant="body1">
             שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
