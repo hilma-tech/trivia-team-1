@@ -88,7 +88,7 @@ const QuestionTemp = () => {
     postScore()
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate(`${userName}/quiz/${quizId}/finished-game-pc`);
+    if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
