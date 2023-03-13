@@ -1,25 +1,17 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import "../../style/questionTemp.scss";
 import { usePopContext } from "../popups/popContext";
-import { PopUpType } from "../popups/GenericPopParts";
-// import { CurrentQuestion } from "../../utils/Interfaces";
 import { useQuestionContext } from '../../context/AnswersContext'
 import { SummaryGameDesktop } from "../popups/SummaryGameDesktop";
 
 
-// interface DemoQuizProps {
-//     demoQuizToWatch: CurrentQuestion[];
-// }
 
 const DemoQuiz = () => {
-    const [quizTitle, setQuizTitle] = useState("")
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
-    // const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
 
     const [greenIndex, setGreenIndex] = useState<number | undefined>();
     const [redIndex, setRedIndex] = useState<number | undefined>();
-    const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
     const [score, setScore] = useState(0);
 
     const [changeFlexDir, setChangeFlexDir] = useState(true);
