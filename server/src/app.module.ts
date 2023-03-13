@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import config from './config';
 
 import { QuizModule } from './quiz/quiz.module';
 import { UserModule } from './user/user.module';
@@ -10,7 +11,8 @@ import { UserModule } from './user/user.module';
     QuizModule,
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}`,
-      isGlobal: true
+      isGlobal: true,
+      load: [config]
     }),
     TypeOrmModule.forRoot({
       username: process.env.DB_USERNAME,
