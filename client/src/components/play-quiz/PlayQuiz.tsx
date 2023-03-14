@@ -44,7 +44,6 @@ const QuestionTemp = () => {
   const navigate = useNavigate();
 
   const currentQuestion = questions[currentQuestionIndex];
-  console.log('currentQuestionIndex: ', currentQuestionIndex);
 
   const checkIfThereAreImg = () => {
     for (let i = 0; i < currentQuestion?.answers?.length; i++) {
@@ -58,10 +57,11 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
-    if (userName === undefined || quizId === undefined) throw new Error("username or quiz id can not be undefined");
-    setQuizId(Number(quizId));
-    setPlayerName(userName);
-
+    if (userName === undefined || quizId === undefined) window.history.back()
+    else {
+      setQuizId(Number(quizId));
+      setPlayerName(userName);
+    }
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
@@ -140,7 +140,6 @@ const QuestionTemp = () => {
   };
 
   const postScore = async () => {
-    console.log('correctAnswers: ', correctAnswers);
     const finalScore = Math.round(correctAnswers / questions.length * 100)
     axios.post(`/api/quiz/${quizId}/scores`, {
       score: finalScore,

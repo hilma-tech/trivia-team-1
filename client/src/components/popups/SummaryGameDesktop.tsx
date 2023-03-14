@@ -4,17 +4,16 @@ import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
   const {quizId, userName} = useParams();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if(quizId === undefined || userName === undefined || numOfQuestions === 0) navigate('/enterance-page')
+    if(!quizId|| !userName|| !numOfQuestions) window.history.back()
   }, [])
 
   return (
