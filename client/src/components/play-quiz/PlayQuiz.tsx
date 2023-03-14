@@ -54,7 +54,7 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
-    if (!userName || !quizId) throw new Error("username or quiz id can not be undefined");
+    if (!userName || !quizId) navigate('/error404');
     setQuizId(Number(quizId));
 
     setInfoFromServer();
