@@ -1,15 +1,17 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { Link, Typography } from '@mui/material';
-import { usePopContext } from './popContext';
-import { copyScoreBoardLink } from '../../common/functions/copyScoreBoardLink';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ShareIcon from '@mui/icons-material/Share';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import '../../style/popups.scss'
+import { copyScoreBoardLink } from '../../common/functions/copyScoreBoardLink';
+import { postScore } from '../../common/functions/postScore';
+import { usePopContext } from './popContext';
 import { usePlayerName } from '../../context/PlayerNameContext';
+import { useUser } from '../../context/UserContext';
+import '../../style/popups.scss'
 
 
 export enum PopUpType {
@@ -60,6 +62,7 @@ export const GenericPopTitle: FC<GenericPopTitleProps> = ({ type, numOfQuestions
 
 
 export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAnswers, numOfQuestions }) => {
+
     switch (type) {
         case PopUpType.SavedSuccessfully:
             return <Typography className='pop-content' variant='body1'>תוכלו לראות את החידונים במאגר החידונים שלכם ולשתף אותו לחברים</Typography>
@@ -82,12 +85,17 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers } = usePopContext();
+    const { user } = useUser()
     const { quizId, playerName } = usePlayerName();
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
+    const score = Math.round(correctAnswers / numOfQuestions * 100);
 
-
+    useEffect(() => {
+        if (type === PopUpType.FinishedQuiz) postScore(quizId, playerName, score)
+    }, [type])
+    
     const onClickGoToHomePage = () => {
         popHandleClose();
         navigate('/enterance-page')
@@ -101,7 +109,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.SavedSuccessfully:
         case PopUpType.FinishedQuiz:
             return <div>
-                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), playerName)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
+                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), user.username)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
                 <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
             </div>
 
