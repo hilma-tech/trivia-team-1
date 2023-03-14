@@ -4,40 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
-enum LinkTo {
-    MyQuizzes = 'myQuizzes',
-    CreateQuiz = 'createQuiz',
-    About = 'about',
-    Main = '/'
-}
-
-
 const ComputerNavbar: FC = () => {
 
     const navigate = useNavigate()
-
-    const onClick = (linkTo: LinkTo) => {
-        switch (linkTo) {
-            case LinkTo.MyQuizzes:
-                navigate('/my-quizzes')
-                break;
-            case LinkTo.CreateQuiz:
-                navigate('/edit-quiz')
-                break;
-            case LinkTo.About:
-                navigate('/about')
-                break;
-            case LinkTo.Main:
-                navigate('/')
-                break;
-        }
-    }
 
     return (
         <div className="navbar-container-computer">
             <div className="first-section">
                 <div className="btn-container">
-                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() => onClick(LinkTo.CreateQuiz)} >
+                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() =>  navigate('/edit-quiz')} >
                         יצירת חידון
                     </Button>
                 </div>
@@ -45,17 +20,17 @@ const ComputerNavbar: FC = () => {
                     <div className="vl"></div>
                 </div>
                 <div className="links-container">
-                    <Button onClick={() => onClick(LinkTo.MyQuizzes)} className="nav-quiz-btn">
+                    <Button onClick={() =>  navigate('/my-quizzes')} className="nav-quiz-btn">
                         החידונים שלי
                     </Button>
                     <div className="vl-container">
                         <div className="vl"></div>
                     </div>
-                    <Button className="nav-quiz-btn" onClick={() => onClick(LinkTo.About)}>אודות</Button>
+                    <Button className="nav-quiz-btn" onClick={() => navigate('/about')}>אודות</Button>
                 </div>
             </div>
-            <div className="navbar-container" onClick={() => onClick(LinkTo.Main)}>
-                <Typography className="navbar-logo-name" variant="h6">BANANA.games
+            <div className="navbar-container" onClick={() =>   navigate('/')}>
+                <Typography className="navbar-logo-name" variant="h6" component="span">BANANA.games
                 </Typography>
                 <div className="navbar-logo-container">
                     <img className="navbar-logo" src={navbarLogo} />
