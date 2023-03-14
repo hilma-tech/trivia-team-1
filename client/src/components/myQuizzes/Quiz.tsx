@@ -49,7 +49,6 @@ const Quiz: FC<QuizProps> = (props) => {
 
   const copyQuizLink = (id: number) => {
     setPopType(PopUpType.CopyQuiz);
-  //!copy to clipboard the right quiz link
     navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
     popHandleClickOpen();
   }
