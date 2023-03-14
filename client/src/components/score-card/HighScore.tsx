@@ -1,11 +1,13 @@
+import { FC } from "react";
 import { TableCell, TableRow } from "@mui/material";
-import { PropsObj } from "./interfaces";
+import { HighScoreProps } from "../../utils/Interfaces";
+import { formatDate } from "../../common/functions/formatDate";
 import gold from '../../images/crowns/gold.svg';
 import silver from '../../images/crowns/silver.svg';
 import bronze from '../../images/crowns/bronze.svg';
 
-function HighScore(props: PropsObj) {
-    let { player, score, date } = props.score;
+const HighScore: FC<HighScoreProps> = (props) => {
+    const { player, score, date } = props.score;
     const rank = props.index + 1
     let src;
     switch (rank) {
@@ -23,9 +25,9 @@ function HighScore(props: PropsObj) {
     return (
         <TableRow>
             <TableCell className="bold">{rank}</TableCell>
-            <TableCell>{<p>{player} <img src={src} alt={src} /></p>}</TableCell>
+            <TableCell>{<p>{player} <img src={src} alt='' /></p>}</TableCell>
             <TableCell className="bolder">{score}</TableCell>
-            <TableCell>{date}</TableCell>
+            <TableCell>{formatDate(date)}</TableCell>
         </TableRow>
     );
 }

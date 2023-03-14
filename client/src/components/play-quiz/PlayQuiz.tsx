@@ -36,7 +36,7 @@ const QuestionTemp = () => {
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
-  const { quizId } = useParams();
+  const { quizId, userName } = useParams();
 
   const navigate = useNavigate();
 
@@ -88,7 +88,7 @@ const QuestionTemp = () => {
     postScore()
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate("/:userName/quiz/:quizId/finished-game-pc");
+    if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
