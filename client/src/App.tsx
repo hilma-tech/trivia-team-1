@@ -69,7 +69,7 @@ function App() {
         </PopContextProvider>
             </PlayerNameProvider>
       </UserProvider>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

@@ -5,11 +5,14 @@ import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
+import { useParams } from "react-router";
+import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
   const {setPlayerName} = usePlayerName()
+  const {quizId, userName} = useParams()
 
 
   useEffect(()=>{
@@ -38,6 +41,7 @@ export const SummaryGameDesktop: FC = () => {
             sx={{ width: "15vw", height: "7vh", fontSize: "1.5rem", fontWeight: "bolder", marginTop: '4vh' }}
             variant="contained"
             color="primary"
+            onClick={() => copyScoreBoardLink(Number(quizId), userName)}
           >
             <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} />
             שתף תוצאה

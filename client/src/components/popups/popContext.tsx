@@ -10,6 +10,7 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
+import { usePlayerName } from "../../context/PlayerNameContext";
 
 interface PopContextInterface {
   setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
@@ -39,6 +40,9 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
+  
+  const { quizId, playerName } = usePlayerName();
+
   const isMobile = useMediaQuery('(max-width:600px)')
 
   function popHandleClickOpen() {
