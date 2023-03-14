@@ -14,7 +14,7 @@ const DemoQuiz = () => {
     const [redIndex, setRedIndex] = useState<number | undefined>();
     const [score, setScore] = useState(0);
 
-    const [changeFlexDir, setChangeFlexDir] = useState(true);
+    const [isThereImg, setIsThereImg] = useState(true);
     const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
     const { setQuestions, questions } = useQuestionContext();
     const [toggleEndGame, setToggleEndGame] = useState(true);
@@ -25,29 +25,28 @@ const DemoQuiz = () => {
     const checkIfThereAreImg = () => {
         for (let i = 0; i < currentQuestion?.answers?.length; i++) {
             if (currentQuestion?.answers[i]?.imageUrl) {
-                setChangeFlexDir(false);
+                setIsThereImg(false);
                 break;
             } else {
-                setChangeFlexDir(true);
+                setIsThereImg(true);
             }
         }
     };
-
-    useEffect(() => {
-        checkIfThereAreImg();
-    }, [currentQuestionIndex, currentQuestion]);
-
-    useEffect(() => {
-        calcWidthOfRec();
-    }, [quantityOfQuestion, currentQuestionIndex]);
-
-
 
     const calcWidthOfRec = () => {
         let divWidth = 68.75;
         let numToPushToState = (divWidth / quantityOfQuestion) * (currentQuestionIndex + 1);
         setScoreRecWidth(numToPushToState);
     };
+
+    const setCheckIfThereAreImgInChange = useMemo(() => {
+        return checkIfThereAreImg()
+    }, [currentQuestionIndex, currentQuestion])
+
+    const setCalcWidthOfRecInChange = useMemo(() => {
+        return calcWidthOfRec()
+    }, [quantityOfQuestion, currentQuestionIndex])
+
 
     const navigateToEndGameScreen = () => {
         setNumOfQuestions(quantityOfQuestion);
@@ -96,7 +95,7 @@ const DemoQuiz = () => {
                     <div key={`current-answer-${index}`}>
                         <button
                             className={
-                                changeFlexDir ? "ans-button-no-img" : "ans-button-with-img"
+                                isThereImg ? "ans-button-no-img" : "ans-button-with-img"
                             }
                             key={index}
                             style={{
@@ -112,7 +111,7 @@ const DemoQuiz = () => {
                             </div>
                             <img
                                 className="button-img"
-                                src={`${answer?.imageUrl}`}
+                                src={answer?.imageUrl}
                                 alt={answer.imageUrl ? "picture of answer" : ""}
                             />
                         </button>
@@ -141,13 +140,13 @@ const DemoQuiz = () => {
                             <div className="question-img-place">
                                 {currentQuestion?.imageUrl && <img
                                     className="question-img img"
-                                    src={`${currentQuestion?.imageUrl}`}
+                                    src={currentQuestion?.imageUrl}
                                     alt="pic of something that connected to the question"
                                 />}
                             </div>
-                            <h2 id="question-title">{currentQuestion?.title}</h2>
+                            <h2 className="question-title">{currentQuestion?.title}</h2>
                             <hr id="hr" />
-                            <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                            <div className={isThereImg ? "button-place-one" : "button-place-two"}>
                                 <AnswersMap />
                             </div>
                         </div>

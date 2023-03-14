@@ -122,12 +122,22 @@ const EditQuiz: FC = () => {
     }
 
     const toggleDemoAndEdit = () => {
-        console.log("toggleDemoAndEdit");
         setMoveToWatchDemoQuizBool(!moveToShowDemoQuizBool)
     }
 
     return (
-        moveToShowDemoQuizBool ?
+        !moveToShowDemoQuizBool ?
+            <div>
+                <button className='move-to-edit-button' onClick={() => toggleDemoAndEdit()}>
+                    <img
+                        src={`${littleArrow}`}
+                        alt="arrow"
+                    />
+                    <p>חזרה לעריכה</p>
+                </button>                                           I
+                <DemoQuiz />
+            </div>
+            :
             <>
                 <CacheProvider value={cacheRtl}>
                     <div className='form-container'>
@@ -234,17 +244,6 @@ const EditQuiz: FC = () => {
                     </div>
                 </CacheProvider>
             </>
-            :
-            <div>
-            <button className='move-to-edit-button' onClick={() => toggleDemoAndEdit()}>
-                <img 
-                src={`${littleArrow}`}
-                alt= "arrow"
-                />
-                <p>חזרה לעריכה</p>
-            </button>                                           I
-                <DemoQuiz/>
-            </div>
     );
 }
 

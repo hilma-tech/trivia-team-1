@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, { useState, useEffect, useMemo, useContext, useRef } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
 import "../../style/questionTemp.scss";
@@ -21,8 +21,12 @@ interface QuestionFromServer {
   answers: AnswerFromServer[];
 }
 
+// setTimeout !== number
+// NodeJS.Timeout
+// ReturnType<typeof setTimeout>
+
 const QuestionTemp = () => {
-  const {playerName, setPlayerName} = usePlayerName();
+  const { playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -43,6 +47,8 @@ const QuestionTemp = () => {
 
   const currentQuestion = questions[currentQuestionIndex];
 
+  let timer = useRef<null | NodeJS.Timeout>(null);
+
   const checkIfThereAreImg = () => {
     for (let i = 0; i < currentQuestion?.answers?.length; i++) {
       if (currentQuestion?.answers[i]?.imageUrl) {
@@ -58,6 +64,9 @@ const QuestionTemp = () => {
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
+    }
+    if (timer.current != null) {
+      clearTimeout(timer.current);
     }
   }, []);
 
@@ -93,7 +102,6 @@ const QuestionTemp = () => {
     })
   }
 
-
   const navigateToEndGameScreen = () => {
     postScore()
     setNumOfQuestions(quantityOfQuestion);
@@ -115,6 +123,7 @@ const QuestionTemp = () => {
     setGreenIndex(undefined);
   };
 
+
   const makeAnswerRed = (index: number) => {
     setRedIndex(index);
   };
@@ -131,11 +140,11 @@ const QuestionTemp = () => {
     }
     if (currentQuestion.answers[index].isCorrect) {
       setCorrectAnswers((prev) => prev + 1);
-      setTimeout(moveToNextQuestion, 500);
+      timer.current = setTimeout(moveToNextQuestion, 500);
     } else {
       makeCorrectAnswerGreen();
       makeAnswerRed(index);
-      setTimeout(moveToNextQuestion, 500);
+      timer.current = setTimeout(moveToNextQuestion, 500);
     }
   };
 
@@ -220,7 +229,7 @@ const QuestionTemp = () => {
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title">{currentQuestion?.title}</h2>
+                <h2 className="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
                   <AnswersMap />
@@ -251,7 +260,7 @@ const QuestionTemp = () => {
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title">{currentQuestion?.title}</h2>
+                <h2 className="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
                   <AnswersMap />
