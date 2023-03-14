@@ -33,7 +33,7 @@ const ComputerNavbar: FC = () => {
                 <Typography className="navbar-logo-name" variant="h6" component="span">BANANA.games
                 </Typography>
                 <div className="navbar-logo-container">
-                    <img className="navbar-logo" src={navbarLogo} />
+                    <img className="navbar-logo" src={navbarLogo} alt="banana logo"/>
                 </div>
             </div>
         </div>

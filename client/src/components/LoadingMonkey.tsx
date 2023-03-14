@@ -13,10 +13,10 @@ export default function LoadingMonkey() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if(window.innerWidth > 600){
-    const timeout = setTimeout(() => navigate("/error404"), AMOUNT_UNTIL_ERROR);
+    if (window.innerWidth > 600) {
+      const timeout = setTimeout(() => navigate("/error404"), AMOUNT_UNTIL_ERROR);
 
-    return () => clearTimeout(timeout);
+      return () => clearTimeout(timeout);
     }
   }, [])
 

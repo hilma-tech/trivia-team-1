@@ -6,17 +6,17 @@ import '../style/error404.scss'
 
 
 function Error() {
-    
-    return ( 
-    <div className="error-container">
-        <div className="error-div">
-            <span className='error-span'>4</span>
-            <img className='error-monkey' src={Monkey404} alt='monkey'/>
-            <span className='error-span'>4</span>
-            <Typography className='error-descrip' variant='h2'>עמוד זה אינו קיים</Typography >
+
+    return (
+        <div className="error-container">
+            <div className="error-div">
+                <span className='error-span'>4</span>
+                <img className='error-monkey' src={Monkey404} alt='monkey' />
+                <span className='error-span'>4</span>
+                <Typography className='error-descrip' variant='h2'>עמוד זה אינו קיים</Typography >
+            </div>
+
         </div>
-    
-    </div> 
     );
 }
 

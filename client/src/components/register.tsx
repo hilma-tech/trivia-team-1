@@ -18,16 +18,16 @@ function Register() {
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 
     useEffect(() => {
-        const timeout = setTimeout(() =>  setRegErrDiv("") , 4000)
+        const timeout = setTimeout(() => setRegErrDiv(""), 4000)
         return () => clearTimeout(timeout);
     }, [regErrDiv])
 
     async function handleRegisterSubmit(e: FormEvent) {
         try {
             e.preventDefault()
-            const {data} = await axios.post('http://localhost:8080/api/user/register',
-                   { username: username, password: password }
-                )
+            const { data } = await axios.post('http://localhost:8080/api/user/register',
+                { username: username, password: password }
+            )
             if (data) {
                 setRegErrDiv('')
                 alert("You signed up successfully!")

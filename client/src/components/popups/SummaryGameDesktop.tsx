@@ -1,23 +1,30 @@
 import { Button, Typography } from "@mui/material";
 import { FC, useEffect } from "react";
-import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
-import { usePlayerName } from "../../context/PlayerNameContext";
 import { useParams } from "react-router-dom";
+import { postScore } from "../../common/functions/postScore";
+import { usePlayerName } from "../../context/PlayerNameContext";
 import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
+import "../../style/popups.scss";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-  const {setPlayerName} = usePlayerName()
-  const {quizId, userName} = useParams()
+  const { quizId, userName } = useParams();
+  const { playerName, setPlayerName } = usePlayerName();
+  const score = Math.round(correctAnswers / numOfQuestions * 100)
+
+  useEffect(() => {
+    postScore(quizId, playerName, score)
+    if (!quizId || !userName || !numOfQuestions) window.history.back()
+  }, [])
 
 
-  useEffect(()=>{
+  useEffect(() => {
     setPlayerName("")
-  },[])
+  }, [])
 
 
 
@@ -32,18 +39,18 @@ export const SummaryGameDesktop: FC = () => {
             variant="h3"
             sx={{ fontWeight: "bolder", paddingTop: "6vh" }}
           >
-            ענית נכון על {correctAnswers} שאלות. ציונך: {Math.round(correctAnswers / numOfQuestions * 100)}
+            ענית נכון על {correctAnswers} שאלות. ציונך: {score}
           </Typography>
           <Typography component="h2" className="computer-finish-game-inner-text body" variant="body1">
             שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
           </Typography>
           <Button
-            sx={{ width: "15vw", height: "7vh", fontSize: "1.5rem", fontWeight: "bolder", marginTop: '4vh' }}
+            sx={{ width: "15vw", height: "7vh", fontSize: "1.2rem", fontWeight: "1000", marginTop: '4vh' }}
             variant="contained"
             color="primary"
             onClick={() => copyScoreBoardLink(Number(quizId), userName)}
           >
-            <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} />
+            <ShareIcon sx={{ fontSize: "1.8rem", marginLeft: "1vw" }} />
             שתף תוצאה
           </Button>
         </div>

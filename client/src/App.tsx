@@ -31,9 +31,9 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <UserProvider>
-            <PlayerNameProvider>
-        <PopContextProvider>
-          <QuestionsProvider>
+        <PlayerNameProvider>
+          <PopContextProvider>
+            <QuestionsProvider>
               <Navbar />
               <CssBaseline />
               <Background>
@@ -65,9 +65,9 @@ function App() {
                   </Route>
                 </Routes>
               </Background>
-          </QuestionsProvider>
-        </PopContextProvider>
-            </PlayerNameProvider>
+            </QuestionsProvider>
+          </PopContextProvider>
+        </PlayerNameProvider>
       </UserProvider>
     </ThemeProvider >
   );

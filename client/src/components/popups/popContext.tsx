@@ -29,7 +29,7 @@ interface PopContextInterface {
 
 interface PopProviderProps {
   children: ReactNode;
- 
+
 }
 
 const popContext = createContext<PopContextInterface | null>(null);
@@ -41,7 +41,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
-  
+
   const { quizId, playerName } = usePlayerName();
 
   const isMobile = useMediaQuery('(max-width:600px)')
@@ -79,7 +79,6 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
       <>
         {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
         <Dialog
-        // disableBackdropClick
           className="generic-pop-up-dialog"
           open={popOpen}
           onClose={popHandleClose}

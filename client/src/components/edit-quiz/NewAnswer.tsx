@@ -46,7 +46,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
                 if (index === answerIndex) {
                     return { ...answer, isCorrect: true }
                 }
-                return {...answer, isCorrect: false };
+                return { ...answer, isCorrect: false };
             });
             return { ...prev, answers: UpdateAnswers };
         });
