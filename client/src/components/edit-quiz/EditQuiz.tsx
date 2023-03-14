@@ -40,7 +40,7 @@ export const isFull = (question: CurrentQuestion) => {
 const EditQuiz: FC = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
     const { setQuestions, questions } = useQuestionContext();
-    const {savedQuiz, setSavedQuiz,setEditedQuizId} = usePopContext();
+    const { savedQuiz, setSavedQuiz, setEditedQuizId } = usePopContext();
     const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' });
@@ -54,7 +54,6 @@ const EditQuiz: FC = () => {
 
     useEffect(() => {
         if (isEditQuizPage) {
-            console.log(quizId , 'in use effect')
             axios.get(`http://localhost:8080/api/quiz/${quizId}`)
                 .then(function (response) {
                     setQuestionDetails(() => {
@@ -154,12 +153,11 @@ const EditQuiz: FC = () => {
 
 
     const saveQuiz = async () => {
-        if(questions.length <=4) return alert("Please add at least 5 questions")
+        if (questions.length <= 4) return alert("Please add at least 5 questions")
 
-        if(isEditQuizPage){
+        if (isEditQuizPage) {
             setPopType(PopUpType.SaveChanges);
             setEditedQuizId(quizId);
-            console.log('quizId: ', quizId);
             setSavedQuiz({
                 creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
                 title: questionDetails.title,
@@ -167,7 +165,7 @@ const EditQuiz: FC = () => {
                 questions: questions
             });
         }
-        else{
+        else {
             setPopType(PopUpType.AddQuiz);
             setSavedQuiz({
                 creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
@@ -177,6 +175,7 @@ const EditQuiz: FC = () => {
             });
         }
         popHandleClickOpen();
+
 
     }
 

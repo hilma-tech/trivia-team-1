@@ -1,45 +1,36 @@
-import { useEffect, useState } from "react";
-import {
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  useMediaQuery,
-} from "@mui/material";
+import { FC, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
-import { ScoreState } from "./interfaces";
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, } from "@mui/material";
 import HighScore from "./HighScore";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-import '../../style/scoreCard.scss';
 import LoadingMonkey from "../LoadingMonkey";
-import { useParams } from "react-router-dom";
+import { quizDataState } from "../../utils/Interfaces";
+import '../../style/scoreCard.scss';
 
-function ScoreCard() {
+const ScoreCard: FC = () => {
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
-    const [quizData, setQuizData] = useState<ScoreState>({ title: '', scores: [] });
     const [loading, setLoading] = useState<boolean>(true)
+    const [quizData, setQuizData] = useState<quizDataState>({ title: '', scores: [] });
     const { quizId } = useParams();
 
-  async function fetchQuizData() {
-    try {
-      const { data } = await axios.get(`/api/quiz/${quizId}/scores`);
-      setQuizData(data);
-      return data;
-    } catch (err) {
-      console.error(err);
+    async function fetchQuizData() {
+        try {
+            const { data } = await axios.get(`/api/quiz/${quizId}/scores`);
+            setQuizData(data);
+            return data;
+        } catch (err) {
+            console.error(err);
+        }
     }
-  }
 
     useEffect(() => {
         fetchQuizData();
-        const timeout = setTimeout(()=> setLoading(false), 2000);
+        const timeout = setTimeout(() => setLoading(false), 2000);
         return () => clearTimeout(timeout);
     }, [])
 
-    if(loading) return <LoadingMonkey/>;
+    if (loading) return <LoadingMonkey />;
     return (
         isLargeScreen ? <div className="comp-children-container score-card-container">
             <div className="score-card">

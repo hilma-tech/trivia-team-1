@@ -79,8 +79,6 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 
         case PopUpType.ExitGame:
             return <p></p>
-
-
     }
 }
 
@@ -98,17 +96,11 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         setDeletedQuizId(0);
     }
 
-    const handleCancelClick = () => {
-        console.log('here')
-        toggleApprovedPops(false);
-        popHandleClose();
-        // toggleApprovedPops(null);
-    }
-    async function saveNewQuiz(quiz:SaveQuiz | undefined){
+    async function saveNewQuiz(quiz: SaveQuiz | undefined) {
         axios.post('http://localhost:8080/api/quiz', quiz)
     }
 
-    async function editQuiz(quiz:SaveQuiz | undefined){
+    async function editQuiz(quiz: SaveQuiz | undefined) {
         axios.put(`http://localhost:8080/api/quiz/${editedQuizId}`, quiz)
     }
 
@@ -120,11 +112,12 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         }
         else if (type === PopUpType.SaveChanges) {
             editQuiz(savedQuiz)
+            navigate('/my-quizzes')
         }
         else if (type === PopUpType.AddQuiz) {
             saveNewQuiz(savedQuiz)
-
-        }   
+            navigate('/my-quizzes')
+        }
     }
 
     switch (type) {
