@@ -41,13 +41,13 @@ const ComputerNavbar:FC = () => {
                 <div className="vl"></div>
             </div>
             <div className="links-container">
-                <Button onClick={() => onClick(LinkTo.MyQuizzes)} className="nav-quiz-btn">
+                <Button onClick={() => onClick(LinkTo.MyQuizzes)} className="nav-quiz-link">
                     החידונים שלי
                 </Button>
                 <div className="vl-container">
                     <div className="vl"></div>
                 </div>
-                <Button className="nav-quiz-btn" onClick={() => onClick(LinkTo.About)}>אודות</Button>
+                <Button className="nav-quiz-link" onClick={() => onClick(LinkTo.About)}>אודות</Button>
             </div>
         </div>
         <div className="navbar-container">

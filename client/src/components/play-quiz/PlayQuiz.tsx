@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
-import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import { usePopContext } from "../popups/popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-import axios from "axios";
-import { postScore } from "../../common/functions/postScore";
+import "../../style/questionTemp.scss";
 
 interface AnswerFromServer {
   text: string;
@@ -23,7 +22,7 @@ interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const { playerName, setPlayerName } = usePlayerName();
+  const { setQuizId } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -37,7 +36,7 @@ const QuestionTemp = () => {
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
-  const { quizId, userName } = useParams();
+  const { userName, quizId } = useParams();
 
   const navigate = useNavigate();
 
@@ -55,6 +54,9 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    if (!userName || !quizId) throw new Error("username or quiz id can not be undefined");
+    setQuizId(Number(quizId));
+
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
@@ -86,35 +88,28 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
-    console.log('correctAnswers2', correctAnswers);
-
-    // postScore()
     setNumOfQuestions(quantityOfQuestion);
-    console.log('correctAnswers2', correctAnswers);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
-      // postScore(quizId, playerName, Math.round(correctAnswers / questions.length * 100))
     }
   };
 
   const checkIfCorrect = async (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
-      console.log('correct');
       setCorrectAnswers((prev) => prev + 1);
-      setTimeout(moveToNextQuestion, 500);
+      makeCorrectAnswerGreen();
+      setTimeout(moveToNextQuestion, 1000);
     } else {
       makeCorrectAnswerGreen();
       makeAnswerRed(index);
-      setTimeout(moveToNextQuestion, 500);
+      setTimeout(moveToNextQuestion, 1000);
     }
   };
 
   const moveToNextQuestion = () => {
-    console.log('correctAnswers1', correctAnswers);
-
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
     }
@@ -133,14 +128,6 @@ const QuestionTemp = () => {
     const correctAnswerIndex = currentQuestion?.answers?.findIndex((answer) => answer.isCorrect);
     setGreenIndex(correctAnswerIndex);
   };
-
-  // const postScore = async () => {
-  //   const finalScore = Math.round(correctAnswers / questions.length * 100)
-  //   axios.post(`/api/quiz/${quizId}/scores`, {
-  //     score: finalScore,
-  //     player: playerName
-  //   })
-  // }
 
   const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();

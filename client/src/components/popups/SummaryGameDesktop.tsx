@@ -1,22 +1,24 @@
-import { Button, Typography } from "@mui/material";
-import { FC } from "react";
-import "../../style/popups.scss";
+import { FC, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
+import { Button, Typography } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
 import { postScore } from "../../common/functions/postScore";
-import { useParams } from "react-router-dom";
 import { usePlayerName } from "../../context/PlayerNameContext";
+import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
+import "../../style/popups.scss";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-  const { playerName, setPlayerName } = usePlayerName();
-  const { userName, quizId } = useParams()
-
-  console.log('correct answers3', correctAnswers);
+  const { playerName, quizId } = usePlayerName();
+  const { userName } = useParams()
   const score = Math.round(correctAnswers / numOfQuestions * 100)
-  postScore(quizId, playerName, score)
+
+  useEffect(() => {
+    postScore(quizId, playerName, score)
+  }, [])
 
   return (
     <>
@@ -38,6 +40,7 @@ export const SummaryGameDesktop: FC = () => {
             sx={{ width: "15vw", height: "7vh", fontSize: "1.5rem", fontWeight: "bolder", marginTop: '4vh' }}
             variant="contained"
             color="primary"
+            onClick={() => copyScoreBoardLink(Number(quizId), userName)}
           >
             <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} />
             שתף תוצאה
