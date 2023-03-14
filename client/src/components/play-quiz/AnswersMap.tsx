@@ -25,7 +25,7 @@ interface AnswersMapProps {
             {!isLargeScreen && <div className="icon-div" onClick={e => resizeFull(e, index)}>
               <img src={fullScreenIcon} alt="fullScreenIcon" />
             </div>}
-            <div className={fullScreenIndex === index ? "question-img-div .full-screen" : "question-img-div"} onClick={e => {
+            <div className={fullScreenIndex === index ? "question-img-div full-screen" : "question-img-div"} onClick={e => {
               if (fullScreenIndex === index) resizeShrink(e, index);
             }}>
               <img className="button-img" src={`${answer?.imageUrl}`} alt="picture of answer" />
