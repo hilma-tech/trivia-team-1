@@ -31,8 +31,8 @@ export const SummaryGameDesktop: FC = () => {
             variant="contained"
             color="primary"
           >
-            <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} />
-            שתף תוצאה
+            <ShareIcon className="share-button" sx={{ fontSize: "1.7rem", marginLeft: "1vw" }} />
+           <span style={{fontSize:"1rem"}}> שתף תוצאה</span>
           </Button>
         </div>
       </div>

@@ -11,10 +11,12 @@ interface CheckForNameProps {
 
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   function moveToGameWithWithPlayerName() {
-    if (playerName === "") return alert('אנא מלא את הכינוי שלך')
+    if (playerName === "") setErrorMessage('אנא מלא את הכינוי שלך')
+    else
     navigate("./questions");
   }
 
@@ -38,6 +40,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
+          <div className="error-message">{errorMessage}</div>
         </div>
       </div>
     </main>
@@ -60,6 +63,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
+          <p className="error-message">{errorMessage}</p>
         </div>
       </div>
     </div>

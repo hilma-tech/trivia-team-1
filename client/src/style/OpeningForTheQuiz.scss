@@ -10,6 +10,13 @@ button {
     cursor: pointer
 }
 
+.error-message {
+    margin-top: 3vh;
+    font-size: 1.1rem;
+    color: red;
+    font-family: rubik;
+}
+
 .comp-children-container-question {
     padding-inline: 3rem;
 
@@ -42,12 +49,13 @@ button {
                 height: 1.6146vw;
                 /* UI Properties */
                 text-align: center;
-                font-size: 1.4vw;
+                // font-size: 1.4vw;
                 letter-spacing: 0px;
                 color: #0C3249;
                 opacity: 1;
                 margin-bottom: 1vw;
             }
+
         }
 
         input {
@@ -175,7 +183,8 @@ button {
     .comp-children-container-question {
         @include flexCenter();
         align-items: flex-start;
-        .question-main{
+
+        .question-main {
             @include flexCenter();
             flex-direction: column;
 
@@ -282,6 +291,7 @@ button {
                             margin-left: 4vw;
                             margin-top: 7vw;
                         }
+
                         img {
                             margin-left: 8vw;
                             width: 6vw;
@@ -293,6 +303,7 @@ button {
                         height: 10vh;
                         width: 80vw;
                         margin-top: 19vh;
+
                         p {
                             width: 75vw;
                             height: 10vh;
