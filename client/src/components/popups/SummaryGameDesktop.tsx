@@ -12,8 +12,8 @@ import "../../style/popups.scss";
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-  const { playerName, quizId } = usePlayerName();
-  const { userName } = useParams()
+  const { userName, quizId } = useParams()
+  const { playerName } = usePlayerName();
   const score = Math.round(correctAnswers / numOfQuestions * 100)
 
   useEffect(() => {

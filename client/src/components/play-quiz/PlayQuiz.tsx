@@ -97,7 +97,7 @@ const QuestionTemp = () => {
     }
   };
 
-  const checkIfCorrect = async (index: number) => {
+  const checkIfCorrect = (index: number) => {
     if (currentQuestion.answers[index].isCorrect) {
       setCorrectAnswers((prev) => prev + 1);
       makeCorrectAnswerGreen();
