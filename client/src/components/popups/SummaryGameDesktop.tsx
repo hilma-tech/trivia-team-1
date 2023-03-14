@@ -1,16 +1,21 @@
 import { Button, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-  const {quizId, userName} = useParams()
+  const {quizId, userName} = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if(quizId === undefined || userName === undefined || numOfQuestions === 0) navigate('/enterance-page')
+  }, [])
 
   return (
     <>

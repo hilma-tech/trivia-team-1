@@ -8,6 +8,8 @@ import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
 import "../../style/questionTemp.scss";
+import { Answer, CurrentQuestion } from "../../utils/Interfaces";
+import { AnswersMap } from "./AnswersMap";
 
 interface AnswerFromServer {
   text: string;
@@ -15,7 +17,7 @@ interface AnswerFromServer {
   isCorrect: boolean;
 }
 
-interface QuestionFromServer {
+export interface QuestionFromServer {
   title: string;
   imageUrl: string;
   answers: AnswerFromServer[];
@@ -28,6 +30,7 @@ const QuestionTemp = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
+  const [didClickOnce, toggleDidClickOnce] = useState<boolean>(false);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -41,6 +44,7 @@ const QuestionTemp = () => {
   const navigate = useNavigate();
 
   const currentQuestion = questions[currentQuestionIndex];
+  console.log('currentQuestionIndex: ', currentQuestionIndex);
 
   const checkIfThereAreImg = () => {
     for (let i = 0; i < currentQuestion?.answers?.length; i++) {
@@ -54,7 +58,7 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
-    if(userName === undefined || quizId === undefined) throw new Error("username or quiz id can not be undefined");
+    if (userName === undefined || quizId === undefined) throw new Error("username or quiz id can not be undefined");
     setQuizId(Number(quizId));
     setPlayerName(userName);
 
@@ -66,6 +70,7 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     checkIfThereAreImg();
+    toggleDidClickOnce(false);
   }, [currentQuestionIndex, currentQuestion]);
 
   useEffect(() => {
@@ -100,14 +105,17 @@ const QuestionTemp = () => {
   };
 
   const checkIfCorrect = (index: number) => {
-    if (currentQuestion.answers[index].isCorrect) {
-      setCorrectAnswers((prev) => prev + 1);
-      makeCorrectAnswerGreen();
-      setTimeout(moveToNextQuestion, 1000);
-    } else {
-      makeCorrectAnswerGreen();
-      makeAnswerRed(index);
-      setTimeout(moveToNextQuestion, 1000);
+    if (!didClickOnce) {
+      if (currentQuestion.answers[index].isCorrect) {
+        makeCorrectAnswerGreen();
+        setCorrectAnswers((prev) => prev + 1);
+        setTimeout(moveToNextQuestion, 1000);
+      } else {
+        makeCorrectAnswerGreen();
+        makeAnswerRed(index);
+        setTimeout(moveToNextQuestion, 1000);
+      }
+      toggleDidClickOnce(true)
     }
   };
 
@@ -149,56 +157,6 @@ const QuestionTemp = () => {
     setFullScreenIndex(undefined);
   };
 
-  const AnswersMap = () => {
-    return (
-      <>
-        {currentQuestion?.answers?.map((answer, index) => (
-          <div key={`current-answer-${index}`}>
-            <button
-              className={
-                changeFlexDir ? "ans-button-no-img" : "ans-button-with-img"
-              }
-              key={index}
-              style={{
-                backgroundColor:
-                  redIndex === index ? "#F28787" : greenIndex === index ? "#80DCC9" : "#0C32490A",
-              }}
-              onClick={() => {
-                checkIfCorrect(index);
-              }}
-            >
-              <div>
-                <p className="answer-button">{answer.text}</p>
-              </div>
-              {answer?.imageUrl ? (
-                <div className="image-container">
-                  {!isLargeScreen && (
-                    <div className="icon-div" onClick={(e) => resizeFull(e, index)}>
-                      <img src={fullScreenIcon} alt="fullScreenIcon" />
-                    </div>
-                  )}
-                  <div
-                    className={fullScreenIndex === index ? "question-img-div .full-screen" : "question-img-div"}
-                    onClick={(e) => {
-                      if (fullScreenIndex === index) resizeShrink(e, index);
-                    }}
-                  >
-                    <img
-                      className="button-img"
-                      src={`${answer?.imageUrl}`}
-                      alt="picture of answer"
-                    />
-                  </div>
-                </div>
-              ) : null}
-            </button>
-          </div>
-        ))
-        }
-      </>
-    );
-  };
-
   return (
     isLargeScreen ?
       <div className="question-temp comp-children-container">
@@ -224,7 +182,18 @@ const QuestionTemp = () => {
                 <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                  <AnswersMap />
+                  <AnswersMap
+                    currentQuestion={currentQuestion}
+                    changeFlexDir={changeFlexDir}
+                    redIndex={redIndex}
+                    greenIndex={greenIndex}
+                    checkIfCorrect={checkIfCorrect}
+                    isLargeScreen={isLargeScreen}
+                    resizeFull={resizeFull}
+                    fullScreenIcon={fullScreenIcon}
+                    fullScreenIndex={fullScreenIndex}
+                    resizeShrink={resizeShrink}
+                  />
                 </div>
               </div>
             </div>
@@ -255,7 +224,18 @@ const QuestionTemp = () => {
                 <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                  <AnswersMap />
+                  <AnswersMap
+                    currentQuestion={currentQuestion}
+                    changeFlexDir={changeFlexDir}
+                    redIndex={redIndex}
+                    greenIndex={greenIndex}
+                    checkIfCorrect={checkIfCorrect}
+                    isLargeScreen={isLargeScreen}
+                    resizeFull={resizeFull}
+                    fullScreenIcon={fullScreenIcon}
+                    fullScreenIndex={fullScreenIndex}
+                    resizeShrink={resizeShrink}
+                  />
                 </div>
               </div>
             </div>
