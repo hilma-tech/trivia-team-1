@@ -30,9 +30,9 @@ import NavigateUser from "./components/NavigateUser";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <UserProvider>
-        <PopContextProvider>
-          <QuestionsProvider>
+      <QuestionsProvider>
+        <UserProvider>
+          <PopContextProvider>
             <PlayerNameProvider>
               <Navbar />
               <CssBaseline />
@@ -69,9 +69,9 @@ function App() {
                 </Routes>
               </Background>
             </PlayerNameProvider>
-          </QuestionsProvider>
-        </PopContextProvider>
-      </UserProvider>
+          </PopContextProvider>
+        </UserProvider>
+      </QuestionsProvider>
     </ThemeProvider>
   );
 }

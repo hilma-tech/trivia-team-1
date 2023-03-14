@@ -8,6 +8,7 @@ import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../../style/popups.scss'
+import { useQuestionContext } from '../../context/AnswersContext';
 
 
 export enum PopUpType {
@@ -87,6 +88,9 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
 
+    const {filesUploader} = useQuestionContext()
+
+
     const onClickGoToHomePage = () => {
         popHandleClose();
         navigate('/entrance-page')
@@ -97,11 +101,19 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     }
 
     async function saveNewQuiz(quiz: SaveQuiz | undefined) {
-        axios.post('http://localhost:8080/api/quiz', quiz)
+        filesUploader.post('http://localhost:8080/api/quiz', quiz)
     }
 
     async function editQuiz(quiz: SaveQuiz | undefined) {
-        axios.put(`http://localhost:8080/api/quiz/${editedQuizId}`, quiz)
+        console.log('quiz: ', quiz);
+
+        filesUploader.put(`http://localhost:8080/api/quiz/${editedQuizId}`, {
+            ...quiz,
+            questions: quiz?.questions.map(({id, ...rest}) => ({
+                ...rest,
+                answers: rest?.answers.map(({id,...rest}: any) => rest)
+            }))
+        })
     }
 
     const confirmBtnClick = () => {

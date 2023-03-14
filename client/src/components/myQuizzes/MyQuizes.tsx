@@ -33,6 +33,8 @@ export interface Answer {
 
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
+    console.log('quizes: ', quizes);
+    
     const [loading, setLoading] = useState<boolean>(true);
     const { user } = useUser();
 

@@ -8,35 +8,47 @@ import '../../../style/EditQuiz.scss'
 import BootstrapTooltip from "../../tooltip/tooltip"
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../../context/imageFilesZus'
-import { ImageFile, PhonePage } from "../../../utils/Interfaces"
+import { imageFile, PhonePage } from "../../../utils/Interfaces"
+import {useQuestionContext}  from '../../../context/AnswersContext'
 
 interface QuizHeader {
     addQuiz: () => void;
-    questionDetails: {
+    quizDetails: {
         title: string;
         description: string;
-        imageUrl: string;
+        imageUrl: imageFile;
     };
     handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
     setPhonePage: React.Dispatch<React.SetStateAction<number>>;
     addQuestion: () => void;
     giveRightClasses: (originClassName: string) => string | undefined;
+    setQuizDetails: React.Dispatch<React.SetStateAction<{
+        title: string;
+        description: string;
+        imageUrl: {
+            id: number;
+            link: string;
+        };
+    }>>
 
 }
 
 
-export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion,  addQuiz, questionDetails, handleChange, setPhonePage }) => {
-    const filesUploader = useFiles();
+export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, addQuiz, quizDetails, handleChange, setPhonePage, setQuizDetails }) => {
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage);
-    const [quizImageObject, setQuizImageObject] = useState<ImageFile | null>(null);
+
+    const {filesUploader} = useQuestionContext()
 
     const handleImageFile = (value: UploadedFile) => {
-        setQuizImageObject(value)
-        questionDetails.imageUrl = value.link;
+        setQuizDetails(prevState => {
+            return { ...prevState, imageUrl: { id: value.id, link: value.link } }
+        })
+        console.log(value);
+        console.log(filesUploader);
     }
 
     const handleMovePage = () => {
-        if(questionDetails.title && questionDetails.description ) setPhonePage(PhonePage.secondPage);
+        if (quizDetails.title && quizDetails.description) setPhonePage(PhonePage.secondPage);
         else {
             alert('צריך למלא את הכותרת ואת התיאור על מנת להמשיך לעמוד הבא')
         }
@@ -49,28 +61,28 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
             <div className={giveRightClasses("phone-first-page-container")} >
                 <div className="input-container">
                     <Typography variant="body1">שם המשחק</Typography>
-                    <TextField id="quizInputName" value={questionDetails.title} onChange={handleChange} />
+                    <TextField id="quizInputName" value={quizDetails.title} onChange={handleChange} />
                 </div>
                 <div className="input-container">
                     <Typography variant="body1">תיאור</Typography>
-                    <TextField id="outlined-multiline-static" value={questionDetails.description} onChange={handleChange} />
+                    <TextField id="outlined-multiline-static" value={quizDetails.description} onChange={handleChange} />
                 </div>
                 <div>
                     <label className="select-image-container">
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לחידון">
-                            <img className={questionDetails.imageUrl ? 'quiz-image-in': 'select-image-quiz-svg' } src={questionDetails.imageUrl ? questionDetails.imageUrl  :  Selectimage} alt='add your quiz photo here' />
+                            <img className={quizDetails.imageUrl ? 'quiz-image-in' : 'select-image-quiz-svg'} src={quizDetails.imageUrl?.link ? quizDetails.imageUrl.link : Selectimage} alt='add your quiz photo here' />
                         </BootstrapTooltip>
-                        {!questionDetails.imageUrl && <Typography variant="body1">העלאת תמונה</Typography>}
+                        {!quizDetails.imageUrl && <Typography variant="body1">העלאת תמונה</Typography>}
                     </label>
-                    
+
                 </div>
 
                 <div className="button-container">
                     <Button onClick={handleMovePage} color="primary" variant="contained">המשך</Button>
                 </div>
             </div>
-            
+
         </div>)
         :
         (
@@ -98,13 +110,13 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                         <div className='quiz-header-image'>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לחידון">
-                                <img className='select-image-quiz-svg' src={questionDetails.imageUrl ? questionDetails.imageUrl  :  Selectimage} alt='add your quiz photo here' />
+                                <img className='select-image-quiz-svg' src={quizDetails.imageUrl?.link ? quizDetails.imageUrl.link : Selectimage} alt='add your quiz photo here' />
                             </BootstrapTooltip>
                         </div>
                     </label>
                     <div className='title-header-container'>
                         <BootstrapTooltip title="שינוי שם">
-                            <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />
+                            <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={quizDetails.title} onChange={handleChange} />
                         </BootstrapTooltip>
                         <BootstrapTooltip title="שינוי שם">
                             <TextField
@@ -112,7 +124,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                                 label="תיאור חידון"
                                 multiline
                                 rows={2}
-                                value={questionDetails.description}
+                                value={quizDetails.description}
                                 onChange={handleChange}
                             />
                         </BootstrapTooltip>

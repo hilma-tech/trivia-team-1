@@ -1,27 +1,34 @@
 import { Controller, Get, Body, Post, Param, Put, Delete, ParseIntPipe } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { QuizDTO, ScoreDTO } from './quiz.dto';
+import { FilesType, ImageService, UseFilesHandler, UploadedFiles } from '@hilma/fileshandler-server';
 
 
 @Controller('api/quiz')
 export class QuizController {
-    constructor(private readonly quizService: QuizService) {
+    constructor(
+        private readonly quizService: QuizService,
+
+    ) {
 
     }
+
     @Get("/:id")
     getQuiz(@Param('id', ParseIntPipe) id: number) {
         return this.quizService.getQuiz(id);
     }
 
-    @Post("/")
-    async addQuiz(@Body() quiz: QuizDTO) {
-        const newQuiz = await this.quizService.addQuiz(quiz);
-        return newQuiz.id
-    }
+    // @Post("/")
+    // @UseFilesHandler(20)
+    // async addQuiz(@Body() quiz: QuizDTO , @UploadedFiles() files: FilesType) {
+    //     const newQuiz = await this.quizService.addQuiz(quiz, files);
+    //     return newQuiz.id
+    // }
 
+    @UseFilesHandler()
     @Put("/:id")
-    editQuiz(@Param('id', ParseIntPipe) id: number, @Body() quiz: QuizDTO) {
-        this.quizService.editQuiz(id, quiz);
+    editQuiz(@UploadedFiles() files: FilesType, @Param('id') id: number, @Body() quiz: QuizDTO) {
+        this.quizService.editQuiz(id, quiz, files);
     }
 
     @Get("/:id/scores")

@@ -43,7 +43,7 @@ const EditQuiz: FC = () => {
     const { savedQuiz, setSavedQuiz, setEditedQuizId } = usePopContext();
     const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' });
+    const [quizDetails, setQuizDetails] = useState({ title: '', description: '', imageUrl: { id: -1, link: '' } });
     const { popHandleClickOpen, popHandleClose, setPopType, approvedPops } = usePopContext();
     const { quizId } = useParams();
     const location = useLocation();
@@ -56,7 +56,7 @@ const EditQuiz: FC = () => {
         if (isEditQuizPage) {
             axios.get(`http://localhost:8080/api/quiz/${quizId}`)
                 .then(function (response) {
-                    setQuestionDetails(() => {
+                    setQuizDetails(() => {
                         return { title: response.data.title, description: response.data.description, imageUrl: response.data.imageUrl }
                     })
                     const getQuestions = response.data.questions;
@@ -68,7 +68,7 @@ const EditQuiz: FC = () => {
 
         } else {
             setQuestions([
-                { id: 0, title: "", imageUrl: '', answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }] }
+                { id: 0, title: "", imageUrl: { id: -1, link: '' }, answers: [{ text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }, { text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }] }
             ]);
         }
     }, []);
@@ -88,7 +88,7 @@ const EditQuiz: FC = () => {
             setQuestions((prev) => {
                 if (isFull(prev[currentEditQuestion])) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { id: lastQuestion.id + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
+                    return [...prev, { id: lastQuestion.id + 1, answers: [{ text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }, { text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }], title: "" }]
                 } else {
                     setCurrentEditQuestion(prev[currentEditQuestion].id);
                     alert("Please add a correct answer")
@@ -124,7 +124,7 @@ const EditQuiz: FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
-        setQuestionDetails((prev) => {
+        setQuizDetails((prev) => {
             return id === "quizInputName" ? { ...prev, title: value } : { ...prev, description: value };
         });
 
@@ -154,24 +154,46 @@ const EditQuiz: FC = () => {
 
     const saveQuiz = async () => {
         if (questions.length <= 4) return alert("Please add at least 5 questions")
+        const newQuestions = questions.map((question) => {
+            const newAnswers = question.answers.map((answer) => {
+            if (answer.imageUrl) {
+                    return {...answer , imageUrl : answer.imageUrl.id}}
+                
+                else{
+                    return {text: answer.text, isCorrect: answer.isCorrect}
+                }
+            })
+            if (question.imageUrl) {
+                return { ...question, imageUrl: question.imageUrl.id, answers:newAnswers }
+            }
+            else {
+                return {id:question.id, title:question.title, answers:newAnswers};
+            }
+        }
+        )
+
+
+
 
         if (isEditQuizPage) {
             setPopType(PopUpType.SaveChanges);
             setEditedQuizId(quizId);
             setSavedQuiz({
                 creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
-                title: questionDetails.title,
-                description: questionDetails.description,
-                questions: questions
+                title: quizDetails.title,
+                imageUrl: quizDetails.imageUrl.id,
+                description: quizDetails.description,
+                questions: newQuestions
             });
         }
         else {
             setPopType(PopUpType.AddQuiz);
             setSavedQuiz({
                 creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
-                title: questionDetails.title,
-                description: questionDetails.description,
-                questions: questions
+                title: quizDetails.title,
+                imageUrl: quizDetails.imageUrl.id,
+                description: quizDetails.description,
+                questions: newQuestions
             });
         }
         popHandleClickOpen();
@@ -187,7 +209,7 @@ const EditQuiz: FC = () => {
                 {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                 <div className='form-container'>
                     <div className='quiz-header-wrapper'>
-                        <EditQuizHeader giveRightClasses={hideDivByPage} addQuestion={addQuestion} questionDetails={questionDetails} addQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
+                        <EditQuizHeader giveRightClasses={hideDivByPage} addQuestion={addQuestion} quizDetails={quizDetails} setQuizDetails={setQuizDetails} addQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
                     </div>
                     <div className={hideDivByPage('question-dnd-container')}>
                         <DragDropContext onDragEnd={handleDragEnd}>

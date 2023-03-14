@@ -4,13 +4,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 
-import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
+import { CurrentQuestion, imageFile } from "../../utils/Interfaces";
 import EditQuizMobileInput from "./edit-quiz-mobile/EditQuizMobileInput";
 import useImageFileUpload from '../../context/imageFilesZus'
 import BootstrapTooltip from "../tooltip/tooltip";
 
 import SelectImage from '../../images/image.svg'
 import TrashSvg from '../../images/trash.svg'
+import { useQuestionContext } from "../../context/AnswersContext";
 
 
 
@@ -27,7 +28,7 @@ interface NewAnswerProps {
 
 const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, currentQuestion, currentEditQuestion }) => {
 
-    const filesUploader = useFiles()
+    const {filesUploader} = useQuestionContext()
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
     const [uploadedImageUrl, setUploadedImageUrl] = useState(currentQuestion.answers[answerIndex].imageUrl);
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -61,15 +62,24 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
     }
 
-    const handleImageFile = (value: ImageFile) => {
-        addImageFile(value)
-        currentQuestion.answers[answerIndex].imageUrl = value.link;
+    const handleImageFile = (value: UploadedFile) => {
+        // currentQuestion.answers[answerIndex].imageUrl = value.link;
+        setCurrentQuestion(prev => {
+            const findCorrectAnswer = prev.answers.map((answer, index) => {
+                if (index === answerIndex) {
+                    return { ...answer, imageUrl: { id: value.id, link: value.link } }
+                }
+                return {...answer , imageUrl:{id:-1 , link:''}}
+            })
+
+            return { ...prev, answers: findCorrectAnswer }
+        })
     }
 
 
     return (
         isMobile ?
-            <EditQuizMobileInput answerIndex={answerIndex} currentQuestion={currentQuestion} uploadedImageUrl={uploadedImageUrl} filesUploader={filesUploader} handleImageFile={handleImageFile} deleteAnswer={deleteAnswer} handleCorrectAnswer={handleCorrectAnswer} handleChange={handleChange} setUploadedImageUrl={setUploadedImageUrl} />
+            <EditQuizMobileInput answerIndex={answerIndex} currentQuestion={currentQuestion}  filesUploader={filesUploader} handleImageFile={handleImageFile} deleteAnswer={deleteAnswer} handleCorrectAnswer={handleCorrectAnswer} handleChange={handleChange} setCurrentQuestion={setCurrentQuestion}  />
             :
             <div className="check-boxes-container" dir='rtl'>
                 <div className="check-box-svg">
@@ -95,7 +105,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
                     <label>
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לתשובה">
-                            <img src={currentQuestion.answers[answerIndex].imageUrl ? currentQuestion.answers[answerIndex].imageUrl : SelectImage} className="add-image-icon-placeholder" alt='add image to answer' />
+                            <img src={currentQuestion.answers[answerIndex].imageUrl?.link ? currentQuestion.answers[answerIndex].imageUrl?.link : SelectImage} className="add-image-icon-placeholder" alt='add image to answer' />
                         </BootstrapTooltip>
                     </label>
                 </IconButton>

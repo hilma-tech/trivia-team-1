@@ -9,9 +9,9 @@ export class QuizDTO {
     @IsNotEmpty()
     title: string;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    imageUrl?: string;
+    imageUrl?: number;
 
     @IsString()
     @IsNotEmpty()
@@ -28,9 +28,9 @@ export class QuestionDTO {
     @IsNotEmpty()
     title: string;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    imageUrl: string;
+    imageUrl: number;
 
     @IsArray()
     @ArrayMinSize(1)
@@ -44,9 +44,9 @@ export class AnswerDTO {
     @IsNotEmpty()
     text: string;
 
-    @IsString()
+    @IsNumber()
     @IsOptional()
-    imageUrl: string;
+    imageUrl: number;
 
     @IsBoolean()
     @IsNotEmpty()

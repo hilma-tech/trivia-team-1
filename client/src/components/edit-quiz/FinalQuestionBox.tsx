@@ -27,6 +27,8 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
     const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
 
 
+    const {filesUploader} = useQuestionContext()
+
     const { questions } = useQuestionContext()
 
     const openEditMode = (index: number) => {
@@ -48,7 +50,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
                 <div className='question-container'>
                     <p className='question-title-final-box'>{question.title}</p>
                     {question.hasOwnProperty("imageUrl") && question.imageUrl &&
-                        <img className='question-image-final-box' src={question.imageUrl} alt='question' />
+                        <img className='question-image-final-box' src={question.imageUrl.link} alt='question' />
                     }
                 </div>
                 <div className="answer-container">
@@ -58,8 +60,8 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
                                 {question.answers.map((answer, index) =>
                                     <div className='final-box-answer-and-image-container'>
                                         <FormControlLabel key={index} value={`answer${index + 1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>} checked={answer.isCorrect} />
-                                        {answer.imageUrl &&
-                                            <img className='answer-image' src={answer.imageUrl} alt='show image' />
+                                        {answer.imageUrl?.link &&
+                                            <img className='answer-image' src={answer.imageUrl.link} alt='show image' />
                                         }
                                     </div>
                                 )}

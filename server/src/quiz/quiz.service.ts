@@ -8,43 +8,55 @@ import { Answer } from 'src/entities/answer.entity';
 import { Score } from 'src/entities/score.entity';
 import { ScoreService } from 'src/score/score.service';
 import { QuizDTO } from './quiz.dto';
+import { FilesType, ImageService } from '@hilma/fileshandler-server';
 
 @Injectable()
 export class QuizService {
   constructor(
     @InjectRepository(Quiz)
     private readonly quizRepository: Repository<Quiz>,
-    private readonly scoreService: ScoreService
+    private readonly scoreService: ScoreService,
+    private readonly imageService: ImageService
   ) { }
 
-  async editQuiz(id: number, quiz: QuizDTO) {
+  async editQuiz(id: number, quiz: QuizDTO, files: FilesType) {
+    console.log('files: ', files);
     // await this.quizRepository.save({ id: id, ...quiz });
-    const { questions, creatorId, ...rest } = quiz;
+    const { questions, imageUrl, creatorId, ...rest } = quiz;
+    
+    const quizImageUrl = await this.imageService.save(files, imageUrl);
+    const newQuestions = await Promise.all(questions.map(async (question) => {
+      const questionImageUrl = await this.imageService.save(files, question.imageUrl);
+      const newAnswers = await Promise.all( question.answers.map(async (answer) => {
+        const answerImageUrl = await this.imageService.save(files, question.imageUrl);
+        return {
+          ...answer, imageUrl: answerImageUrl
+        }
+      }));
 
-    const newQuestions = questions.map((question) => {
       return {
         title: question.title,
-        answers: question.answers,
-        imageUrl: question.imageUrl
+        answers: newAnswers,
+        imageUrl: questionImageUrl
       }
-    })
+    }))
 
-    return this.quizRepository.save({id:id, questions: newQuestions, creator: { id: creatorId }, ...rest })
+    return this.quizRepository.save({ id: id, imageUrl: quizImageUrl, questions: newQuestions, creator: { id: creatorId }, ...rest })
   }
 
-  async addQuiz(quiz: QuizDTO) {
-    const { questions, creatorId, ...rest } = quiz;
+  // async addQuiz(quiz: QuizDTO, files: FilesType) {
+  //   const { questions, creatorId, ...rest } = quiz;
 
-    const newQuestions = questions.map((question) => {
-      return {
-        title: question.title,
-        answers: question.answers,
-        imageUrl: question.imageUrl
-      }
-    })
+  //   const newQuestions = questions.map((question) => {
+  //     return {
+  //       title: question.title,
+  //       answers: question.answers,
+  //       imageUrl: question.imageUrl
+  //     }
+  //   })
 
-    return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
-  }
+  //   return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
+  // }
 
   async getScores(id: number) {
     const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });

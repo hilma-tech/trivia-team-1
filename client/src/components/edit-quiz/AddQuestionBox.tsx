@@ -7,8 +7,8 @@ import TrashSvg from '../../images/trash.svg'
 import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion, ImageFile } from '../../utils/Interfaces'
-import { useQuestionContext } from "../../context/AnswersContext";
+import { CurrentQuestion, imageFile  } from '../../utils/Interfaces'
+import { useQuestionContext  } from "../../context/AnswersContext";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../context/imageFilesZus'
@@ -36,15 +36,13 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
     const questionsImagesArr = useImageFileUpload(store => store.questionImagesObject)
 
 
-
-    const filesUploader = useFiles()
-
+    const {filesUploader} = useQuestionContext()
 
     const addAnswer = () => {
         if (currentQuestion.answers.length < 4) {
             setCurrentQuestion(prevState => ({
                 ...prevState,
-                answers: [...prevState.answers, { text: '', isCorrect: false, imageUrl: '' }]
+                answers: [...prevState.answers, { text: '', isCorrect: false, imageUrl: {id: -1 , link: ''} }]
             }));
         }
     }
@@ -69,10 +67,11 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     }
 
-    const handleImageFile = (value: ImageFile) => {
-        value.questionIndex = currentEditQuestion
-        addImageFile(value)
-        currentQuestion.imageUrl = value.link;
+    const handleImageFile = (value: UploadedFile) => {
+        setCurrentQuestion(prevState => {
+            return {...prevState , imageUrl:{id:value.id , link:value.link} }
+        })
+        
     }
 
 
@@ -93,7 +92,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <label className="label-in-new-answer">
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : SelectImage} alt='add here to the question' />
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl.link : SelectImage} alt='add here to the question' />
                             </BootstrapTooltip>
                         </label>
 
@@ -137,7 +136,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <label>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl : SelectImage} alt='add image' />
+                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl?.link ? currentQuestion.imageUrl.link : SelectImage} alt='add image' />
                             </BootstrapTooltip>
                         </label>
 

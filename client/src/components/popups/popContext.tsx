@@ -10,7 +10,7 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
-import { CurrentQuestion } from "../../utils/Interfaces";
+import { CurrentQuestion, imageFile } from "../../utils/Interfaces";
 
 
 export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
@@ -39,11 +39,25 @@ interface PopProviderProps {
   children: ReactNode;
 }
 
+export interface ServerAnswer {
+  text: string;
+  isCorrect: boolean;
+  imageUrl?: number;
+}
+
+export interface ServerQuestion {
+  id: number;
+  title: string;
+  answers: ServerAnswer[];
+  imageUrl?: number;
+}
+
 export interface SaveQuiz {
   creatorId: string;
   title: string;
+  imageUrl?: number;
   description: string;
-  questions: CurrentQuestion[];
+  questions: ServerQuestion[];
 }
 const popContext = createContext<PopContextInterface | null>(null);
 
