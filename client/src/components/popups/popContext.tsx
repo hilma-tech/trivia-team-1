@@ -19,6 +19,7 @@ interface PopContextInterface {
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
+  popAlwaysClose: () => void;
   setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
   setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
@@ -53,6 +54,9 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     if (popType !== PopUpType.FinishedQuiz) setPopOpen(false);
   };
 
+  const popAlwaysClose = () => {
+    setPopOpen(false);
+  }
 
   const contextValue: PopContextInterface = {
     setPopOpen: setPopOpen,
@@ -66,6 +70,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     setNumOfQuestions: setNumOfQuestions,
     correctAnswers: correctAnswers,
     numOfQuestions: numOfQuestions,
+    popAlwaysClose: popAlwaysClose
   }
 
   return (

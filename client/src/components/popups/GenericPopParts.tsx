@@ -10,6 +10,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../../style/popups.scss'
 import { usePlayerName } from '../../context/PlayerNameContext';
+import { useUser } from '../../context/UserContext';
 
 
 export enum PopUpType {
@@ -82,14 +83,15 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, popAlwaysClose } = usePopContext();
     const { quizId, playerName } = usePlayerName();
+    const {user} = useUser()
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
 
 
     const onClickGoToHomePage = () => {
-        popHandleClose();
+        popAlwaysClose()
         navigate('/enterance-page')
     }
     async function deleteQuiz(id: number) {
@@ -101,7 +103,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.SavedSuccessfully:
         case PopUpType.FinishedQuiz:
             return <div>
-                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), playerName)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
+                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), user.username)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
                 <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
             </div>
 

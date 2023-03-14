@@ -5,7 +5,7 @@ import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
 
 export const SummaryGameDesktop: FC = () => {
