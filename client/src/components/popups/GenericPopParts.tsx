@@ -61,8 +61,8 @@ export const GenericPopTitle: FC<GenericPopTitleProps> = ({ type, numOfQuestions
 
 
 export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAnswers, numOfQuestions }) => {
-    const { playerName, setPlayerName } = usePlayerName();
-    const { userName, quizId } = useParams()
+    // const { playerName, setPlayerName } = usePlayerName();
+    // const { userName, quizId } = useParams()
     const score = Math.round(correctAnswers / numOfQuestions * 100)
 
     switch (type) {
@@ -70,7 +70,7 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
             return <Typography className='pop-content' variant='body1'>תוכלו לראות את החידונים במאגר החידונים שלכם ולשתף אותו לחברים</Typography>
 
         case PopUpType.FinishedQuiz:
-            postScore(quizId, playerName, score)
+            // postScore(quizId, playerName, score)
             return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {score}</Typography>
 
         case PopUpType.SaveChanges:
@@ -88,10 +88,13 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers } = usePopContext();
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
+    const { quizId } = useParams()
+    const { playerName, setPlayerName } = usePlayerName();
 
+    const score = Math.round(correctAnswers / numOfQuestions * 100)
     const onClickGoToHomePage = () => {
         popHandleClose();
         navigate('/entrance-page')
@@ -104,6 +107,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     switch (type) {
         case PopUpType.SavedSuccessfully:
         case PopUpType.FinishedQuiz:
+            postScore(quizId, playerName, score)
             return <div>
                 <Button className='boldButtonPopStyle' variant="contained" color="primary"><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
                 <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
