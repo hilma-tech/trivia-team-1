@@ -1,9 +1,9 @@
-import { FC, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import { Button, Typography } from "@mui/material";
+import { FC, useEffect } from "react";
+import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
+import { useParams } from "react-router-dom";
 import { postScore } from "../../common/functions/postScore";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { copyScoreBoardLink } from "../../common/functions/copyScoreBoardLink";
@@ -12,12 +12,13 @@ import "../../style/popups.scss";
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-  const { userName, quizId } = useParams()
-  const { playerName } = usePlayerName();
-  const score = Math.round(correctAnswers / numOfQuestions * 100)
+const {quizId, userName} = useParams();
+const { playerName } = usePlayerName();
+const score = Math.round(correctAnswers / numOfQuestions * 100)
 
-  useEffect(() => {
-    postScore(quizId, playerName, score)
+useEffect(() => {
+  postScore(quizId, playerName, score)
+  if(!quizId|| !userName|| !numOfQuestions) window.history.back()
   }, [])
 
   return (
