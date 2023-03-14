@@ -13,6 +13,18 @@ button {
 .comp-children-container-question {
     padding-inline: 3rem;
 
+    .opacity-on{
+        opacity: 0;
+    }
+
+    .main-OpeningForTheQuiz{
+        transition: opacity 1s ease-in-out;
+    }
+
+    .main-check-for-name-for-flex{
+        transition: opacity 1s ease-in-out;
+    }
+
     .main-check-for-name {
         display: flex;
         align-items: center;

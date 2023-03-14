@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import { usePlayerName } from "../../context/PlayerNameContext";
+import { useEffect } from "react";
 interface CheckForNameProps {
   quizTitle: string;
 }
@@ -15,12 +16,32 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   function moveToGameWithWithPlayerName() {
     if (playerName === "") return alert('אנא מלא את הכינוי שלך')
-    navigate("./questions");
+    makeOpacity();
+    setTimeout(() => {
+      navigate("./questions");
+    }, 1050)
   }
+
+  const [animationOpacity, setAnimationOpacity] = useState<boolean>(true);
+  const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimationOpacity(false)
+    }, 500)
+  }, [])
+
+  const makeOpacity = () => {
+    setAnimationOpacity(true);
+    setTimeout(() => {
+      setAnimationOpacity(false);
+    }, 1600)
+  }
+
 
   return isLargeScreen ? (
     <main>
-      <div className="main-check-for-name-for-flex">
+      <div className={animationClassExpression + "main-check-for-name-for-flex"}>
         <div className="main-check-for-name">
           <div className="title-and-paragraph">
             <h1 className="main-quiz-title">{quizTitle}</h1>

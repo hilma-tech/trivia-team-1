@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import triangleIcon from "../../icons/icon-awesome-play.png";
 import "../../style/OpeningForTheQuiz.scss";
 
@@ -16,13 +16,27 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({
   imgUrl,
   setChangeComponent,
 }) => {
+
   const moveToQuiz = () => {
-    setChangeComponent((prev) => !prev);
+    makeOpacity();
+    setTimeout(() => {
+      setChangeComponent((prev) => !prev);
+    }, 1050)
   };
+
+  const [animationOpacity, setAnimationOpacity] = useState<boolean>(false);
+  const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
+
+  const makeOpacity = () => {
+    setAnimationOpacity(true);
+    setTimeout(() => {
+      setAnimationOpacity(false);
+    }, 1600)
+  }
 
   return (
     <>
-      <div className="main-OpeningForTheQuiz">
+      <div className={animationClassExpression + 'main-OpeningForTheQuiz'}>
         <div className="main-paragraph-and-title">
           <h1 className="main-quiz-title">{quizTitle}</h1>
           <p className="main-paragraph">{paragraph}</p>
@@ -45,4 +59,4 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({
   );
 };
 
-export default OpeningParagraphTitle;
+export default OpeningParagraphTitle

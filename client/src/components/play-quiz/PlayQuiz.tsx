@@ -8,7 +8,6 @@ import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import "../../style/questionTemp.scss";
-import { Answer, CurrentQuestion } from "../../utils/Interfaces";
 import { AnswersMap } from "./AnswersMap";
 
 interface AnswerFromServer {
@@ -41,6 +40,7 @@ const QuestionTemp = () => {
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
   const { userName, quizId } = useParams();
+  const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
 
   const navigate = useNavigate();
 
@@ -58,6 +58,10 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    if (!userName || !quizId) window.history.back()
+    else {
+      setQuizId(Number(quizId));
+    }
     if (!userName || !quizId) window.history.back()
     else {
       setQuizId(Number(quizId));
@@ -174,14 +178,14 @@ const QuestionTemp = () => {
               <div className="question-place-child">
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className={ (animationOpacity ? 'opacity-on ' : '') + `question-img img`}
+                    className={ (animationClassExpression) + `question-img img`}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title" className={(animationOpacity ? 'opacity-on ' : '')}>{currentQuestion?.title}</h2>
-                <hr id="hr" className={(animationOpacity ? 'opacity-on ' : '')}/>
-                <div className={(animationOpacity ? 'opacity-on ' : '') + (changeFlexDir ? "button-place-one" : "button-place-two")}>
+                <h2 id="question-title" className={(animationClassExpression)}>{currentQuestion?.title}</h2>
+                <hr id="hr" className={(animationClassExpression)}/>
+                <div className={(animationClassExpression) + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
                     changeFlexDir={changeFlexDir}
@@ -216,14 +220,14 @@ const QuestionTemp = () => {
               <div className='question-place-child'>
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className={(animationOpacity ? 'opacity-on ' : '') + "question-img img"}
+                    className={animationClassExpression + "question-img img"}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2  id="question-title" className={(animationOpacity ? 'opacity-on ' : '')}>{currentQuestion?.title}</h2>
-                <hr id="hr" className={(animationOpacity ? 'opacity-on ' : '')} />
-                <div className={(animationOpacity ? 'opacity-on ' : '') + (changeFlexDir ? "button-place-one" : "button-place-two")}>
+                <h2  id="question-title" className={animationClassExpression}>{currentQuestion?.title}</h2>
+                <hr id="hr" className={animationClassExpression} />
+                <div className={animationClassExpression + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
                     changeFlexDir={changeFlexDir}
