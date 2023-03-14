@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
 enum LinkTo {
-    MyQuizzes= 'myQuizzes',
-    CreateQuiz= 'createQuiz',
-    About = 'about'
+    MyQuizzes= 1,
+    CreateQuiz= 2,
+    About = 3
 }
 
 
 const ComputerNavbar:FC = () => {
-
     const navigate = useNavigate()
     
     const handleClick = (linkTo: LinkTo) => {
