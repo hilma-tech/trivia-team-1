@@ -7,9 +7,9 @@ import { PlayerNameProvider, usePlayerName } from "../../context/PlayerNameConte
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import axios from "axios";
-import "../../style/questionTemp.scss";
 import { Answer, CurrentQuestion } from "../../utils/Interfaces";
 import { AnswersMap } from "./AnswersMap";
+import "../../style/questionTemp.scss";
 
 interface AnswerFromServer {
   text: string;
@@ -31,6 +31,7 @@ const QuestionTemp = () => {
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
   const [didClickOnce, toggleDidClickOnce] = useState<boolean>(false);
+  const [animationOpacity, setAnimationOpacity] = useState<boolean>(false);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -104,6 +105,15 @@ const QuestionTemp = () => {
     }
   };
 
+  const makeOpacity = () => {
+    setTimeout(() => {
+      setAnimationOpacity(true);
+    }, 500)
+    setTimeout(() => {
+      setAnimationOpacity(false);
+    }, 1200)
+  }
+
   const checkIfCorrect = (index: number) => {
     if (!didClickOnce) {
       if (currentQuestion.answers[index].isCorrect) {
@@ -115,7 +125,8 @@ const QuestionTemp = () => {
         makeAnswerRed(index);
         setTimeout(moveToNextQuestion, 1000);
       }
-      toggleDidClickOnce(true)
+      toggleDidClickOnce(true);
+      makeOpacity();
     }
   };
 
@@ -174,14 +185,14 @@ const QuestionTemp = () => {
               <div className="question-place-child">
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className="question-img img"
+                    className={ (animationOpacity ? 'opacity-on ' : '') + `question-img img`}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title">{currentQuestion?.title}</h2>
-                <hr id="hr" />
-                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                <h2 id="question-title" className={(animationOpacity ? 'opacity-on ' : '')}>{currentQuestion?.title}</h2>
+                <hr id="hr" className={(animationOpacity ? 'opacity-on ' : '')}/>
+                <div className={(animationOpacity ? 'opacity-on ' : '') + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
                     changeFlexDir={changeFlexDir}
@@ -211,19 +222,19 @@ const QuestionTemp = () => {
               </p>
             </div>
           </div>
-          <div className="question-content">
+          <div className= "question-content">
             <div className="question-place-father">
-              <div className="question-place-child">
+              <div className='question-place-child'>
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className="question-img img"
+                    className={(animationOpacity ? 'opacity-on ' : '') + "question-img img"}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title">{currentQuestion?.title}</h2>
-                <hr id="hr" />
-                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                <h2  id="question-title" className={(animationOpacity ? 'opacity-on ' : '')}>{currentQuestion?.title}</h2>
+                <hr id="hr" className={(animationOpacity ? 'opacity-on ' : '')} />
+                <div className={(animationOpacity ? 'opacity-on ' : '') + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
                     changeFlexDir={changeFlexDir}
