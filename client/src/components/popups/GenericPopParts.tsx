@@ -141,15 +141,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.ExitGame:
             return <div className='action-injected'>
                 <Link color="primary" className='action-link' onClick={popHandleClose}>ביטול</Link>
-                <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={() => {
-                    popHandleClose()
-                    if (type === PopUpType.DeleteQuiz) {
-                        deleteQuiz(deletedQuizId)
-                    }
-                    if(type === PopUpType.AddQuiz || type === PopUpType.SaveChanges) {
-                        confirmBtnClick()
-                    }
-                }}>אישור</Button>
+                <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={confirmBtnClick}>אישור</Button>
             </div>
 
         case PopUpType.CopyQuiz:

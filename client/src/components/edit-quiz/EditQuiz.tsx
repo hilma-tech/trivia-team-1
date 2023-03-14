@@ -54,6 +54,7 @@ const EditQuiz: FC = () => {
 
     useEffect(() => {
         if (isEditQuizPage) {
+            console.log(quizId , 'in use effect')
             axios.get(`http://localhost:8080/api/quiz/${quizId}`)
                 .then(function (response) {
                     setQuestionDetails(() => {
@@ -158,8 +159,9 @@ const EditQuiz: FC = () => {
         if(isEditQuizPage){
             setPopType(PopUpType.SaveChanges);
             setEditedQuizId(quizId);
+            console.log('quizId: ', quizId);
             setSavedQuiz({
-                creatorId: 11,
+                creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
                 title: questionDetails.title,
                 description: questionDetails.description,
                 questions: questions
@@ -168,7 +170,7 @@ const EditQuiz: FC = () => {
         else{
             setPopType(PopUpType.AddQuiz);
             setSavedQuiz({
-                creatorId: 11,
+                creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
                 title: questionDetails.title,
                 description: questionDetails.description,
                 questions: questions

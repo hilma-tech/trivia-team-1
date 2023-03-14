@@ -40,7 +40,7 @@ interface PopProviderProps {
 }
 
 export interface SaveQuiz {
-  creatorId: number;
+  creatorId: string;
   title: string;
   description: string;
   questions: CurrentQuestion[];

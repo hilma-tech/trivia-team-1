@@ -43,7 +43,7 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/error404" element={<Error />} />
                   <Route path="*" element={<Navigate replace to="/loading-page" />} />
-                  <Route path="/edit-quiz/:id" element={<EditQuiz />} />
+                  <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
                   <Route path="/add-quiz" element={<EditQuiz />} />
                   <Route path="/error404" element={<Error />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
