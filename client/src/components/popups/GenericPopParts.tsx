@@ -86,7 +86,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
 
     const onClickGoToHomePage = () => {
         popHandleClose();
-        navigate('/entrance-page')
+        navigate('/enterance-page')
     }
     async function deleteQuiz(id: number) {
         await axios.delete(`api/quiz/${id}`);

@@ -1,13 +1,21 @@
 import { Button, Typography } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import "../../style/popups.scss";
 import desktopMonkey from "../../images/popUps/desktopMonkey.svg";
 import ShareIcon from "@mui/icons-material/Share";
 import { usePopContext } from "./popContext";
+import { usePlayerName } from "../../context/PlayerNameContext";
 
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
+  const {setPlayerName} = usePlayerName()
+
+
+  useEffect(()=>{
+    setPlayerName("")
+  },[])
+
 
 
   return (

@@ -54,6 +54,10 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    setCorrectAnswers(0);
+    if (playerName===""){
+      window.history.back()
+    }
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
@@ -92,6 +96,7 @@ const QuestionTemp = () => {
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
+      setPlayerName("")
     }
   };
 

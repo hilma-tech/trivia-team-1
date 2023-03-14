@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, FC, useState, useContext, useEffect } from "react"
+import React, { createContext, ReactNode, FC, useState, useContext } from "react"
 import { useMediaQuery } from "@mui/material";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -27,6 +27,7 @@ interface PopContextInterface {
 
 interface PopProviderProps {
   children: ReactNode;
+ 
 }
 
 const popContext = createContext<PopContextInterface | null>(null);
@@ -38,7 +39,6 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
-
   const isMobile = useMediaQuery('(max-width:600px)')
 
   function popHandleClickOpen() {
@@ -46,8 +46,9 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   };
 
   const popHandleClose = () => {
-    setPopOpen(false);
+    if (popType !== PopUpType.FinishedQuiz) setPopOpen(false);
   };
+
 
   const contextValue: PopContextInterface = {
     setPopOpen: setPopOpen,
@@ -69,6 +70,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
       <>
         {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
         <Dialog
+        // disableBackdropClick
           className="generic-pop-up-dialog"
           open={popOpen}
           onClose={popHandleClose}
