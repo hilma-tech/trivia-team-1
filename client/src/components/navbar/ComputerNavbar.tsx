@@ -15,7 +15,7 @@ const ComputerNavbar:FC = () => {
 
     const navigate = useNavigate()
     
-    const onClick = (linkTo: LinkTo) => {
+    const handleClick = (linkTo: LinkTo) => {
         switch (linkTo){
             case LinkTo.MyQuizzes:
                 navigate('/my-quizzes')
@@ -33,7 +33,7 @@ const ComputerNavbar:FC = () => {
     <div className="navbar-container-computer">
         <div className="first-section">
             <div className="btn-container">
-                <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() => onClick(LinkTo.CreateQuiz)} > 
+                <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() => handleClick(LinkTo.CreateQuiz)} > 
                     יצירת חידון
                 </Button>
             </div>
@@ -41,13 +41,13 @@ const ComputerNavbar:FC = () => {
                 <div className="vl"></div>
             </div>
             <div className="links-container">
-                <Button onClick={() => onClick(LinkTo.MyQuizzes)} className="nav-quiz-link">
+                <Button onClick={() => handleClick(LinkTo.MyQuizzes)} className="nav-quiz-link">
                     החידונים שלי
                 </Button>
                 <div className="vl-container">
                     <div className="vl"></div>
                 </div>
-                <Button className="nav-quiz-link" onClick={() => onClick(LinkTo.About)}>אודות</Button>
+                <Button className="nav-quiz-link" onClick={() => handleClick(LinkTo.About)}>אודות</Button>
             </div>
         </div>
         <div className="navbar-container">
