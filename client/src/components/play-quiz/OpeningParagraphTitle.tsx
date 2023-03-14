@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { LaunchPageAnimation } from "../../common/functions/LaunchPageAnimation";
 import triangleIcon from "../../icons/icon-awesome-play.png";
 import "../../style/OpeningForTheQuiz.scss";
 
@@ -16,6 +17,13 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({
   imgUrl,
   setChangeComponent,
 }) => {
+  
+  const [animationOpacity, setAnimationOpacity] = useState<boolean>(true);
+  const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
+
+  useEffect(() => {
+    LaunchPageAnimation(setAnimationOpacity)
+  }, [])
 
   const moveToQuiz = () => {
     makeOpacity();
@@ -23,10 +31,7 @@ const OpeningParagraphTitle: React.FC<OpeningParagraphTitleProps> = ({
       setChangeComponent((prev) => !prev);
     }, 1050)
   };
-
-  const [animationOpacity, setAnimationOpacity] = useState<boolean>(false);
-  const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
-
+  
   const makeOpacity = () => {
     setAnimationOpacity(true);
     setTimeout(() => {

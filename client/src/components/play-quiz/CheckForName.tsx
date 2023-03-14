@@ -6,6 +6,7 @@ import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { useEffect } from "react";
+import { LaunchPageAnimation } from "../../common/functions/LaunchPageAnimation";
 interface CheckForNameProps {
   quizTitle: string;
 }
@@ -26,9 +27,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
 
   useEffect(() => {
-    setTimeout(() => {
-      setAnimationOpacity(false)
-    }, 500)
+    LaunchPageAnimation(setAnimationOpacity)
   }, [])
 
   const makeOpacity = () => {
@@ -64,7 +63,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
     </main>
   ) : (
     <div>
-      <div className="main-check-for-name-for-flex">
+      <div className={animationClassExpression + "main-check-for-name-for-flex"}>
         <div className="main-check-for-name">
           <div className="title-and-paragraph">
             <p>איך קוראים לכם?</p>

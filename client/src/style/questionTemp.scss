@@ -6,7 +6,6 @@
     justify-content: center;
 }
 
-
 .check-for-name-footer {
     position: absolute;
     left: -12vw;
@@ -16,7 +15,6 @@
         width: 30vw;
     }
 }
-
 
 .question-temp {
     overflow: hidden;
@@ -31,7 +29,6 @@
             background-color: #43776d;
             width: 10vw;
             height: 1vh;
-            transition: width 1s;
             transition: width 1s;
         }
 
@@ -130,6 +127,11 @@
                             border-color: transparent;
 
                         }
+                    }
+
+                    .ans-button-no-img,
+                    .ans-button-with-img {
+                        transition: background-color 0.5s ease-out;
                     }
 
                     .ans-button-no-img,
@@ -278,7 +280,6 @@
 
             .num-of-question-place {
 
-
                 width: 30%;
                 top: 11%;
                 // bottom: 5%;
@@ -355,36 +356,25 @@
                                 height: 17vh;
                                 margin: 0;
 
-
                                 .answer-button {
                                     p {
-                                        p {
-                                            background-color: transparent;
-                                            text-align: right;
-                                            top: -2%;
-                                            right: 10%;
-                                            font-size: 4vw;
-                                            letter-spacing: 0px;
-                                            color: #0C3249;
-                                            opacity: 1;
-                                        }
+                                        background-color: transparent;
+                                        text-align: right;
+                                        top: -2%;
+                                        right: 10%;
+                                        font-size: 4vw;
+                                        letter-spacing: 0px;
+                                        color: #0C3249;
+                                        opacity: 1;
                                     }
-
-                                    text-align: right;
-                                    top: -2%;
-                                    right: 17.5%;
-                                    font-size: 3.5vw;
-                                    letter-spacing: 0px;
-                                    color: #0C3249;
-                                    opacity: 1;
                                 }
-                            }
 
-                            .image-container {
-                                .icon-div {
-                                    position: absolute;
-                                    top: 20vw;
-                                    right: 24vw;
+                                .image-container {
+                                    .icon-div {
+                                        position: absolute;
+                                        top: 20vw;
+                                        right: 24vw;
+                                    }
                                 }
                             }
                         }

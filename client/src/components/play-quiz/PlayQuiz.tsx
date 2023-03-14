@@ -9,6 +9,7 @@ import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import "../../style/questionTemp.scss";
 import { AnswersMap } from "./AnswersMap";
+import { LaunchPageAnimation } from "../../common/functions/LaunchPageAnimation";
 
 interface AnswerFromServer {
   text: string;
@@ -30,7 +31,7 @@ const QuestionTemp = () => {
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
   const [didClickOnce, toggleDidClickOnce] = useState<boolean>(false);
-  const [animationOpacity, setAnimationOpacity] = useState<boolean>(false);
+  const [animationOpacity, setAnimationOpacity] = useState<boolean>(true);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -58,6 +59,8 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    LaunchPageAnimation(setAnimationOpacity);
+    
     if (!userName || !quizId) window.history.back()
     else {
       setQuizId(Number(quizId));
@@ -74,6 +77,7 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     checkIfThereAreImg();
+    toggleDidClickOnce(false);
     toggleDidClickOnce(false);
   }, [currentQuestionIndex, currentQuestion]);
 
