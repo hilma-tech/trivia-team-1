@@ -12,6 +12,7 @@ import MenuPic from "../../images/dottedMenu.png"
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { PopUpType } from "../popups/GenericPopParts";
+import { useUser } from "../../context/UserContext";
 
 
 interface QuizProps {
@@ -31,8 +32,8 @@ const Quiz: FC<QuizProps> = (props) => {
   const { setPopType, popHandleClickOpen, setDeletedQuizId, deletedQuizId } = usePopContext();
   const isMobile = useMediaQuery('(min-width:600px)');
   const navigate = useNavigate();
-  //TODO; temporary
-  const username = "ofek";
+ 
+
   const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const Quiz: FC<QuizProps> = (props) => {
 
   const copyQuizLink = (id: number) => {
     setPopType(PopUpType.CopyQuiz);
-    navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
+    navigator.clipboard.writeText(`http://localhost:3000/quiz/${id}`)
     popHandleClickOpen();
   }
 
@@ -58,7 +59,7 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const toScoreboard = (id: number) => {
-    navigate(`/${username}/quiz/${id}/scores`)
+    navigate(`/quiz/${id}/scores`)
 
   }
   const toEdit = (id: number) => {

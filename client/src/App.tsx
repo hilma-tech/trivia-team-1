@@ -45,7 +45,7 @@ function App() {
                   <Route path="*" element={<Navigate replace to="/loading-page" />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/:userName/quiz/:quizId" element={<Outlet />}>
+                  <Route path="/quiz/:quizId" element={<Outlet />}>
                     <Route index element={<OpeningForTheQuiz />} />
                     <Route path="scores" element={<ScoreCard />} />
                     <Route path="finished-game-pc" element={<SummaryGameDesktop />} />

@@ -140,8 +140,8 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.SavedSuccessfully:
         case PopUpType.FinishedQuiz:
             return <div>
-                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), user.username)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
-                <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
+                <Button className='bold-button-pop-style' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId))} ><ShareIcon className='icon-style' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
+                <Button className='bold-button-pop-style' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='icon-style' />עמוד הבית</Button>
             </div>
 
         case PopUpType.SaveChanges:
@@ -150,11 +150,11 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.ExitGame:
             return <div className='action-injected'>
                 <Link color="primary" className='action-link' onClick={popHandleClose}>ביטול</Link>
-                <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={confirmBtnClick}>אישור</Button>
+                <Button className={isMobile ? "rounded-button" : "bold-button-pop-style"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={confirmBtnClick}>אישור</Button>
             </div>
 
         case PopUpType.CopyQuiz:
-            return <Button className={isMobile ? "roundedButton" : "boldButtonPopStyle"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={popHandleClose}>אישור</Button>
+            return <Button className={isMobile ? "rounded-button" : "bold-button-pop-style"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={popHandleClose}>אישור</Button>
 
 
     }

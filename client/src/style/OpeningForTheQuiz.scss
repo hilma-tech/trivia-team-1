@@ -20,6 +20,18 @@ button {
 .comp-children-container-question {
     padding-inline: 3rem;
 
+    .opacity-on{
+        opacity: 0;
+    }
+
+    .main-opening-for-the-quiz{
+        transition: opacity 1s ease-in-out;
+    }
+
+    .main-check-for-name-for-flex{
+        transition: opacity 1s ease-in-out; 
+    }
+
     .main-check-for-name {
         display: flex;
         align-items: center;
@@ -107,7 +119,7 @@ button {
         }
     }
 
-    .main-OpeningForTheQuiz {
+    .main-opening-for-the-quiz {
         @include flexCenter();
         flex-direction: column;
         isolation: isolate;
@@ -188,7 +200,7 @@ button {
             @include flexCenter();
             flex-direction: column;
 
-            .main-OpeningForTheQuiz {
+            .main-opening-for-the-quiz {
                 width: 80vw;
                 height: 65vh;
 
