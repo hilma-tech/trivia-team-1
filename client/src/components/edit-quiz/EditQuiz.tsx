@@ -105,7 +105,7 @@ const EditQuiz: FC = () => {
 
     const saveQuiz = () => {
 
-        axios.post('http://localhost:8080/api/quiz', {
+        axios.post('/api/quiz', {
             creatorId: 1,
             title: questionDetails.title,
             description: questionDetails.description,

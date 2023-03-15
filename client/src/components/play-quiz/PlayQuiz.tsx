@@ -81,7 +81,7 @@ const QuestionTemp = () => {
   }, [quantityOfQuestion, currentQuestionIndex]);
 
   const setInfoFromServer = async () => {
-    const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
+    const response = await axios.get(`/api/quiz/${quizId}`);
     if (!response.data) return navigate("/error404");
     setQuestions(response.data.questions);
     setQuantityOfQuestion(response.data.questions.length);
@@ -103,7 +103,6 @@ const QuestionTemp = () => {
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
-      setPlayerName("")
     }
   };
 

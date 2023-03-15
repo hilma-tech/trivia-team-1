@@ -13,8 +13,9 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const navigate = useNavigate();
   const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
+
   function moveToGameWithWithPlayerName() {
-    if (playerName === "") return alert('אנא מלא את הכינוי שלך')
+    if (!playerName) return alert('אנא מלא את הכינוי שלך')
     navigate("./questions");
   }
 
@@ -27,7 +28,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>איך קוראים לכם?</p>
           </div>
           <input
-            onChange={(ev) => setPlayerName(ev.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             name="player-identification"
             type="text"
             placeholder="נא להזין שם"
@@ -49,7 +50,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>איך קוראים לכם?</p>
           </div>
           <input
-            onChange={(ev) => setPlayerName(ev.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             name="player-identification"
             type="text"
             placeholder="נא להזין שם"
