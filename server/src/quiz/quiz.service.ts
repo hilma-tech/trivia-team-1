@@ -20,7 +20,6 @@ export class QuizService {
   ) { }
 
   async saveQuiz(quiz: QuizDTO, files: FilesType, id?: number) {
-    console.log({ quiz, id })
     const { questions, imageUrl, creatorId, ...rest } = quiz;
 
     const newQuestions = await Promise.all(questions.map(async (question) => {

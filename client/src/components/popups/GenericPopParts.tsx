@@ -105,8 +105,6 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     }
 
     async function editQuiz(quiz: SaveQuiz | undefined) {
-        console.log("files: ", filesUploader.getUploadedFiles());
-        console.log(quiz , "quiz")
         filesUploader.put(`http://localhost:8080/api/quiz/${editedQuizId}`, quiz)
     }
 
