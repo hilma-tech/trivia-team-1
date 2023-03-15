@@ -164,7 +164,7 @@
                                 .icon-div {
                                     @include flexCenter();
                                     position: absolute;
-                                    top: 16vw;
+                                    top: 16vh;
                                     right: 28vw;
                                     background-color: #ffffffbf;
                                     border-radius: 50%;
@@ -220,9 +220,7 @@
                                 right: calc(50% - 32.5%);
                                 width: 65%;
                                 height: 20%;
-                                font-size: 0.7rem;
-                                /* UI Properties */
-                                background: #FFFFFFE0 0% 0% no-repeat padding-box;
+                                font-size: 0.8rem;
                                 border-radius: 7px;
                                 opacity: 1;
                                 @include flexCenter();
@@ -359,10 +357,14 @@
                                 }
 
                                 .image-container {
+                                    .question-img-div{
+                                        height: 75%;
+                                        margin-top: 10%;
+                                    }
                                     .icon-div {
                                         position: absolute;
-                                        top: 20vw;
-                                        right: 24vw;
+                                        top: 11vh;
+                                        right: 23vw;
                                     }
                                 }
                             }
