@@ -15,7 +15,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   function moveToGameWithWithPlayerName() {
-    if (playerName === "") setErrorMessage('אנא מלא את הכינוי שלך')
+    if (!playerName) setErrorMessage('אנא מלא את הכינוי שלך')
     else
     navigate("./questions");
   }
