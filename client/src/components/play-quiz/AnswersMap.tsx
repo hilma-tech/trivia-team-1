@@ -1,7 +1,10 @@
+import { parseImageSrc } from "../../common/functions/parseImageSrc";
+import { CurrentQuestion } from "../../utils/Interfaces";
 import { QuestionFromServer } from "./PlayQuiz";
+import SelectImage from '../../images/image.svg'
 
 interface AnswersMapProps {
-  currentQuestion: QuestionFromServer;
+  currentQuestion: QuestionFromServer | CurrentQuestion  ;
   changeFlexDir: boolean;
   redIndex: number | undefined;
   greenIndex: number | undefined;
@@ -22,7 +25,7 @@ export const AnswersMap: React.FC<AnswersMapProps> = ({ currentQuestion, changeF
         <div>
           <p className="answer-button">{answer.text}</p>
         </div>
-        {answer?.imageUrl ? <div className="image-container">
+        {parseImageSrc(answer?.imageUrl) !== SelectImage ? <div className="image-container">
           {!isLargeScreen && <div className="icon-div" onClick={e => resizeFull(e, index)}>
             <img src={fullScreenIcon} alt="full screen" />
           </div>}

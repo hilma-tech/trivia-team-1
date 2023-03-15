@@ -1,4 +1,4 @@
-import {  Button, TextField, Typography, useMediaQuery } from "@mui/material"
+import { Button, TextField, Typography, useMediaQuery } from "@mui/material"
 import { FC } from "react"
 import ShowQuizBtn from '../../../images/showquizzbtn.svg'
 import saveBtn from '../../../images/saveBtn.svg'
@@ -7,7 +7,7 @@ import '../../../style/EditQuiz.scss'
 import BootstrapTooltip from "../../tooltip/tooltip"
 import { FileInput, UploadedFile } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../../context/imageFilesZus'
-import {  PhonePage } from "../../../utils/Interfaces"
+import { PhonePage } from "../../../utils/Interfaces"
 import { useQuestionContext } from '../../../context/AnswersContext'
 import { QuizDetails } from "../EditQuiz"
 import { parseImageSrc } from '../../../common/functions/parseImageSrc';
@@ -19,11 +19,12 @@ interface QuizHeader {
     setPhonePage: React.Dispatch<React.SetStateAction<number>>;
     addQuestion: () => void;
     giveRightClasses: (originClassName: string) => string | undefined;
-    setQuizDetails: React.Dispatch<React.SetStateAction<QuizDetails>>
+    setQuizDetails: React.Dispatch<React.SetStateAction<QuizDetails>>;
+    toggleDemoAndEdit:  () => void
 
 }
 
-export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, addQuiz, quizDetails, handleChange, setPhonePage, setQuizDetails }) => {
+export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, addQuiz, quizDetails, handleChange, setPhonePage, setQuizDetails, toggleDemoAndEdit }) => {
 
     const { filesUploader } = useQuestionContext()
 
@@ -81,7 +82,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                     <div className='top-buttons-container'>
                         <div className='top-right-btn'>
 
-                            <button className='show-quiz-btn'>
+                            <button onClick={toggleDemoAndEdit} className='show-quiz-btn'>
                                 <img className='show-quiz-svg' src={ShowQuizBtn} alt='show your preview quiz' />
                                 צפייה בחידון
                             </button>

@@ -14,6 +14,7 @@ import Error from "./components/error404";
 import ScoreCard from "./components/score-card/ScoreCard";
 import QuestionsProvider from "./context/AnswersContext";
 import EditQuiz from "./components/edit-quiz/EditQuiz";
+import DemoQuiz from "./components/edit-quiz/DemoQuiz";
 import OpeningForTheQuiz from "./components/play-quiz/OpeningForTheQuiz";
 import QuestionTemp from "./components/play-quiz/PlayQuiz";
 import UserProvider from "./context/UserContext";

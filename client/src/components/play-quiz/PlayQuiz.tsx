@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, { useState, useEffect, useMemo, useContext, useRef } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import { usePopContext } from "../popups/popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
+
 import "../../style/questionTemp.scss";
 import { AnswersMap } from "./AnswersMap";
 import { launchPageAnimation } from "../../common/functions/LaunchPageAnimation";
@@ -36,6 +37,7 @@ const QuestionTemp = () => {
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
   const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
+  const [score, setScore] = useState(0);
 
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
@@ -46,6 +48,8 @@ const QuestionTemp = () => {
   const navigate = useNavigate();
 
   const currentQuestion = questions[currentQuestionIndex];
+
+  let timer = useRef<null | NodeJS.Timeout>(null);
 
   const checkIfThereAreImg = () => {
     for (let i = 0; i < currentQuestion?.answers?.length; i++) {
@@ -71,6 +75,9 @@ const QuestionTemp = () => {
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
+    }
+    if (timer.current != null) {
+      clearTimeout(timer.current);
     }
   }, []);
 
@@ -99,6 +106,14 @@ const QuestionTemp = () => {
     let numToPushToState = (divWidth / quantityOfQuestion) * (currentQuestionIndex + 1);
     setScoreRecWidth(numToPushToState);
   };
+
+  const postScore = async () => {
+    const finalScore = Math.round(correctAnswers / questions.length * 100)
+    axios.post(`/api/quiz/${quizId}/scores`, {
+      score: finalScore,
+      player: playerName
+    })
+  }
 
   const navigateToEndGameScreen = () => {
     setNumOfQuestions(quantityOfQuestion);
@@ -145,6 +160,7 @@ const QuestionTemp = () => {
     setRedIndex(undefined);
     setGreenIndex(undefined);
   };
+
 
   const makeAnswerRed = (index: number) => {
     setRedIndex(index);
