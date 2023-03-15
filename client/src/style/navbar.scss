@@ -13,20 +13,20 @@
     padding-right: 3vw;
     padding-left: 3vw;
 
-    .nav-quiz-link {
+    .nav-quiz-btn {
         height: 3.1vh;
         color: #0C3249;
     }
 
-    .nav-quiz-link-active {
+    .nav-quiz-btn-active {
         font-weight: 900;
         background-color: $green-color;
         color: white;
         height: 3.1vh;
     }
 
-    .nav-quiz-link:hover,
-    .nav-quiz-link-active:hover {
+    .nav-quiz-btn:hover,
+    .nav-quiz-btn-active:hover {
         background-color: $green-color;
         color: white;
     }
@@ -46,13 +46,11 @@
         align-items: center;
     }
 
-
     .links-container,
     .btn-container {
         display: flex;
         align-items: center;
     }
-
 
     .vl-container {
         height: 100%;

@@ -17,7 +17,7 @@ const ComputerNavbar: FC = () => {
         <div className="navbar-container-computer">
             <div className="first-section">
                 <div className="btn-container">
-                    <Button onClick={() => handleClick('/add-quiz')} className={activePage === '/add-quiz' ? 'nav-quiz-link-active' : 'nav-quiz-link'}>
+                    <Button onClick={() => handleClick('/add-quiz')} className={activePage === '/add-quiz' ? 'nav-quiz-btn-active' : 'nav-quiz-btn'}>
                         יצירת חידון
                     </Button>
                 </div>
@@ -25,13 +25,13 @@ const ComputerNavbar: FC = () => {
                     <div className="vl"></div>
                 </div>
                 <div className="links-container">
-                    <Button onClick={() => handleClick('/my-quizzes')} className={activePage === '/my-quizzes' ? 'nav-quiz-link-active' : 'nav-quiz-link'}>
+                    <Button onClick={() => handleClick('/my-quizzes')} className={activePage === '/my-quizzes' ? 'nav-quiz-btn-active' : 'nav-quiz-btn'}>
                         החידונים שלי
                     </Button>
                     <div className="vl-container">
                         <div className="vl"></div>
                     </div>
-                    <Button onClick={() => handleClick('/about')} className={activePage === '/about' ? 'nav-quiz-link-active' : 'nav-quiz-link'}>
+                    <Button onClick={() => handleClick('/about')} className={activePage === '/about' ? 'nav-quiz-btn-active' : 'nav-quiz-btn'}>
                         אודות
                     </Button>
                 </div>
