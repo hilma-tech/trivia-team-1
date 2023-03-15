@@ -9,7 +9,7 @@ import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import "../../style/questionTemp.scss";
 import { AnswersMap } from "./AnswersMap";
-import { LaunchPageAnimation } from "../../common/functions/LaunchPageAnimation";
+import { launchPageAnimation } from "../../common/functions/LaunchPageAnimation";
 
 interface AnswerFromServer {
   text: string;
@@ -59,7 +59,7 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
-    LaunchPageAnimation(setAnimationOpacity);
+    launchPageAnimation(setAnimationOpacity);
     setCorrectAnswers(0);
     if (playerName === "") {
       window.history.back()
@@ -187,7 +187,7 @@ const QuestionTemp = () => {
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title" className={(animationClassExpression)}>{currentQuestion?.title}</h2>
+                <h2 className={`question-title ${(animationClassExpression)}`}>{currentQuestion?.title}</h2>
                 <hr id="hr" className={(animationClassExpression)} />
                 <div className={(animationClassExpression) + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
@@ -229,7 +229,7 @@ const QuestionTemp = () => {
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 id="question-title" className={animationClassExpression}>{currentQuestion?.title}</h2>
+                <h2 className={`question-title ${(animationClassExpression)}`}>{currentQuestion?.title}</h2>
                 <hr id="hr" className={animationClassExpression} />
                 <div className={animationClassExpression + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap

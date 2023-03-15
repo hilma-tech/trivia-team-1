@@ -78,7 +78,6 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
                 const delta = window.history.length - initialHistoryLength;
                 const link = window.location.pathname; 
                 const quizRegex = /quiz\/\d+(\/.*)?$/;
-                console.log('window.location.pathname: ', window.location.pathname);
                 if (delta > 0 && link !== '/login' && link !== '/Register' && link !== '/about' && !quizRegex.test(link) && link !== '/loading-page'  ) {
                     window.history.go(-delta);
                     navigate("/");

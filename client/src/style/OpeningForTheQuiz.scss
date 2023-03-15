@@ -17,7 +17,7 @@ button {
         opacity: 0;
     }
 
-    .main-OpeningForTheQuiz{
+    .main-opening-for-the-quiz{
         transition: opacity 1s ease-in-out;
     }
 
@@ -111,7 +111,7 @@ button {
         }
     }
 
-    .main-OpeningForTheQuiz {
+    .main-opening-for-the-quiz {
         @include flexCenter();
         flex-direction: column;
         isolation: isolate;
@@ -192,7 +192,7 @@ button {
             @include flexCenter();
             flex-direction: column;
 
-            .main-OpeningForTheQuiz {
+            .main-opening-for-the-quiz {
                 width: 80vw;
                 height: 65vh;
 

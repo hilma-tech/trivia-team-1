@@ -6,7 +6,7 @@ import arrowRight from "../../icons/arrow-right.svg";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { useEffect } from "react";
-import { LaunchPageAnimation } from "../../common/functions/LaunchPageAnimation";
+import { launchPageAnimation } from "../../common/functions/LaunchPageAnimation";
 interface CheckForNameProps {
   quizTitle: string;
 }
@@ -27,7 +27,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
 
   useEffect(() => {
-    LaunchPageAnimation(setAnimationOpacity)
+    launchPageAnimation(setAnimationOpacity)
   }, [])
 
   const makeOpacity = () => {

@@ -83,7 +83,7 @@
                     }
 
                     .question-img,
-                    #question-title,
+                    .question-title,
                     .button-place-one,
                     .button-place-two,
                     #hr {
@@ -97,7 +97,7 @@
                         background-color: $green-color; //unique color
                     }
 
-                    #question-title {
+                    .question-title {
                         padding-right: 8%;
                         padding-top: 1.5vh;
                         width: 80%;
@@ -298,7 +298,7 @@
                     margin-top: 6rem;
                 }
 
-                .question-place-father #question-title {
+                .question-place-father .question-title {
                     margin-top: 5rem;
                     margin-bottom: 2rem;
                     width: 30rem;
@@ -337,7 +337,7 @@
                             }
                         }
 
-                        #question-title {
+                        .question-title {
                             font-size: 5vw;
                             padding-top: 0vh;
                             padding-right: 0%;
