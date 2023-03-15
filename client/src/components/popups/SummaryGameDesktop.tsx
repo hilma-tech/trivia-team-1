@@ -48,7 +48,7 @@ export const SummaryGameDesktop: FC = () => {
             sx={{ width: "15vw", height: "7vh", fontSize: "1.2rem", fontWeight: "1000", marginTop: '4vh' }}
             variant="contained"
             color="primary"
-            onClick={() => copyScoreBoardLink(Number(quizId), userName)}
+            onClick={() => copyScoreBoardLink(Number(quizId))}
           >
             <ShareIcon sx={{ fontSize: "1.8rem", marginLeft: "1vw" }} />
             שתף תוצאה

@@ -109,7 +109,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         case PopUpType.SavedSuccessfully:
         case PopUpType.FinishedQuiz:
             return <div>
-                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId), user.username)} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
+                <Button className='boldButtonPopStyle' variant="contained" color="primary" onClick={() => copyScoreBoardLink(Number(quizId))} ><ShareIcon className='iconStyle' />{type === 'finishedQuiz' ? "שתף תוצאה" : "שתף כעת"}</Button>
                 <Button className='boldButtonPopStyle' variant="contained" color="secondary" onClick={onClickGoToHomePage}><HomeIcon className='iconStyle' />עמוד הבית</Button>
             </div>
 
