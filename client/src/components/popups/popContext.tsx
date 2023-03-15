@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, FC, useState, useContext, useEffect } from "react"
+import React, { createContext, ReactNode, FC, useState, useContext } from "react"
 import { useMediaQuery } from "@mui/material";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -10,6 +10,7 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
+import { usePlayerName } from "../../context/PlayerNameContext";
 import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
 
 
@@ -26,6 +27,7 @@ interface PopContextInterface {
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
+  popAlwaysClose: () => void;
   setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   approvedPops: boolean | null;
   toggleApprovedPops: React.Dispatch<React.SetStateAction<boolean | null>>;
@@ -37,6 +39,7 @@ interface PopContextInterface {
 
 interface PopProviderProps {
   children: ReactNode;
+
 }
 
 export interface ServerAnswer {
@@ -72,6 +75,8 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
 
+  const { quizId, playerName } = usePlayerName();
+
   const isMobile = useMediaQuery('(max-width:600px)')
 
   function popHandleClickOpen() {
@@ -79,8 +84,12 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   };
 
   const popHandleClose = () => {
-    setPopOpen(false);
+    if (popType !== PopUpType.FinishedQuiz) setPopOpen(false);
   };
+
+  const popAlwaysClose = () => {
+    setPopOpen(false);
+  }
 
   const contextValue: PopContextInterface = {
     setEditedQuizId: setEditedQuizId,
@@ -100,6 +109,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     setNumOfQuestions: setNumOfQuestions,
     correctAnswers: correctAnswers,
     numOfQuestions: numOfQuestions,
+    popAlwaysClose: popAlwaysClose
   }
 
   return (
