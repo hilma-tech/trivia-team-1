@@ -11,7 +11,7 @@ import axios from 'axios';
 import AddQuestionBox from './AddQuestionBox';
 import FinalQuestionBox from './FinalQuestionBox';
 import { useQuestionContext } from '../../context/AnswersContext';
-import { CurrentQuestion, Question, PhonePage } from '../../utils/Interfaces';
+import { CurrentQuestion, Question, PhonePage, ImageFile } from '../../utils/Interfaces';
 import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
 import PhoneNavBar from '../navbar/PhoneNavbar';
 import { usePopContext } from '../popups/popContext'
@@ -29,12 +29,16 @@ const cacheRtl = createCache({
     stylisPlugins: [rtlPlugin],
 });
 
-
-
 export const isFull = (question: CurrentQuestion) => {
     return question.answers.some(answer => answer.isCorrect)
         && question.answers.every(answer => answer.text !== '')
         && question.title !== "";
+}
+
+export type QuizDetails = {
+    title: string;
+    description: string;
+    imageUrl: ImageFile;
 }
 
 const EditQuiz: FC = () => {
@@ -43,7 +47,7 @@ const EditQuiz: FC = () => {
     const { savedQuiz, setSavedQuiz, setEditedQuizId } = usePopContext();
     const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [quizDetails, setQuizDetails] = useState({ title: '', description: '', imageUrl: { id: -1, link: '' } });
+    const [quizDetails, setQuizDetails] = useState<QuizDetails>({ title: '', description: '', imageUrl: { id: -1, link: '' } });
     const { popHandleClickOpen, popHandleClose, setPopType, approvedPops } = usePopContext();
     const { quizId } = useParams();
     const location = useLocation();
@@ -156,45 +160,80 @@ const EditQuiz: FC = () => {
         if (questions.length <= 4) return alert("Please add at least 5 questions")
         const newQuestions = questions.map((question) => {
             const newAnswers = question.answers.map((answer) => {
-            if (answer.imageUrl) {
-                    return {...answer , imageUrl : answer.imageUrl.id}}
-                
-                else{
-                    return {text: answer.text, isCorrect: answer.isCorrect}
+                if (answer.imageUrl) {
+                    return {
+                        isCorrect: answer.isCorrect,
+                        imageUrl: typeof answer.imageUrl === "string" ? answer.imageUrl : answer.imageUrl.id,
+                        text: answer.text
+                    }
+                }
+                else {
+                    return { text: answer.text, isCorrect: answer.isCorrect }
                 }
             })
             if (question.imageUrl) {
-                return { ...question, imageUrl: question.imageUrl.id, answers:newAnswers }
+                return {
+                    title: question.title,
+                    imageUrl: typeof question.imageUrl === "string" ? question.imageUrl : question.imageUrl.id,
+                    answers: newAnswers
+                }
             }
             else {
-                return {id:question.id, title:question.title, answers:newAnswers};
+                return { title: question.title, answers: newAnswers };
             }
         }
         )
 
 
-
-
         if (isEditQuizPage) {
             setPopType(PopUpType.SaveChanges);
             setEditedQuizId(quizId);
-            setSavedQuiz({
-                creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
-                title: quizDetails.title,
-                imageUrl: quizDetails.imageUrl.id,
-                description: quizDetails.description,
-                questions: newQuestions
-            });
+            setSavedQuiz(() => {
+                if (quizDetails.imageUrl) {
+                    return {
+                        creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
+                        title: quizDetails.title,
+                        imageUrl: typeof quizDetails.imageUrl === "string" ? -1 : quizDetails.imageUrl.id,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+                }
+                else {
+                    return {
+                        creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
+                        title: quizDetails.title,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+
+                }
+            }
+            );
         }
         else {
             setPopType(PopUpType.AddQuiz);
-            setSavedQuiz({
-                creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
-                title: quizDetails.title,
-                imageUrl: quizDetails.imageUrl.id,
-                description: quizDetails.description,
-                questions: newQuestions
-            });
+            setSavedQuiz(() => {
+                if (quizDetails.imageUrl) {
+                    return {
+                        creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
+                        title: quizDetails.title,
+                        imageUrl: typeof quizDetails.imageUrl === "string" ? quizDetails.imageUrl : quizDetails.imageUrl.id,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+                }
+                else {
+                    return {
+                        creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
+                        title: quizDetails.title,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+
+                }
+
+            }
+            );
         }
         popHandleClickOpen();
 

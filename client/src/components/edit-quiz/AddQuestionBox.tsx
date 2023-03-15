@@ -7,7 +7,7 @@ import TrashSvg from '../../images/trash.svg'
 import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion, imageFile  } from '../../utils/Interfaces'
+import { CurrentQuestion, ImageFile  } from '../../utils/Interfaces'
 import { useQuestionContext  } from "../../context/AnswersContext";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
@@ -92,7 +92,11 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <label className="label-in-new-answer">
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img className='select-image-questions-svg' src={currentQuestion.imageUrl ? currentQuestion.imageUrl.link : SelectImage} alt='add here to the question' />
+                                <img 
+                                    className='select-image-questions-svg' 
+                                    src={currentQuestion.imageUrl ? currentQuestion.imageUrl.link : SelectImage} 
+                                    alt='add here to the question' 
+                                />
                             </BootstrapTooltip>
                         </label>
 

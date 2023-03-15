@@ -10,7 +10,7 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
-import { CurrentQuestion, imageFile } from "../../utils/Interfaces";
+import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
 
 
 export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
@@ -42,20 +42,19 @@ interface PopProviderProps {
 export interface ServerAnswer {
   text: string;
   isCorrect: boolean;
-  imageUrl?: number;
+  imageUrl?: number | string;
 }
 
 export interface ServerQuestion {
-  id: number;
   title: string;
   answers: ServerAnswer[];
-  imageUrl?: number;
+  imageUrl?: number | string;
 }
 
 export interface SaveQuiz {
   creatorId: string;
   title: string;
-  imageUrl?: number;
+  imageUrl?: number | string;
   description: string;
   questions: ServerQuestion[];
 }

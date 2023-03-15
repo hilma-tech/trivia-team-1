@@ -26,7 +26,8 @@ import { UserModule } from './user/user.module';
       entities: ["dist/**/*.entity{.ts,.js}", "node_modules/@hilma/auth-nest/**/*.entity{.ts,.js}"]
     }),
     FilesHandlerModule.register({
-      folder: "/home/hilma/hilma-ptojects/Trivia-Proj-1/server/uploads"
+      folder: "/home/hilma/hilma-ptojects/Trivia-Proj-1/server/uploads",
+      autoAllow: true
     })
   ],
 })

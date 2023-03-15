@@ -18,17 +18,17 @@ export class QuizController {
         return this.quizService.getQuiz(id);
     }
 
-    // @Post("/")
-    // @UseFilesHandler(20)
-    // async addQuiz(@Body() quiz: QuizDTO , @UploadedFiles() files: FilesType) {
-    //     const newQuiz = await this.quizService.addQuiz(quiz, files);
-    //     return newQuiz.id
-    // }
+    @Post("/")
+    @UseFilesHandler(20)
+    async addQuiz(@Body() quiz: QuizDTO , @UploadedFiles() files: FilesType) {
+        const newQuiz = await this.quizService.saveQuiz(quiz, files);
+        return newQuiz.id
+    }
 
     @UseFilesHandler()
     @Put("/:id")
     editQuiz(@UploadedFiles() files: FilesType, @Param('id') id: number, @Body() quiz: QuizDTO) {
-        this.quizService.editQuiz(id, quiz, files);
+        this.quizService.saveQuiz(quiz, files, id);
     }
 
     @Get("/:id/scores")

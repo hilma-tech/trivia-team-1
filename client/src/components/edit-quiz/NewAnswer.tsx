@@ -4,7 +4,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
 
-import { CurrentQuestion, imageFile } from "../../utils/Interfaces";
+import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
 import EditQuizMobileInput from "./edit-quiz-mobile/EditQuizMobileInput";
 import useImageFileUpload from '../../context/imageFilesZus'
 import BootstrapTooltip from "../tooltip/tooltip";

@@ -88,7 +88,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     const navigate = useNavigate();
     const isMobile = useMediaQuery('(max-width:600px)');
 
-    const {filesUploader} = useQuestionContext()
+    const { filesUploader } = useQuestionContext()
 
 
     const onClickGoToHomePage = () => {
@@ -107,13 +107,7 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     async function editQuiz(quiz: SaveQuiz | undefined) {
         console.log('quiz: ', quiz);
 
-        filesUploader.put(`http://localhost:8080/api/quiz/${editedQuizId}`, {
-            ...quiz,
-            questions: quiz?.questions.map(({id, ...rest}) => ({
-                ...rest,
-                answers: rest?.answers.map(({id,...rest}: any) => rest)
-            }))
-        })
+        filesUploader.put(`http://localhost:8080/api/quiz/${editedQuizId}`, quiz)
     }
 
     const confirmBtnClick = () => {

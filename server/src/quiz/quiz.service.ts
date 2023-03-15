@@ -19,44 +19,64 @@ export class QuizService {
     private readonly imageService: ImageService
   ) { }
 
-  async editQuiz(id: number, quiz: QuizDTO, files: FilesType) {
-    console.log('files: ', files);
-    // await this.quizRepository.save({ id: id, ...quiz });
+  async saveQuiz(quiz: QuizDTO, files: FilesType, id?: number) {
     const { questions, imageUrl, creatorId, ...rest } = quiz;
-    
-    const quizImageUrl = await this.imageService.save(files, imageUrl);
+
     const newQuestions = await Promise.all(questions.map(async (question) => {
-      const questionImageUrl = await this.imageService.save(files, question.imageUrl);
-      const newAnswers = await Promise.all( question.answers.map(async (answer) => {
-        const answerImageUrl = await this.imageService.save(files, question.imageUrl);
-        return {
-          ...answer, imageUrl: answerImageUrl
+      const newAnswers = await Promise.all(question.answers.map(async (answer) => {
+        if (typeof answer.imageUrl === "string") return {
+          ...answer,
+          imageUrl: answer.imageUrl
+        };
+
+        if (answer.imageUrl > -1) {
+          const answerImageUrl = await this.imageService.save(files, answer.imageUrl);
+          return {
+            ...answer, imageUrl: answerImageUrl
+          }
         }
+
+        return {
+          ...answer,
+          imageUrl: undefined
+        };
       }));
+
+      if (typeof question.imageUrl === "string") {
+        return {
+          title: question.title,
+          answers: newAnswers,
+          imageUrl: question.imageUrl
+        }
+      }
+
+      if (question.imageUrl > -1) {
+        const questionImageUrl = await this.imageService.save(files, question.imageUrl);
+        return {
+          title: question.title,
+          answers: newAnswers,
+          imageUrl: questionImageUrl
+        }
+      }
 
       return {
         title: question.title,
         answers: newAnswers,
-        imageUrl: questionImageUrl
+        imageUrl: undefined
       }
     }))
 
-    return this.quizRepository.save({ id: id, imageUrl: quizImageUrl, questions: newQuestions, creator: { id: creatorId }, ...rest })
+    if (typeof imageUrl === "string") {
+      return this.quizRepository.save({ id, questions: newQuestions, creator: { id: creatorId }, imageUrl, ...rest})
+    }
+
+    if (imageUrl > -1) {
+      const quizImageUrl = await this.imageService.save(files, imageUrl);
+      return this.quizRepository.save({ id, imageUrl: quizImageUrl, questions: newQuestions, creator: { id: creatorId }, ...rest })
+    }
+
+    return this.quizRepository.save({ id, questions: newQuestions, creator: { id: creatorId }, ...rest });
   }
-
-  // async addQuiz(quiz: QuizDTO, files: FilesType) {
-  //   const { questions, creatorId, ...rest } = quiz;
-
-  //   const newQuestions = questions.map((question) => {
-  //     return {
-  //       title: question.title,
-  //       answers: question.answers,
-  //       imageUrl: question.imageUrl
-  //     }
-  //   })
-
-  //   return this.quizRepository.save({ questions: newQuestions, creator: { id: creatorId }, ...rest })
-  // }
 
   async getScores(id: number) {
     const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
@@ -76,6 +96,7 @@ export class QuizService {
       where: { id: quizId },
       relations: { scores: true, questions: { answers: true } },
     });
+
     return quiz;
   }
 

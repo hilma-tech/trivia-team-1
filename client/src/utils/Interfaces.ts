@@ -1,14 +1,14 @@
 import { FilesUploader , UploadedFile } from "@hilma/fileshandler-client";
 
-export interface imageFile{
-    id:number;
+export type ImageFile = string | {
+    id: number;
     link: string;
 }
 
 export interface Answer {
     text: string;
     isCorrect: boolean;
-    imageUrl?: imageFile;
+    imageUrl?: ImageFile;
 }
 
 
@@ -16,13 +16,7 @@ export interface CurrentQuestion {
     id: number;
     title: string;
     answers: Answer[];
-    imageUrl?: imageFile ;
-}
-
-export interface ImageFile {
-    questionIndex?: number;
-    link: string,
-    id: number;
+    imageUrl?: ImageFile ;
 }
 
 export interface MobileInputType {
