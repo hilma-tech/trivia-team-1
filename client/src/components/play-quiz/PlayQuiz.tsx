@@ -64,7 +64,7 @@ const QuestionTemp = () => {
     if (playerName === "") {
       window.history.back()
     }
-    if (!userName || !quizId) window.history.back()
+    if (!quizId) window.history.back()
     else {
       setQuizId(Number(quizId));
     }
@@ -103,7 +103,7 @@ const QuestionTemp = () => {
   const navigateToEndGameScreen = () => {
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
+    if (isLargeScreen) navigate(`/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();

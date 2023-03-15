@@ -18,7 +18,7 @@ export const SummaryGameDesktop: FC = () => {
 
   useEffect(() => {
     postScore(quizId, playerName, score)
-    if (!quizId || !userName || !numOfQuestions) window.history.back()
+    if (!quizId || !numOfQuestions) window.history.back()
   }, [])
 
 
