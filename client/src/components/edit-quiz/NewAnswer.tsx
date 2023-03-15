@@ -30,8 +30,6 @@ interface NewAnswerProps {
 const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, currentQuestion, currentEditQuestion }) => {
 
     const { filesUploader } = useQuestionContext()
-    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
-    const [uploadedImageUrl, setUploadedImageUrl] = useState(currentQuestion.answers[answerIndex].imageUrl);
     const isMobile = useMediaQuery('(max-width:600px)');
 
 
@@ -64,7 +62,6 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
     }
 
     const handleImageFile = (value: UploadedFile) => {
-        // currentQuestion.answers[answerIndex].imageUrl = value.link;
         setCurrentQuestion(prev => {
             const findCorrectAnswer = prev.answers.map((answer, index) => {
                 if (index === answerIndex) {

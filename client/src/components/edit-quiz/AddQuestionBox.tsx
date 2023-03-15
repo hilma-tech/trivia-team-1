@@ -33,8 +33,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
 
     const { setQuestions, questions } = useQuestionContext()
     const isMobile = useMediaQuery('(max-width:600px)');
-    const addImageFile = useImageFileUpload(store => store.addQuestionImage)
-    const questionsImagesArr = useImageFileUpload(store => store.questionImagesObject)
+
 
 
     const { filesUploader } = useQuestionContext()
@@ -82,8 +81,8 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                 <div className="question-number-container">
                     <h1 className="question-number">שאלה {currentQuestion.id + 1}</h1>
                     <div className="copy-trash-imgs">
-                        <img className="icon" src={duplicateSvg} />
-                        <img className="icon" src={TrashSvg} />
+                        <img className="icon" src={duplicateSvg} alt='duplicate question' />
+                        <img className="icon" src={TrashSvg} alt='delete question' />
                     </div>
                 </div>
                 <div className="input-container second-page">
@@ -96,7 +95,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                                 <img
                                     className='select-image-questions-svg'
                                     src={parseImageSrc(currentQuestion.imageUrl)}
-                                    alt='add here to the question'
+                                    alt='add image to the question'
                                 />
                             </BootstrapTooltip>
                         </label>
@@ -127,7 +126,7 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
             :
 
             <div className='add-questions-container' >
-                <div className='darg-and-drop-container'>
+                <div className='drag-and-drop-container'>
                     <BootstrapTooltip title="שינוי סדר השאלות">
                         <img className='drag-and-drop-svg' src={dragAndDropSvg} alt='drag to switch question place' />
                     </BootstrapTooltip>
@@ -141,10 +140,10 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
                         <label>
                             <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                             <BootstrapTooltip title="הוספת תמונה לשאלה">
-                                <img 
-                                    className='select-image-questions-svg' 
-                                    src={parseImageSrc(currentQuestion.imageUrl)} 
-                                    alt='add image' 
+                                <img
+                                    className='select-image-questions-svg'
+                                    src={parseImageSrc(currentQuestion.imageUrl)}
+                                    alt='add image'
                                 />
                             </BootstrapTooltip>
                         </label>

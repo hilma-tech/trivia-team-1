@@ -32,8 +32,8 @@ function App() {
     <ThemeProvider theme={theme}>
       <QuestionsProvider>
         <UserProvider>
-          <PopContextProvider>
-            <PlayerNameProvider>
+          <PlayerNameProvider>
+            <PopContextProvider>
               <Navbar />
               <CssBaseline />
               <Background>
@@ -43,9 +43,6 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/error404" element={<Error />} />
                   <Route path="*" element={<Navigate replace to="/loading-page" />} />
-                  <Route path="/edit-quiz/:quizId" element={<EditQuiz />} />
-                  <Route path="/add-quiz" element={<EditQuiz />} />
-                  <Route path="/error404" element={<Error />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/:userName/quiz/:quizId" element={<Outlet />}>
@@ -58,7 +55,10 @@ function App() {
                   <Route path="/enterance-page" element={
                     <PrivateRoute componentName="User" component={<EntrancePage />} />
                   } />
-                  <Route path="/edit-quiz" element={
+                  <Route path="/add-quiz" element={
+                    <PrivateRoute componentName="User" component={<EditQuiz />} />
+                  } />
+                   <Route path="/edit-quiz/:quizId" element={
                     <PrivateRoute componentName="User" component={<EditQuiz />} />
                   } />
                   <Route path="/my-quizzes" element={<Outlet />}>
@@ -68,11 +68,11 @@ function App() {
                   </Route>
                 </Routes>
               </Background>
-            </PlayerNameProvider>
-          </PopContextProvider>
+            </PopContextProvider>
+          </PlayerNameProvider>
         </UserProvider>
       </QuestionsProvider>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 }
 

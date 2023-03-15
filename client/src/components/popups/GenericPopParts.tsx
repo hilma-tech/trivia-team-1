@@ -89,7 +89,7 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers, popAlwaysClose , toggleApprovedPops ,savedQuiz , editedQuizId} = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers, popAlwaysClose, toggleApprovedPops, savedQuiz, editedQuizId } = usePopContext();
     const { user } = useUser()
     const { quizId, playerName } = usePlayerName();
     const navigate = useNavigate();

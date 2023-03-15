@@ -81,7 +81,7 @@ export class QuizService {
   async getScores(id: number) {
     const res = await this.quizRepository.findOne({ where: { id }, relations: ['scores'] });
     let { title, scores } = res
-    scores.sort((a, b) => {//sort by score descending then by date ascending
+    scores.sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
       return a.date.getTime() - b.date.getTime();
     });
@@ -101,7 +101,6 @@ export class QuizService {
   }
 
 
-  //TODO: temporary
   addFakeData(userIds: string[], amount: number) {
     const quizzes = userIds.flatMap((id) => {
       const userQuizzes: DeepPartial<Quiz>[] = [];
@@ -113,7 +112,6 @@ export class QuizService {
     this.quizRepository.save(quizzes);
   }
 
-  //TODO: temporary
   randomQuiz(id: string) {
     const quiz: DeepPartial<Quiz> = {
       creator: { id },
@@ -137,7 +135,6 @@ export class QuizService {
     return quiz;
   }
 
-  //TODO: temporary
   randomQuestion() {
     const question: DeepPartial<Question> = {
       imageUrl: faker.image.imageUrl(640, 480, undefined, true),
@@ -155,7 +152,6 @@ export class QuizService {
   }
 
 
-  //TODO: temporary
   randomAnswer(isCorrect: boolean) {
     const answer: DeepPartial<Answer> = {
       imageUrl: faker.image.imageUrl(640, 480, undefined, true),
@@ -166,7 +162,6 @@ export class QuizService {
     return answer;
   }
 
-  //TODO: temporary
   randomScore() {
     const score: DeepPartial<Score> = {
       player: faker.name.fullName(),

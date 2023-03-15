@@ -58,10 +58,10 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                     <label className="select-image-container">
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לחידון">
-                            <img 
-                                className={quizDetails.imageUrl ? 'quiz-image-in' : 'select-image-quiz-svg'} 
-                                src={parseImageSrc(quizDetails.imageUrl)} 
-                                alt='add your quiz photo here' 
+                            <img
+                                className={quizDetails.imageUrl ? 'quiz-image-in' : 'select-image-quiz-svg'}
+                                src={parseImageSrc(quizDetails.imageUrl)}
+                                alt='add your quiz photo here'
                             />
                         </BootstrapTooltip>
                         {!quizDetails.imageUrl && <Typography variant="body1">העלאת תמונה</Typography>}

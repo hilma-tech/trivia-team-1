@@ -26,10 +26,6 @@ interface FinalBoxQuestionsProps {
 
 const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurrentEditQuestion, currentEditQuestion }) => {
 
-    const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
-
-
-    const { filesUploader } = useQuestionContext()
 
     const { questions } = useQuestionContext()
 
@@ -56,7 +52,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
                         src={parseImageSrc(question.imageUrl)}
                         alt='question'
                     />}
-                  
+
                     {/* <img
                         className='question-image-final-box'
                         src={parseImageSrc(question.imageUrl)}

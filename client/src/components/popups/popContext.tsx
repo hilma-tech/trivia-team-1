@@ -11,10 +11,7 @@ import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
 import { usePlayerName } from "../../context/PlayerNameContext";
-import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
 
-
-export type PopupsPropType = 'finishedQuiz' | 'savedSuccessfully' | 'copyQuiz' | 'deleteQuiz' | 'exitGame' | 'saveChanges'
 
 interface PopContextInterface {
   setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
