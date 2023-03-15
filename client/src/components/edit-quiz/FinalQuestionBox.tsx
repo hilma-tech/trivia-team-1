@@ -32,7 +32,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
         } else {
             alert("please finish edit that question");
         }
-       
+
     }
 
 

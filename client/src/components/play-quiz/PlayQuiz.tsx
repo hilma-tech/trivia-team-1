@@ -24,7 +24,7 @@ export interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const { setQuizId } = usePlayerName();
+  const { setQuizId, playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -57,6 +57,10 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    setCorrectAnswers(0);
+    if (playerName === "") {
+      window.history.back()
+    }
     if (!userName || !quizId) window.history.back()
     else {
       setQuizId(Number(quizId));
@@ -99,6 +103,7 @@ const QuestionTemp = () => {
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
+      setPlayerName("")
     }
   };
 

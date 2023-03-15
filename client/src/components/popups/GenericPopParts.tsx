@@ -85,7 +85,7 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers, popAlwaysClose } = usePopContext();
     const { user } = useUser()
     const { quizId, playerName } = usePlayerName();
     const navigate = useNavigate();
@@ -95,10 +95,10 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     useEffect(() => {
         if (type === PopUpType.FinishedQuiz) postScore(quizId, playerName, score)
     }, [type])
-    
+
     const onClickGoToHomePage = () => {
-        popHandleClose();
-        navigate('/entrance-page')
+        popAlwaysClose()
+        navigate('/enterance-page')
     }
     async function deleteQuiz(id: number) {
         await axios.delete(`api/quiz/${id}`);
