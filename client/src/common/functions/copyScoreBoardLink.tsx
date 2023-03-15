@@ -1,5 +1,5 @@
-export const copyScoreBoardLink = (quizId: number | undefined, userName: string | undefined) => {
-    if (!quizId || !userName) throw new Error('quizId or username is undefined');
-    navigator.clipboard.writeText(`localhost:3000/${userName}/quiz/${quizId}/scores`);
+export const copyScoreBoardLink = (quizId: number) => {
+    if (!quizId) throw new Error('quizId cannot be undefined');
+    navigator.clipboard.writeText(`localhost:3000/quiz/${quizId}/scores`);
     alert('הקישור ללוח התוצאות הועתק בהצלחה!');
 }

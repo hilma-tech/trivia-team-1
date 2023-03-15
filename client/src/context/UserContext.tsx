@@ -69,9 +69,16 @@ const UserProvider: FC<UserStoProviderProps> = ({ children }) => {
         // If username is empty or session expires, navigate to login page and go back to initial history length
         async function getUser() {
             const token = getAccessToken();
+            const myArray = [];
+            for(let i = 0; i <= 100; i++){
+                myArray.push(i);
+            }
+
             if (!token) {
                 const delta = window.history.length - initialHistoryLength;
-                if (delta > 0 && window.location.pathname !== '/login' && window.location.pathname !== '/Register' && window.location.pathname !== '/about') {
+                const link = window.location.pathname; 
+                const quizRegex = /quiz\/\d+(\/.*)?$/;
+                if (delta > 0 && link !== '/login' && link !== '/Register' && link !== '/about' && !quizRegex.test(link) && link !== '/loading-page'  ) {
                     window.history.go(-delta);
                     navigate("/");
                 }

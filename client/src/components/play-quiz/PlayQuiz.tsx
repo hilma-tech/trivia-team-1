@@ -9,8 +9,8 @@ import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 
 import "../../style/questionTemp.scss";
-import { Answer, CurrentQuestion } from "../../utils/Interfaces";
 import { AnswersMap } from "./AnswersMap";
+import { launchPageAnimation } from "../../common/functions/LaunchPageAnimation";
 
 interface AnswerFromServer {
   text: string;
@@ -32,6 +32,7 @@ const QuestionTemp = () => {
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
   const [didClickOnce, toggleDidClickOnce] = useState<boolean>(false);
+  const [animationOpacity, setAnimationOpacity] = useState<boolean>(true);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -42,6 +43,7 @@ const QuestionTemp = () => {
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
   const { userName, quizId } = useParams();
+  const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
 
   const navigate = useNavigate();
 
@@ -61,11 +63,12 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    launchPageAnimation(setAnimationOpacity);
     setCorrectAnswers(0);
     if (playerName === "") {
       window.history.back()
     }
-    if (!userName || !quizId) window.history.back()
+    if (!quizId) window.history.back()
     else {
       setQuizId(Number(quizId));
     }
@@ -81,6 +84,7 @@ const QuestionTemp = () => {
   useEffect(() => {
     checkIfThereAreImg();
     toggleDidClickOnce(false);
+    toggleDidClickOnce(false);
   }, [currentQuestionIndex, currentQuestion]);
 
   useEffect(() => {
@@ -88,7 +92,7 @@ const QuestionTemp = () => {
   }, [quantityOfQuestion, currentQuestionIndex]);
 
   const setInfoFromServer = async () => {
-    const response = await axios.get(`http://localhost:8080/api/quiz/${quizId}`);
+    const response = await axios.get(`/api/quiz/${quizId}`);
     if (!response.data) return navigate("/error404");
     setQuestions(response.data.questions);
     setQuantityOfQuestion(response.data.questions.length);
@@ -114,13 +118,21 @@ const QuestionTemp = () => {
   const navigateToEndGameScreen = () => {
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
-    if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
+    if (isLargeScreen) navigate(`/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
-      setPlayerName("")
     }
   };
+
+  const makeOpacity = () => {
+    setTimeout(() => {
+      setAnimationOpacity(true);
+    }, 500)
+    setTimeout(() => {
+      setAnimationOpacity(false);
+    }, 1200)
+  }
 
   const checkIfCorrect = (index: number) => {
     if (!didClickOnce) {
@@ -133,7 +145,8 @@ const QuestionTemp = () => {
         makeAnswerRed(index);
         setTimeout(moveToNextQuestion, 1000);
       }
-      toggleDidClickOnce(true)
+      toggleDidClickOnce(true);
+      makeOpacity();
     }
   };
 
@@ -184,14 +197,14 @@ const QuestionTemp = () => {
               <div className="question-place-child">
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className="question-img img"
+                    className={(animationClassExpression) + `question-img img`}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 className="question-title">{currentQuestion?.title}</h2>
-                <hr id="hr" />
-                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                <h2 className={`question-title ${(animationClassExpression)}`}>{currentQuestion?.title}</h2>
+                <hr id="hr" className={(animationClassExpression)} />
+                <div className={(animationClassExpression) + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
                     changeFlexDir={changeFlexDir}
@@ -223,17 +236,17 @@ const QuestionTemp = () => {
           </div>
           <div className="question-content">
             <div className="question-place-father">
-              <div className="question-place-child">
+              <div className='question-place-child'>
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className="question-img img"
+                    className={animationClassExpression + "question-img img"}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2 className="question-title">{currentQuestion?.title}</h2>
-                <hr id="hr" />
-                <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
+                <h2 className={`question-title ${(animationClassExpression)}`}>{currentQuestion?.title}</h2>
+                <hr id="hr" className={animationClassExpression} />
+                <div className={animationClassExpression + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
                     changeFlexDir={changeFlexDir}
