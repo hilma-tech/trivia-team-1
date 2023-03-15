@@ -41,14 +41,14 @@
 
 @keyframes tilt {
   0% {
-    transform: rotateZ(-7deg); // Tilt left
+    transform: rotateZ(-7deg);
   }
 
   50% {
-    transform: rotateZ(7deg); // Tilt right
+    transform: rotateZ(7deg);
   }
 
   100% {
-    transform: rotateZ(-7deg); // Tilt left
+    transform: rotateZ(-7deg);
   }
 }

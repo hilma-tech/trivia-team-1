@@ -25,7 +25,7 @@ function Register() {
     async function handleRegisterSubmit(e: FormEvent) {
         try {
             e.preventDefault()
-            const { data } = await axios.post('http://localhost:8080/api/user/register',
+            const { data } = await axios.post('/api/user/register',
                 { username: username, password: password }
             )
             if (data) {
