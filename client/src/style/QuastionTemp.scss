@@ -1,10 +1,12 @@
 .question-img-div {
     position: relative;
-    .full-screen{
+
+    .full-screen {
         width: 100vw;
         height: 100vh;
         background-color: #000000;
     }
+
     .icon-div {
         position: absolute;
         background-color: #FFFFFF;
@@ -179,7 +181,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  
+
 
     .main-question-temp {
         /* direction: rtl; */
@@ -222,5 +224,5 @@
         }
     }
 
-   
+
 }

@@ -7,21 +7,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     .computer-finish-game-inner-text {
         line-height: 8vh;
     }
 
-    .white-background-container{
+    .white-background-container {
         background-color: white;
         width: 60%;
-        height:70%;
+        height: 70%;
     }
 
-    .MuiTypography-root.computer-finish-game-inner-text.body{
+    .MuiTypography-root.computer-finish-game-inner-text.body {
         font-size: 3vh;
     }
 
-    .MuiTypography-root.computer-finish-game-inner-text.header{
+    .MuiTypography-root.computer-finish-game-inner-text.header {
         font-size: 4vh;
     }
 
@@ -38,13 +39,13 @@
 
 .MuiPaper-root.dialog-content-container {
     height: 60vh;
-    
+
     .dialog-content-text-style.MuiTypography-root {
         font-size: 1.3rem;
         height: 3vh;
         text-align: center;
     }
-    
+
 }
 
 .roundedButton {
@@ -62,7 +63,7 @@
         height: 3.6vh;
         font-size: 0.8rem;
     }
-    
+
     .action-injected .action-link {
         display: flex;
         justify-content: center;
@@ -71,10 +72,10 @@
         font-weight: bolder;
     }
 
-    .MuiDialogActions-root{
+    .MuiDialogActions-root {
         padding-bottom: 3vh;
     }
-    
+
     .MuiDialog-paper {
         background-color: white;
         box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
@@ -86,11 +87,11 @@
     }
 
 
-    .pop-title.MuiTypography-root{
+    .pop-title.MuiTypography-root {
         font-size: 1rem;
     }
 
-    .pop-content.MuiTypography-root{
+    .pop-content.MuiTypography-root {
         font-size: 0.8rem;
     }
 
@@ -109,11 +110,11 @@
 @media (max-width: 600px) {
 
 
-    .pop-title.MuiTypography-root{
+    .pop-title.MuiTypography-root {
         font-size: 1.3vh;
     }
 
-    .pop-content.MuiTypography-root{
+    .pop-content.MuiTypography-root {
         font-size: 0.9vh;
     }
 
@@ -130,12 +131,12 @@
             font-size: 1rem;
             font-weight: bolder;
         }
-        
+
         .MuiPaper-elevation {
             padding-top: 3vh;
             padding-bottom: 1vh;
         }
-        
+
         .MuiDialogActions-root.dialog-actions-container {
             justify-content: center;
         }
@@ -150,26 +151,26 @@
 
         .MuiDialogActions-root.dialog-actions-container {
             padding-bottom: 5vh;
-            
+
         }
-        
+
         .dialogActionsStyles {
             display: flex;
             justify-content: center;
             padding-bottom: 5vh;
         }
-        
+
         .dialog-content-text-style.MuiTypography-root {
             text-align: center;
         }
-        
+
         .MuiButtonBase-root.roundedButton {
             height: 4.2vh;
             font-size: 1.1rem;
             width: 30vw;
             border-radius: 80px;
         }
-        
+
         .containerStyle {
             background-color: white;
             box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;
@@ -193,20 +194,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-             width: 30vw;
-            }
-    
-
-            .alert-dialog-title.MuiTypography-root {
-                text-align: center;
-            }
-        }
-        #confetti {
-            z-index: 500;
-            width: 100vw;
-            top: -60vh;
-            height: 200vh;
-            position: absolute
+            width: 30vw;
         }
 
+
+        .alert-dialog-title.MuiTypography-root {
+            text-align: center;
+        }
     }
+
+    #confetti {
+        z-index: 500;
+        width: 100vw;
+        top: -60vh;
+        height: 200vh;
+        position: absolute
+    }
+}

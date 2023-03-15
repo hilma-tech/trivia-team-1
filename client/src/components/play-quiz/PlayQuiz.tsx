@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useMemo, useContext } from "react";
 import { useMediaQuery } from "@mui/material";
 import fullScreenIcon from "../../images/question-template/full-screen.png";
-import "../../style/questionTemp.scss";
 import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 import { usePopContext } from "../popups/popContext";
 import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
-import axios from "axios";
+import "../../style/questionTemp.scss";
+import { Answer, CurrentQuestion } from "../../utils/Interfaces";
+import { AnswersMap } from "./AnswersMap";
 
 interface AnswerFromServer {
   text: string;
@@ -15,19 +17,20 @@ interface AnswerFromServer {
   isCorrect: boolean;
 }
 
-interface QuestionFromServer {
+export interface QuestionFromServer {
   title: string;
   imageUrl: string;
   answers: AnswerFromServer[];
 }
 
 const QuestionTemp = () => {
-  const {playerName, setPlayerName} = usePlayerName();
+  const { setQuizId, playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [scoreRecWidth, setScoreRecWidth] = useState(30);
   const [quantityOfQuestion, setQuantityOfQuestion] = useState(10);
+  const [didClickOnce, toggleDidClickOnce] = useState<boolean>(false);
 
   const [greenIndex, setGreenIndex] = useState<number | undefined>();
   const [redIndex, setRedIndex] = useState<number | undefined>();
@@ -36,7 +39,7 @@ const QuestionTemp = () => {
   const [changeFlexDir, setChangeFlexDir] = useState(true);
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
   const { popHandleClickOpen, setPopType, setNumOfQuestions, setCorrectAnswers, correctAnswers } = usePopContext();
-  const { quizId, userName } = useParams();
+  const { userName, quizId } = useParams();
 
   const navigate = useNavigate();
 
@@ -54,6 +57,14 @@ const QuestionTemp = () => {
   };
 
   useEffect(() => {
+    setCorrectAnswers(0);
+    if (playerName === "") {
+      window.history.back()
+    }
+    if (!userName || !quizId) window.history.back()
+    else {
+      setQuizId(Number(quizId));
+    }
     setInfoFromServer();
     if (!questions) {
       navigateToEndGameScreen();
@@ -62,6 +73,7 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     checkIfThereAreImg();
+    toggleDidClickOnce(false);
   }, [currentQuestionIndex, currentQuestion]);
 
   useEffect(() => {
@@ -85,24 +97,28 @@ const QuestionTemp = () => {
   };
 
   const navigateToEndGameScreen = () => {
-    postScore()
     setNumOfQuestions(quantityOfQuestion);
     setCurrentQuestionIndex(0);
     if (isLargeScreen) navigate(`/${userName}/quiz/${quizId}/finished-game-pc`);
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
+      setPlayerName("")
     }
   };
 
   const checkIfCorrect = (index: number) => {
-    if (currentQuestion.answers[index].isCorrect) {
-      setCorrectAnswers((prev) => prev + 1);
-      setTimeout(moveToNextQuestion, 500);
-    } else {
-      makeCorrectAnswerGreen();
-      makeAnswerRed(index);
-      setTimeout(moveToNextQuestion, 500);
+    if (!didClickOnce) {
+      if (currentQuestion.answers[index].isCorrect) {
+        makeCorrectAnswerGreen();
+        setCorrectAnswers((prev) => prev + 1);
+        setTimeout(moveToNextQuestion, 1000);
+      } else {
+        makeCorrectAnswerGreen();
+        makeAnswerRed(index);
+        setTimeout(moveToNextQuestion, 1000);
+      }
+      toggleDidClickOnce(true)
     }
   };
 
@@ -126,14 +142,6 @@ const QuestionTemp = () => {
     setGreenIndex(correctAnswerIndex);
   };
 
-  const postScore = async () => {
-    const finalScore = Math.round(correctAnswers / questions.length * 100)
-    axios.post(`/api/quiz/${quizId}/scores`, {
-      score: finalScore,
-      player: playerName
-    })
-  }
-
   const resizeFull = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();
     setFullScreenIndex(index);
@@ -141,56 +149,6 @@ const QuestionTemp = () => {
   const resizeShrink = (e: React.MouseEvent<HTMLDivElement>, index: number): void => {
     e.stopPropagation();
     setFullScreenIndex(undefined);
-  };
-
-  const AnswersMap = () => {
-    return (
-      <>
-        {currentQuestion?.answers?.map((answer, index) => (
-          <div key={`current-answer-${index}`}>
-            <button
-              className={
-                changeFlexDir ? "ans-button-no-img" : "ans-button-with-img"
-              }
-              key={index}
-              style={{
-                backgroundColor:
-                  redIndex === index ? "#F28787" : greenIndex === index ? "#80DCC9" : "#0C32490A",
-              }}
-              onClick={() => {
-                checkIfCorrect(index);
-              }}
-            >
-              <div>
-                <p className="answer-button">{answer.text}</p>
-              </div>
-              {answer?.imageUrl ? (
-                <div className="image-container">
-                  {!isLargeScreen && (
-                    <div className="icon-div" onClick={(e) => resizeFull(e, index)}>
-                      <img src={fullScreenIcon} alt="fullScreenIcon" />
-                    </div>
-                  )}
-                  <div
-                    className={fullScreenIndex === index ? "question-img-div .full-screen" : "question-img-div"}
-                    onClick={(e) => {
-                      if (fullScreenIndex === index) resizeShrink(e, index);
-                    }}
-                  >
-                    <img
-                      className="button-img"
-                      src={`${answer?.imageUrl}`}
-                      alt="picture of answer"
-                    />
-                  </div>
-                </div>
-              ) : null}
-            </button>
-          </div>
-        ))
-        }
-      </>
-    );
   };
 
   return (
@@ -218,7 +176,18 @@ const QuestionTemp = () => {
                 <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                  <AnswersMap />
+                  <AnswersMap
+                    currentQuestion={currentQuestion}
+                    changeFlexDir={changeFlexDir}
+                    redIndex={redIndex}
+                    greenIndex={greenIndex}
+                    checkIfCorrect={checkIfCorrect}
+                    isLargeScreen={isLargeScreen}
+                    resizeFull={resizeFull}
+                    fullScreenIcon={fullScreenIcon}
+                    fullScreenIndex={fullScreenIndex}
+                    resizeShrink={resizeShrink}
+                  />
                 </div>
               </div>
             </div>
@@ -249,7 +218,18 @@ const QuestionTemp = () => {
                 <h2 id="question-title">{currentQuestion?.title}</h2>
                 <hr id="hr" />
                 <div className={changeFlexDir ? "button-place-one" : "button-place-two"}>
-                  <AnswersMap />
+                  <AnswersMap
+                    currentQuestion={currentQuestion}
+                    changeFlexDir={changeFlexDir}
+                    redIndex={redIndex}
+                    greenIndex={greenIndex}
+                    checkIfCorrect={checkIfCorrect}
+                    isLargeScreen={isLargeScreen}
+                    resizeFull={resizeFull}
+                    fullScreenIcon={fullScreenIcon}
+                    fullScreenIndex={fullScreenIndex}
+                    resizeShrink={resizeShrink}
+                  />
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, FC, useState, useContext, useEffect } from "react"
+import React, { createContext, ReactNode, FC, useState, useContext } from "react"
 import { useMediaQuery } from "@mui/material";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -10,6 +10,7 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
+import { usePlayerName } from "../../context/PlayerNameContext";
 
 interface PopContextInterface {
   setDeletedQuizId: React.Dispatch<React.SetStateAction<number>>;
@@ -18,6 +19,7 @@ interface PopContextInterface {
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
+  popAlwaysClose: () => void;
   setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
   setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
@@ -27,6 +29,7 @@ interface PopContextInterface {
 
 interface PopProviderProps {
   children: ReactNode;
+
 }
 
 const popContext = createContext<PopContextInterface | null>(null);
@@ -39,6 +42,8 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
 
+  const { quizId, playerName } = usePlayerName();
+
   const isMobile = useMediaQuery('(max-width:600px)')
 
   function popHandleClickOpen() {
@@ -46,8 +51,12 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   };
 
   const popHandleClose = () => {
-    setPopOpen(false);
+    if (popType !== PopUpType.FinishedQuiz) setPopOpen(false);
   };
+
+  const popAlwaysClose = () => {
+    setPopOpen(false);
+  }
 
   const contextValue: PopContextInterface = {
     setPopOpen: setPopOpen,
@@ -61,6 +70,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     setNumOfQuestions: setNumOfQuestions,
     correctAnswers: correctAnswers,
     numOfQuestions: numOfQuestions,
+    popAlwaysClose: popAlwaysClose
   }
 
   return (

@@ -12,7 +12,7 @@ const ComputerNavbar: FC = () => {
         <div className="navbar-container-computer">
             <div className="first-section">
                 <div className="btn-container">
-                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() =>  navigate('/edit-quiz')} >
+                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() => navigate('/edit-quiz')} >
                         יצירת חידון
                     </Button>
                 </div>
@@ -20,20 +20,20 @@ const ComputerNavbar: FC = () => {
                     <div className="vl"></div>
                 </div>
                 <div className="links-container">
-                    <Button onClick={() =>  navigate('/my-quizzes')} className="nav-quiz-btn">
+                    <Button onClick={() => navigate('/my-quizzes')} className="nav-quiz-link">
                         החידונים שלי
                     </Button>
                     <div className="vl-container">
                         <div className="vl"></div>
                     </div>
-                    <Button className="nav-quiz-btn" onClick={() => navigate('/about')}>אודות</Button>
+                    <Button className="nav-quiz-link" onClick={() => navigate('/about')}>אודות</Button>
                 </div>
             </div>
-            <div className="navbar-container" onClick={() =>   navigate('/')}>
+            <div className="navbar-container" onClick={() => navigate('/')}>
                 <Typography className="navbar-logo-name" variant="h6" component="span">BANANA.games
                 </Typography>
                 <div className="navbar-logo-container">
-                    <img className="navbar-logo" src={navbarLogo} />
+                    <img className="navbar-logo" src={navbarLogo} alt="banana logo"/>
                 </div>
             </div>
         </div>
