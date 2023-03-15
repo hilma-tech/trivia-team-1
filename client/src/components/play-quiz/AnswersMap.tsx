@@ -15,7 +15,7 @@ interface AnswersMapProps {
   
   export const AnswersMap: React.FC<AnswersMapProps> = ({ currentQuestion, changeFlexDir, redIndex, greenIndex, checkIfCorrect, isLargeScreen, resizeFull, fullScreenIcon, fullScreenIndex, resizeShrink }) => {
     return (<>
-      {currentQuestion?.answers?.map((answer, index) => <div key={`current-answer-${index}`}>
+      {currentQuestion?.answers?.map((answer, index) => <div className="ans-div" key={`current-answer-${index}`}>
         <button className={changeFlexDir ? "ans-button-no-img " : "ans-button-with-img " + (redIndex === index ? "red-background-for-answer" : greenIndex === index ? "green-background-for-answer" : "")} key={index} onClick={() => {
           checkIfCorrect(index)}}>
           <div>
