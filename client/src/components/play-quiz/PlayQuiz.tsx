@@ -21,10 +21,6 @@ interface QuestionFromServer {
   answers: AnswerFromServer[];
 }
 
-// setTimeout !== number
-// NodeJS.Timeout
-// ReturnType<typeof setTimeout>
-
 const QuestionTemp = () => {
   const { playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
