@@ -1,13 +1,13 @@
-import { Box, Button, TextField, Typography, useMediaQuery } from "@mui/material"
-import { FC, useState } from "react"
+import {  Button, TextField, Typography, useMediaQuery } from "@mui/material"
+import { FC } from "react"
 import ShowQuizBtn from '../../../images/showquizzbtn.svg'
 import saveBtn from '../../../images/saveBtn.svg'
 import LinkBtn from '../../../images/linkBtn.svg'
 import '../../../style/EditQuiz.scss'
 import BootstrapTooltip from "../../tooltip/tooltip"
-import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import { FileInput, UploadedFile } from '@hilma/fileshandler-client';
 import useImageFileUpload from '../../../context/imageFilesZus'
-import { ImageFile, PhonePage } from "../../../utils/Interfaces"
+import {  PhonePage } from "../../../utils/Interfaces"
 import { useQuestionContext } from '../../../context/AnswersContext'
 import { QuizDetails } from "../EditQuiz"
 import { parseImageSrc } from '../../../common/functions/parseImageSrc';
@@ -24,7 +24,6 @@ interface QuizHeader {
 }
 
 export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, addQuiz, quizDetails, handleChange, setPhonePage, setQuizDetails }) => {
-    const addImageFile = useImageFileUpload(setState => setState.addQuestionImage);
 
     const { filesUploader } = useQuestionContext()
 

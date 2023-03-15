@@ -3,7 +3,7 @@ import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Button, TextField, useMediaQuery } from '@mui/material';
+import { Button, useMediaQuery } from '@mui/material';
 import { useLocation, useParams } from 'react-router';
 import BootstrapTooltip from '../tooltip/tooltip'
 import axios from 'axios';
@@ -46,11 +46,11 @@ const EditQuiz: FC = () => {
     const isMobile = useMediaQuery('(max-width:600px)');
     const { setQuestions, questions } = useQuestionContext();
     const { user } = useUser();
-    const { savedQuiz, setSavedQuiz, setEditedQuizId } = usePopContext();
+    const { setSavedQuiz, setEditedQuizId } = usePopContext();
     const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
     const [quizDetails, setQuizDetails] = useState<QuizDetails>({ title: '', description: '', imageUrl: { id: -1, link: '' } });
-    const { popHandleClickOpen, popHandleClose, setPopType, approvedPops } = usePopContext();
+    const { popHandleClickOpen, setPopType } = usePopContext();
     const { quizId } = useParams();
     const location = useLocation();
 

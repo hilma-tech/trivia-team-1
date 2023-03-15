@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import SelectImage from '../../images/image.svg'
 import NewAnswer from './NewAnswer'
 import AddAnswer from '../../images/addAnswer.svg'
 import duplicateSvg from '../../images/copy.svg'
@@ -7,11 +6,10 @@ import TrashSvg from '../../images/trash.svg'
 import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion, ImageFile } from '../../utils/Interfaces'
+import { CurrentQuestion} from '../../utils/Interfaces'
 import { useQuestionContext } from "../../context/AnswersContext";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
-import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
-import useImageFileUpload from '../../context/imageFilesZus'
+import { FileInput, UploadedFile } from '@hilma/fileshandler-client';
 import BootstrapTooltip from "../tooltip/tooltip";
 import { parseImageSrc } from "../../common/functions/parseImageSrc";
 

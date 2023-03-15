@@ -10,7 +10,6 @@ import confettiGif from '../../images/popUps/confettiGif.gif'
 import savedMonkey from '../../images/popUps/savedMonkey.svg'
 import { GenericPopActions, GenericPopContent, GenericPopTitle } from './GenericPopParts';
 import { PopUpType } from "./GenericPopParts";
-import { usePlayerName } from "../../context/PlayerNameContext";
 
 
 interface PopContextInterface {
@@ -72,7 +71,6 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
 
-  const { quizId, playerName } = usePlayerName();
 
   const isMobile = useMediaQuery('(max-width:600px)')
 
@@ -113,7 +111,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
 
     <popContext.Provider value={contextValue}>
       <>
-        {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} />}
+        {popType === PopUpType.FinishedQuiz && popOpen && <img id='confetti' src={confettiGif} alt='confetti'/>}
         <Dialog
           className="generic-pop-up-dialog"
           open={popOpen}
@@ -121,8 +119,8 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          {isMobile && popType === PopUpType.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} />}
-          {isMobile && popType === PopUpType.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} />}
+          {isMobile && popType === PopUpType.FinishedQuiz && <img className='mobile-end-game-monkey' src={happyMonkey} alt='happy monkey' />}
+          {isMobile && popType === PopUpType.SavedSuccessfully && <img className='mobile-end-game-monkey' src={savedMonkey} alt='approving monkey'/>}
           <DialogTitle className="alert-dialog-title" sx={{ '& .MuiTypography-root': { fontSize: '2rem' } }} >
             <GenericPopTitle correctAnswers={correctAnswers} numOfQuestions={numOfQuestions} type={popType} />
           </DialogTitle>

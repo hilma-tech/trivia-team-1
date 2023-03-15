@@ -4,10 +4,9 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import dragAndDropSvg from '../../images/drag-and-drop.svg'
-import { CurrentQuestion, Question } from '../../utils/Interfaces';
+import { Question } from '../../utils/Interfaces';
 import { useQuestionContext } from '../../context/AnswersContext';
 import { Typography } from '@mui/material';
-import useImageFileUpload from '../../context/imageFilesZus';
 import { isFull } from './EditQuiz';
 import { parseImageSrc } from '../../common/functions/parseImageSrc';
 import selectImage from '../../images/image.svg'
@@ -52,12 +51,6 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
                         src={parseImageSrc(question.imageUrl)}
                         alt='question'
                     />}
-
-                    {/* <img
-                        className='question-image-final-box'
-                        src={parseImageSrc(question.imageUrl)}
-                        alt='question'
-                    /> */}
                 </div>
                 <div className="answer-container">
                     <FormControl>

@@ -1,15 +1,13 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { IconButton, TextField, useMediaQuery } from "@mui/material";
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
-import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import { FileInput, UploadedFile } from '@hilma/fileshandler-client';
 
-import { CurrentQuestion, ImageFile } from "../../utils/Interfaces";
+import { CurrentQuestion} from "../../utils/Interfaces";
 import EditQuizMobileInput from "./edit-quiz-mobile/EditQuizMobileInput";
-import useImageFileUpload from '../../context/imageFilesZus'
 import BootstrapTooltip from "../tooltip/tooltip";
 
-import SelectImage from '../../images/image.svg'
 import TrashSvg from '../../images/trash.svg'
 import { useQuestionContext } from "../../context/AnswersContext";
 import { parseImageSrc } from "../../common/functions/parseImageSrc";
@@ -54,7 +52,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
     }
 
-    const deleteAnswer = (e: any) => {
+    const deleteAnswer = () => {
         setCurrentQuestion(prev => {
             return { ...prev, answers: [...prev.answers.slice(0, answerIndex), ...prev.answers.slice(answerIndex + 1)] }
         })
