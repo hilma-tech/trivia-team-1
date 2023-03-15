@@ -154,8 +154,12 @@ const EditQuiz: FC = () => {
                     return prev;
                 }
             })
-
-
+            setTimeout(
+                () => {
+                    if (isMobile) {
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+                    }
+                }, 50)
         }
     }
 

@@ -84,7 +84,6 @@ const QuestionTemp = () => {
   useEffect(() => {
     checkIfThereAreImg();
     toggleDidClickOnce(false);
-    toggleDidClickOnce(false);
   }, [currentQuestionIndex, currentQuestion]);
 
   useEffect(() => {

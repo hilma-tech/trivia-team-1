@@ -16,7 +16,7 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
                 if (index === answerIndex) {
                     return { ...answer, imageUrl: { id: -1, link: '' } }
                 }
-                return { ...answer, imageUrl: { id: -1, link: '' } }
+                return answer
             })
 
             return { ...prev, answers: findCorrectAnswer }

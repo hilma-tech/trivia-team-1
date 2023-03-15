@@ -16,10 +16,13 @@ const DemoQuiz = () => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [scoreRecWidth, setScoreRecWidth] = useState(30);
     const isLargeScreen = useMediaQuery("(min-width: 600px)");
+    const [didClickOnce, toggleDidClickOnce] = useState<boolean>(false);
+
 
     const [fullScreenIndex, setFullScreenIndex] = useState<number | undefined>();
     const [greenIndex, setGreenIndex] = useState<number | undefined>();
     const [redIndex, setRedIndex] = useState<number | undefined>();
+    const [animationOpacity, setAnimationOpacity] = useState<boolean>(false);
 
     const [score, setScore] = useState(0);
     const [isThereImg, setIsThereImg] = useState(true);
@@ -28,6 +31,14 @@ const DemoQuiz = () => {
     const [toggleEndGame, setToggleEndGame] = useState(true);
     const quantityOfQuestion = questions.length
     const currentQuestion = questions[currentQuestionIndex];
+    const animationClassExpression = animationOpacity ? 'opacity-on ' : ''
+
+
+    useEffect(() => {
+        checkIfThereAreImg();
+        toggleDidClickOnce(false);
+    }, [currentQuestionIndex, currentQuestion]);
+    
 
     const checkIfThereAreImg = () => {
         for (let i = 0; i < currentQuestion?.answers?.length; i++) {
@@ -54,6 +65,15 @@ const DemoQuiz = () => {
         e.stopPropagation();
         setFullScreenIndex(undefined);
     };
+
+    const makeOpacity = () => {
+        setTimeout(() => {
+            setAnimationOpacity(true);
+        }, 500)
+        setTimeout(() => {
+            setAnimationOpacity(false);
+        }, 1200)
+    }
 
     const setCheckIfThereAreImgInChange = useMemo(() => {
         return checkIfThereAreImg()
@@ -85,17 +105,19 @@ const DemoQuiz = () => {
 
 
     const checkIfCorrect = (index: number) => {
-        if (currentQuestion?.answers[index]?.isCorrect) {
-            setScore((prev) => prev + 1);
-        }
-        if (currentQuestion.answers[index].isCorrect) {
-            setCorrectAnswers((prev) => prev + 1);
-            setTimeout(moveToNextQuestion, 500);
-        } else {
-            makeCorrectAnswerGreen();
-            makeAnswerRed(index);
-            setTimeout(moveToNextQuestion, 500);
-        }
+        if (!didClickOnce) {
+            if (currentQuestion.answers[index].isCorrect) {
+                makeCorrectAnswerGreen();
+                setCorrectAnswers((prev) => prev + 1);
+                setTimeout(moveToNextQuestion, 1000);
+            } else {
+                makeCorrectAnswerGreen();
+                makeAnswerRed(index);
+                setTimeout(moveToNextQuestion, 1000);
+            }
+            toggleDidClickOnce(true);
+            makeOpacity();
+        };
     };
 
     return (
@@ -115,14 +137,14 @@ const DemoQuiz = () => {
                             <div className="question-place-child">
                                 <div className="question-img-place">
                                     {parseImageSrc(currentQuestion?.imageUrl) !== selectImage && <img
-                                        className="question-img img"
+                                        className={(animationClassExpression) + `question-img img`}
                                         src={parseImageSrc(currentQuestion?.imageUrl)}
                                         alt="pic of something that connected to the question"
                                     />}
                                 </div>
-                                <h2 className="question-title">{currentQuestion?.title}</h2>
-                                <hr id="hr" />
-                                <div className={isThereImg ? "button-place-one" : "button-place-two"}>
+                                <h2 className={`question-title ${(animationClassExpression)}`}>{currentQuestion?.title}</h2>
+                                <hr id="hr" className={(animationClassExpression)}/>
+                                <div className={animationClassExpression + (isThereImg ? "button-place-one" : "button-place-two")}>
                                     <AnswersMap
                                         currentQuestion={currentQuestion}
                                         changeFlexDir={isThereImg}
