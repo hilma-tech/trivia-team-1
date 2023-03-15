@@ -40,16 +40,18 @@ const MyQuizes: FC = () => {
     useEffect(() => {
         getQuizes()
     }, [user])
-    async function getQuizes() {
-        const { data }: AxiosResponse<any, any> = await axios.get(`api/user/${user.userId}/quizzes`)
-        const timeout = setTimeout(() => setLoading(false), 2000);
-        setQuizes(data);
+
+
+    function getQuizes() {
+        const timeout = setTimeout(async () => {
+            setLoading(false)
+            if (user.userId) {
+                const { data }: AxiosResponse<any, any> = await axios.get(`api/user/${user.userId}/quizzes`)
+                setQuizes(data);
+            }
+        }, 2000);
         return () => clearTimeout(timeout);
     }
-
-
-    useEffect(() => {
-    }, [])
 
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
 

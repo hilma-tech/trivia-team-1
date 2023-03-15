@@ -30,10 +30,10 @@ import NavigateUser from "./components/NavigateUser";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <UserProvider>
-        <PlayerNameProvider>
-          <PopContextProvider>
-            <QuestionsProvider>
+      <QuestionsProvider>
+        <UserProvider>
+          <PlayerNameProvider>
+            <PopContextProvider>
               <Navbar />
               <CssBaseline />
               <Background>
@@ -55,7 +55,10 @@ function App() {
                   <Route path="/enterance-page" element={
                     <PrivateRoute componentName="User" component={<EntrancePage />} />
                   } />
-                  <Route path="/edit-quiz" element={
+                  <Route path="/add-quiz" element={
+                    <PrivateRoute componentName="User" component={<EditQuiz />} />
+                  } />
+                   <Route path="/edit-quiz/:quizId" element={
                     <PrivateRoute componentName="User" component={<EditQuiz />} />
                   } />
                   <Route path="/my-quizzes" element={<Outlet />}>
@@ -65,10 +68,10 @@ function App() {
                   </Route>
                 </Routes>
               </Background>
-            </QuestionsProvider>
-          </PopContextProvider>
-        </PlayerNameProvider>
-      </UserProvider>
+            </PopContextProvider>
+          </PlayerNameProvider>
+        </UserProvider>
+      </QuestionsProvider>
     </ThemeProvider >
   );
 }

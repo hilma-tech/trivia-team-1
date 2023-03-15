@@ -7,12 +7,11 @@ import navbarLogo from "../../images/navbar/navbarLogo.svg";
 const ComputerNavbar: FC = () => {
 
     const navigate = useNavigate()
-
     return (
         <div className="navbar-container-computer">
             <div className="first-section">
                 <div className="btn-container">
-                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() => navigate('/edit-quiz')} >
+                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() =>  navigate('/add-quiz')} >
                         יצירת חידון
                     </Button>
                 </div>
