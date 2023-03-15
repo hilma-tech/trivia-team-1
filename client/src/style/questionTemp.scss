@@ -164,7 +164,7 @@
                                 .icon-div {
                                     @include flexCenter();
                                     position: absolute;
-                                    top: 16vw;
+                                    top: 16vh;
                                     right: 28vw;
                                     background-color: #ffffffbf;
                                     border-radius: 50%;
@@ -182,7 +182,6 @@
                                     @include flexCenter();
                                     border: none;
                                     width: 100%;
-                                    transition: 1s ease-out;
                                     height: 100%;
                                     padding-block: 5%;
 
@@ -201,10 +200,16 @@
                                     right: 0px;
                                     bottom: 0px;
                                     width: 100%;
+                                    height: 100%;
                                     z-index: 3;
                                     background-color: #000000;
                                     transition: 1s ease-out;
                                     margin: 0;
+
+                                    img {
+                                        width: 100%;
+                                        height: auto;
+                                    }
                                 }
                             }
 
@@ -214,14 +219,13 @@
                                 right: calc(50% - 32.5%);
                                 width: 65%;
                                 height: 20%;
-                                font-size: 0.7rem;
-                                /* UI Properties */
-                                background: #FFFFFFE0 0% 0% no-repeat padding-box;
+                                font-size: 0.8rem;
                                 border-radius: 7px;
                                 opacity: 1;
                                 @include flexCenter();
                                 margin-bottom: -2rem;
                                 z-index: 1;
+                                background: #FFFFFFE0 0% 0% no-repeat padding-box;
                             }
                         }
                     }
@@ -332,29 +336,35 @@
                         .button-place-two {
                             margin: 0;
 
+                            .ans-div {
+                                margin: 2vw;
+                            }
+
                             .ans-button-with-img {
-                                width: 40vw;
+                                width: 38vw;
                                 height: 17vh;
                                 margin: 0;
 
                                 .answer-button {
-                                    p {
-                                        background-color: transparent;
-                                        text-align: right;
-                                        top: -2%;
-                                        right: 10%;
-                                        font-size: 4vw;
-                                        letter-spacing: 0px;
-                                        color: #0C3249;
-                                        opacity: 1;
-                                    }
+                                    background-color: transparent;
+                                    text-align: center;
+                                    font-size: 0.8rem;
+                                    letter-spacing: 0px;
+                                    color: #0C3249;
+                                    opacity: 1;
+                                    background-color: transparent;
                                 }
 
                                 .image-container {
+                                    .question-img-div {
+                                        height: 75%;
+                                        margin-top: 10%;
+                                    }
+
                                     .icon-div {
                                         position: absolute;
-                                        top: 20vw;
-                                        right: 24vw;
+                                        top: 11vh;
+                                        right: 23vw;
                                     }
                                 }
                             }

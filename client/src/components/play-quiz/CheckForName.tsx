@@ -14,6 +14,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
+
   function moveToGameWithWithPlayerName() {
     if (!playerName) setErrorMessage('אנא מלא את הכינוי שלך')
     else
@@ -29,7 +30,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>איך קוראים לכם?</p>
           </div>
           <input
-            onChange={(ev) => setPlayerName(ev.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             name="player-identification"
             type="text"
             placeholder="נא להזין שם"
@@ -52,7 +53,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>איך קוראים לכם?</p>
           </div>
           <input
-            onChange={(ev) => setPlayerName(ev.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             name="player-identification"
             type="text"
             placeholder="נא להזין שם"
