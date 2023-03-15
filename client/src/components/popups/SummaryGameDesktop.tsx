@@ -12,14 +12,21 @@ import "../../style/popups.scss";
 export const SummaryGameDesktop: FC = () => {
 
   const { correctAnswers, numOfQuestions } = usePopContext();
-const {quizId, userName} = useParams();
-const { playerName } = usePlayerName();
-const score = Math.round(correctAnswers / numOfQuestions * 100)
+  const { quizId, userName } = useParams();
+  const { playerName, setPlayerName } = usePlayerName();
+  const score = Math.round(correctAnswers / numOfQuestions * 100)
 
-useEffect(() => {
-  postScore(quizId, playerName, score)
-  if(!quizId|| !userName|| !numOfQuestions) window.history.back()
+  useEffect(() => {
+    postScore(quizId, playerName, score)
+    if (!quizId || !userName || !numOfQuestions) window.history.back()
   }, [])
+
+
+  useEffect(() => {
+    setPlayerName("")
+  }, [])
+
+
 
   return (
     <>
@@ -38,12 +45,12 @@ useEffect(() => {
             שתף את התוצאה שלך עם חברים ואתגר גם אותם במבחן!
           </Typography>
           <Button
-            sx={{ width: "15vw", height: "7vh", fontSize: "1.5rem", fontWeight: "bolder", marginTop: '4vh' }}
+            sx={{ width: "15vw", height: "7vh", fontSize: "1.2rem", fontWeight: "1000", marginTop: '4vh' }}
             variant="contained"
             color="primary"
             onClick={() => copyScoreBoardLink(Number(quizId), userName)}
           >
-            <ShareIcon sx={{ fontSize: "2rem", marginLeft: "1vw" }} />
+            <ShareIcon sx={{ fontSize: "1.8rem", marginLeft: "1vw" }} />
             שתף תוצאה
           </Button>
         </div>

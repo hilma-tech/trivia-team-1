@@ -44,7 +44,8 @@
         grid-area: a;
         display: flex;
         flex-direction: column;
-        .reg-err-div{
+
+        .reg-err-div {
             margin-top: 1%;
             font-size: 1.1vmax;
             color: red;
@@ -134,10 +135,11 @@
             font-size: 20px;
             margin-top: 1vh;
             display: flex;
-           margin-right: calc((100vw - 228px)/2);
-           font-weight: 700;
+            margin-right: calc((100vw - 228px)/2);
+            font-weight: 700;
         }
-        .reg-err-div{
+
+        .reg-err-div {
             width: 228px;
             margin-top: 1%;
             font-size: 14px;
@@ -163,8 +165,8 @@
         font-weight: 700;
     }
 
-    @media screen and (max-height: 800px){
-        .small-header{
+    @media screen and (max-height: 800px) {
+        .small-header {
             margin-top: 4vh;
         }
     }
