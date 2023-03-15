@@ -13,21 +13,22 @@
     padding-right: 3vw;
     padding-left: 3vw;
 
-    .nav-quiz-btn {
+    .nav-quiz-link {
         height: 3.1vh;
-        font-weight: 900;
-        box-shadow: none;
-
+        color: #0C3249;
     }
 
-    .nav-quiz-link:hover {
+    .nav-quiz-link-active {
+        font-weight: 900;
         background-color: $green-color;
         color: white;
         height: 3.1vh;
     }
 
-    .nav-quiz-link {
-        color: #0C3249;
+    .nav-quiz-link:hover,
+    .nav-quiz-link-active:hover {
+        background-color: $green-color;
+        color: white;
     }
 
     .first-section {
@@ -73,8 +74,8 @@
         align-items: center;
         gap: 0.875rem;
 
-        &:hover{
-            cursor:pointer;
+        &:hover {
+            cursor: pointer;
         }
 
         .navbar-logo-name {

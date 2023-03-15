@@ -1,17 +1,23 @@
 import { Button, Link, Typography } from "@mui/material";
-import { FC } from "react";
-import { useNavigate } from "react-router-dom";
+import { FC, useState } from "react";
+import { To, useNavigate } from "react-router-dom";
 
 import navbarLogo from "../../images/navbar/navbarLogo.svg";
 
 const ComputerNavbar: FC = () => {
 
+    const [activePage, setActivePage] = useState<To>('/my-quizzes')
     const navigate = useNavigate()
+
+    function handleClick(path: To) {
+        setActivePage(path)
+        navigate(path)
+    }
     return (
         <div className="navbar-container-computer">
             <div className="first-section">
                 <div className="btn-container">
-                    <Button className="nav-quiz-btn" variant="contained" color="primary" onClick={() =>  navigate('/add-quiz')} >
+                    <Button onClick={() => handleClick('/add-quiz')} className={activePage === '/add-quiz' ? 'nav-quiz-link-active' : 'nav-quiz-link'}>
                         יצירת חידון
                     </Button>
                 </div>
@@ -19,20 +25,22 @@ const ComputerNavbar: FC = () => {
                     <div className="vl"></div>
                 </div>
                 <div className="links-container">
-                    <Button onClick={() => navigate('/my-quizzes')} className="nav-quiz-link">
+                    <Button onClick={() => handleClick('/my-quizzes')} className={activePage === '/my-quizzes' ? 'nav-quiz-link-active' : 'nav-quiz-link'}>
                         החידונים שלי
                     </Button>
                     <div className="vl-container">
                         <div className="vl"></div>
                     </div>
-                    <Button className="nav-quiz-link" onClick={() => navigate('/about')}>אודות</Button>
+                    <Button onClick={() => handleClick('/about')} className={activePage === '/about' ? 'nav-quiz-link-active' : 'nav-quiz-link'}>
+                        אודות
+                    </Button>
                 </div>
             </div>
             <div className="navbar-container" onClick={() => navigate('/')}>
                 <Typography className="navbar-logo-name" variant="h6" component="span">BANANA.games
                 </Typography>
                 <div className="navbar-logo-container">
-                    <img className="navbar-logo" src={navbarLogo} alt="banana logo"/>
+                    <img className="navbar-logo" src={navbarLogo} alt="banana logo" />
                 </div>
             </div>
         </div>
