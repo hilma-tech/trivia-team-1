@@ -13,14 +13,18 @@ interface CheckForNameProps {
 
 const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const { playerName, setPlayerName } = usePlayerName()
   const isLargeScreen = useMediaQuery("(min-width: 600px)");
+
   function moveToGameWithWithPlayerName() {
-    if (playerName === "") return alert('אנא מלא את הכינוי שלך')
-    makeOpacity();
-    setTimeout(() => {
-      navigate("./questions");
-    }, 1050)
+    if (!playerName) setErrorMessage('אנא מלא את הכינוי שלך')
+    else {
+      makeOpacity();
+      setTimeout(() => {
+        navigate("./questions");
+      }, 1050)
+    }
   }
 
   const [animationOpacity, setAnimationOpacity] = useState<boolean>(true);
@@ -47,7 +51,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>איך קוראים לכם?</p>
           </div>
           <input
-            onChange={(ev) => setPlayerName(ev.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             name="player-identification"
             type="text"
             placeholder="נא להזין שם"
@@ -58,6 +62,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
+          <div className="error-message">{errorMessage}</div>
         </div>
       </div>
     </main>
@@ -69,7 +74,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>איך קוראים לכם?</p>
           </div>
           <input
-            onChange={(ev) => setPlayerName(ev.target.value)}
+            onChange={(e) => setPlayerName(e.target.value)}
             name="player-identification"
             type="text"
             placeholder="נא להזין שם"
@@ -80,6 +85,7 @@ const CheckForName: React.FC<CheckForNameProps> = ({ quizTitle }) => {
             <p>יאללה בואו נתחיל!</p>
             <img src={triangleIcon} alt="icon of triangle" />
           </button>
+          <p className="error-message">{errorMessage}</p>
         </div>
       </div>
     </div>

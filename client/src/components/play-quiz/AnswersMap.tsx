@@ -15,7 +15,7 @@ interface AnswersMapProps {
 
 export const AnswersMap: React.FC<AnswersMapProps> = ({ currentQuestion, changeFlexDir, redIndex, greenIndex, checkIfCorrect, isLargeScreen, resizeFull, fullScreenIcon, fullScreenIndex, resizeShrink }) => {
   return (<>
-    {currentQuestion?.answers?.map((answer, index) => <div key={`current-answer-${index}`}>
+    {currentQuestion?.answers?.map((answer, index) => <div className="ans-div" key={`current-answer-${index}`}>
       <button className={changeFlexDir ? "ans-button-no-img " : "ans-button-with-img " + (redIndex === index ? "red-background-for-answer" : greenIndex === index ? "green-background-for-answer" : "")} key={index} onClick={() => {
         checkIfCorrect(index)
       }}>
@@ -24,15 +24,16 @@ export const AnswersMap: React.FC<AnswersMapProps> = ({ currentQuestion, changeF
         </div>
         {answer?.imageUrl ? <div className="image-container">
           {!isLargeScreen && <div className="icon-div" onClick={e => resizeFull(e, index)}>
-            <img src={fullScreenIcon} alt="fullScreenIcon" />
+            <img src={fullScreenIcon} alt="full screen" />
           </div>}
-          <div className={fullScreenIndex === index ? "question-img-div .full-screen" : "question-img-div"} onClick={e => {
+          <div className={fullScreenIndex === index ? "question-img-div full-screen" : "question-img-div"} onClick={e => {
             if (fullScreenIndex === index) resizeShrink(e, index);
           }}>
-            <img className="button-img" src={`${answer?.imageUrl}`} alt="picture of answer" />
+            <img className="button-img" src={`${answer?.imageUrl}`} alt="answer" />
           </div>
         </div> : null}
       </button>
     </div>)}
   </>);
 }
+

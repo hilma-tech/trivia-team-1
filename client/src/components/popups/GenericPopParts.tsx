@@ -2,16 +2,17 @@ import { FC, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link, Typography } from '@mui/material';
+import { SaveQuiz, usePopContext } from './popContext';
 import Button from '@mui/material/Button';
 import HomeIcon from '@mui/icons-material/Home';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ShareIcon from '@mui/icons-material/Share';
 import { copyScoreBoardLink } from '../../common/functions/copyScoreBoardLink';
 import { postScore } from '../../common/functions/postScore';
-import { usePopContext } from './popContext';
 import { usePlayerName } from '../../context/PlayerNameContext';
 import { useUser } from '../../context/UserContext';
 import '../../style/popups.scss'
+import { useQuestionContext } from '../../context/AnswersContext';
 
 
 export enum PopUpType {
@@ -19,6 +20,7 @@ export enum PopUpType {
     FinishedQuiz = "finishedQuiz",
     ExitGame = "exitGame",
     SaveChanges = 'saveChanges',
+    AddQuiz = 'addQuiz',
     DeleteQuiz = 'deleteQuiz',
     CopyQuiz = 'copyQuiz',
 }
@@ -49,6 +51,7 @@ export const GenericPopTitle: FC<GenericPopTitleProps> = ({ type, numOfQuestions
             return <Typography className='pop-title' variant="h1">האם אתה בטוח שברצונך לצאת מהמשחק</Typography>
 
         case PopUpType.SaveChanges:
+        case PopUpType.AddQuiz:
             return <Typography className='pop-title' variant='h1'>שים לב</Typography>
 
         case PopUpType.DeleteQuiz:
@@ -71,6 +74,7 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
             return <Typography className='pop-content' variant="body1" sx={{ fontWeight: 'bolder' }}> ציונך: {Math.round(correctAnswers / numOfQuestions * 100)}</Typography>
 
         case PopUpType.SaveChanges:
+        case PopUpType.AddQuiz:
             return <Typography className='pop-content' variant="body1"> אם תשמור את השינויים לוח התוצאות שלך יתאפס</Typography>
 
         case PopUpType.DeleteQuiz:
@@ -85,7 +89,7 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers, popAlwaysClose } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers, popAlwaysClose, toggleApprovedPops, savedQuiz, editedQuizId } = usePopContext();
     const { user } = useUser()
     const { quizId, playerName } = usePlayerName();
     const navigate = useNavigate();
@@ -96,6 +100,9 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
         if (type === PopUpType.FinishedQuiz) postScore(quizId, playerName, score)
     }, [type])
 
+    const { filesUploader } = useQuestionContext()
+
+
     const onClickGoToHomePage = () => {
         popAlwaysClose()
         navigate('/enterance-page')
@@ -103,6 +110,30 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     async function deleteQuiz(id: number) {
         await axios.delete(`api/quiz/${id}`);
         setDeletedQuizId(0);
+    }
+
+    async function saveNewQuiz(quiz: SaveQuiz | undefined) {
+        filesUploader.post('http://localhost:8080/api/quiz', quiz)
+    }
+
+    async function editQuiz(quiz: SaveQuiz | undefined) {
+        filesUploader.put(`http://localhost:8080/api/quiz/${editedQuizId}`, quiz)
+    }
+
+    const confirmBtnClick = () => {
+        toggleApprovedPops(true);
+        popHandleClose()
+        if (type === PopUpType.DeleteQuiz) {
+            deleteQuiz(deletedQuizId)
+        }
+        else if (type === PopUpType.SaveChanges) {
+            editQuiz(savedQuiz)
+            navigate('/my-quizzes')
+        }
+        else if (type === PopUpType.AddQuiz) {
+            saveNewQuiz(savedQuiz)
+            navigate('/my-quizzes')
+        }
     }
 
     switch (type) {
@@ -114,16 +145,12 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
             </div>
 
         case PopUpType.SaveChanges:
+        case PopUpType.AddQuiz:
         case PopUpType.DeleteQuiz:
         case PopUpType.ExitGame:
             return <div className='action-injected'>
                 <Link color="primary" className='action-link' onClick={popHandleClose}>ביטול</Link>
-                <Button className={isMobile ? "rounded-button" : "bold-button-pop-style"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={() => {
-                    popHandleClose()
-                    if (type === PopUpType.DeleteQuiz) {
-                        deleteQuiz(deletedQuizId)
-                    }
-                }}>אישור</Button>
+                <Button className={isMobile ? "rounded-button" : "bold-button-pop-style"} id="computer-confirmation-btn" variant="contained" color="primary" onClick={confirmBtnClick}>אישור</Button>
             </div>
 
         case PopUpType.CopyQuiz:
