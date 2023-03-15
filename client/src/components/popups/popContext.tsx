@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, FC, useState, useContext, useEffect } from "react"
+import React, { createContext, ReactNode, FC, useState, useContext } from "react"
 import { useMediaQuery } from "@mui/material";
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
@@ -19,6 +19,7 @@ interface PopContextInterface {
   popOpen: boolean;
   popHandleClickOpen: () => void;
   popHandleClose: () => void;
+  popAlwaysClose: () => void;
   setPopType: React.Dispatch<React.SetStateAction<PopUpType>>;
   setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>;
   setNumOfQuestions: React.Dispatch<React.SetStateAction<number>>;
@@ -28,6 +29,7 @@ interface PopContextInterface {
 
 interface PopProviderProps {
   children: ReactNode;
+
 }
 
 const popContext = createContext<PopContextInterface | null>(null);
@@ -39,7 +41,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   const [popType, setPopType] = useState<PopUpType>(PopUpType.CopyQuiz);
   const [correctAnswers, setCorrectAnswers] = useState<number>(0);
   const [numOfQuestions, setNumOfQuestions] = useState<number>(0);
-  
+
   const { quizId, playerName } = usePlayerName();
 
   const isMobile = useMediaQuery('(max-width:600px)')
@@ -49,8 +51,12 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
   };
 
   const popHandleClose = () => {
-    setPopOpen(false);
+    if (popType !== PopUpType.FinishedQuiz) setPopOpen(false);
   };
+
+  const popAlwaysClose = () => {
+    setPopOpen(false);
+  }
 
   const contextValue: PopContextInterface = {
     setPopOpen: setPopOpen,
@@ -64,6 +70,7 @@ export const PopContextProvider: FC<PopProviderProps> = ({ children }) => {
     setNumOfQuestions: setNumOfQuestions,
     correctAnswers: correctAnswers,
     numOfQuestions: numOfQuestions,
+    popAlwaysClose: popAlwaysClose
   }
 
   return (

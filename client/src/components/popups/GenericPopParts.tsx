@@ -85,7 +85,7 @@ export const GenericPopContent: FC<GenericPopContentProps> = ({ type, correctAns
 }
 
 export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
-    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers } = usePopContext();
+    const { popHandleClose, deletedQuizId, setDeletedQuizId, numOfQuestions, correctAnswers, popAlwaysClose } = usePopContext();
     const { user } = useUser()
     const { quizId, playerName } = usePlayerName();
     const navigate = useNavigate();
@@ -95,9 +95,13 @@ export const GenericPopActions: FC<{ type: PopUpType }> = ({ type }) => {
     useEffect(() => {
         if (type === PopUpType.FinishedQuiz) postScore(quizId, playerName, score)
     }, [type])
-    
+
     const onClickGoToHomePage = () => {
+<<<<<<< HEAD
         popHandleClose();
+=======
+        popAlwaysClose()
+>>>>>>> 360b1f3ef5bc940ffa581a68604b63b580240cd3
         navigate('/enterance-page')
     }
     async function deleteQuiz(id: number) {

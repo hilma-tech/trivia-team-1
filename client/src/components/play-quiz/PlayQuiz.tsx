@@ -24,7 +24,7 @@ export interface QuestionFromServer {
 }
 
 const QuestionTemp = () => {
-  const { setQuizId } = usePlayerName();
+  const { setQuizId, playerName, setPlayerName } = usePlayerName();
   const [questions, setQuestions] = useState<QuestionFromServer[]>([]);
   const [quizTitle, setQuizTitle] = useState("")
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -60,10 +60,9 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     LaunchPageAnimation(setAnimationOpacity);
-    
-    if (!userName || !quizId) window.history.back()
-    else {
-      setQuizId(Number(quizId));
+    setCorrectAnswers(0);
+    if (playerName === "") {
+      window.history.back()
     }
     if (!userName || !quizId) window.history.back()
     else {
@@ -108,6 +107,7 @@ const QuestionTemp = () => {
     else {
       setPopType(PopUpType.FinishedQuiz);
       popHandleClickOpen();
+      setPlayerName("")
     }
   };
 
@@ -182,13 +182,13 @@ const QuestionTemp = () => {
               <div className="question-place-child">
                 <div className="question-img-place">
                   {currentQuestion?.imageUrl && <img
-                    className={ (animationClassExpression) + `question-img img`}
+                    className={(animationClassExpression) + `question-img img`}
                     src={`${currentQuestion?.imageUrl}`}
                     alt="pic of something that connected to the question"
                   />}
                 </div>
                 <h2 id="question-title" className={(animationClassExpression)}>{currentQuestion?.title}</h2>
-                <hr id="hr" className={(animationClassExpression)}/>
+                <hr id="hr" className={(animationClassExpression)} />
                 <div className={(animationClassExpression) + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
                     currentQuestion={currentQuestion}
@@ -219,7 +219,7 @@ const QuestionTemp = () => {
               </p>
             </div>
           </div>
-          <div className= "question-content">
+          <div className="question-content">
             <div className="question-place-father">
               <div className='question-place-child'>
                 <div className="question-img-place">
@@ -229,7 +229,7 @@ const QuestionTemp = () => {
                     alt="pic of something that connected to the question"
                   />}
                 </div>
-                <h2  id="question-title" className={animationClassExpression}>{currentQuestion?.title}</h2>
+                <h2 id="question-title" className={animationClassExpression}>{currentQuestion?.title}</h2>
                 <hr id="hr" className={animationClassExpression} />
                 <div className={animationClassExpression + (changeFlexDir ? "button-place-one" : "button-place-two")}>
                   <AnswersMap
