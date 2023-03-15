@@ -27,7 +27,7 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
 
 
     return (
-        (!currentQuestion.answers[answerIndex].imageUrl) ?
+        (parseImageSrc(currentQuestion.answers[answerIndex].imageUrl) === SelectImage) ?
             <div className="input-container radio-question input-div">
                 <FormControlLabel value={'' + answerIndex + 1} label="" control={<Radio checked={currentQuestion.answers[answerIndex].isCorrect} onChange={handleCorrectAnswer} />} />
                 <TextField className={currentQuestion.answers[answerIndex].imageUrl?.link ? 'make-into-div-size' : ''} placeholder={`תשובה ${answerIndex + 1}`} id="standard-size-small" value={currentQuestion.answers[answerIndex].text} onChange={handleChange} />
