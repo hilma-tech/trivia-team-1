@@ -141,7 +141,7 @@ const EditQuiz: FC = () => {
             setQuestions((prev) => {
                 if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { id: lastQuestion.id + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
+                    return [...prev, { id: lastQuestion.id + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect),imageUrl: prev[currentEditQuestion].imageUrl}]
                 } else {
                     setCurrentEditQuestion(prev[currentEditQuestion].id);
                     alert("Please add a correct inputs")
@@ -168,7 +168,7 @@ const EditQuiz: FC = () => {
                     }
                 }
                 else {
-                    return { text: answer.text, isCorrect: answer.isCorrect }
+                    return { text: answer.text, isCorrect: answer.isCorrect}
                 }
             })
             if (question.imageUrl) {
@@ -193,7 +193,7 @@ const EditQuiz: FC = () => {
                     return {
                         creatorId: '7406c262-81a8-4ca6-b2df-0baa6bb87f18',
                         title: quizDetails.title,
-                        imageUrl: typeof quizDetails.imageUrl === "string" ? -1 : quizDetails.imageUrl.id,
+                        imageUrl: typeof quizDetails.imageUrl === "string" ? quizDetails.imageUrl : quizDetails.imageUrl.id,
                         description: quizDetails.description,
                         questions: newQuestions
                     }

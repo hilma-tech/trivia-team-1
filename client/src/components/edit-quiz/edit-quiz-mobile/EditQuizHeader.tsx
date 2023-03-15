@@ -3,7 +3,6 @@ import { FC, useState } from "react"
 import ShowQuizBtn from '../../../images/showquizzbtn.svg'
 import saveBtn from '../../../images/saveBtn.svg'
 import LinkBtn from '../../../images/linkBtn.svg'
-import selectImage from '../../../images/image.svg'
 import '../../../style/EditQuiz.scss'
 import BootstrapTooltip from "../../tooltip/tooltip"
 import { FileInput, UploadedFile, useFiles } from '@hilma/fileshandler-client';
@@ -11,6 +10,7 @@ import useImageFileUpload from '../../../context/imageFilesZus'
 import { ImageFile, PhonePage } from "../../../utils/Interfaces"
 import { useQuestionContext } from '../../../context/AnswersContext'
 import { QuizDetails } from "../EditQuiz"
+import { parseImageSrc } from '../../../common/functions/parseImageSrc';
 
 interface QuizHeader {
     addQuiz: () => void;
@@ -21,14 +21,6 @@ interface QuizHeader {
     giveRightClasses: (originClassName: string) => string | undefined;
     setQuizDetails: React.Dispatch<React.SetStateAction<QuizDetails>>
 
-}
-
-function parseImageSrc(quizDetails: QuizDetails) {
-    if (!("imageUrl" in quizDetails)) return selectImage;
-
-    if (typeof quizDetails.imageUrl === "string") return quizDetails.imageUrl;
-
-    return quizDetails.imageUrl.link;
 }
 
 export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, addQuiz, quizDetails, handleChange, setPhonePage, setQuizDetails }) => {
@@ -50,8 +42,6 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
         }
     }
 
-    console.log(quizDetails, "image")
-
     const isMobile: boolean = useMediaQuery('(max-width:600px)')
     return isMobile ? (
         <div className="first-page-wrapper">
@@ -70,7 +60,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                         <BootstrapTooltip title="הוספת תמונה לחידון">
                             <img 
                                 className={quizDetails.imageUrl ? 'quiz-image-in' : 'select-image-quiz-svg'} 
-                                src={parseImageSrc(quizDetails)} 
+                                src={parseImageSrc(quizDetails.imageUrl)} 
                                 alt='add your quiz photo here' 
                             />
                         </BootstrapTooltip>
@@ -113,7 +103,7 @@ export const EditQuizHeader: FC<QuizHeader> = ({ giveRightClasses, addQuestion, 
                             <BootstrapTooltip title="הוספת תמונה לחידון">
                                 <img
                                     className='select-image-quiz-svg'
-                                    src={parseImageSrc(quizDetails)}
+                                    src={parseImageSrc(quizDetails.imageUrl)}
                                     alt='add your quiz photo here'
                                 />
                             </BootstrapTooltip>

@@ -1,6 +1,7 @@
 import React, { useState, createContext, FC, ReactNode, useContext, useEffect } from "react";
 import { CurrentQuestion } from '../utils/Interfaces'
 import { FileInput, FilesUploader, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import { useLocation } from "react-router";
 
 
 interface AnswersContextInterface {
@@ -17,18 +18,21 @@ export const QuestionsContext = createContext<AnswersContextInterface | null>(nu
 
 
 const QuestionsProvider: FC<AnswersProviderProps> = ({ children }) => {
+    const { pathname } = useLocation();
 
     const [questions, setQuestions] = useState<CurrentQuestion[]>([
-        { id: 0, title: "", imageUrl:{id :-1 , link:''} , answers: [{text: '' , isCorrect:false , imageUrl: {id:-1 ,link:''} }, {text: '' , isCorrect:false , imageUrl: {id:-1 ,link:''}}] }
+        { id: 0, title: "", imageUrl: { id: -1, link: '' }, answers: [{ text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }, { text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }] }
     ]);
 
-    const filesUploader = useFiles()
-    
-    
+    const filesUploader = useFiles();
+
+    useEffect(() => {
+        filesUploader.deleteAll();
+    }, [pathname]);
 
     const contextValue: AnswersContextInterface = {
         setQuestions: setQuestions,
-        questions: questions ,
+        questions: questions,
         filesUploader: filesUploader
     }
 

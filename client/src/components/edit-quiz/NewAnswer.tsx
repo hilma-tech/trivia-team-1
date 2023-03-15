@@ -12,6 +12,7 @@ import BootstrapTooltip from "../tooltip/tooltip";
 import SelectImage from '../../images/image.svg'
 import TrashSvg from '../../images/trash.svg'
 import { useQuestionContext } from "../../context/AnswersContext";
+import { parseImageSrc } from "../../common/functions/parseImageSrc";
 
 
 
@@ -28,7 +29,7 @@ interface NewAnswerProps {
 
 const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, currentQuestion, currentEditQuestion }) => {
 
-    const {filesUploader} = useQuestionContext()
+    const { filesUploader } = useQuestionContext()
     const addImageFile = useImageFileUpload(setState => setState.addQuestionImage)
     const [uploadedImageUrl, setUploadedImageUrl] = useState(currentQuestion.answers[answerIndex].imageUrl);
     const isMobile = useMediaQuery('(max-width:600px)');
@@ -69,7 +70,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
                 if (index === answerIndex) {
                     return { ...answer, imageUrl: { id: value.id, link: value.link } }
                 }
-                return {...answer , imageUrl:{id:-1 , link:''}}
+                return answer
             })
 
             return { ...prev, answers: findCorrectAnswer }
@@ -79,7 +80,7 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
 
     return (
         isMobile ?
-            <EditQuizMobileInput answerIndex={answerIndex} currentQuestion={currentQuestion}  filesUploader={filesUploader} handleImageFile={handleImageFile} deleteAnswer={deleteAnswer} handleCorrectAnswer={handleCorrectAnswer} handleChange={handleChange} setCurrentQuestion={setCurrentQuestion}  />
+            <EditQuizMobileInput answerIndex={answerIndex} currentQuestion={currentQuestion} filesUploader={filesUploader} handleImageFile={handleImageFile} deleteAnswer={deleteAnswer} handleCorrectAnswer={handleCorrectAnswer} handleChange={handleChange} setCurrentQuestion={setCurrentQuestion} />
             :
             <div className="check-boxes-container" dir='rtl'>
                 <div className="check-box-svg">
@@ -105,7 +106,11 @@ const NewAnswer: FC<NewAnswerProps> = ({ answerIndex, setCurrentQuestion, curren
                     <label>
                         <FileInput type="image" filesUploader={filesUploader} onChange={handleImageFile} className='upload-quiz-image-btn' />
                         <BootstrapTooltip title="הוספת תמונה לתשובה">
-                            <img src={currentQuestion.answers[answerIndex].imageUrl?.link ? currentQuestion.answers[answerIndex].imageUrl?.link : SelectImage} className="add-image-icon-placeholder" alt='add image to answer' />
+                            <img
+                                src={parseImageSrc(currentQuestion.answers[answerIndex].imageUrl)}
+                                className="add-image-icon-placeholder"
+                                alt='add image to answer'
+                            />
                         </BootstrapTooltip>
                     </label>
                 </IconButton>

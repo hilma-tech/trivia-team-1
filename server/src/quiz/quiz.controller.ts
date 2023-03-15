@@ -25,10 +25,11 @@ export class QuizController {
         return newQuiz.id
     }
 
-    @UseFilesHandler()
+    @UseFilesHandler(100)
     @Put("/:id")
-    editQuiz(@UploadedFiles() files: FilesType, @Param('id') id: number, @Body() quiz: QuizDTO) {
+    editQuiz(@UploadedFiles() files: FilesType, @Param('id', ParseIntPipe) id: number, @Body() quiz: QuizDTO) {
         this.quizService.saveQuiz(quiz, files, id);
+        return true;
     }
 
     @Get("/:id/scores")

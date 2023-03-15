@@ -9,6 +9,8 @@ import { useQuestionContext } from '../../context/AnswersContext';
 import { Typography } from '@mui/material';
 import useImageFileUpload from '../../context/imageFilesZus';
 import { isFull } from './EditQuiz';
+import { parseImageSrc } from '../../common/functions/parseImageSrc';
+import selectImage from '../../images/image.svg'
 
 
 
@@ -27,7 +29,7 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
     const questionsImagesArr = useImageFileUpload(state => state.questionImagesObject)
 
 
-    const {filesUploader} = useQuestionContext()
+    const { filesUploader } = useQuestionContext()
 
     const { questions } = useQuestionContext()
 
@@ -49,20 +51,30 @@ const FinalQuestionBox: FC<FinalBoxQuestionsProps> = ({ question, index, setCurr
             <div className='answer-and-questions-container'>
                 <div className='question-container'>
                     <p className='question-title-final-box'>{question.title}</p>
-                    {question.hasOwnProperty("imageUrl") && question.imageUrl &&
-                        <img className='question-image-final-box' src={question.imageUrl.link} alt='question' />
-                    }
+                    {parseImageSrc(question.imageUrl) !== selectImage && <img
+                        className='question-image-final-box'
+                        src={parseImageSrc(question.imageUrl)}
+                        alt='question'
+                    />}
+                  
+                    {/* <img
+                        className='question-image-final-box'
+                        src={parseImageSrc(question.imageUrl)}
+                        alt='question'
+                    /> */}
                 </div>
                 <div className="answer-container">
                     <FormControl>
                         <RadioGroup>
                             <div className="radio-ready-container" dir='rtl'>
                                 {question.answers.map((answer, index) =>
-                                    <div className='final-box-answer-and-image-container'>
+                                    <div className='final-box-answer-and-image-container' key={question.id + ":answer-" + index}>
                                         <FormControlLabel key={index} value={`answer${index + 1}`} control={<Radio />} label={<Typography sx={{ fontSize: 18 }}>{answer.text}</Typography>} checked={answer.isCorrect} />
-                                        {answer.imageUrl?.link &&
-                                            <img className='answer-image' src={answer.imageUrl.link} alt='show image' />
-                                        }
+                                        {parseImageSrc(answer.imageUrl) !== selectImage && <img
+                                            className='answer-image'
+                                            src={parseImageSrc(answer.imageUrl)}
+                                            alt='show image'
+                                        />}
                                     </div>
                                 )}
                             </div>

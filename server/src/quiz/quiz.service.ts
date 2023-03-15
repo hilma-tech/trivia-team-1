@@ -20,6 +20,7 @@ export class QuizService {
   ) { }
 
   async saveQuiz(quiz: QuizDTO, files: FilesType, id?: number) {
+    console.log({ quiz, id })
     const { questions, imageUrl, creatorId, ...rest } = quiz;
 
     const newQuestions = await Promise.all(questions.map(async (question) => {
@@ -67,7 +68,7 @@ export class QuizService {
     }))
 
     if (typeof imageUrl === "string") {
-      return this.quizRepository.save({ id, questions: newQuestions, creator: { id: creatorId }, imageUrl, ...rest})
+      return this.quizRepository.save({ id, questions: newQuestions, creator: { id: creatorId }, imageUrl, ...rest })
     }
 
     if (imageUrl > -1) {

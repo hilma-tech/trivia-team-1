@@ -4,18 +4,19 @@ import { FormControlLabel, IconButton, Radio, TextField, Typography } from "@mui
 import { MobileInputType } from "../../../utils/Interfaces";
 import SelectImage from '../../../images/image.svg'
 import TrashSvg from '../../../images/trash.svg'
+import { parseImageSrc } from "../../../common/functions/parseImageSrc";
 
-const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion, filesUploader, handleImageFile, deleteAnswer, handleCorrectAnswer, handleChange , setCurrentQuestion }) => {
+const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion, filesUploader, handleImageFile, deleteAnswer, handleCorrectAnswer, handleChange, setCurrentQuestion }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth)
 
-    const deleteImage  = () => {
+    const deleteImage = () => {
 
         setCurrentQuestion(prev => {
             const findCorrectAnswer = prev.answers.map((answer, index) => {
                 if (index === answerIndex) {
-                    return { ...answer, imageUrl: { id: -1, link:''} }
+                    return { ...answer, imageUrl: { id: -1, link: '' } }
                 }
-                return {...answer , imageUrl:{id:-1 , link:''}}
+                return { ...answer, imageUrl: { id: -1, link: '' } }
             })
 
             return { ...prev, answers: findCorrectAnswer }
@@ -50,8 +51,8 @@ const EditQuizMobileInput: FC<MobileInputType> = ({ answerIndex, currentQuestion
                             <img src={SelectImage} className="select-image-svg-for-questions  select-image-after-added" alt='add image to answer' />
                         </div>
                         <div className="question-image-container">
-                            <img src={currentQuestion.answers[answerIndex].imageUrl?.link} alt='answer image' />
-                            <div className="trash-svg-container" style={{left: screenWidth/4 + 'px'}} onClick={deleteImage}>
+                            <img src={parseImageSrc(currentQuestion.answers[answerIndex].imageUrl)} alt='answer image' />
+                            <div className="trash-svg-container" style={{ left: screenWidth / 4 + 'px' }} onClick={deleteImage}>
                                 <img src={TrashSvg} className="icon trash-on-answer" alt="delete answer" />
                             </div>
                         </div>

@@ -33,8 +33,6 @@ export interface Answer {
 
 const MyQuizes: FC = () => {
     const [quizes, setQuizes] = useState<QuizType[]>([]);
-    console.log('quizes: ', quizes);
-    
     const [loading, setLoading] = useState<boolean>(true);
     const { user } = useUser();
 
@@ -47,8 +45,10 @@ const MyQuizes: FC = () => {
     function getQuizes() {
         const timeout = setTimeout(async () => {
             setLoading(false)
-            const { data }: AxiosResponse<any, any> = await axios.get(`api/user/${user.userId}/quizzes`)
-            setQuizes(data);
+            if (user.userId) {
+                const { data }: AxiosResponse<any, any> = await axios.get(`api/user/${user.userId}/quizzes`)
+                setQuizes(data);
+            }
         }, 2000);
         return () => clearTimeout(timeout);
     }
