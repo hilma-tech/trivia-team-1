@@ -1,3 +1,4 @@
+import { FilesHandlerModule } from '@hilma/fileshandler-server';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -23,6 +24,10 @@ import { UserModule } from './user/user.module';
       synchronize: process.env.TYPEORM_SYNC === "on",
       logging: process.env.TYPEORM_LOG === "on",
       entities: ["dist/**/*.entity{.ts,.js}", "node_modules/@hilma/auth-nest/**/*.entity{.ts,.js}"]
+    }),
+    FilesHandlerModule.register({
+      folder: "/home/hilma/hilma-ptojects/Trivia-Proj-1/server/uploads",
+      autoAllow: true
     })
   ],
 })

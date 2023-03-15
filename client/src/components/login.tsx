@@ -2,7 +2,6 @@ import { FormEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import { useAuth } from '@hilma/auth';
-import axios from 'axios';
 
 import leavesEnterance from '../images/leaves-enterance.svg';
 import monkeyEnter from '../images/monkeyEnter.svg';
@@ -83,7 +82,7 @@ function Login() {
                     <div className='small-header'>משחק</div>
                     <div className='big-header'>טריוויה</div>
                 </header>
-                <form className='login-form'>
+                <form className='login-form' onSubmit={handleLoginSubmit}>
                     <div className='login-label'>שם משתמש</div>
                     <input className='login-input' id='username' type='text' value={username} onInvalid={enterUsernameErr} onChange={(e) => setUsername(e.target.value)} required maxLength={16} />
                     <div className='login-label'>סיסמה</div>

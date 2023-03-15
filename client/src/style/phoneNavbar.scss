@@ -1,26 +1,29 @@
-.phone-main{
+.phone-main {
     height: 90vh;
 }
-.navbar-container-phone{
+
+.navbar-container-phone {
     height: 10vh;
 }
 
-.header-container{
+.header-container {
     font-size: 5vw;
 }
 
-.banana-container-phone{
+.banana-container-phone {
     height: 10vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    .banana-nav-content{
+
+    .banana-nav-content {
         font-size: 3vmax;
         font-weight: 1000;
         width: 100%;
         text-align: center;
     }
-    img{
+
+    img {
         margin-right: 2%;
         height: 4vh;
     }

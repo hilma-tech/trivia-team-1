@@ -1,9 +1,13 @@
-import React, { useState, createContext, FC, ReactNode, useContext } from "react";
+import React, { useState, createContext, FC, ReactNode, useContext, useEffect } from "react";
 import { CurrentQuestion } from '../utils/Interfaces'
+import { FileInput, FilesUploader, UploadedFile, useFiles } from '@hilma/fileshandler-client';
+import { useLocation } from "react-router";
+
 
 interface AnswersContextInterface {
     setQuestions: React.Dispatch<React.SetStateAction<CurrentQuestion[]>>;
     questions: CurrentQuestion[];
+    filesUploader: FilesUploader;
 }
 
 interface AnswersProviderProps {
@@ -14,14 +18,22 @@ export const QuestionsContext = createContext<AnswersContextInterface | null>(nu
 
 
 const QuestionsProvider: FC<AnswersProviderProps> = ({ children }) => {
+    const { pathname } = useLocation();
 
     const [questions, setQuestions] = useState<CurrentQuestion[]>([
-        { questionId: 0, title: "", imageUrl:'' , answers: [{text: '' , isCorrect:false , imageUrl: '' }, {text: '' , isCorrect:false , imageUrl: ''}] }
+        { id: 0, title: "", imageUrl: { id: -1, link: '' }, answers: [{ text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }, { text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }] }
     ]);
+
+    const filesUploader = useFiles();
+
+    useEffect(() => {
+        filesUploader.deleteAll();
+    }, [pathname]);
 
     const contextValue: AnswersContextInterface = {
         setQuestions: setQuestions,
-        questions: questions
+        questions: questions,
+        filesUploader: filesUploader
     }
 
     return (

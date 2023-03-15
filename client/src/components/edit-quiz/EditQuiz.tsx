@@ -1,29 +1,34 @@
-import React, { FC, useState } from 'react';
-import '../../style/EditQuiz.scss'
-import ShowQuizBtn from '../../images/showquizzbtn.svg'
-import LinkBtn from '../../images/linkBtn.svg'
-import saveBtn from '../../images/saveBtn.svg'
-import Selectimage from '../../images/image.svg'
-import AddQuestionBox from './AddQuestionBox'
-import plusBtn from '../../images/plusBtn.svg'
-import FinalQuestionBox from './FinalQuestionBox'
-import { useQuestionContext } from '../../context/AnswersContext'
-import { CurrentQuestion, Question } from '../../utils/Interfaces'
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { TextField } from '@mui/material';
+import React, { FC, useEffect, useState } from 'react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
 import { CacheProvider } from '@emotion/react';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { Button, useMediaQuery } from '@mui/material';
+import { useLocation, useParams } from 'react-router';
 import BootstrapTooltip from '../tooltip/tooltip'
-import MonkeySvg from '../../images/monkeyInEdit.svg'
 import axios from 'axios';
 import DemoQuiz from './DemoQuiz';
 import littleArrow from '../../images/question-template/littleArrow.svg'
 
+import AddQuestionBox from './AddQuestionBox';
+import FinalQuestionBox from './FinalQuestionBox';
+import { useQuestionContext } from '../../context/AnswersContext';
+import { CurrentQuestion, Question, PhonePage, ImageFile } from '../../utils/Interfaces';
+import { EditQuizHeader } from './edit-quiz-mobile/EditQuizHeader';
+import PhoneNavBar from '../navbar/PhoneNavbar';
+import { usePopContext } from '../popups/popContext'
+
+
+
+import '../../style/EditQuiz.scss';
+import plusBtn from '../../images/plusBtn.svg';
+import MonkeySvg from '../../images/monkeyInEdit.svg';
+import { PopUpType } from '../popups/GenericPopParts';
+import { useUser } from '../../context/UserContext';
 
 
 const cacheRtl = createCache({
-    key: "muirtl",
+    key: 'muirtl',
     stylisPlugins: [rtlPlugin],
 });
 
@@ -33,29 +38,79 @@ export const isFull = (question: CurrentQuestion) => {
         && question.title !== "";
 }
 
+export type QuizDetails = {
+    title: string;
+    description: string;
+    imageUrl: ImageFile;
+}
+
 const EditQuiz: FC = () => {
 
     const [moveToShowDemoQuizBool, setMoveToWatchDemoQuizBool] = useState(true);
-    const { setQuestions, questions } = useQuestionContext()
+    const isMobile = useMediaQuery('(max-width:600px)');
+    const { setQuestions, questions } = useQuestionContext();
+    const { user } = useUser();
+    const { setSavedQuiz, setEditedQuizId } = usePopContext();
+    const [phonePage, setPhonePage] = useState<PhonePage>(PhonePage.firstPage);
     const [currentEditQuestion, setCurrentEditQuestion] = useState(0);
-    const [questionDetails, setQuestionDetails] = useState({ title: '', description: '', imageUrl: '' })
+    const [quizDetails, setQuizDetails] = useState<QuizDetails>({ title: '', description: '', imageUrl: { id: -1, link: '' } });
+    const { popHandleClickOpen, setPopType } = usePopContext();
+    const { quizId } = useParams();
+    const location = useLocation();
 
+    const isEditQuizPage = location.pathname.includes('edit-quiz')
+
+
+
+    useEffect(() => {
+        if (isEditQuizPage) {
+            axios.get(`http://localhost:8080/api/quiz/${quizId}`)
+                .then(function (response) {
+                    setQuizDetails(() => {
+                        return { title: response.data.title, description: response.data.description, imageUrl: response.data.imageUrl }
+                    })
+                    const getQuestions = response.data.questions;
+                    setQuestions(getQuestions)
+                })
+                .catch(function (error) {
+                    console.log(error)
+                })
+
+        } else {
+            setQuestions([
+                { id: 0, title: "", imageUrl: { id: -1, link: '' }, answers: [{ text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }, { text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }] }
+            ]);
+        }
+    }, []);
+
+    const hideDivByPage = (originClassName: string) => {
+        if (!isMobile) return originClassName;
+        if (originClassName === 'monkey-svg' || originClassName === 'plus-btn-container') return 'hide'
+        if (phonePage === PhonePage.secondPage && originClassName === 'phone-first-page-container') return 'hide'
+        if (phonePage === PhonePage.firstPage && (originClassName === 'question-dnd-container' || originClassName === 'monkey-svg' || originClassName === 'top-container' || originClassName === 'footer-button-container-second-page')) return 'hide';
+        return originClassName
+    }
 
     const addQuestion = () => {
+
         if (questions.length < 10) {
             setCurrentEditQuestion(questions.length);
             setQuestions((prev) => {
                 if (isFull(prev[currentEditQuestion])) {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: [{ text: '', isCorrect: false, imageUrl: '' }, { text: '', isCorrect: false, imageUrl: '' }], title: "" }]
+                    return [...prev, { id: lastQuestion.id + 1, answers: [{ text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }, { text: '', isCorrect: false, imageUrl: { id: -1, link: '' } }], title: "" }]
                 } else {
-                    setCurrentEditQuestion(prev[currentEditQuestion].questionId);
+                    setCurrentEditQuestion(prev[currentEditQuestion].id);
                     alert("Please add a correct answer")
                     return prev;
                 }
             })
-
-
+            setTimeout(
+                () => {
+                    if (isMobile) {
+                        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+                    }
+                }, 50)
         }
 
     }
@@ -64,14 +119,14 @@ const EditQuiz: FC = () => {
         const items = Array.from(questions);
         const editItem = items[currentEditQuestion];
         const [reorderedItem] = items.splice(result.source.index, 1);
-        if (editItem.questionId === reorderedItem.questionId) {
+        if (editItem.id === reorderedItem.id) {
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
             setCurrentEditQuestion(result.destination.index)
         } else {
             items.splice(result.destination.index, 0, reorderedItem);
             setQuestions(items);
-            const editQuestionIndex = items.findIndex((question) => question.questionId === editItem.questionId);
+            const editQuestionIndex = items.findIndex((question) => question.id === editItem.id);
             setCurrentEditQuestion(editQuestionIndex);
         }
     }
@@ -79,7 +134,7 @@ const EditQuiz: FC = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { id, value } = e.target;
-        setQuestionDetails((prev) => {
+        setQuizDetails((prev) => {
             return id === "quizInputName" ? { ...prev, title: value } : { ...prev, description: value };
         });
 
@@ -92,9 +147,9 @@ const EditQuiz: FC = () => {
             setQuestions((prev) => {
                 if (prev[currentEditQuestion].answers.find(answer => answer.isCorrect === true) && prev[currentEditQuestion].answers.every(answer => answer.text !== '') && prev[currentEditQuestion].title !== "") {
                     const lastQuestion = prev.at(-1) as CurrentQuestion;
-                    return [...prev, { questionId: lastQuestion.questionId + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect) }]
+                    return [...prev, { id: lastQuestion.id + 1, answers: prev[currentEditQuestion].answers, title: prev[currentEditQuestion].title, isCorrect: prev[currentEditQuestion].answers.find(answer => answer.isCorrect), imageUrl: prev[currentEditQuestion].imageUrl }]
                 } else {
-                    setCurrentEditQuestion(prev[currentEditQuestion].questionId);
+                    setCurrentEditQuestion(prev[currentEditQuestion].id);
                     alert("Please add a correct inputs")
                     return prev;
                 }
@@ -105,20 +160,90 @@ const EditQuiz: FC = () => {
     }
 
 
-    const saveQuiz = () => {
 
-        axios.post('http://localhost:8080/api/quiz', {
-            creatorId: 1,
-            title: questionDetails.title,
-            description: questionDetails.description,
-            questions: questions
-        })
-            .then(function (res) {
-                console.log(res)
+
+    const saveQuiz = async () => {
+        if (questions.length <= 4) return alert("Please add at least 5 questions")
+        const newQuestions = questions.map((question) => {
+            const newAnswers = question.answers.map((answer) => {
+                if (answer.imageUrl) {
+                    return {
+                        isCorrect: answer.isCorrect,
+                        imageUrl: typeof answer.imageUrl === "string" ? answer.imageUrl : answer.imageUrl.id,
+                        text: answer.text
+                    }
+                }
+                else {
+                    return { text: answer.text, isCorrect: answer.isCorrect }
+                }
             })
-            .catch(function (err) {
-                console.log(err)
-            })
+            if (question.imageUrl) {
+                return {
+                    title: question.title,
+                    imageUrl: typeof question.imageUrl === "string" ? question.imageUrl : question.imageUrl.id,
+                    answers: newAnswers
+                }
+            }
+            else {
+                return { title: question.title, answers: newAnswers };
+            }
+        }
+        )
+
+
+        if (isEditQuizPage) {
+            setPopType(PopUpType.SaveChanges);
+            setEditedQuizId(quizId);
+            setSavedQuiz(() => {
+                if (quizDetails.imageUrl) {
+                    return {
+                        creatorId: user.userId,
+                        title: quizDetails.title,
+                        imageUrl: typeof quizDetails.imageUrl === "string" ? quizDetails.imageUrl : quizDetails.imageUrl.id,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+                }
+                else {
+                    return {
+                        creatorId: user.userId,
+                        title: quizDetails.title,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+
+                }
+            }
+            );
+        }
+        else {
+            setPopType(PopUpType.AddQuiz);
+            setSavedQuiz(() => {
+                if (quizDetails.imageUrl) {
+                    return {
+                        creatorId: user.userId,
+                        title: quizDetails.title,
+                        imageUrl: typeof quizDetails.imageUrl === "string" ? quizDetails.imageUrl : quizDetails.imageUrl.id,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+                }
+                else {
+                    return {
+                        creatorId: user.userId,
+                        title: quizDetails.title,
+                        description: quizDetails.description,
+                        questions: newQuestions
+                    }
+
+                }
+
+            }
+            );
+        }
+        popHandleClickOpen();
+
+
     }
 
     const toggleDemoAndEdit = () => {
@@ -126,6 +251,7 @@ const EditQuiz: FC = () => {
     }
 
     return (
+
         !moveToShowDemoQuizBool ?
             <div>
                 <button className='move-to-edit-button' onClick={() => toggleDemoAndEdit()}>
@@ -140,109 +266,70 @@ const EditQuiz: FC = () => {
             :
             <>
                 <CacheProvider value={cacheRtl}>
+                    {isMobile && <PhoneNavBar title="יצירת משחק" type='image' />}
                     <div className='form-container'>
-                        <div className='top-container'>
-                            <div className='top-buttons-container'>
-                                <div className='top-right-btn'>
-
-                                    <button onClick={() => toggleDemoAndEdit()} className='show-quiz-btn'>
-                                        <img className='show-quiz-svg' src={ShowQuizBtn} alt='show your preview quiz' />
-                                        צפייה בחידון
-                                    </button>
-                                </div>
-                                <div className='top-left-btn'>
-                                    <button className='link-btn'><img className='link-btn-svg' src={LinkBtn} /></button>
-                                    <button className='save-btn' onClick={saveQuiz}>
-                                        <img className='save-btn-svg' src={saveBtn} alt='save your quiz here ' />
-                                        שמירה
-                                    </button>
-                                </div>
-                            </div>
+                        <div className='quiz-header-wrapper'>
+                            <EditQuizHeader toggleDemoAndEdit={toggleDemoAndEdit} giveRightClasses={hideDivByPage} addQuestion={addQuestion} quizDetails={quizDetails} setQuizDetails={setQuizDetails} addQuiz={saveQuiz} handleChange={handleChange} setPhonePage={setPhonePage} />
                         </div>
-                        <div className='quiz-header-container'>
-                            <div className='quiz-header-image'>
-                                <BootstrapTooltip title="הוספת תמונה לחידון">
-                                    <img className='select-image-quiz-svg' src={Selectimage} alt='add your quiz photo here' />
-                                </BootstrapTooltip>
-                            </div>
-                            <div className='title-header-container'>
-                                <BootstrapTooltip title="שינוי שם">
-                                    <input type="text" id="quizInputName" placeholder="שם החידון" className="quiz-input-name" value={questionDetails.title} onChange={handleChange} />
-                                </BootstrapTooltip>
-                                <BootstrapTooltip title="שינוי שם">
-                                    <TextField
-                                        id="outlined-multiline-static"
-                                        label="תיאור חידון"
-                                        multiline
-                                        rows={2}
-                                        size="small"
-                                        value={questionDetails.description}
-                                        onChange={handleChange}
-                                        sx={{
-                                            "& .MuiInputLabel-root": { color: 'black', fontSize: "2vh" },//styles the label
-                                            "& .MuiOutlinedInput-root": {
-                                                "& > fieldset": { borderColor: "transparent" },
+                        <div className={hideDivByPage('question-dnd-container')}>
+                            <DragDropContext onDragEnd={handleDragEnd}>
+                                <Droppable droppableId="droppable">
+                                    {(provided) => (
+                                        <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
+                                            {questions.map((question, index) => (
+                                                <Draggable
+                                                    key={question.id.toString()}
+                                                    draggableId={question.id.toString()}
+                                                    index={index}
+                                                >
+                                                    {(provided) => (
+                                                        <div
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                        >
 
-                                            },
-                                        }}
-                                        inputProps={{
-                                            style: {
-                                                height: "4.5vh",
-                                                fontSize: "2vh",
-                                                lineHeight: "2.5vh",
-                                                paddingTop: "0.5vh"
-                                            },
-                                        }}
-                                    />
-                                </BootstrapTooltip>
-                            </div>
+                                                            {currentEditQuestion === index || isMobile ?
+                                                                <AddQuestionBox setCurrentQuestion={(q) => {
+                                                                    setQuestions(prev => {
+                                                                        return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
+                                                                    })
+                                                                }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} index={index} />
+                                                                :
+                                                                <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
+                                                            }
+                                                        </div>
+                                                    )}
+                                                </Draggable>
+                                            ))}
+                                            {provided.placeholder}
+                                        </div>
+                                    )}
+                                </Droppable>
+                            </DragDropContext>
                         </div>
-                        <DragDropContext onDragEnd={handleDragEnd}>
-                            <Droppable droppableId="droppable">
-                                {(provided) => (
-                                    <div className="all-final-questions" {...provided.droppableProps} ref={provided.innerRef}>
-                                        {questions.map((question, index) => (
-                                            <Draggable
-                                                key={question.questionId.toString()}
-                                                draggableId={question.questionId.toString()}
-                                                index={index}
-                                            >
-                                                {(provided) => (
-                                                    <div
-                                                        ref={provided.innerRef}
-                                                        {...provided.draggableProps}
-                                                        {...provided.dragHandleProps}
-                                                    >
-                                                        {currentEditQuestion === index ?
-                                                            <AddQuestionBox setCurrentQuestion={(q) => {
-                                                                setQuestions(prev => {
-                                                                    return [...prev.slice(0, index), typeof q === 'function' ? q(question) : q, ...prev.slice(index + 1)]
-                                                                })
-                                                            }} currentQuestion={question} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} duplicateQuestion={duplicateQuestion} />
-                                                            :
-                                                            <FinalQuestionBox question={question as Question} index={index} setCurrentEditQuestion={setCurrentEditQuestion} currentEditQuestion={currentEditQuestion} />
-                                                        }
-                                                    </div>
-                                                )}
-                                            </Draggable>
-                                        ))}
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </DragDropContext>
-                        <div className='plus-btn-container'>
+                        <div className={hideDivByPage('plus-btn-container')}>
                             <BootstrapTooltip title=" הוספת שאלה">
                                 <button className='plus-btn' onClick={addQuestion}>
                                     <img src={plusBtn} className='plus-btn-svg' alt='add question to your quiz' />
                                 </button>
                             </BootstrapTooltip>
                         </div>
+
+                    </div >
+                    <div className='monkey-in-edit-page'>
+                        <img src={MonkeySvg} className={hideDivByPage('monkey-svg')} alt='image of cute monkey with computer' />
                     </div>
-                    <div className='monkey-in-edit-page-svg'>
-                        <img src={MonkeySvg} className='monkey-svg' alt='image of cute monkey with computer' />
-                    </div>
-                </CacheProvider>
+                    {isMobile &&
+                        <div className='edit-quiz-footer-container'>
+                            <div className={hideDivByPage("footer-button-container-second-page")}>
+                                <Button className="add-a-question" onClick={addQuestion} color="info" variant="contained">+ הוספת שאלה</Button>
+                                <Button onClick={saveQuiz} color="primary" variant="contained">סיום</Button>
+                            </div>
+                        </div>
+                    }
+
+                </CacheProvider >
             </>
     );
 }

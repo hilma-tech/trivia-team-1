@@ -11,7 +11,7 @@ import '../style/entrancePage.scss'
 import { useAuth } from '@hilma/auth';
 
 function EnterancePage() {
-    const {user, setUser} = useUser()
+    const { user, setUser } = useUser()
     const navigate = useNavigate()
     const isLargeScreen = useMediaQuery("(min-width: 600px)")
     const { logout } = useAuth();
@@ -21,7 +21,7 @@ function EnterancePage() {
     }
 
     function toEditQuiz() {
-        navigate('/edit-quiz')
+        navigate('/add-quiz')
     }
 
     function handleLogout() {
