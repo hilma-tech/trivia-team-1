@@ -10,6 +10,13 @@ button {
     cursor: pointer
 }
 
+.error-message {
+    margin-top: 3vh;
+    font-size: 1.1rem;
+    color: red;
+    font-family: rubik;
+}
+
 .comp-children-container-question {
     padding-inline: 3rem;
 
@@ -42,12 +49,13 @@ button {
                 height: 1.6146vw;
                 /* UI Properties */
                 text-align: center;
-                font-size: 1.4vw;
+                // font-size: 1.4vw;
                 letter-spacing: 0px;
                 color: #0C3249;
                 opacity: 1;
                 margin-bottom: 1vw;
             }
+
         }
 
         input {
