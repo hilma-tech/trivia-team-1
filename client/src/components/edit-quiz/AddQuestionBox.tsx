@@ -77,12 +77,12 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
         isMobile ?
             (<div className="add-questions-container-phone">
                 <div className="question-number-container">
-                    <h1 className="question-number">שאלה {index+1}</h1>
+                    <h1 className="question-number">שאלה {index + 1}</h1>
                     <div className="copy-trash-imgs">
-                        <button className="duplicate-btn" onClick={duplicateQuestion}>
-                            <img className="icon" src={duplicateSvg} alt='duplicate question' />
+                        <button className="duplicate-btn" onClick={duplicateQuestion} >
+                            {index === questions.length -1 && <img className="icon" src={duplicateSvg} alt='duplicate question' />}
                         </button>
-                        <button className="trash-btn" onClick={deleteQuestion}>
+                        <button className="trash-btn" onClick={deleteQuestion} >
                             <img className="icon" src={TrashSvg} alt='delete question' />
                         </button>
                     </div>

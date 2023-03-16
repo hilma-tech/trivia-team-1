@@ -8,9 +8,9 @@ import { usePlayerName } from "../../context/PlayerNameContext";
 import { PopUpType } from "../popups/GenericPopParts";
 import PhonePageWithNav from "../navbar/phonePageWithNav";
 
-import "../../style/questionTemp.scss";
 import { AnswersMap } from "./AnswersMap";
 import { launchPageAnimation } from "../../common/functions/LaunchPageAnimation";
+import "../../style/questionTemp.scss";
 
 interface AnswerFromServer {
   text: string;
@@ -83,7 +83,6 @@ const QuestionTemp = () => {
 
   useEffect(() => {
     checkIfThereAreImg();
-    toggleDidClickOnce(false);
     toggleDidClickOnce(false);
   }, [currentQuestionIndex, currentQuestion]);
 
