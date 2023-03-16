@@ -6,7 +6,7 @@ import TrashSvg from '../../images/trash.svg'
 import dragAndDropSvg from '../../images/drag-and-drop.svg'
 import FormControl from '@mui/material/FormControl';
 import RadioGroup from '@mui/material/RadioGroup';
-import { CurrentQuestion} from '../../utils/Interfaces'
+import { CurrentQuestion } from '../../utils/Interfaces'
 import { useQuestionContext } from "../../context/AnswersContext";
 import { Button, TextField, Typography, useMediaQuery } from "@mui/material";
 import { FileInput, UploadedFile } from '@hilma/fileshandler-client';
@@ -77,10 +77,14 @@ const AddQuestionBox: FC<AddQuestionBoxProps> = ({ setCurrentQuestion, currentQu
         isMobile ?
             (<div className="add-questions-container-phone">
                 <div className="question-number-container">
-                    <h1 className="question-number">שאלה {currentQuestion.id + 1}</h1>
+                    <h1 className="question-number">שאלה {index+1}</h1>
                     <div className="copy-trash-imgs">
-                        <img className="icon" src={duplicateSvg} alt='duplicate question' />
-                        <img className="icon" src={TrashSvg} alt='delete question' />
+                        <button className="duplicate-btn" onClick={duplicateQuestion}>
+                            <img className="icon" src={duplicateSvg} alt='duplicate question' />
+                        </button>
+                        <button className="trash-btn" onClick={deleteQuestion}>
+                            <img className="icon" src={TrashSvg} alt='delete question' />
+                        </button>
                     </div>
                 </div>
                 <div className="input-container second-page">
