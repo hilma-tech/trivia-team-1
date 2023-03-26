@@ -130,8 +130,7 @@ const EditQuiz: FC = () => {
             <div>
                 <button className='move-to-edit-button' onClick={() => toggleDemoAndEdit()}>
                     <img
-                        src={littleArrow}
-                        alt="arrow"
+                        src={littleArrow} alt="arrow"
                     />
                     <p>חזרה לעריכה</p>
                 </button>                                           I
