@@ -12,6 +12,7 @@ import MenuPic from "../../images/dottedMenu.png"
 import { usePopContext } from "../popups/popContext";
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { PopUpType } from "../popups/GenericPopParts";
+import { useUser } from "../../context/UserContext";
 
 
 interface QuizProps {
@@ -28,18 +29,18 @@ interface QuizProps {
 const Quiz: FC<QuizProps> = (props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [savedId, setId] = React.useState<number>(-800);
-  const { setPopType ,popHandleClickOpen,setDeletedQuizId, deletedQuizId  } = usePopContext();
+  const { setPopType, popHandleClickOpen, setDeletedQuizId, deletedQuizId } = usePopContext();
   const isMobile = useMediaQuery('(min-width:600px)');
   const navigate = useNavigate();
-  //TODO; temporary
-  const username = "ofek";
+ 
+
   const { id, title, imageUrl, description, questions, setQuizes, quizzes } = props;
 
-  useEffect(() => {    
-    if(deletedQuizId===0 && savedId!==-800){
-     
+  useEffect(() => {
+    if (deletedQuizId === 0 && savedId !== -800) {
+
       deleteQuizFromClient(savedId);
-      }
+    }
   }, [deletedQuizId])
 
 
@@ -49,8 +50,7 @@ const Quiz: FC<QuizProps> = (props) => {
 
   const copyQuizLink = (id: number) => {
     setPopType(PopUpType.CopyQuiz);
-  //!copy to clipboard the right quiz link
-    navigator.clipboard.writeText(`http://localhost:3000/${username}/quiz/${id}`)
+    navigator.clipboard.writeText(`http://localhost:3000/quiz/${id}`)
     popHandleClickOpen();
   }
 
@@ -59,27 +59,27 @@ const Quiz: FC<QuizProps> = (props) => {
   };
 
   const toScoreboard = (id: number) => {
-    navigate(`/${username}/quiz/${id}/scores`)
+    navigate(`/quiz/${id}/scores`)
 
-    // /:userName/quiz/:quizId
   }
   const toEdit = (id: number) => {
+    navigate(`/edit-quiz/${id}`)
 
   }
 
   const deleteQuizFromClient = (id: number) => {
-    let newQuiz = quizzes.filter(quiz => quiz.id !== id);    
+    let newQuiz = quizzes.filter(quiz => quiz.id !== id);
     setQuizes(newQuiz);
   }
 
-  const deleteQuiz =  async (id: number) => {
+  const deleteQuiz = async (id: number) => {
     setPopType(PopUpType.DeleteQuiz);
     setDeletedQuizId(id);
     setId(id);
-    popHandleClickOpen();  
+    popHandleClickOpen();
   }
 
-  
+
 
   if (isMobile) {
     return (
@@ -140,7 +140,7 @@ const Quiz: FC<QuizProps> = (props) => {
           <MenuItem className="quiz-menu-item" onClick={handleClose}> <div className="emojiButtons" onClick={() => deleteQuiz(id)}><img src={TrashSvg} alt="trash" /><span>מחיקת משחק</span></div></MenuItem>
 
         </Menu>
-        
+
       </div>
       {/* copy popup button is here, activated only when button is pressed */}
     </div>)

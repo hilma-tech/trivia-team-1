@@ -31,10 +31,10 @@ import NavigateUser from "./components/NavigateUser";
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <UserProvider>
-        <PopContextProvider>
-          <QuestionsProvider>
-            <PlayerNameProvider>
+      <QuestionsProvider>
+        <UserProvider>
+          <PlayerNameProvider>
+            <PopContextProvider>
               <Navbar />
               <CssBaseline />
               <Background>
@@ -46,7 +46,7 @@ function App() {
                   <Route path="*" element={<Navigate replace to="/loading-page" />} />
                   <Route path="/loading-page" element={<LoadingMonkey />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/:userName/quiz/:quizId" element={<Outlet />}>
+                  <Route path="/quiz/:quizId" element={<Outlet />}>
                     <Route index element={<OpeningForTheQuiz />} />
                     <Route path="scores" element={<ScoreCard />} />
                     <Route path="finished-game-pc" element={<SummaryGameDesktop />} />
@@ -56,7 +56,10 @@ function App() {
                   <Route path="/enterance-page" element={
                     <PrivateRoute componentName="User" component={<EntrancePage />} />
                   } />
-                  <Route path="/edit-quiz" element={
+                  <Route path="/add-quiz" element={
+                    <PrivateRoute componentName="User" component={<EditQuiz />} />
+                  } />
+                   <Route path="/edit-quiz/:quizId" element={
                     <PrivateRoute componentName="User" component={<EditQuiz />} />
                   } />
                   <Route path="/my-quizzes" element={<Outlet />}>
@@ -66,11 +69,11 @@ function App() {
                   </Route>
                 </Routes>
               </Background>
-            </PlayerNameProvider>
-          </QuestionsProvider>
-        </PopContextProvider>
-      </UserProvider>
-    </ThemeProvider>
+            </PopContextProvider>
+          </PlayerNameProvider>
+        </UserProvider>
+      </QuestionsProvider>
+    </ThemeProvider >
   );
 }
 

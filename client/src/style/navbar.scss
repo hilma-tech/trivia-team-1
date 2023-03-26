@@ -13,24 +13,29 @@
     padding-right: 3vw;
     padding-left: 3vw;
 
-    .nav-quiz-btn{
-       background-color: transparent; 
-       color: $green-color;
-       box-shadow: none;
+    .nav-quiz-btn {
+        height: 3.1vh;
+        color: #0C3249;
     }
 
-    .nav-quiz-btn:hover {
-       background-color: $green-color;
-       color: white;
-        height: 100%;
+    .nav-quiz-btn-active {
+        font-weight: 900;
+        background-color: $green-color;
+        color: white;
         height: 3.1vh;
-        font-weight: 700;
+    }
+
+    .nav-quiz-btn:hover,
+    .nav-quiz-btn-active:hover {
+        background-color: $green-color;
+        color: white;
     }
 
     .first-section {
         display: flex;
         align-items: center;
-        button{
+
+        button {
             font-size: 2vh;
         }
     }
@@ -41,13 +46,11 @@
         align-items: center;
     }
 
-
     .links-container,
     .btn-container {
         display: flex;
         align-items: center;
     }
-
 
     .vl-container {
         height: 100%;
@@ -62,12 +65,17 @@
         margin: 10px;
     }
 
+
     .navbar-container {
         display: flex;
         justify-content: flex;
         align-items: center;
         gap: 0.875rem;
-        
+
+        &:hover {
+            cursor: pointer;
+        }
+
         .navbar-logo-name {
             font-size: 2vh;
         }
