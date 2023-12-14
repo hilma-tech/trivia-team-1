@@ -8,27 +8,32 @@ import { QuizModule } from './quiz/quiz.module';
 import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [UserModule,
+  imports: [
+    UserModule,
     QuizModule,
     ConfigModule.forRoot({
       envFilePath: `.env.${process.env.NODE_ENV}`,
       isGlobal: true,
-      load: [config]
+      load: [config],
     }),
     TypeOrmModule.forRoot({
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      type: "mysql",
+      host: process.env.DB_HOST,
+      type: 'mysql',
       database: process.env.DB_DATABASE,
       port: Number(process.env.DB_PORT),
-      synchronize: process.env.TYPEORM_SYNC === "on",
-      logging: process.env.TYPEORM_LOG === "on",
-      entities: ["dist/**/*.entity{.ts,.js}", "node_modules/@hilma/auth-nest/**/*.entity{.ts,.js}"]
+      synchronize: process.env.TYPEORM_SYNC === 'on',
+      logging: process.env.TYPEORM_LOG === 'on',
+      entities: [
+        'dist/**/*.entity{.ts,.js}',
+        'node_modules/@hilma/auth-nest/**/*.entity{.ts,.js}',
+      ],
     }),
     FilesHandlerModule.register({
-      folder: "/home/hilma/hilma-ptojects/Trivia-Proj-1/server/uploads",
-      autoAllow: true
-    })
+      folder: './uploads/image',
+      autoAllow: true,
+    }),
   ],
 })
-export class AppModule { }
+export class AppModule {}
